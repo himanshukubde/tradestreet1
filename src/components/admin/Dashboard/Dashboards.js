@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { GetAdminDashboard } from '../../Common API/Admin'
 
 const Dashboards = () => {
+
+    console.log("CPPPPPPPP")
     const [dashData, setData] = useState({
         totalLive: 0,
         activeLive: 0,
@@ -15,34 +17,50 @@ const Dashboards = () => {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://193.239.237.147:8000/AdminDashboard');
-                const result = response.data;
 
+    const fetchData = async () => {
+         await GetAdminDashboard()
+            .then((response) => {
+            const result = response;
+           
+                if (response) {
+                    setData({
+                        totalLive: result["Total Live Account"],
+                        activeLive: result["Active Live Account"],
+                        expiredLive: result["Expired Live Account"],
+                        totalFreeDemo: result["Total Free Demo Account"],
+                        activeFreeDemo: result["Active Free Demo Account"],
+                        expiredFreeDemo: result["Expired Free Demo Account"],
+                        totalTwoDaysLive: result["Total Two Days Live Account"],
+                        activeTwoDaysLive: result["Active Two Days Live Account"],
+                        expiredTwoDaysLive: result["Expired Two Days Live Account"],
+                    })
+                    setLoading(false);
+                }
+                else {
+                    setData({
+                        totalLive: 0,
+                        activeLive: 0,
+                        expiredLive: 0,
+                        totalFreeDemo: 0,
+                        activeFreeDemo: 0,
+                        expiredFreeDemo: 0,
+                        totalTwoDaysLive: 0,
+                        activeTwoDaysLive: 0,
+                        expiredTwoDaysLive: 0,
+                    })
+                    setLoading(false);
+                }
 
-                // Assuming the API returns the object with detailed counts
-                setData({
-                    totalLive: result["Total Live Account"],
-                    activeLive: result["Active Live Account"],
-                    expiredLive: result["Expired Live Account"],
-                    totalFreeDemo: result["Total Free Demo Account"],
-                    activeFreeDemo: result["Active Free Demo Account"],
-                    expiredFreeDemo: result["Expired Free Demo Account"],
-                    totalTwoDaysLive: result["Total Two Days Live Account"],
-                    activeTwoDaysLive: result["Active Two Days Live Account"],
-                    expiredTwoDaysLive: result["Expired Two Days Live Account"],
-                });
-
-
-            } catch (err) {
+            })
+            .catch((err) => {
+                console.log("Error in fatching the Dashboard Details", err)
                 setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+            })
 
+    };
+
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -54,10 +72,6 @@ const Dashboards = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
-
-    console.log('admindata', dashData);
-
 
     return (
         <div>

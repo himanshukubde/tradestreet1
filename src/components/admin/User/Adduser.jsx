@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import {CreateAccount } from '../../Common API/Admin'
 
 const Adduser = () => {
     const [formData, setFormData] = useState({
@@ -43,49 +44,55 @@ const Adduser = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    
         const validationErrors = validateForm();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
         }
 
-        try {
-            const response = await axios.post('http://193.239.237.147:8000/AdminSignup', {
-                SignuserName: formData.fname,
-                Signpassword: formData.pass,
-                ConfirmPassword: formData.rpass,
-                SignEmail: formData.email,
-                mobile_no: formData.mobno,
-                Day: formData.selectDay,
-                ser: formData.serviceCount,
-                SSDate: formData.startDate,
-                SEDate: formData.endDate,
-                BrokerName: formData.broker,
-                Group: [formData.selectGroup]
-            });
-
-            console.log(response.data);
-
-            if (response.data.Status) {
-                Swal.fire({
-                    title: "created successfully!",
-                    text: "Account created successfully!",
-                    icon: "success"
-                });
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: response.data.massage,
-                });
-
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to create account.');
+        const data = {
+            SignuserName: formData.fname,
+            Signpassword: formData.pass,
+            ConfirmPassword: formData.rpass,
+            SignEmail: formData.email,
+            mobile_no: formData.mobno,
+            Day: formData.selectDay,
+            ser: formData.serviceCount,
+            SSDate: formData.startDate,
+            SEDate: formData.endDate,
+            BrokerName: formData.broker,
+            Group: [formData.selectGroup]
         }
-    };
+   
+        await CreateAccount(data)
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "created successfully!",
+                        text: "Account created successfully!",
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error in account created",
+                        text: response.massage,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    
+                }
+            }).catch((error) => {
+                console.log("Error in Account Creation", error)
+
+            })
+
+    }
 
     return (
         <div>
@@ -100,7 +107,7 @@ const Adduser = () => {
                             </div>
                             <div className="iq-card-body">
                                 <div className="new-user-info">
-                                    <form onSubmit={handleSubmit}>
+                                    <div>
                                         <div className="row">
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="fname">User Name:</label>
@@ -253,10 +260,10 @@ const Adduser = () => {
                                                 Enable Two-Factor-Authentication
                                             </label>
                                         </div>
-                                        <button type="submit" className="btn btn-primary">
+                                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
                                             Sign UP
                                         </button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
