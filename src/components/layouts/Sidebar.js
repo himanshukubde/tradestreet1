@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
     const role = localStorage.getItem("Role");
 
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
 
@@ -18,13 +18,14 @@ const Sidebar = () => {
     }, [isActive]);
 
     const handleClick = () => {
-        setIsActive(prevState => !prevState);
+        // setIsActive(prevState => !prevState);
+        setIsActive(true);
+
+
     };
 
     return (
-        <div
-            className="iq-sidebar"
-        >
+        <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="index.html">
                     <img src="assets/images/logo.png" className="img-fluid" alt="Logo" />
@@ -56,75 +57,75 @@ const Sidebar = () => {
                             {role === 'Admin' ? (
                                 <>
                                     <li className="active">
-                                        <Link to="/dashboards" className="iq-waves-effect">
+                                        <Link to="/admin/dashboard" className="iq-waves-effect">
                                             <i className="ri-hospital-fill" />
                                             <span>Dashboard</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/adduser" className="iq-waves-effect">
+                                        <Link to="/admin/adduser" className="iq-waves-effect">
                                             <i className="ri-hospital-fill" />
                                             <span>Create Account</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="/admin/strategygroup" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Strategies Group</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/addscript" className="iq-waves-effect">
+                                        <Link to="/admin/addscript" className="iq-waves-effect">
                                             <i className="ri-home-8-fill" />
                                             <span>Add Script</span>
                                         </Link>
                                     </li>
 
                                     <li>
-                                        <Link to="/clientservice" className="iq-waves-effect">
+                                        <Link to="/admin/clientservice" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
                                             <span>Client Service</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="brokercredential" className="iq-waves-effect">
+                                        <Link to="/admin/brokercredential" className="iq-waves-effect">
                                             <i className="lab la-mendeley" />
                                             <span>Broker Credential</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="userlog" className="iq-waves-effect">
+                                        <Link to="/admin/userlog" className="iq-waves-effect">
                                             <i className="la la-cog" />
                                             <span>User Script Details</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="servicereport" className="iq-waves-effect">
+                                        <Link to="/admin/servicereport" className="iq-waves-effect">
                                             <i className="la la-envelope-open" />
                                             <span>Service Report</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/tradehistory" className="iq-waves-effect">
+                                        <Link to="/admin/tradehistory" className="iq-waves-effect">
                                             <i className="las la-history"></i>
                                             <span>Trade History</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="clientactivity" className="iq-waves-effect">
+                                        <Link to="/admin/clientactivity" className="iq-waves-effect">
                                             <i className="las la-radiation-alt" />
                                             <span>Client Activity</span>
                                         </Link>
                                     </li>
 
                                     <li>
-                                        <Link to="clientreport" className="iq-waves-effect">
+                                        <Link to="/admin/clientreport" className="iq-waves-effect">
                                             <i className="la la-map-marker" />
                                             <span>Client Thread Report</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="smtp" className="iq-waves-effect">
+                                        <Link to="/admin/smtp" className="iq-waves-effect">
                                             <i className="la la-palette" />
                                             <span>SMTP Details</span>
                                         </Link>

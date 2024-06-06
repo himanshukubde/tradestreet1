@@ -23,3 +23,17 @@ export const GetAdminDashboard=async(data)=>{
     }
 
 }
+
+export const Add_Group=async(data)=>{
+    console.log("CPPP :", data)
+    
+    try{
+        const res =  await axios.get(`${Config.base_url}AdminStrategiesGroup` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}
+

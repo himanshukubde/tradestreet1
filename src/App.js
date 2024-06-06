@@ -10,10 +10,6 @@ const App = () => {
   const location = useLocation();
   const Role = localStorage.getItem('Role')
 
-
-
-
-
   useEffect(() => {
     if (location.pathname.startsWith("/updatepassword")) {
       navigate(location.pathname);

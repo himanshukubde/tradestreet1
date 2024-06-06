@@ -27,7 +27,6 @@ const AdminRoute = () => {
         <div id="content-page" className="content-page">
           <Header />
           <Routes>
-             
             <Route path="/dashboard" element={<Dashboards />} />
             <Route path="/adduser" element={<Adduser />} />
             <Route path="/clientservice" element={<Clientservice />} />

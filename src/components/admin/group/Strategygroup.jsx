@@ -1,6 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Swal from 'sweetalert2';
+import { Add_Group } from '../../Common API/Admin';
 
 const Strategygroup = () => {
+    const [strategyGroupInfo, setStrategyGroupInfo] = useState({
+        GroupName: '',
+        FundReuirement: '',
+        Risk: '',
+        TimeOrigin: '',
+        ProductType: '',
+        Message: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setStrategyGroupInfo((prevState) => ({
+            ...prevState,
+            [id]: value
+        }));
+    };
+
+    const handleClick = async () => {
+        const data = { strategyGroupInfo };
+        await Add_Group(data.strategyGroupInfo)
+            .then((response) => {
+                if (response.status) {
+                    Swal.fire({
+                        title: 'Created successfully!',
+                        text: 'Group created successfully!',
+                        icon: 'success',
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Group creation error!',
+                        icon: 'error',
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log('Error in group creation...');
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Group creation error!',
+                    icon: 'error',
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            });
+    };
+
     return (
         <div>
             <div className="container-fluid">
@@ -12,72 +65,84 @@ const Strategygroup = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
-
-
-
-
                             <div className="row">
                                 <div className="form-group col-md-6">
-                                    <label htmlFor="fname">Group Name:</label>
+                                    <label htmlFor="GroupName">Group Name:</label>
                                     <input
                                         type="text"
                                         className="form-control my-2"
-                                        id="fname"
+                                        id="GroupName"
                                         placeholder="Enter Group Name"
+                                        onChange={handleInputChange}
+                                        value={strategyGroupInfo.GroupName}
                                     />
                                 </div>
-
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-3">
-                                    <label htmlFor="exampleFormControlSelect1">Fund Requirement</label>
+                                    <label htmlFor="FundReuirement">Fund Requirement</label>
                                     <input
                                         type="text"
                                         className="form-control my-2"
-                                        id="fname"
+                                        id="FundReuirement"
                                         placeholder="Enter Fund"
+                                        value={strategyGroupInfo.FundReuirement}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="form-group col-md-3">
-                                    <label htmlFor="exampleFormControlSelect1">Risk in %</label>
+                                    <label htmlFor="Risk">Risk in %</label>
                                     <input
                                         type="text"
                                         className="form-control my-2"
-                                        id="fname"
+                                        id="Risk"
                                         placeholder="Enter Risk in %"
+                                        value={strategyGroupInfo.Risk}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="form-group col-md-3">
-                                    <label htmlFor="exampleFormControlSelect1">Time Origin</label>
-                                    <select className="form-select my-2" id="exampleFormControlSelect1">
-
-                                        <option>Weekly</option>
-                                        <option>Monthly</option>
-                                        <option>Half Yearly</option>
-                                        <option>Yearly</option>
-
+                                    <label htmlFor="TimeOrigin">Time Origin</label>
+                                    <select
+                                        className="form-select my-2"
+                                        id="TimeOrigin"
+                                        value={strategyGroupInfo.TimeOrigin}
+                                        onChange={handleInputChange}
+                                    >
+                                        <option value="">Select Time Origin</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Half Yearly">Half Yearly</option>
+                                        <option value="Yearly">Yearly</option>
                                     </select>
                                 </div>
                                 <div className="form-group col-md-3">
-                                    <label htmlFor="exampleFormControlSelect1">Select product type</label>
-                                    <select className="form-select my-2" id="exampleFormControlSelect1">
-
-                                        <option>Intraday</option>
-                                        <option>Delivery</option>
-
+                                    <label htmlFor="ProductType">Select product type</label>
+                                    <select
+                                        className="form-select my-2"
+                                        id="ProductType"
+                                        value={strategyGroupInfo.ProductType}
+                                        onChange={handleInputChange}
+                                    >
+                                        <option value="">Select Product Type</option>
+                                        <option value="Intraday">Intraday</option>
+                                        <option value="Delivery">Delivery</option>
                                     </select>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="exampleFormControlTextarea1">Message</label>
+                                <label htmlFor="Message">Message</label>
                                 <textarea
                                     className="form-control my-2"
-                                    id="exampleFormControlTextarea1"
+                                    id="Message"
                                     rows={5}
-                                    defaultValue={""}
+                                    value={strategyGroupInfo.Message}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary" onClick={handleClick}>
+                                Submit
+                            </button>
                             <div className="iq-card-body">
                                 <div className="table-responsive">
                                     <table id="datatable" className="table table-striped table-bordered">
@@ -120,22 +185,16 @@ const Strategygroup = () => {
                                                 <td>$86,000</td>
                                                 <td>$320,800</td>
                                             </tr>
-
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
-    )
-}
+    );
+};
 
-export default Strategygroup
+export default Strategygroup;
