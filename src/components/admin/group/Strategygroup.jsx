@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { Add_Group } from '../../Common API/Admin';
+import { Add_Group, GetGroupNames } from '../../Common API/Admin';
 
 const Strategygroup = () => {
+    const [getGroupData, setGroupData] = useState({
+        loading: true,
+        data: []
+    })
     const [strategyGroupInfo, setStrategyGroupInfo] = useState({
         GroupName: '',
         FundReuirement: '',
@@ -11,6 +15,9 @@ const Strategygroup = () => {
         ProductType: '',
         Message: ''
     });
+
+
+    console.log("getGroupData :", getGroupData.data)
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -24,7 +31,7 @@ const Strategygroup = () => {
         const data = { strategyGroupInfo };
         await Add_Group(data.strategyGroupInfo)
             .then((response) => {
-                if (response.status) {
+                if (response.Status) {
                     Swal.fire({
                         title: 'Created successfully!',
                         text: 'Group created successfully!',
@@ -35,7 +42,7 @@ const Strategygroup = () => {
                 } else {
                     Swal.fire({
                         title: 'Error',
-                        text: 'Group creation error!',
+                        text: 'Group name already exit',
                         icon: 'error',
                         timer: 1500,
                         timerProgressBar: true
@@ -53,6 +60,38 @@ const Strategygroup = () => {
                 });
             });
     };
+
+    const GetAllGroupDetails = async () => {
+        try {
+            await GetGroupNames()
+                .then((response) => {
+                    if (response.Status) {
+                        setGroupData({
+                            loading: false,
+                            data: response.StrGroupdf
+                        })
+                    }
+                    else {
+                        setGroupData({
+                            loading: false,
+                            data: []
+                        })
+                    }
+                })
+                .catch((err) => {
+                    console.log("Group data fetch error", err)
+                })
+        }
+        catch {
+            console.log("Group data fetch error")
+        }
+    }
+
+    useEffect(() => {
+        GetAllGroupDetails()
+    }, [])
+
+
 
     return (
         <div>

@@ -25,10 +25,19 @@ export const GetAdminDashboard=async(data)=>{
 }
 
 export const Add_Group=async(data)=>{
-    console.log("CPPP :", data)
-    
     try{
-        const res =  await axios.get(`${Config.base_url}AdminStrategiesGroup` , data)
+        const res =  await axios.post(`${Config.base_url}AdminStrategiesGroup` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}
+
+export const GetGroupNames=async()=>{
+    try{
+        const res =  await axios.get(`${Config.base_url}AdminGroupTable`)
         return res?.data
     }
     catch(err){
