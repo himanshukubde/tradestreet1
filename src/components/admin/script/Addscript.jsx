@@ -26,7 +26,7 @@ const Addscript = () => {
 
                                     </div>
                                     <div className="form-group col-md-6 ms-2">
-                                        <label>UserName</label>
+                                        <label>Strategy Type</label>
                                         <select className="form-select" required="">
                                             <option value={1}>Scalping</option>
                                             <option value={2}>Option</option>
@@ -251,19 +251,6 @@ const Addscript = () => {
                                                 </span>
                                                 </td>
                                             </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                         </tbody>
 

@@ -23,6 +23,7 @@ const Clientservice = () => {
                                             <th>Email</th>
                                             <th>Broker Name </th>
                                             <th>Create Date</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -33,6 +34,142 @@ const Clientservice = () => {
                                             <td>61</td>
                                             <td>2011/04/25</td>
                                             <td>$320,800</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -41,6 +178,142 @@ const Clientservice = () => {
                                             <td>63</td>
                                             <td>2011/07/25</td>
                                             <td>$170,750</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -49,6 +322,142 @@ const Clientservice = () => {
                                             <td>66</td>
                                             <td>2009/01/12</td>
                                             <td>$86,000</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
@@ -57,6 +466,142 @@ const Clientservice = () => {
                                             <td>22</td>
                                             <td>2012/03/29</td>
                                             <td>$433,060</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
@@ -65,6 +610,142 @@ const Clientservice = () => {
                                             <td>33</td>
                                             <td>2008/11/28</td>
                                             <td>$162,700</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>6</td>
@@ -73,6 +754,142 @@ const Clientservice = () => {
                                             <td>61</td>
                                             <td>2012/12/02</td>
                                             <td>$372,000</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>7</td>
@@ -81,6 +898,142 @@ const Clientservice = () => {
                                             <td>59</td>
                                             <td>2012/08/06</td>
                                             <td>$137,500</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>8</td>
@@ -89,6 +1042,142 @@ const Clientservice = () => {
                                             <td>55</td>
                                             <td>2010/10/14</td>
                                             <td>$327,900</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>9</td>
@@ -97,6 +1186,142 @@ const Clientservice = () => {
                                             <td>39</td>
                                             <td>2009/09/15</td>
                                             <td>$205,500</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
                                         <tr>
                                             <td>10</td>
@@ -105,113 +1330,146 @@ const Clientservice = () => {
                                             <td>23</td>
                                             <td>2008/12/13</td>
                                             <td>$103,600</td>
+                                            <td> <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Edit
+                                            </button>
+                                                {/* Modal */}
+                                                <div
+                                                    className="modal fade"
+                                                    id="exampleModal"
+                                                    tabIndex={-1}
+                                                    aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                                    Strategy Group
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                />
+                                                            </div>
+                                                            <div className="modal-body"><form>
+                                                                <div className="row">
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="validationDefault01"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            className="form-control"
+                                                                            id="validationDefault02"
+                                                                            required=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                                        <div className="input-group">
+
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                id="validationDefaultUsername"
+                                                                                aria-describedby="inputGroupPrepend1"
+                                                                                required=""
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">select Time Origin</option>
+                                                                                <option value={1}>Weekly</option>
+                                                                                <option value={2}>Monthly</option>
+                                                                                <option value={3}>Half Yearly</option>
+                                                                                <option value={3}>Yearly</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-6 mb-3">
+                                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                                        <div className="form-group">
+                                                                            <select className="form-select" required="">
+                                                                                <option value="">Select Product Type</option>
+                                                                                <option value={1}>Intraday </option>
+                                                                                <option value={2}>Delivery</option>
+
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <label htmlFor="validationTextarea">Message</label>
+                                                                        <textarea
+                                                                            className="form-control"
+                                                                            id="validationTextarea"
+                                                                            rows={3}
+                                                                            placeholder="Enter here"
+                                                                            required=""
+                                                                            defaultValue={""}
+                                                                        />
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                                <div className="form-group">
+                                                                    <div className="form-check">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            defaultValue=""
+                                                                            id="invalidCheck2"
+                                                                            required=""
+                                                                        />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                         </tr>
-                                        <tr>
-                                            <td>11</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                            <td>2008/12/19</td>
-                                            <td>$90,560</td>
-                                        </tr>
-                                        <tr>
-                                            <td>12</td>
-                                            <td>Support Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2013/03/03</td>
-                                            <td>$342,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>12</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>36</td>
-                                            <td>2008/10/16</td>
-                                            <td>$470,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>14</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>43</td>
-                                            <td>2012/12/18</td>
-                                            <td>$313,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td>$385,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>16</td>
-                                            <td>Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>66</td>
-                                            <td>2012/11/27</td>
-                                            <td>$198,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>17</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>64</td>
-                                            <td>2010/06/09</td>
-                                            <td>$725,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>18</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>59</td>
-                                            <td>2009/04/10</td>
-                                            <td>$237,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>19</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>20</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>35</td>
-                                            <td>2012/09/26</td>
-                                            <td>$217,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>21</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>30</td>
-                                            <td>2011/09/03</td>
-                                            <td>$345,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>22</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>40</td>
-                                            <td>2009/06/25</td>
-                                            <td>$675,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>23</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                      
-                                      
+
+
+
                                     </tbody>
                                     <tfoot>
                                         {/* <tr>
