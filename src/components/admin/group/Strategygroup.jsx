@@ -63,86 +63,156 @@ const Strategygroup = () => {
                             <div className="iq-header-title">
                                 <h4 className="card-title">Strategy Group</h4>
                             </div>
+                            <div className="iq-card-header-toolbar d-flex align-items-center">
+
+                                {/* Button trigger modal */}
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"
+                                >
+                                    Add Strategy
+                                </button>
+                                {/* Modal */}
+                                <div
+                                    className="modal fade"
+                                    id="exampleModal"
+                                    tabIndex={-1}
+                                    aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true"
+                                >
+                                    <div className="modal-dialog modal-lg">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">
+                                                    Strategy Group
+                                                </h5>
+                                                <button
+                                                    type="button"
+                                                    className="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                />
+                                            </div>
+                                            <div className="modal-body"><form>
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-3">
+                                                        <label htmlFor="validationDefault01">Group Name</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="validationDefault01"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault02">Fund Requirement</label>
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            id="validationDefault02"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Risk in %</label>
+                                                        <div className="input-group">
+
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="validationDefaultUsername"
+                                                                aria-describedby="inputGroupPrepend1"
+                                                                required=""
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault03">Time Origin</label>
+                                                        <div className="form-group">
+                                                            <select className="form-select" required="">
+                                                                <option value="">select Time Origin</option>
+                                                                <option value={1}>Weekly</option>
+                                                                <option value={2}>Monthly</option>
+                                                                <option value={3}>Half Yearly</option>
+                                                                <option value={3}>Yearly</option>
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault03">Select product type</label>
+                                                        <div className="form-group">
+                                                            <select className="form-select" required="">
+                                                                <option value="">Select Product Type</option>
+                                                                <option value={1}>Intraday </option>
+                                                                <option value={2}>Delivery</option>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div className="col-md-12 mb-3">
+                                                        <label htmlFor="validationTextarea">Message</label>
+                                                        <textarea
+                                                            className="form-control"
+                                                            id="validationTextarea"
+                                                            rows={3}
+                                                            placeholder="Enter here"
+                                                            required=""
+                                                            defaultValue={""}
+                                                        />
+                                                    </div>
+
+
+
+                                                </div>
+
+
+                                                <div className="form-group">
+                                                    <div className="form-check">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            defaultValue=""
+                                                            id="invalidCheck2"
+                                                            required=""
+                                                        />
+                                                        <label className="form-check-label" htmlFor="invalidCheck2">
+                                                            Agree to terms and conditions
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    Close
+                                                </button>
+                                                <button type="button" className="btn btn-primary">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
                         </div>
+
+
                         <div className="iq-card-body">
-                            <div className="row">
-                                <div className="form-group col-md-6">
-                                    <label htmlFor="GroupName">Group Name:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control my-2"
-                                        id="GroupName"
-                                        placeholder="Enter Group Name"
-                                        onChange={handleInputChange}
-                                        value={strategyGroupInfo.GroupName}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="form-group col-md-3">
-                                    <label htmlFor="FundReuirement">Fund Requirement</label>
-                                    <input
-                                        type="text"
-                                        className="form-control my-2"
-                                        id="FundReuirement"
-                                        placeholder="Enter Fund"
-                                        value={strategyGroupInfo.FundReuirement}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group col-md-3">
-                                    <label htmlFor="Risk">Risk in %</label>
-                                    <input
-                                        type="text"
-                                        className="form-control my-2"
-                                        id="Risk"
-                                        placeholder="Enter Risk in %"
-                                        value={strategyGroupInfo.Risk}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group col-md-3">
-                                    <label htmlFor="TimeOrigin">Time Origin</label>
-                                    <select
-                                        className="form-select my-2"
-                                        id="TimeOrigin"
-                                        value={strategyGroupInfo.TimeOrigin}
-                                        onChange={handleInputChange}
-                                    >
-                                        <option value="">Select Time Origin</option>
-                                        <option value="Weekly">Weekly</option>
-                                        <option value="Monthly">Monthly</option>
-                                        <option value="Half Yearly">Half Yearly</option>
-                                        <option value="Yearly">Yearly</option>
-                                    </select>
-                                </div>
-                                <div className="form-group col-md-3">
-                                    <label htmlFor="ProductType">Select product type</label>
-                                    <select
-                                        className="form-select my-2"
-                                        id="ProductType"
-                                        value={strategyGroupInfo.ProductType}
-                                        onChange={handleInputChange}
-                                    >
-                                        <option value="">Select Product Type</option>
-                                        <option value="Intraday">Intraday</option>
-                                        <option value="Delivery">Delivery</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Message">Message</label>
-                                <textarea
-                                    className="form-control my-2"
-                                    id="Message"
-                                    rows={5}
-                                    value={strategyGroupInfo.Message}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <button type="submit" className="btn btn-primary" onClick={handleClick}>
-                                Submit
-                            </button>
+
                             <div className="iq-card-body">
                                 <div className="table-responsive">
                                     <table id="datatable" className="table table-striped table-bordered">
@@ -168,7 +238,7 @@ const Strategygroup = () => {
                                                 <td>$320,800</td>
                                             </tr>
                                             <tr>
-                                                <td>Garrett Winters</td>
+                                                <td>2</td>
                                                 <td>Accountant</td>
                                                 <td>Tokyo</td>
                                                 <td>63</td>
@@ -177,7 +247,7 @@ const Strategygroup = () => {
                                                 <td>$320,800</td>
                                             </tr>
                                             <tr>
-                                                <td>Ashton Cox</td>
+                                                <td>3</td>
                                                 <td>Junior Technical Author</td>
                                                 <td>San Francisco</td>
                                                 <td>66</td>
