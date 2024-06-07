@@ -16,12 +16,13 @@ import Servicereport from '../components/admin/report/Servicereport';
 import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
  
- 
+
+
 
 const AdminRoute = () => {
   return (
     <>
-      
+
       <div className='wrapper'>
         <Sidebar />
         <div id="content-page" className="content-page">

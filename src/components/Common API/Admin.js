@@ -46,3 +46,34 @@ export const GetGroupNames=async()=>{
 
 }
 
+export const GetClientService=async()=>{
+    try{
+        const res =  await axios.get(`${Config.base_url}Profile`)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}
+
+
+export const AddBrokerCredential=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}Broker` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
+
+export const GetAllGroupService=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}Data` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
