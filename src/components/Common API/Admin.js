@@ -24,6 +24,7 @@ export const GetAdminDashboard=async(data)=>{
 
 }
 
+
 export const Add_Group=async(data)=>{
     try{
         const res =  await axios.post(`${Config.base_url}AdminStrategiesGroup` , data)
