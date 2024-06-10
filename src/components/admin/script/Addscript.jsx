@@ -1,271 +1,418 @@
-import React from 'react'
-
-const Addscript = () => {
-    return (
-        <div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="iq-card">
-                        <div className="iq-card-header d-flex justify-content-between">
-                            <div className="iq-header-title">
-                                <h4 className="card-title">Add Script</h4>
-                            </div>
-                        </div>
-                        <div className="iq-card-body">
-
-                            <form className="was-validated ">
-                                <div className='d-flex'>
-                                    <div className="form-group col-md-6 ms-2">
-                                        <label>Group Name</label>
-                                        <select className="form-select " required="">
-
-                                            <option value={1}>Subh</option>
-                                            <option value={2}>Test</option>
-                                            <option value={3}>Three</option>
-                                        </select>
-
-                                    </div>
-                                    <div className="form-group col-md-6 ms-2">
-                                        <label>Strategy Type</label>
-                                        <select className="form-select" required="">
-                                            <option value={1}>Scalping</option>
-                                            <option value={2}>Option</option>
-                                            <option value={3}>Pattern</option>
-                                            <option value={3}>MultipleLegStretegy</option>
-                                            <option value={3}>PatternOption</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                            </form>
-
-                            <div className="iq-card-body">
-                                <div className="table-responsive">
-                                    <table id="datatable" className="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                                <th>Delete Script</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2012/03/29</td>
-                                                <td>$433,060</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Brielle Williamson</td>
-                                                <td>Integration Specialist</td>
-                                                <td>New York</td>
-                                                <td>61</td>
-                                                <td>2012/12/02</td>
-                                                <td>$372,000</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Herrod Chandler</td>
-                                                <td>Sales Assistant</td>
-                                                <td>San Francisco</td>
-                                                <td>59</td>
-                                                <td>2012/08/06</td>
-                                                <td>$137,500</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rhona Davidson</td>
-                                                <td>Integration Specialist</td>
-                                                <td>Tokyo</td>
-                                                <td>55</td>
-                                                <td>2010/10/14</td>
-                                                <td>$327,900</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Colleen Hurst</td>
-                                                <td>Javascript Developer</td>
-                                                <td>San Francisco</td>
-                                                <td>39</td>
-                                                <td>2009/09/15</td>
-                                                <td>$205,500</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Sonya Frost</td>
-                                                <td>Software Engineer</td>
-                                                <td>Edinburgh</td>
-                                                <td>23</td>
-                                                <td>2008/12/13</td>
-                                                <td>$103,600</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jena Gaines</td>
-                                                <td>Office Manager</td>
-                                                <td>London</td>
-                                                <td>30</td>
-                                                <td>2008/12/19</td>
-                                                <td>$90,560</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Quinn Flynn</td>
-                                                <td>Support Lead</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2013/03/03</td>
-                                                <td>$342,000</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Charde Marshall</td>
-                                                <td>Regional Director</td>
-                                                <td>San Francisco</td>
-                                                <td>36</td>
-                                                <td>2008/10/16</td>
-                                                <td>$470,600</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Haley Kennedy</td>
-                                                <td>Senior Marketing Designer</td>
-                                                <td>London</td>
-                                                <td>43</td>
-                                                <td>2012/12/18</td>
-                                                <td>$313,500</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tatyana Fitzpatrick</td>
-                                                <td>Regional Director</td>
-                                                <td>London</td>
-                                                <td>19</td>
-                                                <td>2010/03/17</td>
-                                                <td>$385,750</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+import { useLocation, useNavigate } from "react-router-dom"
+import AddForm from "../../../ExtraComponent/FormData";
+import { useFormik } from "formik";
+import { useState, useEffect } from "react";
+import Swal from 'sweetalert2';
+import {Get_Symbol} from '../../Common API/Admin'
+const AddClient = () => {
+  const location = useLocation()
+  const [getSymbolData , setSymbolData] = useState({
+    loading:true,
+    data:[]
+  })
+  const [refresh , setRefresh] = useState(false)
 
 
-        </div>
-    )
-}
 
-export default Addscript
+
+
+
+
+  const formik = useFormik({
+
+    initialValues: {
+      MainStrategy: location.state.data.selectStrategyType,
+      Username: location.state.data.selectGroup,
+      Strategy: '',
+      ETPattern: '',
+      Timeframe: '',
+      Exchange: '',
+      Symbol: '',
+      Instrument: '',
+      Strike: "",
+      Optiontype: '',
+      Targetvalue: '',
+      Slvalue: '',
+      TStype: '',
+      Quantity: '',
+      LowerRange: '',
+      HigherRange: '',
+      HoldExit: '',
+      EntryPrice: '',
+      EntryRange: '',
+      EntryTime: '',
+      ExitTime: '',
+      ExitDay: '',
+      TradeExecution: '',
+      FixedSM: '',
+      TType: '',
+      serendate: '',
+      expirydata1: '',
+      Expirytype: '',
+      Striketype: '',
+      DepthofStrike: '',
+      DeepStrike: '',
+      Group: '',
+      CEDepthLower: '',
+      CEDepthHigher: "",
+      PEDepthLower: '',
+      PEDepthHigher: '',
+      CEDeepLower: '',
+      CEDeepHigher: '',
+      PEDeepLower: '',
+      PEDeepHigher: ''
+    },
+
+    validate: (values) => {
+      let errors = {};
+
+      return errors;
+    },
+    onSubmit: async (values) => {
+      const req = {
+      }
+    },
+  });
+
+  const fields = [
+    {
+      name: "Strategy",
+      label: "Scalping Type",
+      type: "select",
+      options: [
+        { label: "Multi Directional", value: "Multi Directional" },
+        { label: "Fixed Price", value: "Fixed Price" },
+        { label: "One Directional", value: "One Directional" },
+      ],
+      hiding: false,
+      label_size: 12,
+      col_size: 6,
+      disable: false,
+    },
+    {
+      name: "Exchange",
+      label: "Exchange",
+      type: "select",
+      options: [
+        { label: "NFO", value: "NFO" },
+        { label: "NSE", value: "NSE" },
+        { label: "MCX", value: "MCX" },
+        { label: "CDS", value: "CDS" },
+      ],
+      hiding: false,
+      label_size: 12,
+      col_size: 6,
+      disable: false,
+    },
+    {
+      name: "Instrument",
+      label: "Instrument",
+      type: "select",
+      options: formik.values.Exchange == "NFO" ?
+        [
+          { label: "OPTIDX", value: "OPTIDX" },
+          { label: "FUTIDX", value: "FUTIDX" },
+          { label: "FUTSTK", value: "FUTSTK" },
+          { label: "OPTSTK", value: "OPTSTK" },
+        ]
+        : formik.values.Exchange == "MCX" ?
+        [
+          { label: "OPTFUT", value: "OPTFUT" },
+          { label: "FUTCOM", value: "FUTCOM" },
+          { label: "FUTIDX", value: "FUTIDX" },
+           
+        ]
+        : formik.values.Exchange == "CDS" ?
+        [
+          { label: "FUTCUR", value: "FUTCUR" },
+          { label: "OPTCUR", value: "OPTCUR" },
+          
+        ] 
+        :
+        [],
+      showWhen: (values) =>  values.Exchange== "NFO" || values.Exchange== "CDS" || values.Exchange== "MCX" ,
+      hiding: false,
+      label_size: 12,
+      col_size: 3,
+      disable: false,
+    },
+    {
+      name: "Symbol",
+      label: "Symbol",
+      type: "select",
+      // options:[],
+      options:getSymbolData.data && getSymbolData.data.map((item) => ({
+        label: item,
+        value: item,
+      })),
+      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE"  || values.Exchange === "CDS" || values.Exchange === "MCX"  ,
+      label_size: 12,
+      hiding: false,
+      col_size: formik.values.Exchange == "NSE" ? 12 : 3,
+      disable: false,
+    },
+    {
+      name: "expirydata1",
+      label: "Expiry Date",
+      type: "select",
+      options: [
+        { label: "2024-06-27", value: "0" },
+        { label: "2024-06-27", value: "1" },
+        { label: "2024-06-27", value: "2" },
+        { label: "2024-06-27", value: "3" },
+      ],
+      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX" ,
+      label_size: 12,
+      hiding: false,
+      col_size: 2,
+      disable: false,
+    },
+    {
+      name: "Optiontype",
+      label: "Option Type",
+      type: "select",
+      options: [
+        { label: "CE", value: "0" },
+        { label: "PE", value: "1" },
+
+      ],
+      showWhen: (values) =>  values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
+      label_size: 12,
+      hiding: false,
+      col_size: 2,
+      disable: false,
+    },
+    {
+      name: "Strike",
+      label: "Strike Price",
+      type: "select",
+      options: [
+        { label: "120", value: "0" },
+        { label: "120", value: "1" },
+        { label: "120", value: "2" },
+        { label: "102", value: "3" },
+      ],
+      showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
+      label_size: 12,
+      col_size: 2,
+      hiding: false,
+      disable: false,
+    },
+
+    {
+      name: "Transaction Type",
+      label: "Transaction Type",
+      type: "select",
+      options: [
+        { label: "BUY", value: "0" },
+        { label: "SELL", value: "1" },
+
+      ],
+      label_size: 12,
+      hiding: false,
+      col_size: 6,
+      disable: false,
+    },
+    {
+      name: "Lot",
+      label: "Lot",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 6,
+      hiding: false,
+      disable: false,
+    },
+    {
+      name: "Measurment Type",
+      label: "Measurment Type",
+      type: "select",
+      options: [
+        { label: "OPTIDX", value: "0" },
+        { label: "FUTIDX", value: "1" },
+        { label: "FUTSTK", value: "2" },
+        { label: "OPTSTK", value: "3" },
+      ],
+      label_size: 12,
+      col_size: 4,
+      hiding: false,
+      disable: false,
+    },
+    {
+      name: "Target Value",
+      label: "Target Value",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "StopLoss Value",
+      label: "StopLoss Value",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Lower Price",
+      label: "Lower Price",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 3,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Higher Price",
+      label: "Higher Price",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 3,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Target Price",
+      label: "Target Price",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 2,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "StopLoss Price",
+      label: "StopLoss Price",
+      type: "text5",
+
+      label_size: 12,
+      col_size: 2,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Unique ID",
+      label: "Unique ID",
+      type: "select",
+      options: [
+        { label: "A", value: "0" },
+        { label: "B", value: "1" },
+        { label: "C", value: "2" },
+        { label: "D", value: "3" },
+      ],
+      label_size: 12,
+      col_size: 2,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Exit Day",
+      label: "Exit Day",
+      type: "select",
+      options: [
+        { label: "OPTIDX", value: "0" },
+        { label: "FUTIDX", value: "1" },
+        { label: "FUTSTK", value: "2" },
+        { label: "OPTSTK", value: "3" },
+      ],
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Entry Time",
+      label: "Entry Time",
+      type: "select",
+      options: [
+        { label: "OPTIDX", value: "0" },
+        { label: "FUTIDX", value: "1" },
+        { label: "FUTSTK", value: "2" },
+        { label: "OPTSTK", value: "3" },
+      ],
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Entry Time",
+      label: "Entry Time",
+      type: "select",
+      options: [
+        { label: "OPTIDX", value: "0" },
+        { label: "FUTIDX", value: "1" },
+        { label: "FUTSTK", value: "2" },
+        { label: "OPTSTK", value: "3" },
+      ],
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+  ];
+
+
+
+
+  const getSymbol = async()=>{
+    const data = {Exchange :  formik.values.Exchange  , Instrument: formik.values.Instrument}
+    await Get_Symbol(data)
+    .then((response)=>{
+      if(response.Status){
+        setSymbolData({
+          loading:false,
+          data: response.Symbol
+        })
+
+      }
+      else{
+        setSymbolData({
+          loading:false,
+          data: []
+        })
+
+      }
+    }) 
+    .catch((err)=>{
+      console.log("Error in fatching the Symbol", err)
+    })
+  }
+
+  useEffect(()=>{
+    getSymbol()
+  },[formik.values.Instrument , refresh])
+
+
+
+
+  return (
+
+
+    <>
+      <AddForm
+        fields={fields.filter(
+          (field) => !field.showWhen || field.showWhen(formik.values)
+        )}
+        page_title="Add Script"
+        btn_name="Add"
+        btn_name1="Cancel"
+        formik={formik}
+        btn_name1_route={"/admin/allscript"}
+
+      />
+
+    </>
+
+
+  );
+};
+export default AddClient;

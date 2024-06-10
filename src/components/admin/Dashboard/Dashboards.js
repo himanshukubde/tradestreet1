@@ -3,7 +3,6 @@ import { GetAdminDashboard } from '../../Common API/Admin'
 
 const Dashboards = () => {
 
-    console.log("CPPPPPPPP")
     const [dashData, setData] = useState({
         totalLive: 0,
         activeLive: 0,

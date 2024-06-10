@@ -25,10 +25,8 @@ export const GetAdminDashboard=async(data)=>{
 }
 
 export const Add_Group=async(data)=>{
-    console.log("CPPP :", data)
-    
     try{
-        const res =  await axios.get(`${Config.base_url}AdminStrategiesGroup` , data)
+        const res =  await axios.post(`${Config.base_url}AdminStrategiesGroup` , data)
         return res?.data
     }
     catch(err){
@@ -37,3 +35,58 @@ export const Add_Group=async(data)=>{
 
 }
 
+export const GetGroupNames=async()=>{
+    try{
+        const res =  await axios.get(`${Config.base_url}AdminGroupTable`)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}
+
+export const GetClientService=async()=>{
+    try{
+        const res =  await axios.get(`${Config.base_url}Profile`)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}
+
+
+export const AddBrokerCredential=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}Broker` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
+
+export const GetAllGroupService=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}Data` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
+
+
+
+
+export const Get_Symbol=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}GetSym` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
