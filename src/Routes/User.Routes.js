@@ -23,7 +23,7 @@ const UserRoute = () => {
           </Routes>
           <Footer />
         </div>
-      </div>
+      </div>    
       {/* )} */}
     </>
   );

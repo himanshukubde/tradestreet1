@@ -17,10 +17,6 @@ import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
 import Addscript from '../components/admin/script/Addscript';
 
-
-
-
-
 const AdminRoute = () => {
   return (
     <>
