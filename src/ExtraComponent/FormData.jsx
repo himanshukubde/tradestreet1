@@ -35,13 +35,7 @@ const DynamicForm = ({
   const [passwordVisible, setPasswordVisible] = useState({});
   const [inputValue, setInputValue] = useState("");
 
-  var subadmin_service_type = JSON.parse(
-    localStorage.getItem("user_details")
-  ).subadmin_service_type;
 
-  const prifix_key = JSON.parse(
-    localStorage.getItem("user_details")
-  ).prifix_key;
 
   const handleFileChange = (event, index, name) => {
     if (event.target.files[0].size > 420000) {
@@ -86,7 +80,8 @@ const DynamicForm = ({
   };
 
   return (
-    <div className="content container-fluid" data-aos="fade-left">
+    
+    <div className="iq-card content container-fluid" data-aos="fade-left">
       <div className="card mb-0">
         {page_title ? (
           <div className="card-header">
@@ -131,51 +126,7 @@ const DynamicForm = ({
                 <div className="row d-flex ">
                   {fields.map((field, index) => (
                     <React.Fragment key={index}>
-                      {field.type === "text1" ? (
-                        <>
-                          <div className={`col-lg-${field.col_size}`}>
-                            <div className="input-block mb-3 flex-column">
-                              <label className={`col-lg-${field.label_size}`}>
-                                {field.label}
-                                <span className="text-danger">*</span>
-                              </label>
-
-                              <input
-                                type="text"
-                                className="form-control"
-                                aria-describedby="basic-addon1"
-                                placeholder={`Enter Strategy Name (Ex: AAA_demo )`}
-                                readOnly={field.disable}
-                                id={field.name}
-                                name={field.name}
-                                {...formik.getFieldProps(field.name)}
-                                value={
-                                  formik.values[field.name].startsWith(
-                                    prifix_key + "_"
-                                  )
-                                    ? formik.values[field.name]
-                                    : formik.values[field.name].startsWith(
-                                      prifix_key
-                                    )
-                                      ? prifix_key +
-                                      "_" +
-                                      formik.values[field.name].substr(3)
-                                      : prifix_key +
-                                      "_" +
-                                      formik.values[field.name]
-                                }
-                              />
-
-                              {formik.touched[field.name] &&
-                                formik.errors[field.name] ? (
-                                <div style={{ color: "red" }}>
-                                  {formik.errors[field.name]}
-                                </div>
-                              ) : null}
-                            </div>
-                          </div>
-                        </>
-                      ) : field.type === "text" ? (
+                      {field.type === "text" ? (
                         <>
                           <div className={` col-lg-${field.col_size}`}>
                             <div className="input-block mb-3 flex-column">
@@ -339,8 +290,8 @@ const DynamicForm = ({
                                 <span className="text-danger">*</span>
                               </label>
                               <div
-                                // className={`col-lg-${field.col_size}`}
-                                
+                              // className={`col-lg-${field.col_size}`}
+
                               >
                                 <select
                                   className="default-select wide form-control"
@@ -692,74 +643,6 @@ const DynamicForm = ({
                               </div>
                             </div>
                           </div>
-                        </>
-                      ) : field.type === "test" ? (
-                        <>
-                          {subadmin_service_type == 1 ? (
-                            <div className={`col-lg-${field.col_size}`}>
-                              <div className="input-block mb-3 flex-column">
-                                <label className={`col-lg-${field.label_size}`}>
-                                  {field.label}
-                                  <span className="text-danger">*</span>
-                                </label>
-
-                                <div className="row">
-                                  <div className="w-auto">
-                                    <div className="input-block mb-3 recurring-tab">
-                                      <ul
-                                        className="nav nav-pills d-flex"
-                                        id="pills-tab"
-                                        role="tablist"
-                                      >
-                                        <li
-                                          className="nav-item"
-                                          role="presentation"
-                                        >
-                                          <button
-                                            className={`nav-link yes ${formik.values[field.name] == 2
-                                              ? "active show"
-                                              : ""
-                                              }`}
-                                            onClick={() => HandelChange(2)}
-                                            type="button"
-                                            disabled={field.disable}
-                                          >
-                                            Per Trade
-                                          </button>
-                                        </li>
-                                        <li
-                                          className="nav-item"
-                                          role="presentation"
-                                        >
-                                          <button
-                                            className={`nav-link no ${formik.values[field.name] == 1
-                                              ? "active show"
-                                              : ""
-                                              }`}
-                                            onClick={() => HandelChange(1)}
-                                            type="button"
-                                            disabled={field.disable}
-                                          >
-                                            Fixed
-                                          </button>
-                                        </li>
-                                      </ul>
-                                      {formik.touched[field.name] &&
-                                        formik.errors[field.name] ? (
-                                        <div style={{ color: "red" }}>
-                                          {formik.errors[field.name]}
-                                        </div>
-                                      ) : null}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className={`col-lg-${field.col_size}`}>
-                              <div className="input-block mb-3 flex-column"></div>
-                            </div>
-                          )}
                         </>
                       ) : field.type === "number" ? (
                         <>

@@ -79,8 +79,6 @@ export const GetAllGroupService=async(data)=>{
 }
 
 
-
-
 export const Get_Symbol=async(data)=>{
     try{
         const res =  await axios.post(`${Config.base_url}GetSym` , data)
@@ -90,3 +88,15 @@ export const Get_Symbol=async(data)=>{
         return err
     }
 }
+
+
+export const setSmtpDetail= async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}upload_images`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+

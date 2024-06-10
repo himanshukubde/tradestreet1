@@ -82,7 +82,7 @@ const Addscript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
         navigate('/admin/addscript', { state: { data } });
     }
-    
+
 
 
 
@@ -133,7 +133,7 @@ const Addscript = () => {
                             </div>
                             <div className="iq-card-body">
                                 <div className="table-responsive">
-                                   
+
                                     <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
                                             <tr className='text-center'>
@@ -176,7 +176,7 @@ const Addscript = () => {
                                         <tbody>
                                             {getAllService.data && getAllService.data.map((item, index) => {
                                                 return <tr>
-                                                    <td>{index+1}</td>
+                                                    <td>{index + 1}</td>
                                                     <td>{item.Username}</td>
                                                     <td>{item.Exchange}</td>
                                                     <td>{item.Symbol}</td>
@@ -207,7 +207,7 @@ const Addscript = () => {
                                                     <td>{item.TaskTime}</td>
                                                     <td>{item['Instrument Type']}</td>
                                                     <td>{item.Lotsize}</td>
-                                                   
+
 
                                                     <td> <span className="table-remove">
                                                         <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">

@@ -180,7 +180,7 @@ const Strategygroup = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <div className="form-group col-md-3">
+                                                        <div className="form-group col-md-6">
                                                             <label htmlFor="TimeOrigin">Time Origin</label>
                                                             <select
                                                                 className="form-select my-2"
@@ -195,7 +195,7 @@ const Strategygroup = () => {
                                                                 <option value="Yearly">Yearly</option>
                                                             </select>
                                                         </div>
-                                                        <div className="form-group col-md-3">
+                                                        <div className="form-group col-md-6">
                                                             <label htmlFor="ProductType">Select product type</label>
                                                             <select
                                                                 className="form-select my-2"

@@ -15,8 +15,9 @@ import Smtp from '../components/admin/detail/Smtp';
 import Servicereport from '../components/admin/report/Servicereport';
 import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
-import Addscript from '../components/admin/script/AddScript'
- 
+import Addscript from '../components/admin/script/Addscript';
+
+
 
 
 
