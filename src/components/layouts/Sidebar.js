@@ -75,7 +75,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/admin/addscript" className="iq-waves-effect">
+                                        <Link to="/admin/allscript" className="iq-waves-effect">
                                             <i className="ri-home-8-fill" />
                                             <span>Add Script</span>
                                         </Link>

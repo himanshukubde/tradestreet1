@@ -7,7 +7,7 @@ import Footer from '../components/layouts/Footer';
 import Adduser from '../components/admin/User/Adduser';
 import Clientservice from '../components/admin/client/Clientservice';
 import Tradehistory from '../components/admin/trade/Tradehistory';
-import Addscript from '../components/admin/script/Addscript';
+import Allscript from '../components/admin/script/AllScript';
 import Brokercredential from '../components/admin/broker/Brokercredential';
 import Clientactivity from '../components/admin/client/Clientactivity';
 import Clientreport from '../components/admin/client/Clientreport';
@@ -15,6 +15,7 @@ import Smtp from '../components/admin/detail/Smtp';
 import Servicereport from '../components/admin/report/Servicereport';
 import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
+import Addscript from '../components/admin/script/AddScript'
  
 
 
@@ -32,6 +33,7 @@ const AdminRoute = () => {
             <Route path="/adduser" element={<Adduser />} />
             <Route path="/clientservice" element={<Clientservice />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
+            <Route path="/allscript" element={<Allscript />} />
             <Route path="/addscript" element={<Addscript />} />
             <Route path="/brokercredential" element={<Brokercredential />} />
             <Route path="/clientactivity" element={<Clientactivity />} />

@@ -327,26 +327,20 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "select" ? (
                         <>
-                          <div
-                            className={`col-lg-${title === "update_theme" ? 12 : 6
-                              }`}
-                          >
+
+                          <div className={` col-lg-${field.col_size}`}>
+
                             <div className="input-block row mb-3">
                               <label
-                                className={`col-lg-${title === "forlogin"
-                                    ? 3
-                                    : title === "update_theme"
-                                      ? 12
-                                      : 7
-                                  }  col-form-label p-0 mx-3 `}
+                                className={` col-lg-${field.label_size}`}
                                 htmlFor={field.name}
                               >
                                 {field.label}
                                 <span className="text-danger">*</span>
                               </label>
                               <div
-                                className={`col-lg-${title === "addgroup" ? 12 : 12
-                                  }`}
+                                // className={`col-lg-${field.col_size}`}
+                                
                               >
                                 <select
                                   className="default-select wide form-control"
@@ -387,10 +381,10 @@ const DynamicForm = ({
                             <div className="input-block row mb-3">
                               <label
                                 className={`col-lg-${title === "forlogin"
-                                    ? 3
-                                    : title === "update_theme"
-                                      ? 12
-                                      : 7
+                                  ? 3
+                                  : title === "update_theme"
+                                    ? 12
+                                    : 7
                                   }  col-form-label p-0 mx-3 `}
                                 htmlFor={field.name}
                               >
@@ -579,8 +573,8 @@ const DynamicForm = ({
                                 />
                                 <i
                                   className={`fa-solid ${passwordVisible[field.name]
-                                      ? "fa-eye-slash"
-                                      : "fa-eye"
+                                    ? "fa-eye-slash"
+                                    : "fa-eye"
                                     }`}
                                   style={{
                                     position: "absolute",
@@ -723,8 +717,8 @@ const DynamicForm = ({
                                         >
                                           <button
                                             className={`nav-link yes ${formik.values[field.name] == 2
-                                                ? "active show"
-                                                : ""
+                                              ? "active show"
+                                              : ""
                                               }`}
                                             onClick={() => HandelChange(2)}
                                             type="button"
@@ -739,8 +733,8 @@ const DynamicForm = ({
                                         >
                                           <button
                                             className={`nav-link no ${formik.values[field.name] == 1
-                                                ? "active show"
-                                                : ""
+                                              ? "active show"
+                                              : ""
                                               }`}
                                             onClick={() => HandelChange(1)}
                                             type="button"
@@ -959,11 +953,11 @@ const DynamicForm = ({
                   ))}
                   {additional_field}
 
-                  <div className="add-customer-btns text-end mt-3">
+                  <div className="add-customer-btns text-end mt-3 ">
                     {btn_name1 ? (
                       <Link
                         to={btn_name1_route}
-                        className="btn customer-btn-cancel"
+                        className="btn customer-btn-cancel mx-3  btn-primary"
                       >
                         {btn_name1}
                       </Link>
@@ -972,13 +966,13 @@ const DynamicForm = ({
                     )}
                     {
                       <>
-                        <button type="submit" className="btn customer-btn-save">
+                        <button type="submit" className="btn customer-btn-save btn-primary">
                           {btn_name}
                         </button>
                         {btn_name2 ? (
                           <button
                             type="submit"
-                            className="btn customer-btn-save"
+                            className="btn customer-btn-save btn-primary"
                           >
                             {btn_name2}
                           </button>

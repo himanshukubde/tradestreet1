@@ -77,3 +77,16 @@ export const GetAllGroupService=async(data)=>{
         return err
     }
 }
+
+
+
+
+export const Get_Symbol=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}GetSym` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
