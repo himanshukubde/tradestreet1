@@ -254,7 +254,7 @@ const Strategygroup = () => {
                                 <div className="table-responsive">
                                     <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
-                                            <tr>
+                                            <tr className='text-center'>
                                                 <th>S.No</th>
                                                 <th>Group Name</th>
                                                 <th>Fund Requirenment</th>
