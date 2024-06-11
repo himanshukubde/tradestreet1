@@ -104,6 +104,11 @@ const AddClient = () => {
             title2: "ShortStrangle",
             title3: "LongStraddle",
             title4: "ShortStraddle",
+            value1:"LongStrangle",
+            value2:"ShortStrangle",
+            value3:"LongStraddle",
+            value4:"ShortStraddle",
+
             label_size: 12,
             col_size: 3,
             disable: false,

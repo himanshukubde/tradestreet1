@@ -470,7 +470,6 @@ const AddClient = () => {
   }
 
   useEffect(() => {
-
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
@@ -484,7 +483,7 @@ const AddClient = () => {
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
 
-
+ 
  
 
 
