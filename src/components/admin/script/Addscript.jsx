@@ -112,8 +112,6 @@ const AddClient = () => {
   });
 
 
-
-
   const fields = [
     {
       name: "Strategy",
@@ -124,6 +122,7 @@ const AddClient = () => {
         { label: "Fixed Price", value: "Fixed Price" },
         { label: "One Directional", value: "One Directional" },
       ],
+      defaultValue: "Multi Directional", // default selected
       hiding: false,
       label_size: 12,
       col_size: 6,
@@ -139,6 +138,7 @@ const AddClient = () => {
         { label: "MCX", value: "MCX" },
         { label: "CDS", value: "CDS" },
       ],
+      defaultValue: "NFO", // default selected
       hiding: false,
       label_size: 12,
       col_size: 6,
@@ -160,16 +160,15 @@ const AddClient = () => {
             { label: "OPTFUT", value: "OPTFUT" },
             { label: "FUTCOM", value: "FUTCOM" },
             { label: "FUTIDX", value: "FUTIDX" },
-
           ]
           : formik.values.Exchange == "CDS" ?
             [
               { label: "FUTCUR", value: "FUTCUR" },
               { label: "OPTCUR", value: "OPTCUR" },
-
             ]
             :
             [],
+      defaultValue: formik.values.Exchange == "NFO" ? "OPTIDX" : formik.values.Exchange == "MCX" ? "OPTFUT" : formik.values.Exchange == "CDS" ? "FUTCUR" : "", // default selected
       showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
       hiding: false,
       label_size: 12,
@@ -184,6 +183,7 @@ const AddClient = () => {
         label: item,
         value: item,
       })),
+      defaultValue: getSymbolData.data ? getSymbolData.data[0] : "", // default selected
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
@@ -197,8 +197,8 @@ const AddClient = () => {
       options: [
         { label: "CE", value: "0" },
         { label: "PE", value: "1" },
-
       ],
+      defaultValue: "0", // default selected
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       hiding: false,
@@ -213,6 +213,7 @@ const AddClient = () => {
         label: item,
         value: item
       })),
+      defaultValue: getStricke.data ? getStricke.data[0] : "", // default selected
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       col_size: 2,
@@ -223,12 +224,11 @@ const AddClient = () => {
       name: "expirydata1",
       label: "Expiry Date",
       type: "select",
-      // options:[],
       options: getExpiryDate && getExpiryDate.data.map((item) => ({
         label: item,
         value: item
-      })
-      ),
+      })),
+      defaultValue: getExpiryDate.data ? getExpiryDate.data[0] : "", // default selected
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
@@ -242,8 +242,8 @@ const AddClient = () => {
       options: [
         { label: "BUY", value: "BUY" },
         { label: "SELL", value: "SELL" },
-
       ],
+      defaultValue: "BUY", // default selected
       label_size: 12,
       hiding: false,
       col_size: 6,
@@ -258,7 +258,6 @@ const AddClient = () => {
       hiding: false,
       disable: false,
     },
-
     {
       name: "Set_First_Trade_Range",
       label: "Set First Trade Range",
@@ -267,19 +266,18 @@ const AddClient = () => {
         { label: "Yes", value: "Yes" },
         { label: "No", value: "No" },
       ],
-      showWhen : (values)=> values.Strategy== "Multi Directional" || values.Strategy == "One Directional",
+      defaultValue: "Yes", // default selected
+      showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
       hiding: false,
       disable: false,
     },
-
     {
       name: "EntryPrice",
       label: "Lowest Price",
       type: "text5",
       showWhen: (values) => values.Set_First_Trade_Range == "Yes",
-      // label_size: 12,
       col_size: 6,
       disable: false,
       hiding: false,
@@ -289,7 +287,6 @@ const AddClient = () => {
       label: "Highest Price",
       type: "text5",
       showWhen: (values) => values.Set_First_Trade_Range == "Yes",
-
       label_size: 12,
       col_size: 6,
       disable: false,
@@ -297,13 +294,13 @@ const AddClient = () => {
     },
     {
       name: "TStype",
-      label: "Measurment Type",
+      label: "Measurement Type",
       type: "select",
       options: [
         { label: "Percentage", value: "Percentage" },
         { label: "Point", value: "Point" },
-
       ],
+      defaultValue: "Percentage", // default selected
       label_size: 12,
       col_size: 4,
       hiding: false,
@@ -313,7 +310,6 @@ const AddClient = () => {
       name: "Targetvalue",
       label: "Target Value",
       type: "text5",
-
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -323,13 +319,11 @@ const AddClient = () => {
       name: "Slvalue",
       label: "StopLoss Value",
       type: "text5",
-
       label_size: 12,
       col_size: 4,
       disable: false,
       hiding: false,
     },
-
     {
       name: "set_Range",
       label: "Set Range",
@@ -338,13 +332,13 @@ const AddClient = () => {
         { label: "Yes", value: "Yes" },
         { label: "No", value: "No" },
       ],
-      showWhen : (values)=> values.Strategy== "Multi Directional" || values.Strategy == "One Directional",
+      defaultValue: "Yes", // default selected
+      showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
       hiding: false,
       disable: false,
     },
-
     {
       name: "LowerRange",
       label: "Lowest Price",
@@ -382,8 +376,8 @@ const AddClient = () => {
       options: [
         { label: "Intraday", value: "Intraday" },
         { label: "Delivery", value: "Delivery" },
-
       ],
+      defaultValue: "Intraday", // default selected
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -393,7 +387,6 @@ const AddClient = () => {
       name: "EntryTime",
       label: "Entry Time",
       type: "text5",
-
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -403,13 +396,15 @@ const AddClient = () => {
       name: "ExitTime",
       label: "Exit Time",
       type: "text5",
-
       label_size: 12,
       col_size: 4,
       disable: false,
       hiding: false,
     },
   ];
+  
+
+
 
   const getSymbol = async () => {
     const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
@@ -434,14 +429,6 @@ const AddClient = () => {
         console.log("Error in fatching the Symbol", err)
       })
   }
-
-
-
-
-
-
-
-
 
 
   const getStrikePrice = async () => {
@@ -487,11 +474,9 @@ const AddClient = () => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
-
   useEffect(() => {
     getSymbol()
   }, [formik.values.Instrument, formik.values.Exchange, refresh])
-
 
   useEffect(() => {
 
@@ -499,7 +484,8 @@ const AddClient = () => {
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
 
-  
+
+ 
 
 
     return (

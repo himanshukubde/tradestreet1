@@ -16,6 +16,7 @@ import Servicereport from '../components/admin/report/Servicereport';
 import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
 import Addscript from '../components/admin/script/Addscript';
+import AddScriptOption from '../components/admin/script/AddScript.Option'
 
 const AdminRoute = () => {
   return (
@@ -31,7 +32,7 @@ const AdminRoute = () => {
             <Route path="/clientservice" element={<Clientservice />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
             <Route path="/allscript" element={<Allscript />} />
-            <Route path="/addscript" element={<Addscript />} />
+            <Route path="/addscript/scalping" element={<Addscript />} />
             <Route path="/brokercredential" element={<Brokercredential />} />
             <Route path="/clientactivity" element={<Clientactivity />} />
             <Route path="/clientreport" element={<Clientreport />} />
@@ -39,6 +40,8 @@ const AdminRoute = () => {
             <Route path="/servicereport" element={<Servicereport />} />
             <Route path="/strategygroup" element={<Strategygroup />} />
             <Route path="/userlog" element={<Userlog />} />
+            <Route path="/addscript/option" element={<AddScriptOption />} />
+
           </Routes>
           <Footer />
         </div>

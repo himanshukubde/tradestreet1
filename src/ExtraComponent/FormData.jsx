@@ -34,6 +34,7 @@ const DynamicForm = ({
   const [previews, setPreviews] = useState([]);
   const [passwordVisible, setPasswordVisible] = useState({});
   const [inputValue, setInputValue] = useState("");
+  const [defultSelect, setDefultSelect] = useState('')
 
 
   const handleFileChange = (event, index, name) => {
@@ -78,8 +79,15 @@ const DynamicForm = ({
     formik.setFieldValue("per_trade_value", value.target.value);
   };
 
+
+
+  useEffect(() => {
+    setDefultSelect('Scalping')
+  }, []);
+
+
   return (
-    
+
     <div className="iq-card content container-fluid" data-aos="fade-left">
       <div className="card mb-0">
         {page_title ? (
@@ -92,7 +100,6 @@ const DynamicForm = ({
             ) : (
               ""
             )}
-            {/* {close_btn ? <h5 className="card-title mb-0 w-auto"><i className="fa-regular fa-circle-user pe-2"></i>{} </h5> : ""} */}
           </div>
         ) : (
           ""
@@ -289,8 +296,6 @@ const DynamicForm = ({
                                 <span className="text-danger">*</span>
                               </label>
                               <div
-                              // className={`col-lg-${field.col_size}`}
-
                               >
                                 <select
                                   className="default-select wide form-control"
@@ -299,13 +304,12 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                  <option value="" selected>
-                                    Select {field.label}
-                                  </option>
-                                  {field.options.map((option) => (
+                                  {field.options.map((option, index) => (
+
                                     <option
                                       key={option.value}
                                       value={option.value}
+                                      selected={index === 0}
                                     >
                                       {option.label}
                                     </option>
@@ -376,7 +380,7 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "checkbox" ? (
                         <>
-                          { (
+                          {(
                             <>
                               <div className={`col-lg-${field.col_size}`}>
                                 <div className="row d-flex justify-content-start">
@@ -391,7 +395,7 @@ const DynamicForm = ({
                                       />
                                       <label
                                         className="form-check-label"
-                                        for={field.label}
+                                        htmlFor={field.label}
                                       >
                                         {field.label}
                                       </label>
@@ -416,10 +420,8 @@ const DynamicForm = ({
                             {field.parent_label}
                           </label>
 
-                          <div className={`d-flex`}>
-                            <div
-                              className={`col-lg-${field.col_size} form-check custom-checkbox my-3`}
-                            >
+                          <div className="d-flex  mb-4">
+                            <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
                               <input
                                 type={field.type}
                                 name={field.name}
@@ -430,13 +432,13 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label mx-2`}
-                                for={field.title1}
+                                htmlFor={field.title1}
                               >
                                 {field.title1}
                               </label>
                             </div>
                             <div
-                              className={`col-lg-${field.col_size} form-check custom-checkbox my-3`}
+                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
                             >
                               <input
                                 type={field.type}
@@ -448,9 +450,45 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                for={field.name}
+                                htmlFor={field.name}
                               >
                                 {field.title2}
+                              </label>
+                            </div>
+                            <div
+                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
+                            >
+                              <input
+                                type={field.type}
+                                name={field.name}
+                                value={field.value3}
+                                className="form-check-input"
+                                id={field.title3}
+                                {...formik.getFieldProps(field.name)}
+                              />
+                              <label
+                                className={`col-lg-${field.label_size} col-form-label  mx-2`}
+                                htmlFor={field.name}
+                              >
+                                {field.title3}
+                              </label>
+                            </div>
+                            <div
+                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center `}
+                            >
+                              <input
+                                type={field.type}
+                                name={field.name}
+                                value={field.value4}
+                                className="form-check-input"
+                                id={field.title4}
+                                {...formik.getFieldProps(field.name)}
+                              />
+                              <label
+                                className={`col-lg-${field.label_size} col-form-label  mx-2`}
+                                htmlFor={field.name}
+                              >
+                                {field.title4}
                               </label>
                             </div>
                           </div>
@@ -553,7 +591,7 @@ const DynamicForm = ({
                             <div className="row d-flex">
                               <div className="col-lg-12 ">
                                 <div className="form-check custom-checkbox input-block  mb-3">
-                                  <label className="col-lg-6 " for={field.name}>
+                                  <label className="col-lg-6 " htmlFor={field.name}>
                                     {field.name}
                                   </label>
                                   <input
@@ -581,7 +619,7 @@ const DynamicForm = ({
                                 <div className="mb-3 input-block">
                                   <label
                                     className={`col-lg-${field.label_size}`}
-                                    for={field.name}
+                                    htmlFor={field.name}
                                   >
                                     {field.label}
                                   </label>

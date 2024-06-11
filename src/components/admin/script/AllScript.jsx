@@ -17,6 +17,8 @@ const Addscript = () => {
         data: []
     })
 
+
+ 
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
@@ -80,10 +82,18 @@ const Addscript = () => {
 
     const handleAddScript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
-        navigate('/admin/addscript', { state: { data } });
+        navigate( selectStrategyType == "Scalping" ? '/admin/addscript/scalping' : '/admin/addscript/option' , { state: { data } });
     }
 
+    useEffect(() => {
+        if(getGroupData.data && getGroupData.data.length > 0) {
+            setSelectGroup(getGroupData.data[0].GroupName);
+        }
+    }, [getGroupData]);
 
+    useEffect(() => {
+        setStrategyType('Scalping')
+    }, []);
 
 
     return (
@@ -111,6 +121,7 @@ const Addscript = () => {
                                                     <option value={item.GroupName}>{item.GroupName}</option>
                                                 </>
                                             })}
+ 
 
                                         </select>
                                     </div>
