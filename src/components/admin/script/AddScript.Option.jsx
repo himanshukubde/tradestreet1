@@ -10,10 +10,6 @@ const AddClient = () => {
     const location = useLocation()
 
 
-
-
-
-
     const formik = useFormik({
 
         initialValues: {
@@ -57,11 +53,17 @@ const AddClient = () => {
             CEDeepHigher: "",
             PEDeepLower: "",
             PEDeepHigher: "",
-            
+
         },
 
         validate: (values) => {
             let errors = {};
+            if(!values.Strategy){
+                errors.Strategy = "HELLO CP"
+            }
+            if(!values.Quantity){
+                errors.Quantity = "Enter Lot size"
+            }
 
             return errors;
         },
@@ -75,6 +77,23 @@ const AddClient = () => {
     });
 
 
+    useEffect(() => {
+        formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
+        formik.setFieldValue('Strategy', "ShortStrangle")
+        formik.setFieldValue('Symbol', "BANKNIFTY")
+        formik.setFieldValue('Expirytype', "Weekly")
+        formik.setFieldValue('ETPattern', "Premium Addition")
+        formik.setFieldValue('TStype', "Percentage")
+        formik.setFieldValue('Targetvalue', "1.00")
+        formik.setFieldValue('Slvalue', "1.00")
+        formik.setFieldValue('Quantity', "1")
+        formik.setFieldValue('ExitDay', "Intraday")
+        formik.setFieldValue('EntryTime', "00:05")
+        formik.setFieldValue('ExitTime', "00:05") 
+        formik.setFieldValue('Striketype', "Depth_of_Strike")
+        formik.setFieldValue('DepthofStrike', "1")
+      }, [])
+    
 
 
     const fields = [
@@ -99,16 +118,8 @@ const AddClient = () => {
         {
             name: "Strategy",
             label: "Strategy",
-            type: "radio",
-            title1: "LongStrangle",
-            title2: "ShortStrangle",
-            title3: "LongStraddle",
-            title4: "ShortStraddle",
-            value1:"LongStrangle",
-            value2:"ShortStrangle",
-            value3:"LongStraddle",
-            value4:"ShortStraddle",
-
+            type: "radio1",
+            title: [{ title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Strangle", value: "LongStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }],
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -135,7 +146,7 @@ const AddClient = () => {
                 { label: "Weekly", value: "Weekly" },
                 { label: "Next Week", value: "Next Week" },
                 { label: "Monthly", value: "Monthly" },
-                
+
             ],
             hiding: false,
             label_size: 12,
@@ -150,7 +161,7 @@ const AddClient = () => {
                 { label: "Premium Addition", value: "Premium Addition" },
                 { label: "Future", value: "Future" },
                 { label: "Leg vice", value: "Leg vice" },
-                
+
             ],
             hiding: false,
             label_size: 12,
@@ -164,7 +175,7 @@ const AddClient = () => {
             options: [
                 { label: "Percentage", value: "Percentage" },
                 { label: "Point", value: "Point" },
-                
+
             ],
             hiding: false,
             label_size: 12,
@@ -188,7 +199,7 @@ const AddClient = () => {
             label_size: 12,
             col_size: 4,
             disable: false,
-            
+
         },
         {
             name: "Quantity",
@@ -206,7 +217,6 @@ const AddClient = () => {
             options: [
                 { label: "Intraday", value: "Intraday" },
                 { label: "Delivery", value: "Delivery" },
-                 
             ],
             hiding: false,
             label_size: 12,
@@ -237,9 +247,6 @@ const AddClient = () => {
                 { label: "00:04", value: "00:04" },
                 { label: "00:03", value: "00:03" },
                 { label: "00:02", value: "00:02" },
-            
-               
-
             ],
             hiding: false,
             label_size: 12,
@@ -256,6 +263,8 @@ const AddClient = () => {
                 { label: "Premium_Range", value: "Premium_Range" },
                 { label: "Per_ATM", value: "Per_ATM" },
             ],
+            showWhen: (value) => value.Strategy == "ShortStrangle" || value.Strategy == "LongStrangle",
+
             hiding: false,
             label_size: 12,
             col_size: 3,
@@ -266,7 +275,7 @@ const AddClient = () => {
             label: "Depth of Strike",
             type: "number",
             hiding: false,
-            showWhen:(value)=> value.Striketype == "Depth_of_Strike",
+            showWhen: (value) => value.Striketype == "Depth_of_Strike" ,
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -274,8 +283,8 @@ const AddClient = () => {
         {
             name: "Percentage",
             label: "Percentage",
-            type: "number", 
-            showWhen:(value)=> value.Striketype == "Straddle_Width",
+            type: "number",
+            showWhen: (value) => value.Striketype == "Straddle_Width",
             hiding: false,
             label_size: 12,
             col_size: 3,
@@ -285,7 +294,7 @@ const AddClient = () => {
             name: "ATM",
             label: "ATM",
             type: "number",
-            showWhen:(value)=> value.Striketype == "Per_ATM",
+            showWhen: (value) => value.Striketype == "Per_ATM",
             hiding: false,
             label_size: 12,
             col_size: 3,
@@ -296,7 +305,7 @@ const AddClient = () => {
             label: "Lower Range",
             type: "number",
             hiding: false,
-            showWhen:(value)=> value.Striketype == "Premium_Range",
+            showWhen: (value) => value.Striketype == "Premium_Range",
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -306,7 +315,7 @@ const AddClient = () => {
             label: "Higher Range",
             type: "number",
             hiding: false,
-            showWhen:(value)=> value.Striketype == "Premium_Range",
+            showWhen: (value) => value.Striketype == "Premium_Range",
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -314,7 +323,9 @@ const AddClient = () => {
 
     ];
 
-    console.log("CPPPPPP :", formik.values)
+
+    console.log("CPPPP ::::", fields)
+   
 
 
 
@@ -322,9 +333,7 @@ const AddClient = () => {
     return (
         <>
             <AddForm
-                fields={fields.filter(
-                    (field) => !field.showWhen || field.showWhen(formik.values)
-                )}
+                fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values) )}
                 page_title="Add Script"
                 btn_name="Add"
                 btn_name1="Cancel"

@@ -111,6 +111,17 @@ const AddClient = () => {
     },
   });
 
+  useEffect(() => {
+
+    formik.setFieldValue('Strategy', "Multi Directional")
+    formik.setFieldValue('Exchange', "NFO")
+    formik.setFieldValue('Instrument', "OPTIDX")
+    formik.setFieldValue('Strike', getStricke.data && getStricke.data[0])
+    formik.setFieldValue('Symbol', getSymbolData.data && getSymbolData.data[0])
+   
+  }, [])
+
+  console.log("CPPPPP ::::::", getStricke.data && getStricke.data[0])
 
   const fields = [
     {
@@ -122,7 +133,7 @@ const AddClient = () => {
         { label: "Fixed Price", value: "Fixed Price" },
         { label: "One Directional", value: "One Directional" },
       ],
-      defaultValue: "Multi Directional", // default selected
+
       hiding: false,
       label_size: 12,
       col_size: 6,
@@ -138,7 +149,7 @@ const AddClient = () => {
         { label: "MCX", value: "MCX" },
         { label: "CDS", value: "CDS" },
       ],
-      defaultValue: "NFO", // default selected
+
       hiding: false,
       label_size: 12,
       col_size: 6,
@@ -168,7 +179,6 @@ const AddClient = () => {
             ]
             :
             [],
-      defaultValue: formik.values.Exchange == "NFO" ? "OPTIDX" : formik.values.Exchange == "MCX" ? "OPTFUT" : formik.values.Exchange == "CDS" ? "FUTCUR" : "", // default selected
       showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
       hiding: false,
       label_size: 12,
@@ -183,7 +193,6 @@ const AddClient = () => {
         label: item,
         value: item,
       })),
-      defaultValue: getSymbolData.data ? getSymbolData.data[0] : "", // default selected
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
@@ -195,10 +204,9 @@ const AddClient = () => {
       label: "Option Type",
       type: "select",
       options: [
-        { label: "CE", value: "0" },
-        { label: "PE", value: "1" },
+        { label: "CE", value: "CE" },
+        { label: "PE", value: "PE" },
       ],
-      defaultValue: "0", // default selected
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       hiding: false,
@@ -213,7 +221,6 @@ const AddClient = () => {
         label: item,
         value: item
       })),
-      defaultValue: getStricke.data ? getStricke.data[0] : "", // default selected
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       col_size: 2,
@@ -228,7 +235,6 @@ const AddClient = () => {
         label: item,
         value: item
       })),
-      defaultValue: getExpiryDate.data ? getExpiryDate.data[0] : "", // default selected
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
@@ -243,7 +249,6 @@ const AddClient = () => {
         { label: "BUY", value: "BUY" },
         { label: "SELL", value: "SELL" },
       ],
-      defaultValue: "BUY", // default selected
       label_size: 12,
       hiding: false,
       col_size: 6,
@@ -266,7 +271,6 @@ const AddClient = () => {
         { label: "Yes", value: "Yes" },
         { label: "No", value: "No" },
       ],
-      defaultValue: "Yes", // default selected
       showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
@@ -300,7 +304,6 @@ const AddClient = () => {
         { label: "Percentage", value: "Percentage" },
         { label: "Point", value: "Point" },
       ],
-      defaultValue: "Percentage", // default selected
       label_size: 12,
       col_size: 4,
       hiding: false,
@@ -332,7 +335,6 @@ const AddClient = () => {
         { label: "Yes", value: "Yes" },
         { label: "No", value: "No" },
       ],
-      defaultValue: "Yes", // default selected
       showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
@@ -377,7 +379,6 @@ const AddClient = () => {
         { label: "Intraday", value: "Intraday" },
         { label: "Delivery", value: "Delivery" },
       ],
-      defaultValue: "Intraday", // default selected
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -402,11 +403,11 @@ const AddClient = () => {
       hiding: false,
     },
   ];
-  
 
 
 
   const getSymbol = async () => {
+    console.log("VPPPP")
     const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
     await Get_Symbol(data)
       .then((response) => {
@@ -429,6 +430,11 @@ const AddClient = () => {
         console.log("Error in fatching the Symbol", err)
       })
   }
+
+
+  useEffect(() => {
+    getSymbol()
+  }, [formik.values.Instrument, formik.values.Exchange, refresh])
 
 
   const getStrikePrice = async () => {
@@ -473,33 +479,30 @@ const AddClient = () => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
-  useEffect(() => {
-    getSymbol()
-  }, [formik.values.Instrument, formik.values.Exchange, refresh])
+
 
   useEffect(() => {
-
     getStrikePrice()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
 
- 
- 
 
 
-    return (
-        <>
-            <AddForm
-                fields={fields.filter(
-                    (field) => !field.showWhen || field.showWhen(formik.values)
-                )}
-                page_title="Add Script"
-                btn_name="Add"
-                btn_name1="Cancel"
-                formik={formik}
-                btn_name1_route={"/admin/allscript"}
-            />
-        </>
-    );
+
+
+  return (
+    <>
+      <AddForm
+        fields={fields.filter(
+          (field) => !field.showWhen || field.showWhen(formik.values)
+        )}
+        page_title="Add Script"
+        btn_name="Add"
+        btn_name1="Cancel"
+        formik={formik}
+        btn_name1_route={"/admin/allscript"}
+      />
+    </>
+  );
 };
 export default AddClient;

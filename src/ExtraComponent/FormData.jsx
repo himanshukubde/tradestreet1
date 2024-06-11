@@ -420,7 +420,7 @@ const DynamicForm = ({
                             {field.parent_label}
                           </label>
 
-                          <div className="d-flex  mb-4">
+                          <div className="d-flex mb-4">
                             <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
                               <input
                                 type={field.type}
@@ -450,7 +450,7 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title2}
                               >
                                 {field.title2}
                               </label>
@@ -468,7 +468,7 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title3}
                               >
                                 {field.title3}
                               </label>
@@ -486,13 +486,46 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title4}
                               >
                                 {field.title4}
                               </label>
                             </div>
                           </div>
                         </>
+                      ) : field.type === "radio1" ? (
+                        <>
+                          <label
+                            className={`col-lg-${field.label_size} col-form-label fw-bold text-decoration-underline`}
+                            htmlFor={field.parent_label}
+                          >
+                            {field.parent_label}
+                          </label>
+
+                          <div className="d-flex mb-4">
+                            {field.title && field.title.map((item) => (
+                              <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`} key={item.title}>
+                                <input
+                                  type="radio"
+                                  name={field.name} // Ensure the name is consistent for all options
+                                  value={item.value}
+                                  className="form-check-input"
+                                  id={item.title}
+                                  onChange={formik.handleChange} // Use formik's handleChange to capture the value
+                                  checked={formik.values[field.name] === item.value} // Set the checked attribute based on formik values
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label mx-2`}
+                                  htmlFor={item.title}
+                                >
+                                  {item.title}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+
+
                       ) : field.type === "password" ? (
                         <>
                           <div className={`col-lg-${field.col_size}`}>
