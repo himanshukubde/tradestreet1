@@ -499,25 +499,22 @@ const AddClient = () => {
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
 
-  return (
+  
 
 
-    <>
-      <AddForm
-        fields={fields.filter(
-          (field) => !field.showWhen || field.showWhen(formik.values)
-        )}
-        page_title="Add Script"
-        btn_name="Add"
-        btn_name1="Cancel"
-        formik={formik}
-        btn_name1_route={"/admin/allscript"}
-
-      />
-
-    </>
-
-
-  );
+    return (
+        <>
+            <AddForm
+                fields={fields.filter(
+                    (field) => !field.showWhen || field.showWhen(formik.values)
+                )}
+                page_title="Add Script"
+                btn_name="Add"
+                btn_name1="Cancel"
+                formik={formik}
+                btn_name1_route={"/admin/allscript"}
+            />
+        </>
+    );
 };
 export default AddClient;

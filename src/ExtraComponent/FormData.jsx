@@ -35,8 +35,6 @@ const DynamicForm = ({
   const [passwordVisible, setPasswordVisible] = useState({});
   const [inputValue, setInputValue] = useState("");
 
-  
- 
 
   const handleFileChange = (event, index, name) => {
     if (event.target.files[0].size > 420000) {
@@ -81,7 +79,8 @@ const DynamicForm = ({
   };
 
   return (
-    <div className="content container-fluid" data-aos="fade-left">
+    
+    <div className="iq-card content container-fluid" data-aos="fade-left">
       <div className="card mb-0">
         {page_title ? (
           <div className="card-header">
@@ -126,7 +125,7 @@ const DynamicForm = ({
                 <div className="row d-flex ">
                   {fields.map((field, index) => (
                     <React.Fragment key={index}>
-                      {  field.type === "text" ? (
+                      {field.type === "text" ? (
                         <>
                           <div className={` col-lg-${field.col_size}`}>
                             <div className="input-block mb-3 flex-column">
@@ -290,8 +289,8 @@ const DynamicForm = ({
                                 <span className="text-danger">*</span>
                               </label>
                               <div
-                                // className={`col-lg-${field.col_size}`}
-                                
+                              // className={`col-lg-${field.col_size}`}
+
                               >
                                 <select
                                   className="default-select wide form-control"
@@ -604,7 +603,7 @@ const DynamicForm = ({
                             </div>
                           </div>
                         </>
-                      )  : field.type === "number" ? (
+                      ) : field.type === "number" ? (
                         <>
                           <div className={`col-lg-${field.col_size}`}>
                             <div className="row d-flex">
