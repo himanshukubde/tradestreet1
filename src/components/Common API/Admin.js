@@ -78,12 +78,29 @@ export const GetAllGroupService=async(data)=>{
     }
 }
 
-
-
-
 export const Get_Symbol=async(data)=>{
     try{
         const res =  await axios.post(`${Config.base_url}GetSym` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
+
+export const Get_StrikePrice=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}GetStrike` , data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+}
+
+export const GET_EXPIRY_DATE=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}GetExpiry` , data)
         return res?.data
     }
     catch(err){

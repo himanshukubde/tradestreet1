@@ -186,7 +186,7 @@ const Header = () => {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a href="javascript:void(0);" className="rtl-switch-toogle">
+                                <a href='#' className="rtl-switch-toogle">
                                     <span className="form-check form-switch">
                                         <input
                                             className="form-check-input rtl-switch"

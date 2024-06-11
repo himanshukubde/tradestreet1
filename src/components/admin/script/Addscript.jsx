@@ -3,16 +3,27 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import {Get_Symbol} from '../../Common API/Admin'
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { lazy } from "react";
 const AddClient = () => {
+
   const location = useLocation()
-  const [getSymbolData , setSymbolData] = useState({
-    loading:true,
-    data:[]
+  const [getSymbolData, setSymbolData] = useState({
+    loading: true,
+    data: []
   })
-  const [refresh , setRefresh] = useState(false)
+
+  const [getStricke, setStricke] = useState({
+    loading: true,
+    data: []
+  })
+  const [getExpiryDate, setExpiryDate] = useState({
+    loading: true,
+    data: []
+  })
 
 
+  const [refresh, setRefresh] = useState(false)
 
 
 
@@ -60,7 +71,9 @@ const AddClient = () => {
       CEDeepLower: '',
       CEDeepHigher: '',
       PEDeepLower: '',
-      PEDeepHigher: ''
+      PEDeepHigher: '',
+      set_Range: false,
+      Set_First_Trade_Range: false
     },
 
     validate: (values) => {
@@ -70,9 +83,36 @@ const AddClient = () => {
     },
     onSubmit: async (values) => {
       const req = {
+        MainStrategy: location.state.data.selectStrategyType,
+        Username: location.state.data.selectGroup,
+        Strategy: values.Strategy,
+        Exchange: values.Exchange,
+        Instrument: values.Instrument,
+        Symbol: values.Symbol,
+        Optiontype: values.Optiontype,
+        Strike: values.Strike,
+        expirydata1: values.expirydata1,
+        TType: values.TType,
+        Lot: values.Lot,
+        EntryPrice: values.EntryPrice,
+        EntryRange: values.EntryRange,
+        TStype: values.TStype,
+        Targetvalue: values.Targetvalue,
+        Slvalue: values.Slvalue,
+        LowerRange: values.LowerRange,
+        HigherRange: values.HigherRange,
+        HoldExit: values.HoldExit,
+        ExitDay: values.ExitDay,
+        EntryTime: values.EntryTime,
+        ExitTime: values.ExitTime
       }
+
+      console.log("CPPP:", req)
     },
   });
+
+
+
 
   const fields = [
     {
@@ -116,21 +156,21 @@ const AddClient = () => {
           { label: "OPTSTK", value: "OPTSTK" },
         ]
         : formik.values.Exchange == "MCX" ?
-        [
-          { label: "OPTFUT", value: "OPTFUT" },
-          { label: "FUTCOM", value: "FUTCOM" },
-          { label: "FUTIDX", value: "FUTIDX" },
-           
-        ]
-        : formik.values.Exchange == "CDS" ?
-        [
-          { label: "FUTCUR", value: "FUTCUR" },
-          { label: "OPTCUR", value: "OPTCUR" },
-          
-        ] 
-        :
-        [],
-      showWhen: (values) =>  values.Exchange== "NFO" || values.Exchange== "CDS" || values.Exchange== "MCX" ,
+          [
+            { label: "OPTFUT", value: "OPTFUT" },
+            { label: "FUTCOM", value: "FUTCOM" },
+            { label: "FUTIDX", value: "FUTIDX" },
+
+          ]
+          : formik.values.Exchange == "CDS" ?
+            [
+              { label: "FUTCUR", value: "FUTCUR" },
+              { label: "OPTCUR", value: "OPTCUR" },
+
+            ]
+            :
+            [],
+      showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
       hiding: false,
       label_size: 12,
       col_size: 3,
@@ -140,31 +180,14 @@ const AddClient = () => {
       name: "Symbol",
       label: "Symbol",
       type: "select",
-      // options:[],
-      options:getSymbolData.data && getSymbolData.data.map((item) => ({
+      options: getSymbolData.data && getSymbolData.data.map((item) => ({
         label: item,
         value: item,
       })),
-      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE"  || values.Exchange === "CDS" || values.Exchange === "MCX"  ,
+      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
       col_size: formik.values.Exchange == "NSE" ? 12 : 3,
-      disable: false,
-    },
-    {
-      name: "expirydata1",
-      label: "Expiry Date",
-      type: "select",
-      options: [
-        { label: "2024-06-27", value: "0" },
-        { label: "2024-06-27", value: "1" },
-        { label: "2024-06-27", value: "2" },
-        { label: "2024-06-27", value: "3" },
-      ],
-      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX" ,
-      label_size: 12,
-      hiding: false,
-      col_size: 2,
       disable: false,
     },
     {
@@ -176,7 +199,7 @@ const AddClient = () => {
         { label: "PE", value: "1" },
 
       ],
-      showWhen: (values) =>  values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
+      showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       hiding: false,
       col_size: 2,
@@ -186,26 +209,39 @@ const AddClient = () => {
       name: "Strike",
       label: "Strike Price",
       type: "select",
-      options: [
-        { label: "120", value: "0" },
-        { label: "120", value: "1" },
-        { label: "120", value: "2" },
-        { label: "102", value: "3" },
-      ],
+      options: getStricke.data && getStricke.data.map((item) => ({
+        label: item,
+        value: item
+      })),
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       col_size: 2,
       hiding: false,
       disable: false,
     },
-
     {
-      name: "Transaction Type",
+      name: "expirydata1",
+      label: "Expiry Date",
+      type: "select",
+      // options:[],
+      options: getExpiryDate && getExpiryDate.data.map((item) => ({
+        label: item,
+        value: item
+      })
+      ),
+      showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
+      label_size: 12,
+      hiding: false,
+      col_size: 2,
+      disable: false,
+    },
+    {
+      name: "TType",
       label: "Transaction Type",
       type: "select",
       options: [
-        { label: "BUY", value: "0" },
-        { label: "SELL", value: "1" },
+        { label: "BUY", value: "BUY" },
+        { label: "SELL", value: "SELL" },
 
       ],
       label_size: 12,
@@ -217,21 +253,56 @@ const AddClient = () => {
       name: "Lot",
       label: "Lot",
       type: "text5",
-
       label_size: 12,
       col_size: 6,
       hiding: false,
       disable: false,
     },
+
     {
-      name: "Measurment Type",
+      name: "Set_First_Trade_Range",
+      label: "Set First Trade Range",
+      type: "select",
+      options: [
+        { label: "Yes", value: "Yes" },
+        { label: "No", value: "No" },
+      ],
+      showWhen : (values)=> values.Strategy== "Multi Directional" || values.Strategy == "One Directional",
+      label_size: 12,
+      col_size: 12,
+      hiding: false,
+      disable: false,
+    },
+
+    {
+      name: "EntryPrice",
+      label: "Lowest Price",
+      type: "text5",
+      showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+      // label_size: 12,
+      col_size: 6,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "EntryRange",
+      label: "Highest Price",
+      type: "text5",
+      showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+
+      label_size: 12,
+      col_size: 6,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "TStype",
       label: "Measurment Type",
       type: "select",
       options: [
-        { label: "OPTIDX", value: "0" },
-        { label: "FUTIDX", value: "1" },
-        { label: "FUTSTK", value: "2" },
-        { label: "OPTSTK", value: "3" },
+        { label: "Percentage", value: "Percentage" },
+        { label: "Point", value: "Point" },
+
       ],
       label_size: 12,
       col_size: 4,
@@ -239,7 +310,7 @@ const AddClient = () => {
       disable: false,
     },
     {
-      name: "Target Value",
+      name: "Targetvalue",
       label: "Target Value",
       type: "text5",
 
@@ -249,7 +320,7 @@ const AddClient = () => {
       hiding: false,
     },
     {
-      name: "StopLoss Value",
+      name: "Slvalue",
       label: "StopLoss Value",
       type: "text5",
 
@@ -258,70 +329,60 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
-    {
-      name: "Lower Price",
-      label: "Lower Price",
-      type: "text5",
 
-      label_size: 12,
-      col_size: 3,
-      disable: false,
-      hiding: false,
-    },
     {
-      name: "Higher Price",
-      label: "Higher Price",
-      type: "text5",
-
-      label_size: 12,
-      col_size: 3,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "Target Price",
-      label: "Target Price",
-      type: "text5",
-
-      label_size: 12,
-      col_size: 2,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "StopLoss Price",
-      label: "StopLoss Price",
-      type: "text5",
-
-      label_size: 12,
-      col_size: 2,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "Unique ID",
-      label: "Unique ID",
+      name: "set_Range",
+      label: "Set Range",
       type: "select",
       options: [
-        { label: "A", value: "0" },
-        { label: "B", value: "1" },
-        { label: "C", value: "2" },
-        { label: "D", value: "3" },
+        { label: "Yes", value: "Yes" },
+        { label: "No", value: "No" },
       ],
+      showWhen : (values)=> values.Strategy== "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
-      col_size: 2,
+      col_size: 12,
+      hiding: false,
+      disable: false,
+    },
+
+    {
+      name: "LowerRange",
+      label: "Lowest Price",
+      type: "text5",
+      showWhen: (values) => values.set_Range == "Yes",
+      label_size: 12,
+      col_size: 4,
       disable: false,
       hiding: false,
     },
     {
-      name: "Exit Day",
+      name: "HigherRange",
+      label: "Highest Price",
+      type: "text5",
+      showWhen: (values) => values.set_Range == "Yes",
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "HoldExit",
+      label: "Hold/Exit",
+      type: "text5",
+      showWhen: (values) => values.set_Range == "Yes",
+      label_size: 12,
+      col_size: 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "ExitDay",
       label: "Exit Day",
       type: "select",
       options: [
-        { label: "OPTIDX", value: "0" },
-        { label: "FUTIDX", value: "1" },
-        { label: "FUTSTK", value: "2" },
-        { label: "OPTSTK", value: "3" },
+        { label: "Intraday", value: "Intraday" },
+        { label: "Delivery", value: "Delivery" },
+
       ],
       label_size: 12,
       col_size: 4,
@@ -329,30 +390,20 @@ const AddClient = () => {
       hiding: false,
     },
     {
-      name: "Entry Time",
+      name: "EntryTime",
       label: "Entry Time",
-      type: "select",
-      options: [
-        { label: "OPTIDX", value: "0" },
-        { label: "FUTIDX", value: "1" },
-        { label: "FUTSTK", value: "2" },
-        { label: "OPTSTK", value: "3" },
-      ],
+      type: "text5",
+
       label_size: 12,
       col_size: 4,
       disable: false,
       hiding: false,
     },
     {
-      name: "Entry Time",
-      label: "Entry Time",
-      type: "select",
-      options: [
-        { label: "OPTIDX", value: "0" },
-        { label: "FUTIDX", value: "1" },
-        { label: "FUTSTK", value: "2" },
-        { label: "OPTSTK", value: "3" },
-      ],
+      name: "ExitTime",
+      label: "Exit Time",
+      type: "text5",
+
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -360,38 +411,92 @@ const AddClient = () => {
     },
   ];
 
-
-
-
-  const getSymbol = async()=>{
-    const data = {Exchange :  formik.values.Exchange  , Instrument: formik.values.Instrument}
+  const getSymbol = async () => {
+    const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
     await Get_Symbol(data)
-    .then((response)=>{
-      if(response.Status){
-        setSymbolData({
-          loading:false,
-          data: response.Symbol
-        })
+      .then((response) => {
+        if (response.Status) {
+          setSymbolData({
+            loading: false,
+            data: response.Symbol
+          })
 
-      }
-      else{
-        setSymbolData({
-          loading:false,
-          data: []
-        })
+        }
+        else {
+          setSymbolData({
+            loading: false,
+            data: []
+          })
 
-      }
-    }) 
-    .catch((err)=>{
-      console.log("Error in fatching the Symbol", err)
-    })
+        }
+      })
+      .catch((err) => {
+        console.log("Error in fatching the Symbol", err)
+      })
   }
 
-  useEffect(()=>{
+
+
+
+
+
+
+
+
+
+  const getStrikePrice = async () => {
+    const data = {
+      Exchange: formik.values.Exchange,
+      Instrument: formik.values.Instrument,
+      Symbol: formik.values.Symbol
+    }
+    await Get_StrikePrice(data)
+      .then((response) => {
+        if (response.Status) {
+          setStricke({
+            loading: false,
+            data: response.Strike
+          })
+        }
+      })
+
+  }
+
+
+  const getExpiry = async () => {
+    const data = {
+      Exchange: formik.values.Exchange,
+      Instrument: formik.values.Instrument,
+      Symbol: formik.values.Symbol,
+      Strike: formik.values.Strike
+    }
+    await GET_EXPIRY_DATE(data)
+      .then((response) => {
+        if (response.Status) {
+          setExpiryDate({
+            loading: false,
+            data: response['Expiry Date']
+          })
+
+        }
+      })
+  }
+
+  useEffect(() => {
+
+    getExpiry()
+  }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
+
+
+  useEffect(() => {
     getSymbol()
-  },[formik.values.Instrument , refresh])
+  }, [formik.values.Instrument, formik.values.Exchange, refresh])
 
 
+  useEffect(() => {
+
+    getStrikePrice()
+  }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
 
   return (

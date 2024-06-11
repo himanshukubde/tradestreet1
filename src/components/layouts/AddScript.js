@@ -94,7 +94,6 @@ const AddClient = () => {
             label_size: 12,
             col_size: 6,
             disable: false,
-            //   showWhen: (values) => 2 == 1,
 
         },
         {
@@ -104,7 +103,6 @@ const AddClient = () => {
             label_size: 12,
             col_size: 6,
             disable: false,
-            //   showWhen: (values) => subadmin_service_type1 == 1 && values.licence === "2" && formik.values.Service_Type == 2,
         },
         {
             name: "broker",
@@ -116,7 +114,6 @@ const AddClient = () => {
                     label: item.title,
                     value: item.broker_id,
                 })),
-            //   showWhen: (values) => values.licence === "2" || values.licence === "0",
             label_size: 12,
             col_size: 6,
             disable: false,

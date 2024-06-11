@@ -1587,7 +1587,7 @@ const Servicereport = () => {
                                                   type="text"
                                                   className="form-control my-2"
                                                   id="cno"
-                                                  defaultValue="001 2536 123 458"
+                                                  
                                               />
                                           </div>
                                           <div className="form-group">
@@ -1596,7 +1596,7 @@ const Servicereport = () => {
                                                   type="text"
                                                   className="form-control my-2"
                                                   id="email"
-                                                  defaultValue="Binijone@demo.com"
+                                                  
                                               />
                                           </div>
                                           <div className="form-group">
@@ -1605,7 +1605,7 @@ const Servicereport = () => {
                                                   type="text"
                                                   className="form-control my-2"
                                                   id="url"
-                                                  defaultValue="https://getbootstrap.com"
+                                                   
                                               />
                                           </div>
                                           <button type="submit" className="btn btn-primary me-2">
