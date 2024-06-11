@@ -5062,3 +5062,7 @@ Rtl Switch
   z-index: 9 !important;
 
 }
+
+table th {
+  white-space: nowrap;
+}

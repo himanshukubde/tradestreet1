@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { GetClientService } from '../../Common API/Admin'
+import React, { useEffect, useState } from 'react';
+import { GetClientService } from '../../Common API/Admin';
 
 const Clientservice = () => {
     const [getClientService, setClientService] = useState({
@@ -14,38 +14,36 @@ const Clientservice = () => {
                     setClientService({
                         loading: false,
                         data: response.Profile
-                    })
-                }
-                else {
+                    });
+                } else {
                     setClientService({
                         loading: false,
                         data: []
-                    })
+                    });
                 }
             })
             .catch((err) => {
-                console.log("Error in fatching the All Client service", err)
-            })
-    }
+                console.log("Error in fetching the All Client service", err);
+            });
+    };
 
     useEffect(() => {
-        getAllClientService()
-    }, [])
+        getAllClientService();
+    }, []);
 
     return (
         <div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="iq-card">
-                        <div class="iq-card-header d-flex justify-content-between">
-                            <div class="iq-header-title">
-                                <h4 class="card-title">Client Service</h4>
+            <div className="row">
+                <div className="col-sm-12">
+                    <div className="iq-card">
+                        <div className="iq-card-header d-flex justify-content-between">
+                            <div className="iq-header-title">
+                                <h4 className="card-title">Client Service</h4>
                             </div>
                         </div>
-                        <div class="iq-card-body">
-
-                            <div class="table-responsive">
-                                <table id="datatable" className="table table-striped table-bordered text-center">
+                        <div className="iq-card-body">
+                            <div className="table-responsive">
+                                <table className="table table-striped table-bordered text-center">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
@@ -61,9 +59,8 @@ const Clientservice = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {getClientService.data && getClientService.data.map((item, index) => {
-
-                                            return <tr key={index} className='text-center'>
+                                        {getClientService.data && getClientService.data.map((item, index) => (
+                                            <tr key={index} className='text-center'>
                                                 <td>{index + 1}</td>
                                                 <td>{item.Username}</td>
                                                 <td>{item.Mobile_No}</td>
@@ -75,19 +72,8 @@ const Clientservice = () => {
                                                 <td>{item.ServiceEndDate}</td>
                                                 <td>{item['Total Service Count']}</td>
                                             </tr>
-
-                                        })}
+                                        ))}
                                     </tbody>
-                                    {/* <tfoot> */}
-                                    {/* <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr> */}
-                                    {/* </tfoot> */}
                                 </table>
                             </div>
                         </div>
@@ -95,7 +81,7 @@ const Clientservice = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Clientservice
+export default Clientservice;
