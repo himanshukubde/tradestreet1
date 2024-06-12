@@ -86,7 +86,7 @@ const AddClient = () => {
         formik.setFieldValue('TStype', "Percentage")
         formik.setFieldValue('Targetvalue', "1.00")
         formik.setFieldValue('Slvalue', "1.00")
-        formik.setFieldValue('Quantity', "111")
+        formik.setFieldValue('Quantity', "1")
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('EntryTime', "00:05")
         formik.setFieldValue('ExitTime', "00:05") 
@@ -94,7 +94,8 @@ const AddClient = () => {
         formik.setFieldValue('DepthofStrike', "1")
         formik.setFieldValue('ATM', "1")
         formik.setFieldValue('Lower_Range', "1")
-        formik.setFieldValue('Higher_Range', "1")    
+        formik.setFieldValue('Higher_Range', "1")
+         
 
       }, [])
     
@@ -327,12 +328,7 @@ const AddClient = () => {
 
     ];
 
-
-   
-
-
-
-
+ 
     return (
         <>
             <AddForm

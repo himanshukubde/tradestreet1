@@ -28,7 +28,7 @@ const Login = () => {
                         if (response.Role === 'Admin') {
                             navigate('/dashboards');
                         } else if (response.Role === 'User') {
-                            navigate('/user-dashboard');
+                            navigate('/user/dashboard');
                         }
                     }, 1500)
                 }
