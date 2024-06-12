@@ -130,31 +130,26 @@ const Sidebar = () => {
                                             <span>SMTP Details</span>
                                         </Link>
                                     </li>
-                                    
+
                                 </>
                             ) : (
                                 <>
                                     <li className="active">
-                                        <Link to="/userdashboard" className="iq-waves-effect">
+                                        <Link to="/dashboard" className="iq-waves-effect">
                                             <i className="ri-hospital-fill" />
                                             <span>Dashboard</span>
                                         </Link>
                                     </li>
+
                                     <li>
-                                        <Link to="/adduser" className="iq-waves-effect">
-                                            <i className="ri-hospital-fill" />
-                                            <span>Profile</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/userbroker" className="iq-waves-effect">
+                                        <Link to="broker" className="iq-waves-effect">
                                             <i className="ri-home-8-fill" />
                                             <span>Broker Credential</span>
                                         </Link>
                                     </li>
 
                                     <li>
-                                        <Link to="/userscript" className="iq-waves-effect">
+                                        <Link to="allscript" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
                                             <span>Add Script Parameter</span>
                                         </Link>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isFixed, setIsFixed] = useState(false);
@@ -194,8 +194,8 @@ const Header = () => {
                                             role="switch"
                                             id="rtl-switch"
                                         />
-                                        <span className="rtl-toggle-tooltip ltr-tooltip">Ltr</span>
-                                        <span className="rtl-toggle-tooltip rtl-tooltip">Rtl</span>
+                                        <span className="rtl-toggle-tooltip ltr-tooltip">on</span>
+                                        <span className="rtl-toggle-tooltip rtl-tooltip">off</span>
                                     </span>
                                 </a>
                             </li>
@@ -391,7 +391,7 @@ const Header = () => {
                                     />
                                     <div className="caption">
                                         <h6 className="mb-0 line-height">Neha mam</h6>
-                                        <span className="font-size-12">Available</span>
+                                        <span className="font-size-12">online</span>
                                     </div>
                                 </a>
                                 <div className="iq-sub-dropdown iq-user-dropdown">
@@ -401,7 +401,7 @@ const Header = () => {
                                                 <h5 className="mb-0 text-white line-height">Hello Bini Emma</h5>
                                                 <span className="text-white font-size-12">online</span>
                                             </div>
-                                            <a href="profile.html" className="iq-sub-card iq-bg-primary-hover">
+                                            <Link to="/profile" className="iq-sub-card iq-bg-primary-hover">
                                                 <div className="media align-items-center d-flex">
                                                     <div className="rounded card-icon bg-soft-primary">
                                                         <i className="ri-file-user-line" />
@@ -411,7 +411,7 @@ const Header = () => {
                                                         <p className="mb-0 font-size-12">View personal profile details.</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                             <a href="profile-edit.html" className="iq-sub-card iq-bg-warning-hover">
                                                 <div className="media align-items-center d-flex">
                                                     <div className="rounded card-icon bg-soft-warning">
