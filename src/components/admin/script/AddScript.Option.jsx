@@ -3,15 +3,12 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE } from '../../Common API/Admin'
-import { lazy } from "react";
-import * as React from 'react';
-import dayjs from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { AddScript } from '../../Common API/Admin'
+
+
 const AddClient = () => {
     const location = useLocation()
+    const navigate = useNavigate()
     const [showTimePiker, setShowTimePiker] = useState('')
     const formik = useFormik({
 
@@ -29,7 +26,7 @@ const AddClient = () => {
             Targetvalue: 1.0,
             Slvalue: 1.0,
             TStype: "",
-            Quantity: 5,
+            Quantity: 0,
             LowerRange: 0.0,
             HigherRange: 0.0,
             HoldExit: "",
@@ -58,7 +55,7 @@ const AddClient = () => {
             PEDeepHigher: 0.0,
             TradeCount: 2
         },
-        
+
         validate: (values) => {
             let errors = {};
             if (!values.Strategy) {
@@ -106,7 +103,7 @@ const AddClient = () => {
                 Strategy: values.Strategy,
                 ETPattern: values.ETPattern,
                 Timeframe: "",
-                Exchange: "",
+                Exchange: "NFO",
                 Symbol: values.Symbol,
                 Instrument: "FUTIDX",
                 Strike: "",
@@ -127,11 +124,11 @@ const AddClient = () => {
                 FixedSM: "",
                 TType: "",
                 serendate: "2023-10-25",
-                expirydata1: "2024-06-27",
+                expirydata1: "2024-06-26",
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
                 DepthofStrike: values.DepthofStrike,
-                DeepStrike: "",
+                DeepStrike: 0,
                 Group: "",
                 CEDepthLower: 0.0,
                 CEDepthHigher: 0.0,
@@ -143,6 +140,36 @@ const AddClient = () => {
                 PEDeepHigher: 0.0,
                 TradeCount: 2
             }
+            await AddScript(req)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Script Added !",
+                            text: "New Script Added successfully..!",
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        setTimeout(() => {
+                            navigate('/admin/allscript')
+                        }, 1500)
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error !",
+                            text: "Error in added new Script..!",
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in added new Script", err)
+                })
+
+
         },
     });
     useEffect(() => {
@@ -152,17 +179,16 @@ const AddClient = () => {
         formik.setFieldValue('Expirytype', "Weekly")
         formik.setFieldValue('ETPattern', "Premium Addition")
         formik.setFieldValue('TStype', "Percentage")
-        formik.setFieldValue('Targetvalue', "1.00")
-        formik.setFieldValue('Slvalue', "1.00")
-        formik.setFieldValue('Quantity', "1")
+        formik.setFieldValue('Targetvalue', 1.00)
+        formik.setFieldValue('Slvalue', 1.00)
+        formik.setFieldValue('Quantity', 1)
         formik.setFieldValue('ExitDay', "Intraday")
-        formik.setFieldValue('EntryTime', "00:05")
-        formik.setFieldValue('ExitTime', "00:05")
+
         formik.setFieldValue('Striketype', "Depth_of_Strike")
-        formik.setFieldValue('DepthofStrike', "1")
-        formik.setFieldValue('ATM', "1")
-        formik.setFieldValue('Lower_Range', "1")
-        formik.setFieldValue('Higher_Range', "1")
+        formik.setFieldValue('DepthofStrike', 1)
+        formik.setFieldValue('ATM', 1)
+        formik.setFieldValue('Lower_Range', 1)
+        formik.setFieldValue('Higher_Range', 1)
 
     }, [])
 
@@ -402,3 +428,26 @@ const AddClient = () => {
     );
 };
 export default AddClient;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
