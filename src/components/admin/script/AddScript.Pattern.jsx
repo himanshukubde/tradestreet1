@@ -78,23 +78,23 @@ const AddClient = () => {
 
 
     useEffect(() => {
-        formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
-        formik.setFieldValue('Strategy', "ShortStrangle")
-        formik.setFieldValue('Symbol', "BANKNIFTY")
-        formik.setFieldValue('Expirytype', "Weekly")
-        formik.setFieldValue('ETPattern', "Premium Addition")
-        formik.setFieldValue('TStype', "Percentage")
-        formik.setFieldValue('Targetvalue', "1.00")
-        formik.setFieldValue('Slvalue', "1.00")
-        formik.setFieldValue('Quantity', "1")
-        formik.setFieldValue('ExitDay', "Intraday")
-        formik.setFieldValue('EntryTime', "00:05")
-        formik.setFieldValue('ExitTime', "00:05") 
-        formik.setFieldValue('Striketype', "Depth_of_Strike")
-        formik.setFieldValue('DepthofStrike', "1")
-        formik.setFieldValue('ATM', "1")
-        formik.setFieldValue('Lower_Range', "1")
-        formik.setFieldValue('Higher_Range', "1")
+        // formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
+        // formik.setFieldValue('Strategy', "ShortStrangle")
+        // formik.setFieldValue('Symbol', "BANKNIFTY")
+        // formik.setFieldValue('Expirytype', "Weekly")
+        // formik.setFieldValue('ETPattern', "Premium Addition")
+        // formik.setFieldValue('TStype', "Percentage")
+        // formik.setFieldValue('Targetvalue', "1.00")
+        // formik.setFieldValue('Slvalue', "1.00")
+        // formik.setFieldValue('Quantity', "1")
+        // formik.setFieldValue('ExitDay', "Intraday")
+        // formik.setFieldValue('EntryTime', "00:05")
+        // formik.setFieldValue('ExitTime', "00:05") 
+        // formik.setFieldValue('Striketype', "Depth_of_Strike")
+        // formik.setFieldValue('DepthofStrike', "1")
+        // formik.setFieldValue('ATM', "1")
+        // formik.setFieldValue('Lower_Range', "1")
+        // formik.setFieldValue('Higher_Range', "1")
          
 
       }, [])
@@ -102,27 +102,10 @@ const AddClient = () => {
 
 
     const fields = [
+        
         {
-            name: "Measurment_Type",
-            label: "Measurment Type",
-            type: "select",
-            options: [
-                { label: "Straddle/Strangle", value: "Straddle/Strangle" },
-                { label: "Butterfly/Condor", value: "Butterfly/Condor" },
-                { label: "Spread", value: "Spread" },
-                { label: "Ladder/Coverd", value: "Ladder/Coverd" },
-                { label: "Collar/Ratio", value: "Collar/Ratio" },
-                { label: "Shifting/FourLeg", value: "Shifting/FourLeg" },
-
-            ],
-            hiding: false,
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name: "Strategy",
-            label: "Strategy",
+            name: "Add_New_Script",
+            label: "Add_New_Script",
             type: "radio1",
             title: [{ title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Strangle", value: "LongStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }],
             label_size: 12,

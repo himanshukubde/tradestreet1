@@ -82,7 +82,10 @@ const Addscript = () => {
 
     const handleAddScript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
-        navigate( selectStrategyType == "Scalping" ? '/admin/addscript/scalping' : '/admin/addscript/option' , { state: { data } });
+        navigate( selectStrategyType == "Scalping" ? '/admin/addscript/scalping' : 
+            selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern' , { state: { data } });
+
+            
     }
 
     useEffect(() => {
@@ -131,8 +134,8 @@ const Addscript = () => {
                                             onChange={(e) => setStrategyType(e.target.value)}
                                             value={selectStrategyType}>
                                             <option value={"Scalping"}>Scalping</option>
-                                            <option value={"Option"}>Option</option>
-                                            <option value={"Pattern"}>Pattern</option>
+                                            <option value={"Option"}>Option Strategy</option>
+                                            <option value={"Pattern"}>Pattern Script</option>
                                             <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
                                             <option value={"PatternOption"}>PatternOption</option>
                                         </select>

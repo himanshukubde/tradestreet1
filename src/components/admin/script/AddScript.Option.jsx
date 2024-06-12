@@ -337,7 +337,7 @@ const AddClient = () => {
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values) )}
-                page_title="Add Script"
+                page_title="Add Script option"
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

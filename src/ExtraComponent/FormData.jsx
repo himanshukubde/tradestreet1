@@ -304,12 +304,13 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
+                                  <option disabled={true} value="">{`Select ${field.name}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
                                       key={option.value}
                                       value={option.value}
-                                      selected={index === 0}
+
                                     >
                                       {option.label}
                                     </option>

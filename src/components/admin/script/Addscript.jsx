@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import AddForm from "../../../ExtraComponent/FormData";
-import { useFormik } from "formik";
+import { swap, useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'
 import { lazy } from "react";
 const AddClient = () => {
 
@@ -34,50 +34,92 @@ const AddClient = () => {
     initialValues: {
       MainStrategy: location.state.data.selectStrategyType,
       Username: location.state.data.selectGroup,
-      Strategy: '',
-      ETPattern: '',
-      Timeframe: '',
-      Exchange: '',
-      Symbol: '',
-      Instrument: '',
+      Strategy: "",
+      ETPattern: "",
+      Timeframe: "",
+      Exchange: "",
+      Symbol: "",
+      Instrument: "",
       Strike: "",
-      Optiontype: '',
-      Targetvalue: '',
-      Slvalue: '',
-      TStype: '',
-      Quantity: '',
-      LowerRange: '',
-      HigherRange: '',
-      HoldExit: '',
-      EntryPrice: '',
-      EntryRange: '',
-      EntryTime: '',
-      ExitTime: '',
-      ExitDay: '',
-      TradeExecution: '',
-      FixedSM: '',
-      TType: '',
-      serendate: '',
-      expirydata1: '',
-      Expirytype: '',
-      Striketype: '',
-      DepthofStrike: '',
-      DeepStrike: '',
-      Group: '',
-      CEDepthLower: '',
-      CEDepthHigher: "",
-      PEDepthLower: '',
-      PEDepthHigher: '',
-      CEDeepLower: '',
-      CEDeepHigher: '',
-      PEDeepLower: '',
-      PEDeepHigher: '',
-      set_Range: false,
-      Set_First_Trade_Range: false
+      Optiontype: "",
+      Targetvalue: 5.0,
+      Slvalue: 5.0,
+      TStype: "Point",
+      Quantity: 5,
+      LowerRange: 0.0,
+      HigherRange: 0.0,
+      HoldExit: "",
+      EntryPrice: 0.0,
+      EntryRange: 0.0,
+      EntryTime: "",
+      ExitTime: "",
+      ExitDay: "",
+      TradeExecution: "Paper Trade",
+      FixedSM: "Single",
+      TType: "",
+      serendate: "",
+      expirydata1: "",
+      Expirytype: "",
+      Striketype: "",
+      DepthofStrike: 0,
+      DeepStrike: 0,
+      Group: "",
+      CEDepthLower: 0.0,
+      CEDepthHigher: 0.0,
+      PEDepthLower: 0.0,
+      PEDepthHigher: 0.0,
+      CEDeepLower: 0.0,
+      CEDeepHigher: 0.0,
+      PEDeepLower: 0.0,
+      PEDeepHigher: 0.0,
+      TradeCount: 2,
+      set_Range: "",
+      Set_First_Trade_Range: ""
     },
 
     validate: (values) => {
       let errors = {};
+      if (!values.Strategy) {
+        errors.Strategy = "Select Strategy type"
+      }
+      if (!values.Exchange) {
+        errors.Exchange = "Select Exchange type"
+      }
+      if (!values.Instrument) {
+        errors.Instrument = "Select Instrument type"
+      }
+      if (!values.Symbol) {
+        errors.Symbol = "Select Symbol type"
+      }
+      if (!values.Optiontype) {
+        errors.Optiontype = "Select Optiontype type"
+      }
+      if (!values.Strike) {
+        errors.Strike = "Select Strike Price type"
+      }
+      if (!values.expirydata1) {
+        errors.expirydata1 = "Select expirydata type"
+      }
+      if (!values.TType) {
+        errors.TType = "Select Transaction Type"
+      }
+      if (!values.Quantity) {
+        errors.Quantity = "Select Quantity type"
+      }
+      if (!values.HoldExit) {
+        errors.HoldExit = "Enter HoldExit type"
+      }
+      if (!values.ExitTime) {
+        errors.ExitTime = "Select ExitTime type"
+      }
+      if (!values.EntryTime) {
+        errors.EntryTime = "Select EntryTime type"
+      }
+      if (!values.ExitDay) {
+        errors.ExitDay = "Select ExitDay type"
+      
+       
+      }
 
       return errors;
     },
@@ -93,7 +135,6 @@ const AddClient = () => {
         Strike: values.Strike,
         expirydata1: values.expirydata1,
         TType: values.TType,
-        Lot: values.Lot,
         EntryPrice: values.EntryPrice,
         EntryRange: values.EntryRange,
         TStype: values.TStype,
@@ -104,24 +145,67 @@ const AddClient = () => {
         HoldExit: values.HoldExit,
         ExitDay: values.ExitDay,
         EntryTime: values.EntryTime,
-        ExitTime: values.ExitTime
+        ExitTime: values.ExitTime,
+        ETPattern: "",
+        Timeframe: "",
+        Quantity: values.Quantity,
+        TradeExecution: "Paper Trade",
+        FixedSM: "Single",
+        serendate: "",
+        Expirytype: "",
+        Striketype: "",
+        DepthofStrike: 0,
+        DeepStrike: 0,
+        Group: "",
+        CEDepthLower: 0.0,
+        CEDepthHigher: 0.0,
+        PEDepthLower: 0.0,
+        PEDepthHigher: 0.0,
+        CEDeepLower: 0.0,
+        CEDeepHigher: 0.0,
+        PEDeepLower: 0.0,
+        PEDeepHigher: 0.0,
+        TradeCount: 2,
+
       }
 
-      console.log("CPPP:", req)
+      await AddScript(req)
+        .then((response) => {
+          if (response.Status) {
+            Swal.fire({
+              title: "Script Added !",
+              text: "New Script Added successfully..!",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true
+            });
+          }
+          else {
+            Swal.fire({
+              title: "Error !",
+              text: "Error in added new Script..!",
+              icon: "error",
+              timer: 1500,
+              timerProgressBar: true
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("Error in added new Script", err)
+        })
+
     },
   });
 
   useEffect(() => {
-
     formik.setFieldValue('Strategy', "Multi Directional")
     formik.setFieldValue('Exchange', "NFO")
-    formik.setFieldValue('Instrument', "OPTIDX")
-    formik.setFieldValue('Strike', getStricke.data && getStricke.data[0])
-    formik.setFieldValue('Symbol', getSymbolData.data && getSymbolData.data[0])
-   
+
+
   }, [])
 
-  console.log("CPPPPP ::::::", getStricke.data && getStricke.data[0])
+
+
 
   const fields = [
     {
@@ -231,7 +315,7 @@ const AddClient = () => {
       name: "expirydata1",
       label: "Expiry Date",
       type: "select",
-      options: getExpiryDate && getExpiryDate.data.map((item) => ({
+      options: getExpiryDate.data && getExpiryDate.data.map((item) => ({
         label: item,
         value: item
       })),
@@ -255,7 +339,7 @@ const AddClient = () => {
       disable: false,
     },
     {
-      name: "Lot",
+      name: "Quantity",
       label: "Lot",
       type: "text5",
       label_size: 12,
@@ -364,7 +448,7 @@ const AddClient = () => {
     {
       name: "HoldExit",
       label: "Hold/Exit",
-      type: "text5",
+      type: "text",
       showWhen: (values) => values.set_Range == "Yes",
       label_size: 12,
       col_size: 4,
@@ -387,7 +471,7 @@ const AddClient = () => {
     {
       name: "EntryTime",
       label: "Entry Time",
-      type: "text5",
+      type: "text",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -396,7 +480,7 @@ const AddClient = () => {
     {
       name: "ExitTime",
       label: "Exit Time",
-      type: "text5",
+      type: "text",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -407,30 +491,30 @@ const AddClient = () => {
 
 
   const getSymbol = async () => {
-    console.log("VPPPP")
-    const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
-    await Get_Symbol(data)
-      .then((response) => {
-        if (response.Status) {
-          setSymbolData({
-            loading: false,
-            data: response.Symbol
-          })
+    if (formik.values.Instrument && formik.values.Exchange) {
+      const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
+      await Get_Symbol(data)
+        .then((response) => {
+          if (response.Status) {
+            setSymbolData({
+              loading: false,
+              data: response.Symbol
+            })
 
-        }
-        else {
-          setSymbolData({
-            loading: false,
-            data: []
-          })
+          }
+          else {
+            setSymbolData({
+              loading: false,
+              data: []
+            })
 
-        }
-      })
-      .catch((err) => {
-        console.log("Error in fatching the Symbol", err)
-      })
+          }
+        })
+        .catch((err) => {
+          console.log("Error in fatching the Symbol", err)
+        })
+    }
   }
-
 
   useEffect(() => {
     getSymbol()
@@ -438,41 +522,56 @@ const AddClient = () => {
 
 
   const getStrikePrice = async () => {
-    const data = {
-      Exchange: formik.values.Exchange,
-      Instrument: formik.values.Instrument,
-      Symbol: formik.values.Symbol
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
+
+      const data = {
+        Exchange: formik.values.Exchange,
+        Instrument: formik.values.Instrument,
+        Symbol: formik.values.Symbol
+      }
+      await Get_StrikePrice(data)
+        .then((response) => {
+          if (response.Status) {
+            setStricke({
+              loading: false,
+              data: response.Strike
+            })
+          }
+        })
     }
-    await Get_StrikePrice(data)
-      .then((response) => {
-        if (response.Status) {
-          setStricke({
-            loading: false,
-            data: response.Strike
-          })
-        }
-      })
+
 
   }
+  useEffect(() => {
+    getStrikePrice()
+  }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
+
+
+
+
 
 
   const getExpiry = async () => {
-    const data = {
-      Exchange: formik.values.Exchange,
-      Instrument: formik.values.Instrument,
-      Symbol: formik.values.Symbol,
-      Strike: formik.values.Strike
-    }
-    await GET_EXPIRY_DATE(data)
-      .then((response) => {
-        if (response.Status) {
-          setExpiryDate({
-            loading: false,
-            data: response['Expiry Date']
-          })
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike) {
+      const data = {
+        Exchange: formik.values.Exchange,
+        Instrument: formik.values.Instrument,
+        Symbol: formik.values.Symbol,
+        Strike: formik.values.Strike
+      }
 
-        }
-      })
+      await GET_EXPIRY_DATE(data)
+        .then((response) => {
+          if (response.Status) {
+            setExpiryDate({
+              loading: false,
+              data: response['Expiry Date']
+            })
+
+          }
+        })
+    }
+
   }
 
   useEffect(() => {
@@ -481,12 +580,24 @@ const AddClient = () => {
 
 
 
+
+
+
+
   useEffect(() => {
-    getStrikePrice()
-  }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
+    if (formik.values.set_Range == "No") {
+      formik.setFieldValue('LowerRange', "1")
+      formik.setFieldValue('HigherRange', "1")
+      formik.setFieldValue('HoldExit', "")
+    }
+    if (formik.values.Set_First_Trade_Range == "No") {
+      formik.setFieldValue('EntryPrice', "1")
+      formik.setFieldValue('EntryRange', "1")
 
+    }
 
+  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range])
 
 
 
