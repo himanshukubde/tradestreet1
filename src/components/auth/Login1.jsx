@@ -31,7 +31,7 @@ const Login = () => {
                 navigate('/dashboards');
             } else if (data.Role === 'User') {
 
-                navigate('/dashboard');
+                navigate('/ dashboard');
             }
         } else {
             alert('Login failed');

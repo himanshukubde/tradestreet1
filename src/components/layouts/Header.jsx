@@ -401,7 +401,7 @@ const Header = () => {
                                                 <h5 className="mb-0 text-white line-height">Hello Bini Emma</h5>
                                                 <span className="text-white font-size-12">online</span>
                                             </div>
-                                            <Link to="/profile" className="iq-sub-card iq-bg-primary-hover">
+                                            <Link to="/user/profile" className="iq-sub-card iq-bg-primary-hover">
                                                 <div className="media align-items-center d-flex">
                                                     <div className="rounded card-icon bg-soft-primary">
                                                         <i className="ri-file-user-line" />
