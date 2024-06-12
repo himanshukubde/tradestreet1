@@ -4,9 +4,11 @@ import { swap, useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'
-import { lazy } from "react";
+ 
+
 const AddClient = () => {
 
+  const navigate = useNavigate()
   const location = useLocation()
   const [getSymbolData, setSymbolData] = useState({
     loading: true,
@@ -46,11 +48,11 @@ const AddClient = () => {
       Slvalue: 5.0,
       TStype: "Point",
       Quantity: 5,
-      LowerRange: 0.0,
-      HigherRange: 0.0,
+      LowerRange: 1,
+      HigherRange: 1,
       HoldExit: "",
-      EntryPrice: 0.0,
-      EntryRange: 0.0,
+      EntryPrice: 1,
+      EntryRange: 1,
       EntryTime: "",
       ExitTime: "",
       ExitDay: "",
@@ -85,9 +87,9 @@ const AddClient = () => {
       if (!values.Exchange) {
         errors.Exchange = "Select Exchange type"
       }
-      if (!values.Instrument) {
-        errors.Instrument = "Select Instrument type"
-      }
+      // if (!values.Instrument) {
+      //   errors.Instrument = "Select Instrument type"
+      // }
       if (!values.Symbol) {
         errors.Symbol = "Select Symbol type"
       }
@@ -97,18 +99,18 @@ const AddClient = () => {
       if (!values.Strike) {
         errors.Strike = "Select Strike Price type"
       }
-      if (!values.expirydata1) {
-        errors.expirydata1 = "Select expirydata type"
-      }
+      // if (!values.expirydata1) {
+      //   errors.expirydata1 = "Select expirydata type"
+      // }
       if (!values.TType) {
         errors.TType = "Select Transaction Type"
       }
       if (!values.Quantity) {
         errors.Quantity = "Select Quantity type"
       }
-      if (!values.HoldExit) {
-        errors.HoldExit = "Enter HoldExit type"
-      }
+      // if (!values.HoldExit) {
+      //   errors.HoldExit = "Enter HoldExit type"
+      // }
       if (!values.ExitTime) {
         errors.ExitTime = "Select ExitTime type"
       }
@@ -117,8 +119,6 @@ const AddClient = () => {
       }
       if (!values.ExitDay) {
         errors.ExitDay = "Select ExitDay type"
-      
-       
       }
 
       return errors;
@@ -179,6 +179,9 @@ const AddClient = () => {
               timer: 1500,
               timerProgressBar: true
             });
+            setTimeout(()=>{
+              navigate('/admin/allscript')
+            },1500)
           }
           else {
             Swal.fire({
@@ -315,7 +318,7 @@ const AddClient = () => {
       name: "expirydata1",
       label: "Expiry Date",
       type: "select",
-      options: getExpiryDate.data && getExpiryDate.data.map((item) => ({
+      options: getExpiryDate && getExpiryDate.data.map((item) => ({
         label: item,
         value: item
       })),
@@ -491,7 +494,7 @@ const AddClient = () => {
 
 
   const getSymbol = async () => {
-    if (formik.values.Instrument && formik.values.Exchange) {
+    if ( formik.values.Exchange) {
       const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
       await Get_Symbol(data)
         .then((response) => {
@@ -552,7 +555,7 @@ const AddClient = () => {
 
 
   const getExpiry = async () => {
-    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike) {
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike && formik.values.Exchange!='NSE' ) {
       const data = {
         Exchange: formik.values.Exchange,
         Instrument: formik.values.Instrument,
@@ -568,7 +571,16 @@ const AddClient = () => {
               data: response['Expiry Date']
             })
 
+          }else{
+            setExpiryDate({
+              loading: false,
+              data: []
+            })
+
           }
+        })
+        .catch((err)=>{
+          console.log("Error in finding the Expiry date", err)
         })
     }
 
@@ -596,18 +608,26 @@ const AddClient = () => {
       formik.setFieldValue('EntryRange', "1")
 
     }
+    if(formik.values.Instrument== "FUTIDX" || formik.values.Instrument == "FUTSTK"){
+      formik.setFieldValue('Optiontype', "")
+      formik.setFieldValue('Strike', "")
+    }
+    if(formik.values.Exchange== "NSE" ){
+      formik.setFieldValue('Instrument', "")
+      
+    }
 
-  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range])
+  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range , formik.values.Instrument , formik.values.Exchange])
 
 
-
+ 
   return (
     <>
       <AddForm
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
-        page_title="Add Script"
+        page_title="Add Script scalping"
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}

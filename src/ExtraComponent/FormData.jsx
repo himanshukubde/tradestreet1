@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { MoveLeft, Plus } from "lucide-react";
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+
 
 const DynamicForm = ({
   fields,
@@ -78,6 +84,8 @@ const DynamicForm = ({
   const PerTradeValueset = (value) => {
     formik.setFieldValue("per_trade_value", value.target.value);
   };
+
+  const minTime = dayjs().hour(9).minute(15);
 
 
 
@@ -525,8 +533,6 @@ const DynamicForm = ({
                             ))}
                           </div>
                         </>
-
-
                       ) : field.type === "password" ? (
                         <>
                           <div className={`col-lg-${field.col_size}`}>
@@ -855,6 +861,41 @@ const DynamicForm = ({
                           </div>
                         </>
 
+                      ) : field.type === "timepiker" ? (
+                        <>
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="input-block mb-3 flex-column">
+                              <label className={`col-lg-${field.label_size}`}>
+                                {field.label}
+                                <span className="text-danger">*</span>
+                              </label>
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <MobileTimePicker
+                                 
+                                  value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm') : null}
+                                  onChange={(newValue) => {
+                                    formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm') : '');
+                                  }}
+                                  minTime={minTime}
+                                  renderInput={(params) => (
+                                    <input
+                                      {...params.inputProps}
+                                      aria-describedby="basic-addon1"
+                                      className="form-control"
+                                      placeholder={`Enter ${field.label}`}
+                                      readOnly={field.disable}
+                                      id={field.name}
+                                      name={field.name}
+                                    />
+                                  )}
+                                />
+                              </LocalizationProvider>
+                              {formik.touched[field.name] && formik.errors[field.name] ? (
+                                <div style={{ color: 'red' }}>{formik.errors[field.name]}</div>
+                              ) : null}
+                            </div>
+                          </div>
+                        </>
                       ) : (
 
                         <>

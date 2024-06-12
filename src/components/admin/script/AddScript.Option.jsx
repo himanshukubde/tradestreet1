@@ -5,11 +5,14 @@ import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE } from '../../Common API/Admin'
 import { lazy } from "react";
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 const AddClient = () => {
-
     const location = useLocation()
-
-
+    const [showTimePiker, setShowTimePiker] = useState('')
     const formik = useFormik({
 
         initialValues: {
@@ -18,65 +21,130 @@ const AddClient = () => {
             Strategy: "",
             ETPattern: "",
             Timeframe: "",
-            Exchange: "NFO",
+            Exchange: "",
             Symbol: "",
             Instrument: "FUTIDX",
-            Strike: "0",
+            Strike: "",
             Optiontype: "",
-            Targetvalue: "",
-            Slvalue: "",
+            Targetvalue: 1.0,
+            Slvalue: 1.0,
             TStype: "",
-            Quantity: "",
-            LowerRange: "",
-            HigherRange: "",
+            Quantity: 5,
+            LowerRange: 0.0,
+            HigherRange: 0.0,
             HoldExit: "",
             EntryPrice: 0.0,
             EntryRange: 0.0,
             EntryTime: "",
             ExitTime: "",
             ExitDay: "",
-            TradeExecution: "",
+            TradeExecution: "Paper Trade",
             FixedSM: "",
             TType: "",
-            serendate: "",
-            expirydata1: "",
+            serendate: "2023-10-25",
+            expirydata1: "2024-06-27",
             Expirytype: "",
             Striketype: "",
             DepthofStrike: "",
             DeepStrike: "",
             Group: "",
-            CEDepthLower: "",
-            CEDepthHigher: "",
-            PEDepthLower: "",
-            PEDepthHigher: "",
-            CEDeepLower: "",
-            CEDeepHigher: "",
-            PEDeepLower: "",
-            PEDeepHigher: "",
-
+            CEDepthLower: 0.0,
+            CEDepthHigher: 0.0,
+            PEDepthLower: 0.0,
+            PEDepthHigher: 0.0,
+            CEDeepLower: 0.0,
+            CEDeepHigher: 0.0,
+            PEDeepLower: 0.0,
+            PEDeepHigher: 0.0,
+            TradeCount: 2
         },
 
         validate: (values) => {
             let errors = {};
-            if(!values.Strategy){
-                errors.Strategy = "HELLO CP"
+            if (!values.Strategy) {
+                errors.Strategy = "Select Strategy type"
             }
-            if(!values.Quantity){
-                errors.Quantity = "Enter Lot size"
+            if (!values.ETPattern) {
+                errors.ETPattern = "Select ETPattern type"
             }
-
+            if (!values.Symbol) {
+                errors.Symbol = "Select Symbol type"
+            }
+            if (!values.Targetvalue) {
+                errors.Targetvalue = "Select Targetvalue type"
+            }
+            if (!values.Slvalue) {
+                errors.Slvalue = "Select Slvalue type"
+            }
+            if (!values.TStype) {
+                errors.TStype = "Select TStype type"
+            }
+            if (!values.Quantity) {
+                errors.Quantity = "Select Quantity type"
+            }
+            if (!values.EntryTime) {
+                errors.EntryTime = "Select EntryTime type"
+            }
+            if (!values.ExitTime) {
+                errors.ExitTime = "Select ExitTime type"
+            }
+            if (!values.ExitDay) {
+                errors.ExitDay = "Select ExitDay type"
+            }
+            if (!values.Expirytype) {
+                errors.Expirytype = "Select Expirytype type"
+            }
+            if (!values.Striketype) {
+                errors.Striketype = "Select Striketype type"
+            }
             return errors;
         },
         onSubmit: async (values) => {
             const req = {
-
+                MainStrategy: location.state.data.selectStrategyType,
+                Username: location.state.data.selectGroup,
+                Strategy: values.Strategy,
+                ETPattern: values.ETPattern,
+                Timeframe: "",
+                Exchange: "",
+                Symbol: values.Symbol,
+                Instrument: "FUTIDX",
+                Strike: "",
+                Optiontype: "",
+                Targetvalue: values.Targetvalue,
+                Slvalue: values.Slvalue,
+                TStype: values.TStype,
+                Quantity: values.Quantity,
+                LowerRange: 0.0,
+                HigherRange: 0.0,
+                HoldExit: "",
+                EntryPrice: 0.0,
+                EntryRange: 0.0,
+                EntryTime: values.EntryTime,
+                ExitTime: values.ExitTime,
+                ExitDay: values.ExitDay,
+                TradeExecution: "Paper Trade",
+                FixedSM: "",
+                TType: "",
+                serendate: "2023-10-25",
+                expirydata1: "2024-06-27",
+                Expirytype: values.Expirytype,
+                Striketype: values.Striketype,
+                DepthofStrike: values.DepthofStrike,
+                DeepStrike: "",
+                Group: "",
+                CEDepthLower: 0.0,
+                CEDepthHigher: 0.0,
+                PEDepthLower: 0.0,
+                PEDepthHigher: 0.0,
+                CEDeepLower: 0.0,
+                CEDeepHigher: 0.0,
+                PEDeepLower: 0.0,
+                PEDeepHigher: 0.0,
+                TradeCount: 2
             }
-
-
         },
     });
-
-
     useEffect(() => {
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
         formik.setFieldValue('Strategy', "ShortStrangle")
@@ -86,19 +154,17 @@ const AddClient = () => {
         formik.setFieldValue('TStype', "Percentage")
         formik.setFieldValue('Targetvalue', "1.00")
         formik.setFieldValue('Slvalue', "1.00")
-        formik.setFieldValue('Quantity', "111")
+        formik.setFieldValue('Quantity', "1")
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('EntryTime', "00:05")
-        formik.setFieldValue('ExitTime', "00:05") 
+        formik.setFieldValue('ExitTime', "00:05")
         formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', "1")
         formik.setFieldValue('ATM', "1")
         formik.setFieldValue('Lower_Range', "1")
-        formik.setFieldValue('Higher_Range', "1")    
+        formik.setFieldValue('Higher_Range', "1")
 
-      }, [])
-    
-
+    }, [])
 
     const fields = [
         {
@@ -230,13 +296,7 @@ const AddClient = () => {
         {
             name: "EntryTime",
             label: "Entry Time",
-            type: "select",
-            options: [
-                { label: "00:05", value: "00:05" },
-                { label: "00:04", value: "00:04" },
-                { label: "00:03", value: "00:03" },
-                { label: "00:02", value: "00:02" },
-            ],
+            type: "timepiker",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -245,13 +305,7 @@ const AddClient = () => {
         {
             name: "ExitTime",
             label: "Exit Time",
-            type: "select",
-            options: [
-                { label: "00:05", value: "00:05" },
-                { label: "00:04", value: "00:04" },
-                { label: "00:03", value: "00:03" },
-                { label: "00:02", value: "00:02" },
-            ],
+            type: "timepiker",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -279,7 +333,7 @@ const AddClient = () => {
             label: "Depth of Strike",
             type: "number",
             hiding: false,
-            showWhen: (value) => value.Striketype == "Depth_of_Strike" ,
+            showWhen: (value) => value.Striketype == "Depth_of_Strike",
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -328,7 +382,7 @@ const AddClient = () => {
     ];
 
 
-   
+
 
 
 
@@ -336,13 +390,14 @@ const AddClient = () => {
     return (
         <>
             <AddForm
-                fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values) )}
+                fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
                 page_title="Add Script option"
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}
                 btn_name1_route={"/admin/allscript"}
             />
+
         </>
     );
 };
