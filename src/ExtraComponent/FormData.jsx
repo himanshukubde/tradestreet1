@@ -6,7 +6,7 @@ import * as React from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 
 const DynamicForm = ({
@@ -85,7 +85,7 @@ const DynamicForm = ({
     formik.setFieldValue("per_trade_value", value.target.value);
   };
 
-  const minTime = dayjs().hour(9).minute(15);
+  const minTime = dayjs().hour(9).minute(15).second(0);
 
 
 
@@ -870,13 +870,15 @@ const DynamicForm = ({
                                 <span className="text-danger">*</span>
                               </label>
                               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <MobileTimePicker
-                                 
-                                  value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm') : null}
+                                <TimePicker
+                                  
+                                  value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm:ss') : null}
                                   onChange={(newValue) => {
-                                    formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm') : '');
+                                    formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm:ss') : '');
                                   }}
                                   minTime={minTime}
+                                  views={['hours', 'minutes', 'seconds']}
+                                  ampm={false} // This sets the time picker to 24-hour format
                                   renderInput={(params) => (
                                     <input
                                       {...params.inputProps}
