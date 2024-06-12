@@ -120,6 +120,17 @@ export const GET_EXPIRY_DATE = async (data) => {
     }
     catch (err) {
         return err
+  
+    }
+}
+
+export const AddScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Addscript`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
     }
 }
 

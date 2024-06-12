@@ -18,7 +18,7 @@ const Addscript = () => {
     })
 
 
- 
+
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
@@ -82,11 +82,15 @@ const Addscript = () => {
 
     const handleAddScript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
-        navigate( selectStrategyType == "Scalping" ? '/admin/addscript/scalping' : '/admin/addscript/option' , { state: { data } });
+        navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
+            selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
+
+
     }
 
+    console.log("CPP :", selectStrategyType)
     useEffect(() => {
-        if(getGroupData.data && getGroupData.data.length > 0) {
+        if (getGroupData.data && getGroupData.data.length > 0) {
             setSelectGroup(getGroupData.data[0].GroupName);
         }
     }, [getGroupData]);
@@ -121,7 +125,7 @@ const Addscript = () => {
                                                     <option value={item.GroupName}>{item.GroupName}</option>
                                                 </>
                                             })}
- 
+
 
                                         </select>
                                     </div>
@@ -131,8 +135,8 @@ const Addscript = () => {
                                             onChange={(e) => setStrategyType(e.target.value)}
                                             value={selectStrategyType}>
                                             <option value={"Scalping"}>Scalping</option>
-                                            <option value={"Option"}>Option</option>
-                                            <option value={"Pattern"}>Pattern</option>
+                                            <option value={"Option Strategy"}>Option Strategy</option>
+                                            <option value={"Pattern Script"}>Pattern Script</option>
                                             <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
                                             <option value={"PatternOption"}>PatternOption</option>
                                         </select>

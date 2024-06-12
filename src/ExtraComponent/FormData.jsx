@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { MoveLeft, Plus } from "lucide-react";
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+
 
 const DynamicForm = ({
   fields,
@@ -78,6 +84,8 @@ const DynamicForm = ({
   const PerTradeValueset = (value) => {
     formik.setFieldValue("per_trade_value", value.target.value);
   };
+
+  const minTime = dayjs().hour(9).minute(15);
 
 
 
@@ -304,12 +312,13 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
+                                  <option disabled={true} value="">{`Select ${field.name}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
                                       key={option.value}
                                       value={option.value}
-                                      selected={index === 0}
+
                                     >
                                       {option.label}
                                     </option>
@@ -420,7 +429,7 @@ const DynamicForm = ({
                             {field.parent_label}
                           </label>
 
-                          <div className="d-flex  mb-4">
+                          <div className="d-flex mb-4">
                             <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
                               <input
                                 type={field.type}
@@ -450,7 +459,7 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title2}
                               >
                                 {field.title2}
                               </label>
@@ -468,7 +477,7 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title3}
                               >
                                 {field.title3}
                               </label>
@@ -486,11 +495,42 @@ const DynamicForm = ({
                               />
                               <label
                                 className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.name}
+                                htmlFor={field.title4}
                               >
                                 {field.title4}
                               </label>
                             </div>
+                          </div>
+                        </>
+                      ) : field.type === "radio1" ? (
+                        <>
+                          <label
+                            className={`col-lg-${field.label_size} col-form-label fw-bold text-decoration-underline`}
+                            htmlFor={field.parent_label}
+                          >
+                            {field.parent_label}
+                          </label>
+
+                          <div className="d-flex mb-4">
+                            {field.title && field.title.map((item) => (
+                              <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`} key={item.title}>
+                                <input
+                                  type="radio"
+                                  name={field.name} // Ensure the name is consistent for all options
+                                  value={item.value}
+                                  className="form-check-input"
+                                  id={item.title}
+                                  onChange={formik.handleChange} // Use formik's handleChange to capture the value
+                                  checked={formik.values[field.name] === item.value} // Set the checked attribute based on formik values
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label mx-2`}
+                                  htmlFor={item.title}
+                                >
+                                  {item.title}
+                                </label>
+                              </div>
+                            ))}
                           </div>
                         </>
                       ) : field.type === "password" ? (
@@ -821,6 +861,41 @@ const DynamicForm = ({
                           </div>
                         </>
 
+                      ) : field.type === "timepiker" ? (
+                        <>
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="input-block mb-3 flex-column">
+                              <label className={`col-lg-${field.label_size}`}>
+                                {field.label}
+                                <span className="text-danger">*</span>
+                              </label>
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <MobileTimePicker
+                                 
+                                  value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm') : null}
+                                  onChange={(newValue) => {
+                                    formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm') : '');
+                                  }}
+                                  minTime={minTime}
+                                  renderInput={(params) => (
+                                    <input
+                                      {...params.inputProps}
+                                      aria-describedby="basic-addon1"
+                                      className="form-control"
+                                      placeholder={`Enter ${field.label}`}
+                                      readOnly={field.disable}
+                                      id={field.name}
+                                      name={field.name}
+                                    />
+                                  )}
+                                />
+                              </LocalizationProvider>
+                              {formik.touched[field.name] && formik.errors[field.name] ? (
+                                <div style={{ color: 'red' }}>{formik.errors[field.name]}</div>
+                              ) : null}
+                            </div>
+                          </div>
+                        </>
                       ) : (
 
                         <>

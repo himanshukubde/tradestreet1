@@ -23,8 +23,6 @@ const Login = () => {
 
         localStorage.setItem("Role", data.Role)
 
-
-
         if (data.Status == true) {
             if (data.Role === 'Admin') {
 
