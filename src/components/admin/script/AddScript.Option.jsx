@@ -58,7 +58,7 @@ const AddClient = () => {
             PEDeepHigher: 0.0,
             TradeCount: 2
         },
-
+        
         validate: (values) => {
             let errors = {};
             if (!values.Strategy) {
