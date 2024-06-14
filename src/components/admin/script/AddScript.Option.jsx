@@ -188,7 +188,6 @@ const AddClient = () => {
         formik.setFieldValue('Slvalue', 1.00)
         formik.setFieldValue('Quantity', 1)
         formik.setFieldValue('ExitDay', "Intraday")
-
         formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
         formik.setFieldValue('ATM', 1)
