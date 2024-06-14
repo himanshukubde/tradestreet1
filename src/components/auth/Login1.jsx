@@ -16,7 +16,7 @@ const Login = () => {
         .then((response)=>{
             
             if(response.Status){
-                localStorage.setItem("Role", data.Role)
+                localStorage.setItem("Role", response.Role)
                 Swal.fire({
                     title: "Login!",
                     text: "User Login  successfully!",
