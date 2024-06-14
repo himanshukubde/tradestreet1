@@ -869,9 +869,10 @@ const DynamicForm = ({
                                 {field.label}
                                 <span className="text-danger">*</span>
                               </label>
-                              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <TimePicker
                                   
+                                  <LocalizationProvider dateAdapter={AdapterDayjs}  >
+                                <TimePicker
+                             
                                   value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm:ss') : null}
                                   onChange={(newValue) => {
                                     formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm:ss') : '');
@@ -881,13 +882,15 @@ const DynamicForm = ({
                                   ampm={false} // This sets the time picker to 24-hour format
                                   renderInput={(params) => (
                                     <input
+                                
                                       {...params.inputProps}
                                       aria-describedby="basic-addon1"
-                                      className="form-control"
+                                      className="form-control py-0"
                                       placeholder={`Enter ${field.label}`}
                                       readOnly={field.disable}
                                       id={field.name}
                                       name={field.name}
+                                    
                                     />
                                   )}
                                 />

@@ -9,6 +9,7 @@ const Addscript = () => {
         loading: true,
         data: []
     })
+    
     const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
@@ -23,6 +24,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
+                  
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -88,7 +90,7 @@ const Addscript = () => {
 
     }
 
-    console.log("CPP :", selectStrategyType)
+    
     useEffect(() => {
         if (getGroupData.data && getGroupData.data.length > 0) {
             setSelectGroup(getGroupData.data[0].GroupName);
@@ -136,7 +138,7 @@ const Addscript = () => {
                                             value={selectStrategyType}>
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
-                                            <option value={"Pattern Script"}>Pattern Script</option>
+                                            <option value={"Pattern"}>Pattern Script</option>
                                             <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
                                             <option value={"PatternOption"}>PatternOption</option>
                                         </select>

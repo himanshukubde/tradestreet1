@@ -107,7 +107,7 @@ const AddClient = () => {
         ExitTime: values.ExitTime
       }
 
-      console.log("CPPP:", req)
+    
     },
   });
 

@@ -203,8 +203,6 @@ const AddClient = () => {
   useEffect(() => {
     formik.setFieldValue('Strategy', "Multi Directional")
     formik.setFieldValue('Exchange', "NFO")
-
-
   }, [])
 
 
@@ -555,7 +553,7 @@ const AddClient = () => {
 
 
   const getExpiry = async () => {
-    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike && formik.values.Exchange!='NSE' ) {
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol   && formik.values.Exchange!='NSE' ) {
       const data = {
         Exchange: formik.values.Exchange,
         Instrument: formik.values.Instrument,

@@ -11,7 +11,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        const response = await fetch('http://193.239.237.147:8000/Login', {
+        const response = await fetch('http://193.239.237.95:8000/Login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

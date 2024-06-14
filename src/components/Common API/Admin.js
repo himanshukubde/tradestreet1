@@ -4,6 +4,7 @@ import * as Config from "../../Utils/Config";
 export const CreateAccount = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}AdminSignup`, data)
+        
         return res?.data
     }
     catch (err) {
@@ -120,7 +121,7 @@ export const GET_EXPIRY_DATE = async (data) => {
     }
     catch (err) {
         return err
-  
+
     }
 }
 
@@ -134,6 +135,39 @@ export const AddScript = async (data) => {
     }
 }
 
+export const Get_Pattern_Time_Frame = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}Timeframe`)
+        return res?.data
 
- 
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Get_Pattern_Name = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}Pattern/CandleStick`)
+        return res?.data
+
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Get_Pattern_Charting = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}Pattern/Charting`)
+        return res?.data
+
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+
 
