@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import {LoginPage} from '../Common API/Common'
 
 const Login = () => {
     const [Username, setUserName] = useState('');
@@ -9,31 +11,44 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-
-        const response = await fetch('http://193.239.237.95:8000/Login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ Username: Username, password: password }),
-        });
-
-        const data = await response.json();
-
-        localStorage.setItem("Role", data.Role)
-
-        if (data.Status == true) {
-            if (data.Role === 'Admin') {
-
-                navigate('/dashboards');
-            } else if (data.Role === 'User') {
-
-                navigate('/ dashboard');
+        const data = { Username: Username, password: password}
+        await LoginPage(data)
+        .then((response)=>{
+            
+            if(response.Status){
+                localStorage.setItem("Role", data.Role)
+                Swal.fire({
+                    title: "Login!",
+                    text: "User Login  successfully!",
+                    icon: "success",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+                setTimeout(()=>{
+                    if (response.Role === 'Admin') {
+                        navigate('/admin/dashboards');
+                    } else if (response.Role === 'User') {
+        
+                        navigate('/user/dashboard');
+                    }
+                },1500)
             }
-        } else {
-            alert('Login failed');
-        }
+            else{
+
+                Swal.fire({
+                    title: "Error!",
+                    text: "User Login  Error!",
+                    icon: "error",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+
+            }
+        })
+        .catch((err)=>{
+            console.log("Error in user login", err)
+        })
+         
     };
     const toggle = (e) => {
         e.preventDefault();
@@ -201,7 +216,7 @@ const Login = () => {
                         <div className="sign-in-from">
                             <h1 className="mb-0">Sign in</h1>
                             <p>Enter your email address and password to access admin panel.</p>
-                            <form className="mt-4" onSubmit={handleLogin}>
+                            <div className="mt-4">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1" className="mb-2">
                                         UserName
@@ -254,7 +269,7 @@ const Login = () => {
                                             Remember Me
                                         </label>
                                     </div>
-                                    <button type="submit" className="btn btn-primary float-end">
+                                    <button type="submit" className="btn btn-primary float-end" onClick={handleLogin}>
                                         Sign in
                                     </button>
                                 </div>
@@ -280,7 +295,7 @@ const Login = () => {
                                         </li>
                                     </ul>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Userbroker = () => {
+
+    const [getBrokerInfo , setBrokerInfo] = useState({
+        loading: true,
+        data:[]
+    })
+
+    const getBrokerInformation = async()=>{
+    
+        
+    }
     return (
         <div>
             <div className='container-fluid'>
@@ -18,11 +28,11 @@ const Userbroker = () => {
 
                                     <div className="form-group col-md-6">
                                         <label htmlFor="user">Username</label>
-                                        <input type="text" className="form-control my-2" id="email1" />
+                                        <input type="text" className="form-control my-2" id="email1" placeholder='Enter User Name' />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="api">API Key</label>
-                                        <input type="text" className="form-control my-2" id="pwd" />
+                                        <input type="text" className="form-control my-2" id="pwd" placeholder='Enter API Key' />
                                     </div>
                                    
                                 </div>
