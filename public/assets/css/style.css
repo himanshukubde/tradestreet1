@@ -5067,6 +5067,11 @@ table th {
   white-space: nowrap;
 }
 
+
+table tr {
+  white-space: nowrap;
+}
+
 .password-eye {
   position: absolute;
   top: 10px;

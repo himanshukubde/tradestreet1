@@ -168,6 +168,17 @@ export const Get_Pattern_Charting = async () => {
     }
 }
 
+export const Get_All_Service = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Servicereport`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
 
 
 

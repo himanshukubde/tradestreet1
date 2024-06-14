@@ -1,6 +1,88 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { GetGroupNames, Get_All_Service } from '../../Common API/Admin'
+import { Eye } from 'lucide-react';
 
 const Userlog = () => {
+
+    const [getGroupData, setGroupData] = useState({
+        loading: true,
+        data: []
+    })
+    const [getServiceDetails, setServiceDetails] = useState({
+        loading: true,
+        data: []
+    })
+    const [selectStrategyType, setStrategyType] = useState('')
+
+
+
+
+    const getAllServiceGiven = async () => {
+        const data = { Strategy: selectStrategyType && selectStrategyType }
+        await Get_All_Service(data)
+            .then((response) => {
+                if (response.Status) {
+                    setServiceDetails({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setServiceDetails({
+                        loading: false,
+                        data: []
+                    })
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error in fainding the service", err)
+            })
+    }
+
+    useEffect(() => {
+        getAllServiceGiven()
+    }, [selectStrategyType])
+
+
+
+
+
+
+    const GetAllGroupDetails = async () => {
+        try {
+            await GetGroupNames()
+                .then((response) => {
+                    if (response.Status) {
+                        setGroupData({
+                            loading: false,
+                            data: response.StrGroupdf
+                        })
+                    }
+                    else {
+                        setGroupData({
+                            loading: false,
+                            data: []
+                        })
+                    }
+                })
+                .catch((err) => {
+                    console.log("Group data fetch error", err)
+                })
+        }
+        catch {
+            console.log("Group data fetch error")
+        }
+    }
+
+    useEffect(() => {
+        GetAllGroupDetails()
+    }, [])
+
+
+    useEffect(() => {
+        setStrategyType('Scalping')
+    }, []);
     return (
         <div>
             <div className="container-fluid">
@@ -13,160 +95,71 @@ const Userlog = () => {
                         </div>
                         <div className="iq-card-body">
 
-                            <form className="was-validated ">
+                            <div className="was-validated ">
                                 <div className='d-flex'>
-                                    <div className="form-group col-md-6 ms-2">
-                                        <label>Group Name</label>
-                                        <select className="form-select " required="">
 
-                                            <option value={1}>Subh</option>
-                                            <option value={2}>Test</option>
-                                            <option value={3}>Three</option>
+                                    <div className="form-group col-md-4s ms-2">
+                                        <label>Strategy Type</label>
+                                        <select className="form-select" required=""
+                                            onChange={(e) => setStrategyType(e.target.value)}
+                                            value={selectStrategyType}>
+                                            <option value={"Scalping"}>Scalping</option>
+                                            <option value={"Option Strategy"}>Option Strategy</option>
+                                            <option value={"Pattern"}>Pattern Script</option>
+                                            <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
+                                            <option value={"PatternOption"}>PatternOption</option>
+
                                         </select>
-
-                                    </div>
-                                    <div className="form-group col-md-6 ms-2">
-                                        <label>UserName</label>
-                                        <select className="form-select" required="">
-                                            <option value={1}>Scalping</option>
-                                            <option value={2}>Option</option>
-                                            <option value={3}>Pattern</option>
-                                            <option value={3}>MultipleLegStretegy</option>
-                                            <option value={3}>PatternOption</option>
-                                        </select>
-
                                     </div>
                                 </div>
-                            </form>
+                            </div>
 
                             <div className="iq-card-body">
                                 <div className="table-responsive">
                                     <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                                <th>Delete Script</th>
+                                                <th>S.No</th>
+                                                <th>Total Service</th>
+                                                <th>UserName</th>
+                                                <th>Used Service</th>
+                                                <th>NFO</th>
+                                                <th>NSE</th>
+                                                <th>MCX</th>
+                                                <th>CDS</th>
+                                                <th>Multi Directional</th>
+                                                <th>One Directional</th>
+                                                <th>Fixed Price</th>
+                                                <th>View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2012/03/29</td>
-                                                <td>$433,060</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Brielle Williamson</td>
-                                                <td>Integration Specialist</td>
-                                                <td>New York</td>
-                                                <td>61</td>
-                                                <td>2012/12/02</td>
-                                                <td>$372,000</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Herrod Chandler</td>
-                                                <td>Sales Assistant</td>
-                                                <td>San Francisco</td>
-                                                <td>59</td>
-                                                <td>2012/08/06</td>
-                                                <td>$137,500</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rhona Davidson</td>
-                                                <td>Integration Specialist</td>
-                                                <td>Tokyo</td>
-                                                <td>55</td>
-                                                <td>2010/10/14</td>
-                                                <td>$327,900</td>
-                                                <td> <span className="table-remove">
-                                                    <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                        Remove
-                                                    </button>
-                                                </span>
-                                                </td>
-                                            </tr>
-
-
+                                            {
+                                                getServiceDetails.data && getServiceDetails.data.map((item, index) => {
+                                                    return <tr>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item['Total Service']}</td>
+                                                        <td>{item.Username}</td>
+                                                        <td>{item.UsedService}</td>
+                                                        <td>{item.NFO}</td>
+                                                        <td>{item.NSE}</td>
+                                                        <td>{item.MCX}</td>
+                                                        <td>{item.CDS}</td>
+                                                        <td>{item.SingleScript}</td>
+                                                        <td>{item.OneDirection}</td>
+                                                        <td>{item['Fixed Price']}</td>
+                                                        <td> {<Eye />}</td>
+                                                    </tr>
+                                                })
+                                            }
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     )
 }
