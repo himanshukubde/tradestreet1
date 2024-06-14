@@ -412,7 +412,7 @@ const Header = () => {
                                                     </div>
                                                 </div>
                                             </Link>
-                                            <a href="profile-edit.html" className="iq-sub-card iq-bg-warning-hover">
+                                            <Link to="/user/editprofile" className="iq-sub-card iq-bg-warning-hover">
                                                 <div className="media align-items-center d-flex">
                                                     <div className="rounded card-icon bg-soft-warning">
                                                         <i className="ri-profile-line" />
@@ -422,7 +422,7 @@ const Header = () => {
                                                         <p className="mb-0 font-size-12">Modify your personal details.</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                             <a href="account-setting.html" className="iq-sub-card iq-bg-info-hover">
                                                 <div className="media align-items-center d-flex">
                                                     <div className="rounded card-icon bg-soft-info">
