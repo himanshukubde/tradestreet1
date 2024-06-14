@@ -1,6 +1,26 @@
 import React from 'react'
 
 const Userdashboard = () => {
+    function toggleTrade(rowId) {
+        var discontinueCheckBox = document.getElementById('discontinue-' + rowId);
+        var continueCheckBox = document.getElementById('continue-' + rowId);
+        var squareOffCheckBox = document.getElementById('squareoff-' + rowId);
+        var row = document.getElementById('row-' + rowId);
+
+        if (discontinueCheckBox.checked) {
+            row.classList.add('blurred');
+            continueCheckBox.classList.add('disabled-checkbox');
+            squareOffCheckBox.classList.add('disabled-checkbox');
+            continueCheckBox.checked = false;
+            squareOffCheckBox.checked = false;
+        } else {
+            row.classList.remove('blurred');
+            continueCheckBox.classList.remove('disabled-checkbox');
+            squareOffCheckBox.classList.remove('disabled-checkbox');
+        }
+    }
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -784,6 +804,9 @@ const Userdashboard = () => {
                                     <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>Discontinue Trade</th>
+                                                <th>Continue Trade</th>
+                                                <th>Square off</th>
                                                 <th>Sr.No</th>
                                                 <th>Scalp Type</th>
                                                 <th>Exchange</th>
@@ -795,14 +818,19 @@ const Userdashboard = () => {
                                                 <th>Quantity</th>
                                                 <th>Trading</th>
                                                 <th>Expiry date</th>
-                                                <th>Trade Excecution</th>
+                                                <th>Trade Execution</th>
                                                 <th>Exit Day</th>
                                                 <th>Entry Type</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr id="row-1">
+                                                <td><a  class="rtl-switch-toogle"><span class="form-check form-switch">
+                                                    <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="discontinue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
+                                                <td><a  class="rtl-switch-toogle"><span class="form-check form-switch">
+                                                    <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="continue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
+                                                <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
+                                                    <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="squareoff-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
                                                 <td>1</td>
                                                 <td>System Architect</td>
                                                 <td>Tiger Nixon</td>
@@ -818,139 +846,12 @@ const Userdashboard = () => {
                                                 <td>2011/04/25</td>
                                                 <td>$320,800</td>
                                             </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>System Architect</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
+                                           
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>
