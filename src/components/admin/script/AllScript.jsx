@@ -84,8 +84,6 @@ const Addscript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
         navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
             selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
-
-
     }
 
     console.log("CPP :", selectStrategyType)
@@ -97,7 +95,7 @@ const Addscript = () => {
 
     useEffect(() => {
         setStrategyType('Scalping')
-    }, []);
+    }, []); 
 
 
     return (
