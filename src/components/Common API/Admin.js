@@ -180,5 +180,17 @@ export const Get_All_Service = async (data) => {
 }
 
 
+export const get_User_Data = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Data`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
+
 
 
