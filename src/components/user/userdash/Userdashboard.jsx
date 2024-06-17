@@ -30,7 +30,7 @@ const Userdashboard = () => {
                             <div className="user-details-block">
                                 <div className="user-profile text-center">
                                     <img
-                                        src="assets/images/user/11.png"
+                                        src="assets/images/user/1.jpg"
                                         alt="profile-img"
                                         className="avatar-130 img-fluid"
                                     />
@@ -825,9 +825,9 @@ const Userdashboard = () => {
                                         </thead>
                                         <tbody>
                                             <tr id="row-1">
-                                                <td><a  class="rtl-switch-toogle"><span class="form-check form-switch">
+                                                <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
                                                     <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="discontinue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
-                                                <td><a  class="rtl-switch-toogle"><span class="form-check form-switch">
+                                                <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
                                                     <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="continue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
                                                 <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
                                                     <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="squareoff-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
@@ -846,7 +846,7 @@ const Userdashboard = () => {
                                                 <td>2011/04/25</td>
                                                 <td>$320,800</td>
                                             </tr>
-                                           
+
                                         </tbody>
                                     </table>
                                 </div>

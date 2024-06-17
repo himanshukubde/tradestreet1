@@ -11,6 +11,7 @@ import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import Last from '../components/user/pattern/Last';
 import Editprofile from '../components/user/userprofile/Editprofile';
+import Discription from '../components/user/describe/Discription';
 
 const UserRoute = () => {
 
@@ -29,8 +30,9 @@ const UserRoute = () => {
             <Route path="/last" element={<Last />} />
 
             <Route path="/addscript/scalping" element={<Addscript />} />
+            
             <Route path="/addscript/option" element={<AddScriptOption />} />
-
+            <Route path="/discription" element={<Discription />} />
           </Routes>
           <Footer />
         </div>

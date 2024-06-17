@@ -222,7 +222,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="discription" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Description</span>
                                         </Link>
