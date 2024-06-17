@@ -172,24 +172,7 @@ const Sidebar = () => {
                                             <span>Update Script Parameter</span>
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link to="servicereport" className="iq-waves-effect">
-                                            <i className="la la-envelope-open" />
-                                            <span>Discontinue Trade</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/tradehistory" className="iq-waves-effect">
-                                            <i className="las la-history"></i>
-                                            <span>Continue Trade</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="clientactivity" className="iq-waves-effect">
-                                            <i className="las la-radiation-alt" />
-                                            <span>Square Off</span>
-                                        </Link>
-                                    </li>
+                                    
 
                                     <li>
                                         <Link to="clientreport" className="iq-waves-effect">
@@ -222,7 +205,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="discription" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Description</span>
                                         </Link>
