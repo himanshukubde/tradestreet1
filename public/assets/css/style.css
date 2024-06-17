@@ -4939,7 +4939,7 @@ textarea.form-control {
 Rtl Switch 
 ===========================*/
 .navbar-list li a.rtl-switch-toogle {
-  font-size: 14px;
+  font-size: 24px;
 }
 
 .rtl-switch-toogle .form-switch {

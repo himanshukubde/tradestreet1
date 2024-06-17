@@ -12,6 +12,7 @@ import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import Last from '../components/user/pattern/Last';
 import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/describe/Discription';
+import Tradehistory from '../components/user/history/Tradehistory';
 
 const UserRoute = () => {
 
@@ -33,6 +34,7 @@ const UserRoute = () => {
             
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
+            <Route path="/tradehistory" element={<Tradehistory />} />
           </Routes>
           <Footer />
         </div>

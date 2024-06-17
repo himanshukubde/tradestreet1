@@ -181,7 +181,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="smtp" className="iq-waves-effect">
+                                        <Link to="tradehistory" className="iq-waves-effect">
                                             <i className="la la-palette" />
                                             <span>Trade History</span>
                                         </Link>
