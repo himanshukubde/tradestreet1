@@ -176,8 +176,6 @@ const AddClient = () => {
         },
     });
     useEffect(() => {
-
- 
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
         formik.setFieldValue('Strategy', "ShortStrangle")
         formik.setFieldValue('Symbol', "BANKNIFTY")
@@ -193,16 +191,10 @@ const AddClient = () => {
         formik.setFieldValue('ATM', 1)
         formik.setFieldValue('Lower_Range', 1)
         formik.setFieldValue('Higher_Range', 1)
-
     }, [])
 
     useEffect(() => {
-
-
-
         formik.setFieldValue('Strategy', formik.values.Measurment_Type == "Straddle/Strangle" ? "ShortStrangle" : formik.values.Measurment_Type == "Butterfly/Condor" ? "LongIronButterfly" : formik.values.Measurment_Type == "Spread" ? "BearCallSpread" : formik.values.Measurment_Type == "Ladder/Coverd" ? "BullCallLadder" : formik.values.Measurment_Type == "Collar/Ratio" ? "LongCollar" : formik.values.Measurment_Type == "Shifting/FourLeg" ? "ShortShifting" : "")
-
-
     }, [formik.values.Measurment_Type])
 
     const fields = [

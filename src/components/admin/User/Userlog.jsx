@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GetGroupNames, Get_All_Service, get_User_Data } from '../../Common API/Admin'
 import { Eye } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
-import Modal from '../../../ExtraComponent/Modal'
+
 
 const Userlog = () => {
 
@@ -260,7 +260,9 @@ const Userlog = () => {
                                                                         <td>{item.ShortShifting}</td>
                                                                         <td>{item.LongFourLegStrategy}</td>
                                                                         <td>{item.ShortFourLegStrategy}</td>
-                                                                        <td> {<Eye onClick={handleModal} />}</td>
+
+                                                                        <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
+
                                                                     </tr>
                                                                 })
                                                             }
@@ -303,7 +305,7 @@ const Userlog = () => {
                                                                             <td>{item.Candlestickpattern}</td>
                                                                             <td>{item.ChartPattern}</td>
 
-                                                                            <td> {<Eye onClick={handleModal} />}</td>
+                                                                            <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
 
                                                                         </tr>
                                                                     })
@@ -339,7 +341,8 @@ const Userlog = () => {
                                                                                 <td>{item.Username}</td>
                                                                                 <td>{item.UsedService}</td>
                                                                                 <td>{item['Marketwise Option Strategy']}</td>
-                                                                                <td> {<Eye onClick={handleModal} />}</td>
+                                                                                <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
+
 
                                                                             </tr>
                                                                         })
@@ -422,7 +425,8 @@ const Userlog = () => {
                                                                                     <td>{item.ShortShifting}</td>
                                                                                     <td>{item.LongFourLegStrategy}</td>
                                                                                     <td>{item.ShortFourLegStrategy}</td>
-                                                                                    <td> {<Eye onClick={handleModal} />}</td>
+                                                                                    <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
+
 
                                                                                 </tr>
                                                                             })
@@ -487,10 +491,10 @@ const Userlog = () => {
                                                         <th>TaskStatus</th>
                                                         <th>TaskTime</th>
                                                         <th>TradeCount</th>
-                                                         
+
 
                                                     </tr>
-                                                    
+
                                                 </thead>
                                                 <tbody>
                                                     {
