@@ -761,28 +761,7 @@ const Header = () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <a href="account-setting.html" className="iq-sub-card iq-bg-info-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-info">
-                                                                <i className="ri-account-box-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Account settings</h6>
-                                                                <p className="mb-0 font-size-12">Manage your account parameters.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="privacy-setting.html" className="iq-sub-card iq-bg-danger-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-danger">
-                                                                <i className="ri-lock-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Privacy Settings</h6>
-                                                                <p className="mb-0 font-size-12">Control your privacy parameters.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
+                                                    
                                                     <div className="d-inline-block w-100 text-center p-3">
                                                         <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
                                                             Log out

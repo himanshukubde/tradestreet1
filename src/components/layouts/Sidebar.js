@@ -141,12 +141,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
 
-                                    <li>
-                                        <Link to="broker" className="iq-waves-effect">
-                                            <i className="ri-home-8-fill" />
-                                            <span>Broker Credential</span>
-                                        </Link>
-                                    </li>
+
 
                                     <li>
                                         <Link to="allscript" className="iq-waves-effect">
@@ -166,20 +161,10 @@ const Sidebar = () => {
                                             <span>Last Patterns</span>
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link to="userlog" className="iq-waves-effect">
-                                            <i className="la la-cog" />
-                                            <span>Update Script Parameter</span>
-                                        </Link>
-                                    </li>
-                                    
 
-                                    <li>
-                                        <Link to="clientreport" className="iq-waves-effect">
-                                            <i className="la la-map-marker" />
-                                            <span>Trading Report</span>
-                                        </Link>
-                                    </li>
+
+
+
                                     <li>
                                         <Link to="tradehistory" className="iq-waves-effect">
                                             <i className="la la-palette" />

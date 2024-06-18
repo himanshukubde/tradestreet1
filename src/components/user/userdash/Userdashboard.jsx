@@ -756,56 +756,462 @@ const Userdashboard = () => {
                 <div className="row">
                     <div className="col-sm-12">
                         <div className="iq-card">
-                            <div className="iq-card-header d-flex justify-content-between">
-                                <div className="iq-header-title">
-                                    <h4 className="card-title">Scalping</h4>
-                                </div>
-                                <div className="iq-card-header-toolbar d-flex align-items-center">
-                                    <div className="dropdown">
-                                        <span
-                                            className="dropdown-toggle text-primary"
-                                            id="dropdownMenuButton5"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
+                            <div className="iq-card-body">
+
+                                <ul
+                                    className="nav nav-tabs justify-content-center"
+                                    id="myTab-2"
+                                    role="tablist"
+                                >
+                                    <li className="nav-item" role="presentation">
+                                        <a
+                                            className="nav-link active"
+                                            id="home-tab-justify"
+                                            data-bs-toggle="tab"
+                                            href="#home-justify"
+                                            role="tab"
+                                            aria-controls="home"
+                                            aria-selected="true"
                                         >
-                                            <i className="ri-more-fill" />
-                                        </span>
-                                        <div
-                                            className="dropdown-menu dropdown-menu-end"
-                                            aria-labelledby="dropdownMenuButton5"
-                                            style={{}}
+                                            Current Script
+                                        </a>
+                                    </li>
+                                    <li className="nav-item" role="presentation">
+                                        <a
+                                            className="nav-link"
+                                            id="profile-tab-justify"
+                                            data-bs-toggle="tab"
+                                            href="#profile-justify"
+                                            role="tab"
+                                            aria-controls="profile"
+                                            aria-selected="false"
+                                            tabIndex={-1}
                                         >
-                                            <a className="dropdown-item" href="#">
-                                                {/* <i className="ri-eye-fill me-2" /> */}
-                                                Scalping
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                {/* <i className="ri-delete-bin-6-fill me-2" /> */}
-                                                Open Position
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                {/* <i className="ri-pencil-fill me-2" /> */}
-                                                Open Position
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                {/* <i className="ri-printer-fill me-2" /> */}
-                                                Pattern
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                {/* <i className="ri-file-download-fill me-2" /> */}
-                                                PatternOption
-                                            </a>
+                                            Open Position
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <div className="tab-content" id="myTabContent-3">
+                                    <div
+                                        className="tab-pane fade show active"
+                                        id="home-justify"
+                                        role="tabpanel"
+                                        aria-labelledby="home-tab-justify"
+                                    >
+
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Scalping</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+                                                            <th>Trading</th>
+                                                            <th>Square off</th>
+                                                            <th>Update Script</th>
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+                                                            <td><div className="iq-checkbox-mail">
+                                                                <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
+                                                                    <input type="checkbox" className="custom-control-input" id="mailk" />
+                                                                    <label className="custom-control-label" htmlFor="mailk" />
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            </td>
+                                                            <td style={{ textAlign: "center" }}><a href="#">
+                                                                <i className="ri-delete-bin-line" style={{ "fontSize": "22px" }} />
+                                                            </a>
+
+                                                            </td>
+
+
+
+
+                                                            <td style={{ textAlign: "center" }}>
+                                                                <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
+                                                                    <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
+                                                                </button>
+                                                                {/* <a href="" id='modal1' data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"></a> */}
+                                                            </td>
+
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Option</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable1" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+                                                            <th>Trading</th>
+                                                            <th>Square off</th>
+                                                            <th>Update Script</th>
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+                                                            <td><div className="iq-checkbox-mail">
+                                                                <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
+                                                                    <input type="checkbox" className="custom-control-input" id="mai" />
+                                                                    <label className="custom-control-label" htmlFor="mai" />
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            </td>
+                                                            <td style={{ textAlign: "center" }}><a href="#">
+                                                                <i className="ri-delete-bin-line" style={{ "fontSize": "22px" }} />
+                                                            </a>
+
+                                                            </td>
+
+
+
+
+                                                            <td style={{ textAlign: "center" }}>
+                                                                <button data-bs-toggle="modal" data-bs-target="#myModal1" style={{ border: "none" }}>
+                                                                    <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
+                                                                </button></td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Pattern</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable2" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+                                                            <th>Trading</th>
+                                                            <th>Square off</th>
+                                                            <th>Update Script</th>
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+                                                            <td><div className="iq-checkbox-mail">
+                                                                <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
+                                                                    <input type="checkbox" className="custom-control-input" id="mail1" />
+                                                                    <label className="custom-control-label" htmlFor="mail1" />
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            </td>
+                                                            <td style={{ textAlign: "center" }}><a href="#">
+                                                                <i className="ri-delete-bin-line" style={{ "fontSize": "22px" }} />
+                                                            </a>
+
+                                                            </td>
+
+
+
+
+                                                            <td style={{ textAlign: "center" }}> <button data-bs-toggle="modal" data-bs-target="#myModal2" style={{ border: "none" }}>
+                                                                <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
+                                                            </button></td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div
+                                        className="tab-pane fade"
+                                        id="profile-justify"
+                                        role="tabpanel"
+                                        aria-labelledby="profile-tab-justify"
+                                    >
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Scalping</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Option</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-header d-flex justify-content-between">
+                                            <div className="iq-header-title">
+                                                <h4 className="card-title">Pattern</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="iq-card-body">
+                                            <div className="table-responsive">
+                                                <table id="datatable" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div className="iq-card-body">
+
+                            {/* <div className="iq-card-body">
                                 <div className="table-responsive">
                                     <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Discontinue Trade</th>
-                                                <th>Continue Trade</th>
+
                                                 <th>Square off</th>
                                                 <th>Sr.No</th>
                                                 <th>Scalp Type</th>
@@ -827,10 +1233,11 @@ const Userdashboard = () => {
                                             <tr id="row-1">
                                                 <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
                                                     <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="discontinue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
-                                                <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
-                                                    <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="continue-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
-                                                <td><a class="rtl-switch-toogle"><span class="form-check form-switch">
-                                                    <input class="form-check-input rtl-switch" type="checkbox" role="switch" id="squareoff-1" onclick="toggleTrade(1)" /><span class="rtl-toggle-tooltip ltr-tooltip">on</span><span class="rtl-toggle-tooltip rtl-tooltip">off</span></span></a></td>
+
+                                                <td><a href="#">
+                                                    <i className="ri-delete-bin-line" />
+                                                </a>
+                                                </td>
                                                 <td>1</td>
                                                 <td>System Architect</td>
                                                 <td>Tiger Nixon</td>
@@ -850,7 +1257,7 @@ const Userdashboard = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> */}
 
 
                         </div>
@@ -859,6 +1266,403 @@ const Userdashboard = () => {
                 </div>
 
 
+            </div>
+            <div className="modal" id="myModal">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">Update Script Parameter</h4>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" />
+                        </div>
+                        {/* Modal body */}
+                        <div className="modal-body"><div className="row">
+                            <div className="col-md-6 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Measurement Type</label>
+                                    <select className="form-select" required="">
+                                        <option value=""></option>
+                                        <option value={1}>Point</option>
+                                        <option value={2}>Percentage</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault01">Quantity</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault01"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Target</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Stoploss</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Lower Price</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Higeher Price</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Lower Price</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Higher Price</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Hold/Exit
+                                    </label>
+                                    <select className="form-select" required="">
+
+                                        <option value={1}>Hold</option>
+                                        <option value={2}>Exit</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Entry Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Exit Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                        </div>
+                        </div>
+                        {/* Modal footer */}
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" className="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal" id="myModal1">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">Update Script Parameter</h4>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" />
+                        </div>
+                        {/* Modal body */}
+                        <div className="modal-body"><div className="row">
+                            <div className="col-md-6 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Measurement Type</label>
+                                    <select className="form-select" required="">
+                                        <option value=""></option>
+                                        <option value={1}>Point</option>
+                                        <option value={2}>Percentage</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault01">Quantity</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault01"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Target</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Stoploss</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Lower Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Higeher Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Lower Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Higher Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Hold/Exit
+                                    </label>
+                                    <select className="form-select" required="">
+
+                                        <option value={1}>Hold</option>
+                                        <option value={2}>Exit</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Entry Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Exit Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                        </div>
+                        </div>
+                        {/* Modal footer */}
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" className="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="modal" id="myModal2">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">Update Script Parametre</h4>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" />
+                        </div>
+                        {/* Modal body */}
+                        <div className="modal-body"><div className="row">
+                            <div className="col-md-6 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Measurement Type</label>
+                                    <select className="form-select" required="">
+                                        <option value=""></option>
+                                        <option value={1}>Point</option>
+                                        <option value={2}>Percentage</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault01">Quantity</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault01"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Target</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault02">Stoploss</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault02"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Lower Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault03">First Trade Higeher Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault03"
+                                    required=""
+                                />
+                            </div>
+
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Lower Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="validationDefault05">Higher Price</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <div className="form-group">
+                                    <label htmlFor="validationDefault03">Hold/Exit
+                                    </label>
+                                    <select className="form-select" required="">
+
+                                        <option value={1}>Hold</option>
+                                        <option value={2}>Exit</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Entry Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="validationDefault05">Exit Time</label>
+                                <input
+                                    type="datetime-local"
+                                    className="form-control"
+                                    id="validationDefault05"
+                                    required=""
+                                />
+                            </div>
+                        </div>
+                        </div>
+                        {/* Modal footer */}
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" className="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     )

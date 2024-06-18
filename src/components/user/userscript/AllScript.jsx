@@ -111,7 +111,7 @@ const Addscript = () => {
                         <div className="iq-card-body">
                             <form className="was-validated ">
                                 <div className='d-flex'>
-                                    <div className="form-group col-md-6 ms-2">
+                                    {/* <div className="form-group col-md-6 ms-2">
                                         <label>Group Name</label>
                                         <select className="form-select "
                                             required=""
@@ -126,7 +126,7 @@ const Addscript = () => {
 
 
                                         </select>
-                                    </div>
+                                    </div> */}
                                     <div className="form-group col-md-6 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
