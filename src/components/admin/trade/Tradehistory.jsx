@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { GetGroupNames, get_User_Data } from '../../Common API/Admin'
+import { GetGroupNames, get_User_Data , get_Trade_History } from '../../Common API/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const Tradehistory = () => {
@@ -9,11 +12,30 @@ const Tradehistory = () => {
     const [selectStrategyType, setStrategyType] = useState('')
     const [selectStrategyName, setStrategyName] = useState('')
     const [tradeHistory, setTradeHistory] = useState('')
+    const [selectedRowData, setSelectedRowData] = useState('');
+    const [ToDate, setToDate] = useState('');
+    const [FromDate, setFromDate] = useState('');
+    const [getAllTradeData, setAllTradeData] = useState({
+        loading: true,
+        data: []
+    })
+
     const [getGroupData, setGroupData] = useState({
         loading: true,
         data: []
     })
-    const [selectedCheckbox, setSelectedCheckbox] = useState(null);
+
+
+    // Date Formetor
+    const convertDateFormat = (date) => {
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+
 
     const GetAllGroupDetails = async () => {
         try {
@@ -83,11 +105,8 @@ const Tradehistory = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
-
                     const rowIndex = tableMeta.rowIndex;
-
                     return rowIndex + 1;
-
                 }
             },
         },
@@ -456,8 +475,6 @@ const Tradehistory = () => {
         },
     ];
 
-
-
     const columns2 = [
         {
             name: "S.No",
@@ -692,30 +709,62 @@ const Tradehistory = () => {
         },
     ];
 
+    const handleRowSelect = (rowData) => {
+        setSelectedRowData(rowData);
+    };
 
 
 
-    useEffect(() => {
-        if (getGroupData.data && getGroupData.data.length > 0) {
-            setSelectGroup(getGroupData.data[0].GroupName);
+
+
+    const handleSubmit = async () => {
+        const data = {
+            MainStrategy: selectStrategyType,
+            Strategy: selectedRowData && selectedRowData.ScalpType,
+            Symbol: selectedRowData && selectedRowData.Symbol,
+            Username: selectGroup,
+            ETPattern: '',
+            Timeframe: '',
+            From_date: convertDateFormat(FromDate),
+            To_date: convertDateFormat(ToDate),
+            Group: "",
+            TradePattern: "",
+            PatternName: ""
         }
-    }, [getGroupData]);
+        await get_Trade_History(data)
+            .then((response) => {
+                if (response.Status) {
+                    setAllTradeData({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setAllTradeData({
+                        loading: false,
+                        data: []
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the All TradeData", err)
+            })
+    }
+
+
+    // useEffect(() => {
+    //     if (getGroupData.data && getGroupData.data.length > 0) {
+    //         setSelectGroup(getGroupData.data[0].GroupName);
+    //     }
+    // }, [getGroupData]);
 
     useEffect(() => {
+        setSelectGroup('komal')
         setStrategyType('Scalping')
     }, []);
 
-
-
-
-    console.log("=", selectStrategyType && selectStrategyType === "Scalping" ? columns :
-        selectStrategyType && selectStrategyType === "Option Strategy" ? columns1 :
-            selectStrategyType && selectStrategyType === "Pattern" ? columns2 : columns)
-
-
     return (
         <div>
-
             <div className="container-fluid">
                 <div className="row">
                     <div className="iq-card">
@@ -725,10 +774,9 @@ const Tradehistory = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
-                            <form className="was-validated ">
+                            <div className="was-validated ">
                                 <div className='row'>
-
-                                    <div className="form-group col-lg-6">
+                                    <div className="form-group col-lg-3">
                                         <label>Select Username</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setSelectGroup(e.target.value)}
@@ -741,8 +789,7 @@ const Tradehistory = () => {
                                             })}
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-6">
-
+                                    <div className="form-group col-lg-3">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setStrategyType(e.target.value)}
@@ -750,32 +797,38 @@ const Tradehistory = () => {
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-                                            <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
-                                            <option value={"PatternOption"}>PatternOption</option>
+
                                         </select>
+                                    </div>
+                                    <div className="form-group col-lg-3 ">
+                                        <label>Select form Date</label>
+                                        <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
+
+                                    </div>
+                                    <div className="form-group col-lg-3">
+                                        <label>Select To Date</label>
+                                        <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                             {
                                 <div className="modal-body">
                                     <GridExample
-                                        //  columns={ columns}
-
-
                                         columns={selectStrategyType === "Scalping" ? columns :
                                             selectStrategyType === "Option Strategy" ? columns1 :
                                                 selectStrategyType === "Pattern" ? columns2 : columns
                                         }
-                                        data={tradeHistory.data} />
+                                        data={tradeHistory.data}
+                                        onRowSelect={handleRowSelect}
+                                    />
                                 </div>
                             }
+                            <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 };

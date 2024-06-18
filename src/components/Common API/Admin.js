@@ -192,5 +192,17 @@ export const get_User_Data = async (data) => {
 }
 
 
+export const get_Trade_History = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Tradehistory`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
+
 
 

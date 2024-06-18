@@ -169,7 +169,7 @@ const Userlog = () => {
                                                     <tbody>
                                                         {
                                                             getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                return <tr>
+                                                                return <tr key={index}>
                                                                     <td>{index + 1}</td>
                                                                     <td>{item['Total Service']}</td>
                                                                     <td>{item.Username}</td>

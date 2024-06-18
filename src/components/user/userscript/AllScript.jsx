@@ -118,11 +118,11 @@ const Addscript = () => {
                                             onChange={(e) => setSelectGroup(e.target.value)}
                                             value={selectGroup}
                                         >
-                                            {getGroupData.data && getGroupData.data.map((item) => {
-                                                return <>
-                                                    <option value={item.GroupName}>{item.GroupName}</option>
-                                                </>
-                                            })}
+                                            {getGroupData.data && getGroupData.data.map((item, index) => (
+
+                                                <option value={item.GroupName} key={index}>{item.GroupName}</option>
+
+                                            ))}
 
 
                                         </select>
@@ -188,7 +188,7 @@ const Addscript = () => {
                                         </thead>
                                         <tbody>
                                             {getAllService.data && getAllService.data.map((item, index) => {
-                                                return <tr>
+                                                return <tr key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>{item.Username}</td>
                                                     <td>{item.Exchange}</td>

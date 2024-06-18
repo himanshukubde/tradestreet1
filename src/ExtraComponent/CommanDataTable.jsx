@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 
-const FullDataTable = ({ data, columns }) => {
-
-    const [selectedRows, setSelectedRows] = useState([]);
+const FullDataTable = ({ data, columns, onRowSelect }) => {
+    const [selectedRowData, setSelectedRowData] = useState(null);
 
     const options = {
         filterType: false,
-        selectableRowsHeader: false, // Hide the checkbox in the table header
-        selectableRows: "single", // Allow only single row selection
+        selectableRowsHeader: false,
+        selectableRows: "single",
         onRowsSelect: (currentRowsSelected, allRowsSelected) => {
-            // Handle row selection
             if (allRowsSelected.length > 0) {
-                // Only one row can be selected, so we use allRowsSelected[0].index
-                setSelectedRows([allRowsSelected[0].index]);
+                const selectedIndex = allRowsSelected[0].index;
+                const rowData = data[selectedIndex];
+                setSelectedRowData(rowData);
+                onRowSelect(rowData); // Call the callback function
             } else {
-                setSelectedRows([]);
+                setSelectedRowData(null);
+                onRowSelect(null); // Call the callback function with null
             }
         },
-        rowsSelected: selectedRows,
-        customToolbarSelect: () => { }, // Disable the delete icon
+        rowsSelected: selectedRowData ? [data.indexOf(selectedRowData)] : [],
+        customToolbarSelect: () => {},
         textLabels: {
             body: {
                 noMatch: "No records found",
@@ -32,36 +33,31 @@ const FullDataTable = ({ data, columns }) => {
                 displayRows: "of",
             },
             selectedRows: {
-                text: "", // Remove the "1 row(s) selected" message
+                text: "row (s) selected",
             },
         },
-        download: false, // Disable download CSV option
-        print: false, // Disable print option
-        viewColumns: false, // Disable view columns option
-        search: false, // Disable search bar
-        filter: false, // Disable filter dropdown
-        customHead: () => ({
-            style: {
-                backgroundColor: '#f5f5f5', // Customize header background color
-                color: '#333', // Customize header text color
-                fontWeight: 'bold', // Make header text bold
-            }
-        }),
+        download: false,
+        print: false,
+        viewColumns: false,
+        search: false,
+        filter: false,
         setCellProps: () => ({
             style: {
-                textAlign: 'center', // Center align text in all cells
+                textAlign: 'center',
             }
         })
     };
 
     return (
-        <MUIDataTable
-            title={""}
-            data={data}
-            columns={columns}
-            options={options}
-        />
+        <div className="modal-body">
+            <MUIDataTable
+                title={""}
+                data={data}
+                columns={columns}
+                options={options}
+            />
+        </div>
     );
-}
+};
 
 export default FullDataTable;
