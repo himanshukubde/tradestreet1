@@ -13,6 +13,7 @@ import Last from '../components/user/pattern/Last';
 import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/describe/Discription';
 import Tradehistory from '../components/user/history/Tradehistory';
+import Updateparameter from '../components/user/parameter/Updateparameter';
 
 const UserRoute = () => {
 
@@ -35,6 +36,7 @@ const UserRoute = () => {
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
+            <Route path="/updateparameter" element={<Updateparameter />} />
           </Routes>
           <Footer />
         </div>
