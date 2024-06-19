@@ -6,12 +6,15 @@ import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
-
+import ReactDOM from 'react-dom';
+import ReactApexChart from 'react-apexcharts';
 
 import "react-datepicker/dist/react-datepicker.css";
 
 
 const Tradehistory = () => {
+
+
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
     const [selectStrategyName, setStrategyName] = useState('')
@@ -73,6 +76,42 @@ const Tradehistory = () => {
         return `${year}.${month}.${day}`;
     };
 
+
+
+    const transformData = (data) => {
+        const series = data.map(item => item.PnL);
+        const labels = data.map(item => item.ETime);
+        return { series, labels };
+    };
+
+    const { series, labels } = transformData(getFiveProfitTrade.data);
+
+    console.log(series, labels)
+
+    const [chartState, setChartState] = useState({
+        series: series && series,
+        options: {
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: labels && labels,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: 'bottom',
+                    },
+                },
+            }],
+        },
+    });
+
+
+    console.log("chartState, chartState", chartState)
 
 
     const GetAllGroupDetails = async () => {
@@ -1047,7 +1086,7 @@ const Tradehistory = () => {
                     }));
 
 
-                    console.log("CPP :cc", newDataArray)
+               
                     setPnlData({
                         loading: false,
                         data: newDataArray,
@@ -1320,30 +1359,42 @@ const Tradehistory = () => {
                                         />
                                     </div>
 
-
-                                    {/* PnL Graph show */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Profit and Loss Graph
-                                    </p>
-                                    <div style={{ width: '100%', height: '500px' }}>
-                                        <AgChartsReact options={chartOptions} />
-                                    </div>
-
-
-
-
-                                    {/* 5 Most profit and loss graph */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        5 Most Profit Graph
-                                    </p>
                                     <div className='d-flex'>
-                                        <div style={{ width: '50%', height: '500px' }}>
-                                            <AgChartsReact options={options} />
+                                        {/* PnL Graph show */}
+                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Profit and Loss Graph
+                                        </p>
+                                        {/* <div style={{ width: '100%', height: '500px' }}>
+                                        <AgChartsReact options={chartOptions} />
+                                    </div> */}
+
+                                        <div>
+                                            <div id="chart">
+                                                <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={380} />
+
+                                            </div>
+                                            <div id="html-dist"></div>
                                         </div>
-                                        <div style={{ width: '50%', height: '500px' }}>
-                                            <AgChartsReact options={options} />
+                                        {
+                                            console.log(getFiveProfitTrade && getFiveProfitTrade.data)
+                                        }
+                                        {/* 5 Most profit and loss graph */}
+                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            5 Most Profit Graph
+                                        </p>
+                                        <div className='d-flex'>
+                                            <div>
+                                                <div id="chart">
+                                                    <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={380} />
+                                                </div>
+                                                <div id="html-dist"></div>
+                                            </div>
+
+
                                         </div>
                                     </div>
+
+
 
 
 
