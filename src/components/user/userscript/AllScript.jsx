@@ -109,24 +109,278 @@ const Addscript = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
-                            <form className="was-validated ">
-                                <div className='d-flex'>
-                                    {/* <div className="form-group col-md-6 ms-2">
-                                        <label>Group Name</label>
-                                        <select className="form-select "
-                                            required=""
-                                            onChange={(e) => setSelectGroup(e.target.value)}
-                                            value={selectGroup}
+                            <div className="iq-card-body">
+
+                                <ul
+                                    className="nav nav-tabs justify-content-center"
+                                    id="myTab-2"
+                                    role="tablist"
+                                >
+                                    <li className="nav-item" role="presentation">
+                                        <a
+                                            className="nav-link"
+                                            id="home-tab-justify"
+                                            data-bs-toggle="tab"
+                                            href="#home-justify"
+                                            role="tab"
+                                            aria-controls="home"
+                                            aria-selected="false"
+                                            tabIndex={-1}
                                         >
-                                            {getGroupData.data && getGroupData.data.map((item) => {
-                                                return <>
-                                                    <option value={item.GroupName}>{item.GroupName}</option>
-                                                </>
-                                            })}
+                                            Copy Script
+                                        </a>
+                                    </li>
+                                    <li className="nav-item" role="presentation">
+                                        <a
+                                            className="nav-link"
+                                            id="profile-tab-justify"
+                                            data-bs-toggle="tab"
+                                            href="#profile-justify"
+                                            role="tab"
+                                            aria-controls="profile"
+                                            aria-selected="false"
+                                            tabIndex={-1}
+                                        >
+                                            Group Script
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <div className="tab-content" id="myTabContent-3">
+                                    <div
+                                        className="tab-pane fade"
+                                        id="home-justify"
+                                        role="tabpanel"
+                                        aria-labelledby="home-tab-justify"
+                                    >
+
+                                        <div className="iq-card-body">
+
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault02">Scalping type</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">Open this select menu</option>
+                                                                <option value={1}>Multi Directional</option>
+                                                                <option value={2}>Fixed Price</option>
+                                                                <option value={3}>One Directional</option>
+                                                            </select>
+                                                            <div className="invalid-feedback">Example invalid custom select feedback</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault02">Exchange </label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">NFO</option>
+                                                                <option value={1}>NSE</option>
+                                                                <option value={2}>MCX</option>
+                                                                <option value={3}>CDX</option>
+                                                            </select>
+                                                            <div className="invalid-feedback">Example invalid custom select feedback</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Instrument</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">FUTDIX</option>
+                                                                <option value={1}>FUTSTK</option>
+                                                                <option value={2}>OPTIDX</option>
+                                                                <option value={3}>OPTSTK</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Symbol Type</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">BANKNIFTY</option>
+                                                                <option value={1}>FINNIFTY</option>
+                                                                <option value={2}>MIDCPNIFTY</option>
+                                                                <option value={3}>NIFTY</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Expiry Date</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">BANKNIFTY</option>
+                                                                <option value={1}>FINNIFTY</option>
+                                                                <option value={2}>MIDCPNIFTY</option>
+                                                                <option value={3}>NIFTY</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Transaction Type</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">BANKNIFTY</option>
+                                                                <option value={1}>FINNIFTY</option>
+                                                                <option value={2}>MIDCPNIFTY</option>
+                                                                <option value={3}>NIFTY</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault05">Lot</label>
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            id="validationDefault05"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Transaction Type</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">Point</option>
+                                                                <option value={1}>Percentage</option>
+
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <div className="form-check">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultValue=""
+                                                                id="invalidCheck2"
+                                                                required=""
+                                                            />
+                                                            <label className="form-check-label" htmlFor="invalidCheck2">
+                                                                Set First Trade Range
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault05">Target</label>
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            id="validationDefault05"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault05">Stoploss</label>
+                                                        <input
+                                                            type="number"
+                                                            className="form-control"
+                                                            id="validationDefault05"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <div className="form-check">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultValue=""
+                                                                id="invalidCheck2"
+                                                                required=""
+                                                            />
+                                                            <label className="form-check-label" htmlFor="invalidCheck2">
+                                                                Set Range
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4 mb-3">
+                                                        <label htmlFor="validationDefaultUsername">Exit Day</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">Intraday</option>
+                                                                <option value={1}>Delivery</option>
+
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4 mb-3">
+                                                        <label htmlFor="validationDefault05">Entry Time</label>
+                                                        <input
+                                                            type="datetime-local"
+                                                            className="form-control"
+                                                            id="validationDefault05"
+                                                            required=""
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-3">
+                                                        <label htmlFor="validationDefault05">Exit Time</label>
+                                                        <input
+                                                            type="datetime-local"
+                                                            className="form-control"
+                                                            id="validationDefault05"
+                                                            required=""
+                                                        />
+                                                    </div>
+
+                                                </div>
+
+                                                {/* <div className="form-group">
+                                                    <div className="form-check">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            defaultValue=""
+                                                            id="invalidCheck2"
+                                                            required=""
+                                                        />
+                                                        <label className="form-check-label" htmlFor="invalidCheck2">
+                                                            Agree to terms and conditions
+                                                        </label>
+                                                    </div>
+                                                </div> */}
+                                                <div className="form-group">
+                                                    <button className="btn btn-primary" type="submit">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div
+                                        className="tab-pane fade"
+                                        id="profile-justify"
+                                        role="tabpanel"
+                                        aria-labelledby="profile-tab-justify"
+                                    >
+                                        <p>
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                            since the 1500s, when an unknown printer took a galley of type and
+                                            scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
 
 
-                                        </select>
-                                    </div> */}
+                            {/* <form className="was-validated ">
+                                <div className='d-flex'>
+                                   
                                     <div className="form-group col-md-6 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
@@ -140,11 +394,11 @@ const Addscript = () => {
                                         </select>
                                     </div>
                                 </div>
-                            </form>
-                            <div className='d-flex justify-content-end'>
+                            </form> */}
+                            {/* <div className='d-flex justify-content-end'>
                                 <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
-                            </div>
-                            <div className="iq-card-body">
+                            </div> */}
+                            {/* <div className="iq-card-body">
                                 <div className="table-responsive">
 
                                     <table id="datatable" className="table table-striped table-bordered">
@@ -234,7 +488,7 @@ const Addscript = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

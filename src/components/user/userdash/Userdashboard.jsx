@@ -1,24 +1,35 @@
-import React from 'react'
+
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Userdashboard = () => {
-    function toggleTrade(rowId) {
-        var discontinueCheckBox = document.getElementById('discontinue-' + rowId);
-        var continueCheckBox = document.getElementById('continue-' + rowId);
-        var squareOffCheckBox = document.getElementById('squareoff-' + rowId);
-        var row = document.getElementById('row-' + rowId);
 
-        if (discontinueCheckBox.checked) {
-            row.classList.add('blurred');
-            continueCheckBox.classList.add('disabled-checkbox');
-            squareOffCheckBox.classList.add('disabled-checkbox');
-            continueCheckBox.checked = false;
-            squareOffCheckBox.checked = false;
-        } else {
-            row.classList.remove('blurred');
-            continueCheckBox.classList.remove('disabled-checkbox');
-            squareOffCheckBox.classList.remove('disabled-checkbox');
-        }
+    const navigate = useNavigate()
+    const [refresh, setRefresh] = useState(false)
+    const [selectGroup, setSelectGroup] = useState('')
+    const [selectStrategyType, setStrategyType] = useState('')
+    const [getAllService, setAllservice] = useState({
+        loading: true,
+        data: []
+    })
+    // const handleAddScript = () => {
+    //     const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
+    //     navigate(selectStrategyType == "Scalping" ? '/user/addscript' :
+    //         selectStrategyType == "Option Strategy" ? '/user/addscript/option' : '/user/addscript/pattern', { state: { data } });
+    // }
+    const handleAddScript1 = () => {
+        const data = { selectGroup: selectGroup, selectStrategyType: "Scalping" };
+        navigate('/user/addscript/scalping', { state: { data } });
     }
+    const handleAddScript2 = () => {
+        const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy' };
+        navigate('/user/addscript/option', { state: { data } });
+    }
+    const handleAddScript3 = () => {
+        const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern' };
+        navigate('/user/addscript/pattern', { state: { data } });
+    }
+
 
 
     return (
@@ -804,6 +815,9 @@ const Userdashboard = () => {
                                             <div className="iq-header-title">
                                                 <h4 className="card-title">Scalping</h4>
                                             </div>
+                                            <div className='d-flex justify-content-end'>
+                                                <button className='btn btn-primary' onClick={handleAddScript1}>Add Script</button>
+                                            </div>
                                         </div>
 
                                         <div className="iq-card-body">
@@ -888,6 +902,9 @@ const Userdashboard = () => {
                                             <div className="iq-header-title">
                                                 <h4 className="card-title">Option</h4>
                                             </div>
+                                            <div className='d-flex justify-content-end'>
+                                                <button className='btn btn-primary' onClick={handleAddScript2}>Add Script</button>
+                                            </div>
                                         </div>
 
                                         <div className="iq-card-body">
@@ -964,6 +981,9 @@ const Userdashboard = () => {
                                         <div className="iq-card-header d-flex justify-content-between">
                                             <div className="iq-header-title">
                                                 <h4 className="card-title">Pattern</h4>
+                                            </div>
+                                            <div className='d-flex justify-content-end'>
+                                                <button className='btn btn-primary' onClick={handleAddScript3}>Add Script</button>
                                             </div>
                                         </div>
 
