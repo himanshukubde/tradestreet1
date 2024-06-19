@@ -1189,11 +1189,6 @@ const Tradehistory = () => {
         data: getDropDownData && getDropDownData.data,
         series: [{ type: 'line', xKey: 'ETime', yKey: 'Drawdown' }],
     }
-
-
-
-
-
     const options = {
         data: getFiveProfitTrade.data,
         title: {
