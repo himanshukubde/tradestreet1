@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 
-const FullDataTable = ({ data, columns, onRowSelect }) => {
+const FullDataTable = ({ data, columns, onRowSelect , checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
 
     const options = {
         filterType: false,
         selectableRowsHeader: false,
-        selectableRows: "single",
+        selectableRows: checkBox  ? "single" : false,
         onRowsSelect: (currentRowsSelected, allRowsSelected) => {
             if (allRowsSelected.length > 0) {
                 const selectedIndex = allRowsSelected[0].index;
@@ -48,12 +48,25 @@ const FullDataTable = ({ data, columns, onRowSelect }) => {
         })
     };
 
+
+    const customizedColumns = columns.map(column => ({
+        ...column,
+        options: {
+            ...column.options,
+            setCellProps: () => ({
+                style: {
+                    width: column.width || 'auto', // Set the width or use 'auto'
+                }
+            })
+        }
+    }));
+
     return (
         <div className="modal-body">
             <MUIDataTable
                 title={""}
                 data={data}
-                columns={columns}
+                columns={customizedColumns}
                 options={options}
             />
         </div>
