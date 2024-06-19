@@ -192,5 +192,77 @@ export const get_User_Data = async (data) => {
 }
 
 
+export const get_Trade_History = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Tradehistory`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
+export const get_PnL_Data = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Barchart`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
+export const get_EQuityCurveData = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Equitycurve`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+    }
+}
+
+
+export const get_DrapDownData = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Drawdown`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
+export const get_FiveMostProfitTrade = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}fiveprofit`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
+export const get_FiveMostLossTrade = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}fiveloss`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
+
+
 
 
