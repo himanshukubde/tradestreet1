@@ -28,7 +28,7 @@ const Sidebar = () => {
         <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="index.html">
-                    <img src="assets/images/logo.png" className="img-fluid" alt="Logo" />
+                    <img src="/assets/images/logo.png" className="img-fluid" alt="Logo" />
                     <span>Trade</span>
                 </a>
                 <div className="iq-menu-bt-sidebar">
@@ -172,19 +172,19 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="traderesponse" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Trade Response</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="net" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Net P&L</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="strategygroup" className="iq-waves-effect">
+                                        <Link to="pannel" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Panel Track</span>
                                         </Link>

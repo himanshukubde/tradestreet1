@@ -41,7 +41,7 @@ const Userdashboard = () => {
                             <div className="user-details-block">
                                 <div className="user-profile text-center">
                                     <img
-                                        src="assets/images/user/1.jpg"
+                                        src="/assets/images/user/1.jpg"
                                         alt="profile-img"
                                         className="avatar-130 img-fluid"
                                     />
@@ -78,7 +78,7 @@ const Userdashboard = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Health Curve</h4>
+                                <h4 className="card-title">Our Clients</h4>
                             </div>
                         </div>
                         <div className="iq-card-body" style={{ position: "relative" }}>

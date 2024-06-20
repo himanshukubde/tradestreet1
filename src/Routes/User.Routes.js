@@ -14,6 +14,9 @@ import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/describe/Discription';
 import Tradehistory from '../components/user/history/Tradehistory';
 import Updateparameter from '../components/user/parameter/Updateparameter';
+import Traderesponse from '../components/user/trade/Traderesponse';
+import Net from '../components/user/p&l/Net';
+import Pannel from '../components/user/track/Pannel';
 
 const UserRoute = () => {
 
@@ -32,11 +35,14 @@ const UserRoute = () => {
             <Route path="/last" element={<Last />} />
 
             <Route path="/addscript/scalping" element={<Addscript />} />
-            
+
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
             <Route path="/updateparameter" element={<Updateparameter />} />
+            <Route path="/traderesponse" element={<Traderesponse />} />
+            <Route path="/net" element={<Net />} />
+            <Route path="/pannel" element={<Pannel />} />
           </Routes>
           <Footer />
         </div>

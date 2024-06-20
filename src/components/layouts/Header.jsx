@@ -240,7 +240,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/01.jpg"
+                                                                    src="/assets/images/user/01.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -258,7 +258,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/02.jpg"
+                                                                    src="/assets/images/user/02.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -276,7 +276,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/03.jpg"
+                                                                    src="/assets/images/user/03.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -294,7 +294,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/04.jpg"
+                                                                    src="/assets/images/user/04.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -567,7 +567,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/01.jpg"
+                                                                    src="/assets/images/user/01.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -585,7 +585,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/02.jpg"
+                                                                    src="/assets/images/user/02.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -603,7 +603,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/03.jpg"
+                                                                    src="/assets/images/user/03.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -621,7 +621,7 @@ const Header = () => {
                                                             <div className="">
                                                                 <img
                                                                     className="avatar-40 rounded"
-                                                                    src="assets/images/user/04.jpg"
+                                                                    src="/assets/images/user/04.jpg"
                                                                     alt=""
                                                                 />
                                                             </div>
@@ -638,7 +638,7 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </li>
-                                    <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
+                                    {/* <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
                                         <a
                                             href="#"
                                             className={`search-toggle iq-waves-effect ${activeElement === 'mail' ? 'active' : ''}`}
@@ -713,7 +713,7 @@ const Header = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> */}
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
                                         <a href="#"
@@ -723,7 +723,7 @@ const Header = () => {
                                             onClick={(e) => handleClick(e, 'profile')}
                                         >
                                             <img
-                                                src="assets/images/user/1.jpg"
+                                                src="/assets/images/user/1.jpg"
                                                 className="img-fluid rounded-circle me-3"
                                                 alt="user"
                                             />
@@ -761,7 +761,7 @@ const Header = () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    
+
                                                     <div className="d-inline-block w-100 text-center p-3">
                                                         <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
                                                             Log out
