@@ -263,6 +263,31 @@ export const get_FiveMostLossTrade = async (data) => {
 }
 
 
+export const GetClientLogs = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Clientactivity`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
+export const Get_Client_Report = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Threadreport`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
+
 
 
 

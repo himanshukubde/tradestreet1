@@ -16,7 +16,7 @@ const Login = () => {
         .then((response)=>{
             
             if(response.Status){
-                // localStorage.setItem("Role", response.Role)
+                localStorage.setItem("Role", response.Role)
                 console.log(response)
                 Swal.fire({
                     title: "Login!",
@@ -29,7 +29,6 @@ const Login = () => {
                     if (response.Role === 'Admin') {
                         navigate('/admin/dashboards');
                     } else if (response.Role === 'User') {
-        
                         navigate('/user/dashboard');
                     }
                 },1500)

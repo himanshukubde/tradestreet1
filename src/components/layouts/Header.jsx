@@ -401,8 +401,8 @@ const Header = () => {
                                                 alt="user"
                                             />
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">Neha mam</h6>
-                                                <span className="font-size-12">online</span>
+                                                <h6 className="mb-0 line-height">Neha Ma'am</h6>
+                                                <span className="font-size-12">Available</span>
                                             </div>
                                         </a>
                                         <div className="iq-sub-dropdown iq-user-dropdown">

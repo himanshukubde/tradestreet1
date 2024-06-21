@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetGroupNames, get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
+import { GetClientService, get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
@@ -23,7 +23,11 @@ const Tradehistory = () => {
     const [showTable, setShowTable] = useState(false)
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
-        data: []
+        data: [],
+        data1:"",
+        data2:"",
+        data3:"",
+        data4:"" 
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
@@ -31,7 +35,7 @@ const Tradehistory = () => {
         data2: []
     })
 
-    console.log("CPPP :", getPnLData)
+   
 
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
@@ -59,13 +63,7 @@ const Tradehistory = () => {
     })
 
 
-
-
-
-
-
-
-
+ 
     // Date Formetor
     const convertDateFormat = (date) => {
         const dateObj = new Date(date);
@@ -79,13 +77,13 @@ const Tradehistory = () => {
 
     const GetAllGroupDetails = async () => {
         try {
-            await GetGroupNames()
+            await GetClientService()
                 .then((response) => {
 
                     if (response.Status) {
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Profile
                         })
                     }
                     else {
@@ -626,36 +624,6 @@ const Tradehistory = () => {
 
 
 
-    // "Exchange": "NFO",
-    // "Symbol": "BANKNIFTY29MAY24F",
-    // "Token": "46923",
-    // "TType": "BUY",
-    // "TStype": "Point",
-    // "Target value": 10.0,
-    // "SL value": 15.0,
-    // "Quantity": 1,
-    // "Trading": true,
-    // "Expiry Date": "2024-05-29",
-    // "TradeExecution": "Paper Trade",
-    // "Instrument Name": "BANKNIFTY",
-    // "Username": "alex",
-    // "ExitDay": "Intraday",
-    // "EntryTime": "09:15:00",
-    // "ExitTime": "15:25:00",
-    // "Expirytype": "",
-    // "Pattern": "White_Marubozu",
-    // "TradePattern": "CandlestickPattern",
-    // "TimeFrame": "1M",
-    // "SSDate": "2024-05-22",
-    // "SEDate": "2024-06-02",
-    // "TaskStatus": "AddScript",
-    // "TaskTime": "2024.05.22 11:49:27",
-    // "Instrument Type": "FUTIDX",
-    // "Lotsize": "15",
-    // "Trend": "Uptrend",
-    // "TradeCount": 5
-
-
     const columns2 = [
         {
             name: "S.No",
@@ -1003,7 +971,7 @@ const Tradehistory = () => {
             },
         },
         {
-            name: "ExitTime",
+            name: selectStrategyType == "Pattern" ? "ETime" : "ExitTime",
             label: "Exit Time",
             width: '100px',
             options: {
@@ -1012,7 +980,7 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "PnL",
+            name:  selectStrategyType == "Scalping" ? "EquityCurve" :"PnL",
             width: '100px',
             label: "Equity Curve",
             options: {
@@ -1236,32 +1204,38 @@ const Tradehistory = () => {
             Symbol: selectStrategyType == "Scalping" || selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Symbol : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.IName : '',
             Username: selectGroup,
             ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
-            Timeframe:  selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
+            Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate),
             To_date: convertDateFormat(ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
         }
-
-        console.log("C ::", data)
-
-        return
-
+ 
         await get_Trade_History(data)
 
             .then((response) => {
                 if (response.Status) {
                     setAllTradeData({
                         loading: false,
-                        data: response.data
+                        data: response.data,
+                        data1:response.profitconsistant,
+                        data2:response.profitconcount,
+                        data3:response.lossconcount,
+                        data4:response.lossconsistant,
+                        
                     })
                     setShowTable(true)
                 }
                 else {
                     setAllTradeData({
                         loading: false,
-                        data: []
+                        data: [],
+                        data1:"",
+                        data2:"",
+                        data3:"",
+                        data4:""
+                       
                     })
                 }
             })
@@ -1418,9 +1392,12 @@ const Tradehistory = () => {
     const chartOptions1 = {
         zoom: { enabled: true },
         data: getEquityCurveDetails && getEquityCurveDetails.data,
-        series: [{ type: 'line', xKey: 'ExitTime', yKey: 'PnL' }],
+        series: [{ type: 'line', xKey: selectStrategyType == "Pattern" ? "ETime": 'ExitTime', yKey:  selectStrategyType == "Scalping" ? "EquityCurve" : 'PnL' }],
     }
 
+
+
+ 
     const chartOptions2 = {
         zoom: { enabled: true },
         data: getDropDownData && getDropDownData.data,
@@ -1503,7 +1480,7 @@ const Tradehistory = () => {
                                         >
                                             {getGroupData.data && getGroupData.data.map((item) => {
                                                 return <>
-                                                    <option value={item.GroupName}>{item.GroupName}</option>
+                                                    <option value={item.Username}>{item.Username}</option>
                                                 </>
                                             })}
                                         </select>
@@ -1545,8 +1522,6 @@ const Tradehistory = () => {
                                 </div>
                             }
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
-
-
 
                             {
                                 showTable && <>
@@ -1618,6 +1593,94 @@ const Tradehistory = () => {
                                         </p>
                                     </div>
 
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <div className="iq-card">
+                                                    <div className="iq-card-body p-0">
+                                                        <div className="iq-edit-list">
+                                                            <ul
+                                                                className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
+                                                                role="tablist"
+                                                            >
+                                                                <li className="col-md-4 p-0">
+                                                                    <a
+                                                                        className="nav-link active"
+                                                                        data-bs-toggle="pill"
+                                                                        href="#personal-information"
+                                                                        aria-selected="true"
+                                                                        role="tab"
+                                                                    >
+                                                                        Consistent Profit-Making
+                                                                    </a>
+                                                                </li>
+                                                                <li className="col-md-4 p-0">
+                                                                    <a
+                                                                        className="nav-link"
+                                                                        data-bs-toggle="pill"
+                                                                        href="#chang-pwd"
+                                                                        aria-selected="false"
+                                                                        tabIndex={-1}
+                                                                        role="tab"
+                                                                    >
+                                                                       Consistent Loss Making
+
+                                                                    </a>
+                                                                </li>
+                                                                 
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="iq-edit-list-data">
+                                                    <div className="tab-content">
+                                                        <div
+                                                            className="tab-pane fade active show"
+                                                            id="personal-information"
+                                                            role="tabpanel"
+                                                        >
+                                                            <div className="container-fluid">
+                                                                <div className="row">
+                                                                    <div className="col-sm-12">
+                                                                        <div className="iq-card">
+                                                                            <div className="iq-card-body">
+                                                                                 <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
+                                                                                 <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="tab-pane fade" id="chang-pwd" role="tabpanel">
+                                                            <div className="container-fluid">
+                                                                <div className="row">
+                                                                    <div className="col-sm-12">
+                                                                    <div className="iq-card">
+                                                                            <div className="iq-card-body">
+                                                                                 <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
+                                                                                 <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
 
                                     {/* EquityCurve */}
 
@@ -1637,7 +1700,7 @@ const Tradehistory = () => {
 
                                     {/* EquityCurve  Graph show */}
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Profit and Loss Graph
+                                    EquityCurve
                                     </p>
                                     <div style={{ width: '100%', height: '500px' }}>
                                         <AgChartsReact options={chartOptions1} />

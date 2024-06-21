@@ -72,8 +72,6 @@ const Smtp = () => {
                                         <input type="password" onChange={(e) => setUrl(e.target.value)} value={url} className="form-control my-2" id="pwd" />
                                     </div>
 
-
-
                                 </div>
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary me-1 mt-2">
                                     Submit

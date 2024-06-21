@@ -1,6 +1,193 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { GetClientService , GetClientLogs } from '../../Common API/Admin'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 
 const Clientactivity = () => {
+    const [ToDate, setToDate] = useState('');
+    const [FromDate, setFromDate] = useState('');
+ 
+    const [getClientActivityDetails, setClientActivityDetails] = useState({
+        loading: true,
+        data: []
+    })
+    const [getUserName, setUserName] = useState({
+        loading: true,
+        data: []
+    })
+    const [selectUserName, setSelectUserName] = useState('')
+
+
+     
+   
+
+
+
+
+    const GetAllUserDetails = async () => {
+        try {
+            await GetClientService()
+                .then((response) => {
+
+                    if (response.Status) {
+                        setUserName({
+                            loading: false,
+                            data: response.Profile
+                        })
+                    }
+                    else {
+                        setUserName({
+                            loading: false,
+                            data: []
+                        })
+                    }
+                })
+                .catch((err) => {
+                    console.log("Group data fetch error", err)
+                })
+        }
+        catch {
+            console.log("Group data fetch error")
+        }
+    }
+
+    useEffect(() => {
+        GetAllUserDetails()
+    }, [])
+
+
+
+
+    const getClientTetails = async () => {
+        const data = {User : selectUserName  , From_date : FromDate , To_date  :ToDate}
+        await GetClientLogs(data)
+        .then((response)=>{
+            if(response.Status){
+                setClientActivityDetails({
+                    loading:false,
+                    data : response.Data
+                })
+            }
+            else{
+                setClientActivityDetails({
+                    loading:false,
+                    data : []
+                })
+            }
+        })
+        .catch((err)=>{
+            console.log("Error In finding the client details", err)
+        })
+    }
+
+
+    useEffect(()=>{
+        getClientTetails()
+    },[selectUserName , ToDate , FromDate])
+
+     
+
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ServiceCount",
+            label: "ServiceCount",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Broker",
+            label: "Broker",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CreditUse",
+            label: "CreditUse",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ServiceEndDate",
+            label: "ServiceEndDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ServiceStartDate",
+            label: "ServiceStartDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LicanseStartDate",
+            label: "LicanseStartDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "RemainingAmmount",
+            label: "RemainingAmmount",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Remaining Amount",
+            label: "Remaining Amount",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+         
+    ];
+
+
+    // useEffect(() => {
+    //     if (getGroupData.data && getGroupData.data.length > 0) {
+    //         setSelectGroup(getGroupData.data[0].GroupName);
+    //     }
+    // }, [getGroupData]);
+
+    useEffect(() => {
+        setSelectUserName('komal')
+    }, []);
+
+
     return (
         <div>
             <div>
@@ -19,137 +206,36 @@ const Clientactivity = () => {
                                         <div className="row">
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="validationDefault01">Select Username </label>
-                                                <select className="form-select" required="">
-                                                    <option value="">select</option>
-                                                    <option value={1}></option>
-                                                    <option value={2}>Two</option>
-                                                    <option value={3}>Three</option>
+                                                <select className="form-select" required=""
+                                                    onChange={(e) => setSelectUserName(e.target.value)}
+                                                    value={selectUserName}
+                                                >
+                                                    {getUserName.data && getUserName.data.map((item) => {
+                                                        return <>
+                                                            <option value={item.Username}>{item.Username}</option>
+                                                        </>
+                                                    })}
                                                 </select>
+                                            </div>
+                                            <div className="form-group col-lg-3 ">
+                                                <label>Select form Date</label>
+                                                <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
 
                                             </div>
+                                            <div className="form-group col-lg-3">
+                                                <label>Select To Date</label>
+                                                <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
 
-                                            
-                                            <div className="col-md-4 mb-3">
-                                                <label htmlFor="validationDefault02">From Date</label>
-                                                <input
-                                                    type="date"
-                                                    className="form-control"
-                                                    id="validationDefault02"
-                                                    required=""
-                                                />
                                             </div>
-
-                                            <div className="col-md-4 mb-3">
-                                                <label htmlFor="validationDefault03">To Date</label>
-                                                <input
-                                                    type="date"
-                                                    className="form-control"
-                                                    id="validationDefault03"
-                                                    required=""
-                                                />
-                                            </div>
-
-
                                         </div>
 
                                     </form>
-                                    <div className="table-responsive">
-                                        <table id="datatable" className="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>63</td>
-                                                    <td>2011/07/25</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>66</td>
-                                                    <td>2009/01/12</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>22</td>
-                                                    <td>2012/03/29</td>
-                                                    <td>$433,060</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Airi Satou</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Brielle Williamson</td>
-                                                    <td>Integration Specialist</td>
-                                                    <td>New York</td>
-                                                    <td>61</td>
-                                                    <td>2012/12/02</td>
-                                                    <td>$372,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Herrod Chandler</td>
-                                                    <td>Sales Assistant</td>
-                                                    <td>San Francisco</td>
-                                                    <td>59</td>
-                                                    <td>2012/08/06</td>
-                                                    <td>$137,500</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Rhona Davidson</td>
-                                                    <td>Integration Specialist</td>
-                                                    <td>Tokyo</td>
-                                                    <td>55</td>
-                                                    <td>2010/10/14</td>
-                                                    <td>$327,900</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Colleen Hurst</td>
-                                                    <td>Javascript Developer</td>
-                                                    <td>San Francisco</td>
-                                                    <td>39</td>
-                                                    <td>2009/09/15</td>
-                                                    <td>$205,500</td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                    <div className="modal-body">
+                                        <FullDataTable
+                                            columns={columns}
+                                            data={getClientActivityDetails.data}
+                                            checkBox={false}
+                                        />
                                     </div>
 
                                 </div>
