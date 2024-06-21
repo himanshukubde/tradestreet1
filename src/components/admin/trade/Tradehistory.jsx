@@ -6,15 +6,13 @@ import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
-import ReactDOM from 'react-dom';
-import ReactApexChart from 'react-apexcharts';
+import ApexCharts from 'react-apexcharts';
+
 
 import "react-datepicker/dist/react-datepicker.css";
 
 
 const Tradehistory = () => {
-
-
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
     const [selectStrategyName, setStrategyName] = useState('')
@@ -32,6 +30,8 @@ const Tradehistory = () => {
         data: [],
         data2: []
     })
+
+    console.log("CPPP :", getPnLData)
 
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
@@ -59,8 +59,7 @@ const Tradehistory = () => {
     })
 
 
-    console.log("getFiveLossTrade :", getFiveLossTrade)
-    console.log("getFiveProfitTrade :", getFiveProfitTrade)
+
 
 
 
@@ -76,42 +75,6 @@ const Tradehistory = () => {
         return `${year}.${month}.${day}`;
     };
 
-
-
-    const transformData = (data) => {
-        const series = data.map(item => item.PnL);
-        const labels = data.map(item => item.ETime);
-        return { series, labels };
-    };
-
-    const { series, labels } = transformData(getFiveProfitTrade.data);
-
-    console.log(series, labels)
-
-    const [chartState, setChartState] = useState({
-        series: series && series,
-        options: {
-            chart: {
-                width: 380,
-                type: 'pie',
-            },
-            labels: labels && labels,
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200,
-                    },
-                    legend: {
-                        position: 'bottom',
-                    },
-                },
-            }],
-        },
-    });
-
-
-    console.log("chartState, chartState", chartState)
 
 
     const GetAllGroupDetails = async () => {
@@ -148,6 +111,9 @@ const Tradehistory = () => {
 
     const GetTradeHistory = async () => {
         const data = { Data: selectStrategyType, Username: selectGroup }
+
+
+
 
         //GET TRADEHISTORY
         await get_User_Data(data)
@@ -351,7 +317,6 @@ const Tradehistory = () => {
         },
     ];
 
-
     const columns1 = [
         {
             name: "S.No",
@@ -385,8 +350,8 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "TType",
-            label: "Target Type",
+            name: "Targettype",
+            label: "Risk Handle",
             options: {
                 filter: true,
                 sort: true,
@@ -394,7 +359,7 @@ const Tradehistory = () => {
         },
         {
             name: "Lotsize",
-            label: "Quantity",
+            label: "Lotsize",
             options: {
                 filter: true,
                 sort: true,
@@ -427,6 +392,14 @@ const Tradehistory = () => {
         {
             name: "Symbol",
             label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "IName",
+            label: "IName",
             options: {
                 filter: true,
                 sort: true,
@@ -505,6 +478,30 @@ const Tradehistory = () => {
             }
         },
         {
+            name: "DeepStrike",
+            label: "DeepStrike",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "DepthofStrike",
+            label: "DepthofStrike",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SSDate",
+            label: "SSDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
             name: "SEDate",
             label: "SEDate",
             options: {
@@ -515,6 +512,22 @@ const Tradehistory = () => {
         {
             name: "StrikeType",
             label: "StrikeType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LowerRange",
+            label: "LowerRange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "HigherRange",
+            label: "HigherRange",
             options: {
                 filter: true,
                 sort: true,
@@ -537,6 +550,22 @@ const Tradehistory = () => {
             }
         },
         {
+            name: "PEDepthLower",
+            label: "PEDepthLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDepthHigher",
+            label: "PEDepthHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
             name: "CEDeepLower",
             label: "CEDeep Lower",
             options: {
@@ -545,16 +574,48 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "DepthofStrike",
-            label: "Depthof Strike",
+            name: "CEDeepHigher",
+            label: "CEDeepHigher",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "DeepStrike",
-            label: "Deep Strike",
+            name: "PEDeepHigher",
+            label: "PEDeepHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDeepLower",
+            label: "PEDeepLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "GroupN",
+            label: "GroupN",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "FixedSM",
+            label: "FixedSM",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeCount",
+            label: "TradeCount",
             options: {
                 filter: true,
                 sort: true,
@@ -562,6 +623,37 @@ const Tradehistory = () => {
         },
     ];
 
+
+
+
+    // "Exchange": "NFO",
+    // "Symbol": "BANKNIFTY29MAY24F",
+    // "Token": "46923",
+    // "TType": "BUY",
+    // "TStype": "Point",
+    // "Target value": 10.0,
+    // "SL value": 15.0,
+    // "Quantity": 1,
+    // "Trading": true,
+    // "Expiry Date": "2024-05-29",
+    // "TradeExecution": "Paper Trade",
+    // "Instrument Name": "BANKNIFTY",
+    // "Username": "alex",
+    // "ExitDay": "Intraday",
+    // "EntryTime": "09:15:00",
+    // "ExitTime": "15:25:00",
+    // "Expirytype": "",
+    // "Pattern": "White_Marubozu",
+    // "TradePattern": "CandlestickPattern",
+    // "TimeFrame": "1M",
+    // "SSDate": "2024-05-22",
+    // "SEDate": "2024-06-02",
+    // "TaskStatus": "AddScript",
+    // "TaskTime": "2024.05.22 11:49:27",
+    // "Instrument Type": "FUTIDX",
+    // "Lotsize": "15",
+    // "Trend": "Uptrend",
+    // "TradeCount": 5
 
 
     const columns2 = [
@@ -579,6 +671,14 @@ const Tradehistory = () => {
 
                 }
             },
+        },
+        {
+            name: "TradePattern",
+            label: "TradePattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
         },
         {
             name: "Exchange",
@@ -606,7 +706,7 @@ const Tradehistory = () => {
         },
         {
             name: "TType",
-            label: "Target Type",
+            label: "TType",
             options: {
                 filter: true,
                 sort: true,
@@ -630,7 +730,7 @@ const Tradehistory = () => {
         },
         {
             name: "SL value",
-            label: "SL value Date",
+            label: "SL value",
             options: {
                 filter: true,
                 sort: true,
@@ -669,32 +769,8 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "Instrument Name",
-            label: "Instrument Name",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "ExitDay",
             label: "ExitDay",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
             options: {
                 filter: true,
                 sort: true,
@@ -709,8 +785,8 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "Expirytype",
-            label: "Expirytype",
+            name: "ExitTime",
+            label: "ExitTime",
             options: {
                 filter: true,
                 sort: true,
@@ -733,14 +809,6 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "SEDate",
             label: "SEDate",
             options: {
@@ -749,32 +817,8 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "TaskStatus",
-            label: "TaskStatus",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TaskTime",
-            label: "TaskTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Instrument Type",
-            label: "Instrument Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
+            name: "SSDate",
+            label: "SSDate",
             options: {
                 filter: true,
                 sort: true,
@@ -796,6 +840,7 @@ const Tradehistory = () => {
                 sort: true,
             }
         },
+
     ];
 
 
@@ -857,8 +902,8 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "Quantity",
-            label: "Quantity",
+            name: selectStrategyType == "Option Strategy" ? "LotSize" : selectStrategyType == "Scalping" ? "Quantity" : "Quantity",
+            label: selectStrategyType == "Option Strategy" ? "LotSize" : selectStrategyType == "Scalping" ? "Quantity" : "Quantity",
             options: {
                 filter: true,
                 sort: true,
@@ -967,7 +1012,7 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "EquityCurve",
+            name: "PnL",
             width: '100px',
             label: "Equity Curve",
             options: {
@@ -1031,29 +1076,180 @@ const Tradehistory = () => {
         },
 
     ];
+
+
+    const columns7 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            width: '100px',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Entry Time",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EPrice",
+            label: "EPrice",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "ExitTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitPrice",
+            label: "ExitPrice",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LotSize",
+            label: "LotSize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trade",
+            label: "Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target",
+            label: "Target",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL",
+            label: "SL",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Option Type",
+            label: "Option Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Strike price",
+            label: "Strike price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Spot Price",
+            label: "Spot Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Hashing",
+            label: "Hashing",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeType",
+            label: "TradeType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "GroupN",
+            label: "GroupN",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PnL",
+            label: "PnL",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
 
 
-
-
+ 
 
     const handleSubmit = async () => {
         const data = {
             MainStrategy: selectStrategyType,
-            Strategy: selectedRowData && selectedRowData.ScalpType,
-            Symbol: selectedRowData && selectedRowData.Symbol,
+            Strategy: selectStrategyType == "Scalping" ? selectedRowData && selectedRowData.ScalpType : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.STG : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TradePattern : '',
+            Symbol: selectStrategyType == "Scalping" || selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Symbol : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.IName : '',
             Username: selectGroup,
-            ETPattern: '',
-            Timeframe: '',
+            ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
+            Timeframe:  selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate),
             To_date: convertDateFormat(ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
         }
+
+        console.log("C ::", data)
+
+        return
+
         await get_Trade_History(data)
+
             .then((response) => {
                 if (response.Status) {
                     setAllTradeData({
@@ -1078,7 +1274,7 @@ const Tradehistory = () => {
             .then((response) => {
                 if (response.Status) {
 
-                    console.log("SPPP :", response.Barchart)
+
 
                     const newDataArray = response.Barchart.map(item => ({
                         PnL: item.PnL,
@@ -1086,7 +1282,6 @@ const Tradehistory = () => {
                     }));
 
 
-               
                     setPnlData({
                         loading: false,
                         data: newDataArray,
@@ -1211,16 +1406,19 @@ const Tradehistory = () => {
     }, []);
 
 
+
     const chartOptions = {
         zoom: { enabled: true },
         data: getPnLData && getPnLData.data,
         series: [{ type: 'bar', xKey: 'ETime', yKey: 'PnL' }],
     }
 
+
+
     const chartOptions1 = {
         zoom: { enabled: true },
         data: getEquityCurveDetails && getEquityCurveDetails.data,
-        series: [{ type: 'line', xKey: 'ExitTime', yKey: 'EquityCurve' }],
+        series: [{ type: 'line', xKey: 'ExitTime', yKey: 'PnL' }],
     }
 
     const chartOptions2 = {
@@ -1228,45 +1426,59 @@ const Tradehistory = () => {
         data: getDropDownData && getDropDownData.data,
         series: [{ type: 'line', xKey: 'ETime', yKey: 'Drawdown' }],
     }
+
+
+
+
+    const ETime = getFiveProfitTrade && getFiveProfitTrade.data.map(item => item.ETime);
+    const PnL = getFiveProfitTrade && getFiveProfitTrade.data.map(item => item.PnL);
+
+    const ETime1 = getFiveLossTrade && getFiveLossTrade.data.map(item => item.ETime);
+    const PnL1 = getFiveLossTrade && getFiveLossTrade.data.map(item => item.PnL < 0 ? -1 * (item.PnL) : item.PnL);
+
+
+
     const options = {
-        data: getFiveProfitTrade.data,
-        title: {
-            text: "5 most profit trade",
+        series: PnL,
+        chart: {
+            width: 380,
+            type: 'pie',
         },
-        series: [
-            {
-                type: "pie",
-                angleKey: "PnL",
-                calloutLabelKey: "ETime",
-                sectorLabelKey: "PnL",
-                sectorLabel: {
-                    color: "white",
-                    fontWeight: "bold",
-                    formatter: params => `${params.value}`,
+        labels: ETime,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
                 },
-            },
-        ],
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
     };
 
-    const options2 = {
-        data: getFiveProfitTrade.data,
-        title: {
-            text: "Portfolio Composition",
+    const options1 = {
+        series: PnL1,
+        chart: {
+            width: 380,
+            type: 'pie',
         },
-        series: [
-            {
-                type: "pie",
-                angleKey: "amount",
-                calloutLabelKey: "asset",
-                sectorLabelKey: "amount",
-                sectorLabel: {
-                    color: "white",
-                    fontWeight: "bold",
-                    formatter: ({ value }) => `$${(value / 1000).toFixed(0)}K`,
+        labels: ETime1,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
                 },
-            },
-        ],
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
     };
+
+
 
 
 
@@ -1333,8 +1545,10 @@ const Tradehistory = () => {
                                 </div>
                             }
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
-                            {
 
+
+
+                            {
                                 showTable && <>
                                     <div className='mt-3'>
                                         <GridExample
@@ -1359,48 +1573,43 @@ const Tradehistory = () => {
                                         />
                                     </div>
 
-                                    <div className='d-flex'>
-                                        {/* PnL Graph show */}
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Profit and Loss Graph
-                                        </p>
-                                        {/* <div style={{ width: '100%', height: '500px' }}>
+
+                                    {/* PnL Graph show */}
+                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        Profit and Loss Graph
+                                    </p>
+                                    <div style={{ width: '100%', height: '500px' }}>
                                         <AgChartsReact options={chartOptions} />
-                                    </div> */}
-
-                                        <div>
-                                            <div id="chart">
-                                                <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={380} />
-
-                                            </div>
-                                            <div id="html-dist"></div>
-                                        </div>
-                                        {
-                                            console.log(getFiveProfitTrade && getFiveProfitTrade.data)
-                                        }
-                                        {/* 5 Most profit and loss graph */}
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            5 Most Profit Graph
-                                        </p>
-                                        <div className='d-flex'>
-                                            <div>
-                                                <div id="chart">
-                                                    <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={380} />
-                                                </div>
-                                                <div id="html-dist"></div>
-                                            </div>
-
-
-                                        </div>
                                     </div>
 
+                                    {/* 5 Most profit and loss graph */}
 
+                                    <div className='d-flex'>
+                                        <div id="chart" style={{ width: '50%', height: '300px' }}>
 
+                                            <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                                5 most Profit Trade
+                                            </p>
+                                            <ApexCharts
+                                                options={options}
+                                                series={options.series}
+                                                type="pie"
+                                                width={options.chart.width}
+                                            />
+                                        </div>
+                                        <div id="chart" style={{ width: '50%', height: '300px' }}>
+                                            <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                                5 most Loss Trade
+                                            </p>
+                                            <ApexCharts
+                                                options={options1}
+                                                series={options1.series}
+                                                type="pie"
+                                                width={options1.chart.width}
+                                            />
+                                        </div>
 
-
-
-
-
+                                    </div>
 
                                     {/*  Consistent Loss & Profit-Making Trades: */}
                                     <div>
