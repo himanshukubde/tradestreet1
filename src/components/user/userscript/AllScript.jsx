@@ -351,9 +351,12 @@ const Addscript = () => {
                                                         </label>
                                                     </div>
                                                 </div> */}
-                                                <div className="form-group">
+                                                <div className="form-group justify-content-between">
                                                     <button className="btn btn-primary" type="submit">
                                                         Submit
+                                                    </button>
+                                                    <button className="btn btn-primary ms-2" type="submit">
+                                                        Check P&L
                                                     </button>
                                                 </div>
                                             </form>
@@ -366,21 +369,134 @@ const Addscript = () => {
                                         role="tabpanel"
                                         aria-labelledby="profile-tab-justify"
                                     >
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                            since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it to make a type specimen book.
-                                        </p>
+                                        <div className="iq-card-body">
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault02">Select Group</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">No Group</option>
+
+                                                            </select>
+                                                            <div className="invalid-feedback">Example invalid custom select feedback</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <label htmlFor="validationDefault02">Select Strategy type</label>
+                                                        <div className="form-group">
+
+                                                            <select className="form-select" required="">
+                                                                <option value="">Open this select menu</option>
+                                                                <option value={1}>Multi Directional</option>
+                                                                <option value={2}>Fixed Price</option>
+                                                                <option value={3}>One Directional</option>
+                                                            </select>
+                                                            <div className="invalid-feedback">Example invalid custom select feedback</div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                                {/* <div className="form-group">
+                                                    <div className="form-check">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            defaultValue=""
+                                                            id="invalidCheck2"
+                                                            required=""
+                                                        />
+                                                        <label className="form-check-label" htmlFor="invalidCheck2">
+                                                            Agree to terms and conditions
+                                                        </label>
+                                                    </div>
+                                                </div> */}
+
+                                            </form>
+                                            <div className="table-responsive">
+                                                <table id="datatable" className="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Sr.No</th>
+                                                            <th>Trading</th>
+                                                            <th>Square off</th>
+                                                            <th>Update Script</th>
+                                                            <th>Scalp Type</th>
+                                                            <th>Exchange</th>
+                                                            <th>Symbol</th>
+                                                            <th>Token</th>
+                                                            <th>Trade Type</th>
+                                                            <th>Target Value</th>
+                                                            <th>Sl Value</th>
+                                                            <th>Quantity</th>
+                                                            <th>Trading</th>
+                                                            <th>Expiry date</th>
+                                                            <th>Trade Execution</th>
+                                                            <th>Exit Day</th>
+                                                            <th>Entry Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="row-1">
+                                                            <td>1</td>
+                                                            <td><div className="iq-checkbox-mail">
+                                                                <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
+                                                                    <input type="checkbox" className="custom-control-input" id="mailk" />
+                                                                    <label className="custom-control-label" htmlFor="mailk" />
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            </td>
+                                                            <td style={{ textAlign: "center" }}><a href="#">
+                                                                <i className="ri-delete-bin-line" style={{ "fontSize": "22px" }} />
+                                                            </a>
+
+                                                            </td>
+
+
+
+
+                                                            <td style={{ textAlign: "center" }}>
+                                                                <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
+                                                                    <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
+                                                                </button>
+                                                                {/* <a href="" id='modal1' data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"></a> */}
+                                                            </td>
+
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
-                                            {getGroupData.data && getGroupData.data.map((item, index) => (
-
-                                                <option value={item.GroupName} key={index}>{item.GroupName}</option>
-
-                                            ))}
 
 
                             {/* <form className="was-validated ">
