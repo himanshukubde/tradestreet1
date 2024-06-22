@@ -9,7 +9,7 @@ import Addscript from '../components/user/userscript/Addscript';
 import Allscript from '../components/user/userscript/AllScript';
 import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'
-import Last from '../components/user/pattern/Last';
+import LastPattern from '../components/user/pattern/LastPattern';
 import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/describe/Discription';
 import Tradehistory from '../components/user/history/Tradehistory';
@@ -32,7 +32,7 @@ const UserRoute = () => {
             <Route path="/broker" element={<Broker />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<Editprofile />} />
-            <Route path="/last" element={<Last />} />
+            <Route path="/lastpattern" element={<LastPattern />} />
 
             <Route path="/addscript/scalping" element={<Addscript />} />
 

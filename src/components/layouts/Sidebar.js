@@ -156,7 +156,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="last" className="iq-waves-effect">
+                                        <Link to="lastpattern" className="iq-waves-effect">
                                             <i className="lab la-mendeley" />
                                             <span>Last Patterns</span>
                                         </Link>
