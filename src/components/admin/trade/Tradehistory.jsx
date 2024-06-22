@@ -916,7 +916,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -929,7 +929,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -937,22 +937,14 @@ const Tradehistory = () => {
         },
         {
             name: "PnL",
-            width: '100px',
+            
             label: "PnL",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "",
-            width: '500px',
-            label: "",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+          
 
     ];
 
@@ -960,7 +952,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -973,7 +965,7 @@ const Tradehistory = () => {
         {
             name: selectStrategyType == "Pattern" ? "ETime" : "ExitTime",
             label: "Exit Time",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -981,22 +973,14 @@ const Tradehistory = () => {
         },
         {
             name:  selectStrategyType == "Scalping" ? "EquityCurve" :"PnL",
-            width: '100px',
+            
             label: "Equity Curve",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "",
-            width: '500px',
-            label: "",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
 
     ];
 
@@ -1005,7 +989,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -1018,7 +1002,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            width: '100px',
+            
             options: {
                 filter: true,
                 sort: true,
@@ -1026,169 +1010,19 @@ const Tradehistory = () => {
         },
         {
             name: "Drawdown",
-            width: '100px',
+           
             label: "Drawdown",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "",
-            width: '500px',
-            label: "",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
 
     ];
 
 
-    const columns7 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            width: '100px',
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "Entry Time",
-            label: "Entry Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "EPrice",
-            label: "EPrice",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitPrice",
-            label: "ExitPrice",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LotSize",
-            label: "LotSize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trade",
-            label: "Trade",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target",
-            label: "Target",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL",
-            label: "SL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Option Type",
-            label: "Option Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Strike price",
-            label: "Strike price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Token",
-            label: "Token",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Spot Price",
-            label: "Spot Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Hashing",
-            label: "Hashing",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeType",
-            label: "TradeType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PnL",
-            label: "PnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
+    
 
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);

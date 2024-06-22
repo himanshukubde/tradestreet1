@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import {Get_Pattern_Name} from '../../Common API/User'
+import { Get_Pattern_Name, Get_Pattern_Charting } from '../../Common API/Admin'
+import { Get_Last_Pattern_All_Data } from '../../Common API/User'
+import FullDataTable from '../../../ExtraComponent/CommanDataTable'
+import Loader from '../../../ExtraComponent/Loader'
 
 const LastPattern = () => {
-
-
-    const [getLastPatternData , setLastPatternData] = useState({
-        loading:true,
-        data:[]
+    const [getLastPatternData, setLastPatternData] = useState({
+        loading: true,
+        data: []
     })
 
-    const [selectPattern , setSelectPattern] = useState('')
+    const [selectPattern, setSelectPattern] = useState('')
+    const [getChartPattern, setChartPattern] = useState('')
+    const [selectedRowData, setSelectedRowData] = useState('');
 
-    const GetPatternName = async () => {
-        const data = {Pattern :selectPattern}
-        await Get_Pattern_Name(data)
+    const getLastPattern = async () => {
+        const data = { Pattern: selectPattern }
+        await Get_Last_Pattern_All_Data(data)
             .then((response) => {
                 if (response.Status) {
                     setLastPatternData({
                         loading: false,
-                        data: response.PatternName
+                        data: response.PatternDetails
                     })
                 }
                 else {
@@ -26,21 +29,149 @@ const LastPattern = () => {
                         loading: false,
                         data: []
                     })
-
                 }
             })
             .catch((err) => {
-                console.log("Error in finding the pattern", err)
+                console.log("Error in finding the last Pattern details", err)
             })
     }
 
-    useEffect(()=>{
-        GetPatternName()
-    },[])
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Date",
+            label: "Date",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Pattern",
+            label: "Pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trend",
+            label: "Trend",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
 
-    useEffect(()=>{
+    const columns1 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "pattern",
+            label: "pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "start_pattern",
+            label: "start_pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "End_pattern",
+            label: "End_pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
+    const GetPatternCharting = async () => {
+        try {
+            let response;
+            if (selectPattern === "Candlestick Patterns") {
+                response = await Get_Pattern_Name();
+            } else {
+                response = await Get_Pattern_Charting();
+            }
+
+            if (response.Status) {
+                setChartPattern({
+                    loading: false,
+                    data: response.PatternName
+                });
+            } else {
+                setChartPattern({
+                    loading: false,
+                    data: []
+                });
+            }
+        } catch (error) {
+            // Handle any errors that occur during the fetch
+            console.error('Error fetching pattern data:', error);
+            setChartPattern({
+                loading: false,
+                data: []
+            });
+        }
+    };
+
+    useEffect(() => {
+        GetPatternCharting()
+        getLastPattern()
+    }, [selectPattern])
+
+    useEffect(() => {
         setSelectPattern('Candlestick Patterns')
-    },[])
+    }, [])
+
+    const handleRowSelect = (rowData) => {
+        setSelectedRowData(rowData);
+    };
 
     return (
         <div>
@@ -57,89 +188,39 @@ const LastPattern = () => {
                             <div className="iq-card-body">
                                 <div className='row'>
                                     <div className='col-md-6'>
-                                        <div class="form-group">
+                                        <div className="form-group">
                                             <label>Select Pattern</label>
-                                            <select class="form-control form-control-lg mt-2" onChange={(e)=>setSelectPattern(e.target.value)}
+                                            <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectPattern(e.target.value)}
                                                 value={selectPattern}>
-                                                <option value="CandleStick Patterns">CandleStick Patterns</option>
+                                                <option value="Candlestick Patterns">Candlestick Patterns</option>
                                                 <option value="Charting Patterns">Charting Patterns</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div className='col-md-6'>
-                                        <div class="form-group">
+                                        <div className="form-group">
                                             <label>Select Specific Pattern</label>
-                                            <select class="form-control form-control-lg mt-2">
-                                                <option selected="">Open this select menu</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            <select className="form-control form-control-lg mt-2">
+                                                {
+                                                    getChartPattern && getChartPattern.data.map((item) => (
+                                                        <option value={item}>{item}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="table-responsive">
-                                    <table
-                                        id="datatable"
-                                        className="table table-striped table-bordered"
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td>Michael Bruce</td>
-                                                <td>Javascript Developer</td>
-                                                <td>Singapore</td>
-                                                <td>29</td>
-                                                <td>2011/06/27</td>
-                                                <td>$183,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Donna Snider</td>
-                                                <td>Customer Support</td>
-                                                <td>New York</td>
-                                                <td>27</td>
-                                                <td>2011/01/25</td>
-                                                <td>$112,000</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                    {getLastPatternData.loading ? <Loader /> :
+                                        <FullDataTable
+                                            columns={selectPattern == 'Candlestick Patterns' ? columns : columns1}
+                                            data={getLastPatternData.data}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={selectPattern == 'Candlestick Patterns' ? false : true}
+                                        />
+                                    }
+
                                 </div>
                             </div>
                         </div>

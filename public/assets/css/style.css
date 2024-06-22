@@ -5092,6 +5092,9 @@ table tr {
 .css-1ex1afd-MuiTableCell-root {
 
   text-align: center !important;
+ 
 }
 
- 
+.tss-178gktx-MUIDataTableHeadCell-contentWrapper{
+  justify-content: center !important;
+}
