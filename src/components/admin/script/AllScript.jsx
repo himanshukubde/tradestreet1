@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { GetAllGroupService, GetGroupNames } from '../../Common API/Admin';
 import { useNavigate } from 'react-router-dom';
+import FullDataTable from '../../../ExtraComponent/CommanDataTable';
+import Loader from '../../../ExtraComponent/Loader'
 
 const Addscript = () => {
     const navigate = useNavigate()
@@ -9,7 +11,7 @@ const Addscript = () => {
         loading: true,
         data: []
     })
-    
+
     const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
@@ -19,12 +21,723 @@ const Addscript = () => {
     })
 
 
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "ScalpType",
+            label: "ScalpType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TType",
+            label: "Trade Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TStype",
+            label: "Measurement Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Booking Point",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Re-entry Point",
+            label: "Re-entry Point",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExpiryDate",
+            label: "ExpiryDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeExecution",
+            label: "TradeExecution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LowerRange",
+            label: "LowerRange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "HigherRange",
+            label: "HigherRange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "HoldExit",
+            label: "HoldExit",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitDay",
+            label: "ExitDay",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "ExitTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryTime",
+            label: "EntryTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Type",
+            label: "Instrument Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lotsize",
+            label: "Lotsize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+    ];
+
+
+    const columns1 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "STG",
+            label: "STG",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Targettype",
+            label: "Targettype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TimeFrame",
+            label: "Main Signal",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Type",
+            label: "Instrument Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirydate",
+            label: "Expirydate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "IName",
+            label: "IName",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "strategytype",
+            label: "strategytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target value",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL value",
+            label: "SL value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeExecution",
+            label: "TradeExecution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lot Size",
+            label: "Lot Size",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Product Type",
+            label: "Product Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Entry Time",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exit Time",
+            label: "Exit Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "DepthofStrike",
+            label: "DepthofStrike",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Spread",
+            label: "Spread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SSDate",
+            label: "SSDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "StrikeType",
+            label: "StrikeType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LowerRange",
+            label: "LowerRange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "HigherRange",
+            label: "HigherRange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDepthLower",
+            label: "CEDepthLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDepthHigher",
+            label: "CEDepthHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDepthLower",
+            label: "PEDepthLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDepthHigher",
+            label: "PEDepthHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDeepLower",
+            label: "CEDeepLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDeepHigher",
+            label: "CEDeepHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDeepLower",
+            label: "PEDeepLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDeepHigher",
+            label: "PEDeepHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "GroupN",
+            label: "GroupN",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "FixedSM",
+            label: "FixedSM",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskStatus",
+            label: "TaskStatus",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskTime",
+            label: "TaskTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
+
+    const columns2 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirydate",
+            label: "Expirydate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Name",
+            label: "Instrument Name",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lotsize",
+            label: "Lotsize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Pattern",
+            label: "Pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradePattern",
+            label: "TradePattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TType",
+            label: "TType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TimeFrame",
+            label: "TimeFrame",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL value",
+            label: "SL value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target value",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target value",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL value",
+            label: "SL value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TStype",
+            label: "TStype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeExecution",
+            label: "TradeExecution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitDay",
+            label: "ExitDay",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryTime",
+            label: "EntryTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "Exit Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trend",
+            label: "Trend",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+    ];
 
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
                 .then((response) => {
-                  
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -61,14 +774,13 @@ const Addscript = () => {
                         loading: false,
                         data: response.Data
                     })
-                    setRefresh(!refresh)
+
                 }
                 else {
                     setAllservice({
                         loading: false,
                         data: []
                     })
-                    setRefresh(!refresh)
 
                 }
             })
@@ -77,9 +789,7 @@ const Addscript = () => {
             })
     }
 
-    useEffect(() => {
-        getAllgroupService()
-    }, [selectStrategyType, selectGroup])
+
 
 
     const handleAddScript = () => {
@@ -88,17 +798,22 @@ const Addscript = () => {
             selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
     }
 
-    
-    useEffect(() => {
-        if (getGroupData.data && getGroupData.data.length > 0) {
-            setSelectGroup(getGroupData.data[0].GroupName);
-        }
-    }, [getGroupData]);
+
+    // useEffect(() => {
+    //     if (getGroupData.data && getGroupData.data.length > 0) {
+    //         setSelectGroup(getGroupData.data[0].GroupName);
+    //     }
+    // }, [getGroupData]);
+
 
     useEffect(() => {
         setStrategyType('Scalping')
-    }, []); 
+        setSelectGroup('komal')
+    }, []);
 
+    useEffect(() => {
+        getAllgroupService()
+    }, [selectStrategyType, selectGroup])
 
     return (
         <div>
@@ -132,13 +847,13 @@ const Addscript = () => {
                                     <div className="form-group col-md-6 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
-                                            onChange={(e) => setStrategyType(e.target.value)}
+                                            onChange={(e) => {setAllservice({loading:true , data:[]}); setStrategyType(e.target.value)}}
                                             value={selectStrategyType}>
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-                                            <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option>
-                                            <option value={"PatternOption"}>PatternOption</option>
+                                            {/* <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option> */}
+                                            {/* <option value={"PatternOption"}>PatternOption</option> */}
                                         </select>
                                     </div>
                                 </div>
@@ -147,95 +862,13 @@ const Addscript = () => {
                                 <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
                             </div>
                             <div className="iq-card-body">
-                                <div className="table-responsive">
-
-                                    <table id="datatable" className="table table-striped table-bordered">
-                                        <thead>
-                                            <tr className='text-center'>
-                                                <th>SR.N</th>
-                                                <th>Username</th>
-                                                <th>Exchange</th>
-                                                <th>Symbol</th>
-                                                <th>Token</th>
-                                                <th>TType</th>
-                                                <th>Booking Point</th>
-                                                <th>RentryPoint</th>
-                                                <th>Quantity</th>
-                                                <th>ExpiryDate</th>
-                                                <th>TradeExecution</th>
-                                                <th>LowerRange</th>
-                                                <th>HigherRange</th>
-                                                <th>HoldExit</th>
-                                                <th>Strategy Type</th>
-                                                <th>EntryPrice</th>
-                                                <th>EntryRange</th>
-                                                <th>GroupN</th>
-                                                <th>ExitRule</th>
-                                                <th>Loss</th>
-                                                <th>Profit</th>
-                                                <th>FixedSM</th>
-                                                <th>ExitTime</th>
-                                                <th>ExitDay</th>
-                                                <th>EntryTime</th>
-                                                <th>MTrade</th>
-                                                <th>Expirytype</th>
-                                                <th>TaskStatus</th>
-                                                <th>TaskTime</th>
-                                                <th>Instrument Type</th>
-                                                <th>Lotsize</th>
-                                                <th>Delete</th>
-
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {getAllService.data && getAllService.data.map((item, index) => {
-                                                return <tr>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.Username}</td>
-                                                    <td>{item.Exchange}</td>
-                                                    <td>{item.Symbol}</td>
-                                                    <td>{item.Token}</td>
-                                                    <td>{item.TType}</td>
-                                                    <td>{item['Booking Point']}</td>
-                                                    <td>{item['Re-entry Point']}</td>
-                                                    <td>{item.Quantity}</td>
-                                                    <td>{item.ExpiryDate}</td>
-                                                    <td>{item.TradeExecution}</td>
-                                                    <td>{item.LowerRange}</td>
-                                                    <td>{item.HigherRange}</td>
-                                                    <td>{item.HoldExit}</td>
-                                                    <td>{item.ScalpType}</td>
-                                                    <td>{item.EntryPrice}</td>
-                                                    <td>{item.EntryRange}</td>
-                                                    <td>{item.GroupN}</td>
-                                                    <td>{item.ExitRule}</td>
-                                                    <td>{item.Loss}</td>
-                                                    <td>{item.Profit}</td>
-                                                    <td>{item.FixedSM}</td>
-                                                    <td>{item.ExitTime}</td>
-                                                    <td>{item.ExitDay}</td>
-                                                    <td>{item.EntryTime}</td>
-                                                    <td>{item.MTrade}</td>
-                                                    <td>{item.Expirytype}</td>
-                                                    <td>{item.TaskStatus}</td>
-                                                    <td>{item.TaskTime}</td>
-                                                    <td>{item['Instrument Type']}</td>
-                                                    <td>{item.Lotsize}</td>
-
-
-                                                    <td> <span className="table-remove">
-                                                        <button type="button" className="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                                            Remove
-                                                        </button>
-                                                    </span>
-                                                    </td>
-                                                </tr>
-
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {getAllService.loading ? <Loader /> :
+                                    <FullDataTable
+                                        columns={selectStrategyType == "Scalping" ? columns : selectStrategyType == "Option Strategy" ? columns1 : selectStrategyType == "Pattern" ? columns2 : columns}
+                                        data={getAllService.data}
+                                        checkBox={false}
+                                    />
+                                }
                             </div>
                         </div>
                     </div>

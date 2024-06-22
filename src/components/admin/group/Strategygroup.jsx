@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { Add_Group, GetGroupNames } from '../../Common API/Admin';
+import GridExample from '../../../ExtraComponent/CommanDataTable'
+
 
 const Strategygroup = () => {
     const [getGroupData, setGroupData] = useState({
@@ -19,7 +21,71 @@ const Strategygroup = () => {
     });
 
 
+ 
 
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "GroupName",
+            label: "Group Name",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Fund_Requierment",
+            label: "Fund Requierment",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Risk",
+            label: "Risk in %",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Time",
+            label: "Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PRtype",
+            label: "Product Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Message",
+            label: "Message",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        
+    ];
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -41,9 +107,9 @@ const Strategygroup = () => {
                         timer: 1500,
                         timerProgressBar: true
                     });
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         setShowModal(false)
-                    },1500)
+                    }, 1500)
 
                 } else {
                     Swal.fire({
@@ -124,23 +190,23 @@ const Strategygroup = () => {
                                 </button>
                                 {/* Modal */}
 
-                                <div className={`modal fade ${showModal ? 'show' : ''}`} 
-                                id="exampleModal" 
-                                tabIndex={-1} 
-                                aria-labelledby="exampleModalLabel" 
-                                aria-hidden={!showModal} 
-                                style={{ display: showModal ? 'block' : 'none' }}>
+                                <div className={`modal fade ${showModal ? 'show' : ''}`}
+                                    id="exampleModal"
+                                    tabIndex={-1}
+                                    aria-labelledby="exampleModalLabel"
+                                    aria-hidden={!showModal}
+                                    style={{ display: showModal ? 'block' : 'none' }}>
                                     <div className="modal-dialog modal-lg">
                                         <div className="modal-content">
                                             <div className="modal-header">
                                                 <h5 className="modal-title" id="exampleModalLabel">
                                                     Strategy Group
                                                 </h5>
-                                                <button type="button" 
-                                                className="btn-close" 
-                                                data-bs-dismiss="modal" 
-                                                aria-label="Close" 
-                                                onClick={toggleModal} />
+                                                <button type="button"
+                                                    className="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    onClick={toggleModal} />
                                             </div>
                                             <div className="modal-body">
                                                 <form>
@@ -224,7 +290,7 @@ const Strategygroup = () => {
                                                             <input
                                                                 className="form-check-input"
                                                                 type="checkbox"
-                                                               
+
                                                                 id="invalidCheck2"
                                                                 required=""
                                                             />
@@ -252,7 +318,13 @@ const Strategygroup = () => {
                         <div className="iq-card-body">
                             <div className="iq-card-body">
                                 <div className="table-responsive">
-                                    <table id="datatable" className="table table-striped table-bordered">
+                                    <GridExample
+                                            columns={columns}
+                                            data={getGroupData.data}
+                                           
+                                            checkBox={false}
+                                        />
+                                    {/* <table id="datatable" className="table table-striped table-bordered">
                                         <thead>
                                             <tr className='text-center'>
                                                 <th>S.No</th>
@@ -278,7 +350,7 @@ const Strategygroup = () => {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table>
+                                    </table> */}
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 
-const FullDataTable = ({ data, columns, onRowSelect , checkBox }) => {
+
+const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
+
+
+    // No Data Image
+
+    const NoDataIndication = () => (
+        <div className="d-flex justify-content-start">
+            <img 
+                src='../../../../assets/images/norecordfound.png' 
+                alt="No data found"
+                style={{marginLeft:'23rem'}}
+                // className='mx-auto'
+            />
+        </div>
+    );
+    
 
     const options = {
         filterType: false,
         selectableRowsHeader: false,
-        selectableRows: checkBox  ? "single" : false,
+        selectableRows: checkBox ? "single" : false,
         onRowsSelect: (currentRowsSelected, allRowsSelected) => {
             if (allRowsSelected.length > 0) {
                 const selectedIndex = allRowsSelected[0].index;
@@ -20,10 +36,10 @@ const FullDataTable = ({ data, columns, onRowSelect , checkBox }) => {
             }
         },
         rowsSelected: selectedRowData ? [data.indexOf(selectedRowData)] : [],
-        customToolbarSelect: () => {},
+        customToolbarSelect: () => { },
         textLabels: {
             body: {
-                noMatch: "No records found",
+                noMatch: NoDataIndication(),
                 toolTip: "Sort",
             },
             pagination: {
