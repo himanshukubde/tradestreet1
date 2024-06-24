@@ -125,7 +125,7 @@ a:hover {
 
 #sidebar-scrollbar {
   overflow-y: auto !important;
-  scrollbar-color: #0d5883 #eff7f8;
+  scrollbar-color: #3f414d #eff7f8;
   scrollbar-width: thin;
 }
 
@@ -851,7 +851,7 @@ a:hover {
 }
 
 .iq-sidebar-menu .iq-menu li.active>a {
-  color: #0d5883;
+  color: #3f414d;
   text-decoration: none;
   text-decoration: none
 }
@@ -1114,7 +1114,7 @@ body.sidebar-main .iq-sidebar:hover .iq-menu li.menu-open>a {
   font-size: 18px;
   padding: 0 15px;
   line-height: 73px;
-  color: #0d5883;
+  color: #3f414d;
   display: block;
   min-height: 75px;
 }
@@ -1279,7 +1279,7 @@ div#lottie-fullscreen svg path {
   padding: 5px 40px 5px 15px;
   border-radius: 10px;
   border: none;
-  background: #ceebee;
+  background: #3f414d;
 }
 
 /*---------- Sidebar Logo --------------*/
@@ -1553,13 +1553,13 @@ body.sidebar-main .iq-menu-bt-sidebar .iq-menu-bt {
   background: -moz-linear-gradient(left, rgba(8, 155, 171, 1) 0%, rgba(13, 181, 200, 1) 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, rgba(8, 155, 171, 1)), color-stop(100%, rgba(13, 181, 200, 1)));
   background: -webkit-linear-gradient(to right,
-      #0c4a6e 0%,
-      rgb(15 159 237) 100%);
+      #3f414d 0%,
+      #3f414d 100%);
   background: -o-linear-gradient(left, rgba(8, 155, 171, 1) 0%, rgba(13, 181, 200, 1) 100%);
   background: -ms-linear-gradient(left, rgba(8, 155, 171, 1) 0%, rgba(13, 181, 200, 1) 100%);
   background: linear-gradient(to right,
-      #0c4a6e 0%,
-      rgb(15 159 237) 100%);
+      #3f414d 0%,
+      #3f414d 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d5883', endColorstr='#0db5c8', GradientType=1);
 }
 
@@ -3813,8 +3813,8 @@ Calender
 
 .smaill-calender-home .flatpickr-day.today {
   color: #fff;
-  border-color: #0d5883;
-  background: #0d5883;
+  border-color: #3f414d;
+  background: #3f414d;
 }
 
 /*---------------------------------------------------------------------
@@ -3854,7 +3854,7 @@ Calender
 }
 
 #top-tab-list .active {
-  color: #0d5883;
+  color: #3f414d;
 }
 
 #top-tab-list li {
@@ -3877,12 +3877,12 @@ Calender
   border-radius: 50%;
   margin: 0 15px 0 0;
   color: #ffffff;
-  background: #0d5883;
+  background: #3f414d;
 }
 
 #top-tab-list li.active a {
   color: #fff;
-  background: #0d5883;
+  background: #3f414d;
 }
 
 #top-tab-list li.active.done a {
@@ -3972,12 +3972,12 @@ Calender
   border-radius: 50%;
   margin: 0 auto 20px;
   color: #ffffff;
-  background: #0d5883;
+  background: #3f414d;
 }
 
 .stepwizard-row #user.active a {
   background: #eff7f8;
-  border-color: #0d5883;
+  border-color: #3f414d;
 }
 
 .stepwizard-row #document.active a {
@@ -3997,7 +3997,7 @@ Calender
 
 .stepwizard-row .wizard-step#user i {
   background: #eff7f8;
-  color: #0d5883;
+  color: #3f414d;
 }
 
 .stepwizard-row .wizard-step#document i {
@@ -4711,7 +4711,7 @@ Profile Edit
 .iq-edit-profile.nav-pills .nav-link.active,
 .iq-edit-profile.nav-pills .show>.nav-link {
   color: #fff;
-  background-color: #0d5883;
+  background-color: #3f414d;
 }
 
 ul.iq-edit-profile li:first-child a {
@@ -4949,7 +4949,7 @@ Rtl Switch
 }
 
 .rtl-switch-toogle .form-switch .form-check-input {
-  border-color: #0d5883;
+  border-color: #3f414d;
 }
 
 .rtl-switch-toogle .form-switch .form-check-input:focus,
@@ -5094,4 +5094,32 @@ table tr {
   text-align: center !important;
 }
 
- 
+::placeholder {
+  color: #fff;
+}
+
+a {
+  color: #fff;
+}
+
+.btn-primary {
+  color: #ffffff;
+
+
+  background: linear-gradient(to right, #3f414d 0%, #3f414d 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#089bab', endColorstr='#0db5c8', GradientType=1) !important;
+  border-color: #3f414d !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #3f414d 0%, #3f414d 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#089bab', endColorstr='#0db5c8', GradientType=1) !important;
+  border-color: #3f414d !important;
+}
+
+.bg-primary,
+.badge-primary {
+
+  background: linear-gradient(to right, #3f414d 0%, #3f414d 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d5883', endColorstr='#0db5c8', GradientType=1);
+}

@@ -18,10 +18,10 @@ const Dashboards = () => {
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
-         await GetAdminDashboard()
+        await GetAdminDashboard()
             .then((response) => {
-            const result = response;
-           
+                const result = response;
+
                 if (response) {
                     setData({
                         totalLive: result["Total Live Account"],
@@ -752,7 +752,7 @@ const Dashboards = () => {
                                         >
                                             <svg
                                                 id="SvgjsSvg20683"
-                                                width={768}
+                                                width={649}
                                                 height={340}
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 version="1.1"
@@ -1532,7 +1532,7 @@ const Dashboards = () => {
                                     >
                                         <svg
                                             id="SvgjsSvg20683"
-                                            width={768}
+                                            width={649}
                                             height={340}
                                             xmlns="http://www.w3.org/2000/svg"
                                             version="1.1"
@@ -2738,7 +2738,7 @@ const Dashboards = () => {
                                     >
                                         <svg
                                             id="SvgjsSvg22834"
-                                            width={392}
+                                            width={334}
                                             height={80}
                                             xmlns="http://www.w3.org/2000/svg"
                                             version="1.1"
@@ -3053,7 +3053,7 @@ const Dashboards = () => {
                                     >
                                         <svg
                                             id="SvgjsSvg22879"
-                                            width={392}
+                                            width={334}
                                             height={80}
                                             xmlns="http://www.w3.org/2000/svg"
                                             version="1.1"
