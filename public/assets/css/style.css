@@ -5098,3 +5098,9 @@ table tr {
 .tss-178gktx-MUIDataTableHeadCell-contentWrapper{
   justify-content: center !important;
 }
+
+
+.dropdown-menu{
+  max-height: 150px;
+  overflow: auto;
+}
