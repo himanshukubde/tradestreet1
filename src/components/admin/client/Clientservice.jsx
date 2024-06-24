@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GetClientService } from '../../Common API/Admin';
+import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 
 const Clientservice = () => {
     const [getClientService, setClientService] = useState({
@@ -31,6 +32,100 @@ const Clientservice = () => {
         getAllClientService();
     }, []);
 
+
+
+
+
+
+    console.log("getClientService :", getClientService)
+
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Mobile_No",
+            label: "Mobile_No",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BrokerName",
+            label: "BrokerName",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EmailId",
+            label: "EmailId",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Group",
+            label: "Group",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ServiceStartDate",
+            label: "ServiceStartDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CreateDate",
+            label: "CreateDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "ServiceEndDate",
+            label: "ServiceEndDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "Total Service Count",
+            label: "Total Service Count",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+    ];
+
+
     return (
         <div>
             <div className="row">
@@ -42,40 +137,11 @@ const Clientservice = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
-                            <div className="table-responsive">
-                                <table className="table table-striped table-bordered text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Username</th>
-                                            <th>PhoneNo</th>
-                                            <th>BrokerName</th>
-                                            <th>Email Id</th>
-                                            <th>Group</th>
-                                            <th>Service Start Date</th>
-                                            <th>Create Date</th>
-                                            <th>Service End Date</th>
-                                            <th>Total Service Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {getClientService.data && getClientService.data.map((item, index) => (
-                                            <tr key={index} className='text-center'>
-                                                <td>{index + 1}</td>
-                                                <td>{item.Username}</td>
-                                                <td>{item.Mobile_No}</td>
-                                                <td>{item.BrokerName}</td>
-                                                <td>{item.EmailId}</td>
-                                                <td>{item.Group}</td>
-                                                <td>{item.ServiceStartDate}</td>
-                                                <td>{item.CreateDate}</td>
-                                                <td>{item.ServiceEndDate}</td>
-                                                <td>{item['Total Service Count']}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <FullDataTable
+                                columns={columns}
+                                data={getClientService.data}
+                                checkBox={false}
+                            />
                         </div>
                     </div>
                 </div>
