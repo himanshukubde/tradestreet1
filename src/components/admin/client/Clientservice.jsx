@@ -32,13 +32,6 @@ const Clientservice = () => {
         getAllClientService();
     }, []);
 
-
-
-
-
-
-    console.log("getClientService :", getClientService)
-
     const columns = [
         {
             name: "S.No",
@@ -107,14 +100,16 @@ const Clientservice = () => {
                 filter: true,
                 sort: true,
             }
-        }, {
+        },
+        {
             name: "ServiceEndDate",
             label: "ServiceEndDate",
             options: {
                 filter: true,
                 sort: true,
             }
-        }, {
+        },
+        {
             name: "Total Service Count",
             label: "Total Service Count",
             options: {
