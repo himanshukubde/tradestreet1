@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import AddForm from "../../../ExtraComponent/FormData";
-import { swap, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'

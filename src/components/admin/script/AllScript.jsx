@@ -12,7 +12,7 @@ const Addscript = () => {
         data: []
     })
 
-    const [refresh, setRefresh] = useState(false)
+   
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
     const [getAllService, setAllservice] = useState({

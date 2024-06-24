@@ -289,5 +289,14 @@ export const Get_Client_Report = async (data) => {
 
 
 
+export const Get_Broker_Name = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}Brokernamelist`)
+        return res?.data
 
+    }
+    catch (err) {
+        return err
+    }
+}
 

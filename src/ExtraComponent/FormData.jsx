@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { MoveLeft, Plus } from "lucide-react";
+import { MoveLeft, Plus, EyeOff, Eye } from "lucide-react";
 import * as React from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -536,7 +536,7 @@ const DynamicForm = ({
                       ) : field.type === "password" ? (
                         <>
                           <div className={`col-lg-${field.col_size}`}>
-                            <div className=" input-block row">
+                            <div className=" input-block row mb-3">
                               <label
                                 className={`col-lg-${field.label_size} col-form-labelp-0 `}
                                 htmlFor={field.name}
@@ -630,7 +630,7 @@ const DynamicForm = ({
                           <div className="col-lg-3">
                             <div className="row d-flex">
                               <div className="col-lg-12 ">
-                                <div className="form-check custom-checkbox input-block  mb-3">
+                                <div className="form-check custom-checkbox input-block p-0">
                                   <label className="col-lg-6 " htmlFor={field.name}>
                                     {field.name}
                                   </label>
@@ -639,6 +639,7 @@ const DynamicForm = ({
                                     name={field.name}
                                     className="form-control"
                                     id={field.name}
+                                    readOnly={field.disable}
                                     {...formik.getFieldProps(field.name)}
                                   />
                                 </div>
@@ -869,10 +870,10 @@ const DynamicForm = ({
                                 {field.label}
                                 <span className="text-danger">*</span>
                               </label>
-                                  
-                                  <LocalizationProvider dateAdapter={AdapterDayjs}  >
+
+                              <LocalizationProvider dateAdapter={AdapterDayjs}  >
                                 <TimePicker
-                             
+
                                   value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm:ss') : null}
                                   onChange={(newValue) => {
                                     formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm:ss') : '');
@@ -882,7 +883,7 @@ const DynamicForm = ({
                                   ampm={false} // This sets the time picker to 24-hour format
                                   renderInput={(params) => (
                                     <input
-                                
+
                                       {...params.inputProps}
                                       aria-describedby="basic-addon1"
                                       className="form-control py-0"
@@ -890,7 +891,7 @@ const DynamicForm = ({
                                       readOnly={field.disable}
                                       id={field.name}
                                       name={field.name}
-                                    
+
                                     />
                                   )}
                                 />
@@ -901,14 +902,61 @@ const DynamicForm = ({
                             </div>
                           </div>
                         </>
-                      ) : (
+                     
+                    
+                    
+                    ) : 
+                      
+                      
+                      field.type === "timepiker" ? (
+                          <>
+                            <div className={`col-lg-${field.col_size}`}>
+                              <div className="input-block mb-3 flex-column">
+                                <label className={`col-lg-${field.label_size}`}>
+                                  {field.label}
+                                  <span className="text-danger">*</span>
+                                </label>
 
-                        <>
-                          <div className={`col-lg-${field.col_size}`}>
-                            <div className="input-block mb-3"></div>
-                          </div>
-                        </>
-                      )}
+                                <LocalizationProvider dateAdapter={AdapterDayjs}  >
+                                  <TimePicker
+
+                                    value={formik.values[field.name] ? dayjs(formik.values[field.name], 'HH:mm:ss') : null}
+                                    onChange={(newValue) => {
+                                      formik.setFieldValue(field.name, newValue ? newValue.format('HH:mm:ss') : '');
+                                    }}
+                                    minTime={minTime}
+                                    views={['hours', 'minutes', 'seconds']}
+                                    ampm={false} // This sets the time picker to 24-hour format
+                                    renderInput={(params) => (
+                                      <input
+
+                                        {...params.inputProps}
+                                        aria-describedby="basic-addon1"
+                                        className="form-control py-0"
+                                        placeholder={`Enter ${field.label}`}
+                                        readOnly={field.disable}
+                                        id={field.name}
+                                        name={field.name}
+
+                                      />
+                                    )}
+                                  />
+                                </LocalizationProvider>
+                                {formik.touched[field.name] && formik.errors[field.name] ? (
+                                  <div style={{ color: 'red' }}>{formik.errors[field.name]}</div>
+                                ) : null}
+                              </div>
+                            </div>
+                          </>
+                        ) :
+                        (
+
+                          <>
+                            <div className={`col-lg-${field.col_size}`}>
+                              <div className="input-block mb-3"></div>
+                            </div>
+                          </>
+                        )}
                     </React.Fragment>
                   ))}
                   {additional_field}
