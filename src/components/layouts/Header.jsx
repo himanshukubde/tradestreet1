@@ -151,7 +151,51 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                 
+                                    <li className="nav-item">
+
+                                        <div className={`iq-sub-dropdown ${activeElement === 'language' ? 'iq-show' : ''}`}>
+                                            <a className="iq-sub-card" href="#">
+                                                <img
+                                                    src="assets/images/small/flag-02.png"
+                                                    alt="img-flag"
+                                                    className="img-fluid me-2"
+                                                />
+                                                French
+                                            </a>
+                                            <a className="iq-sub-card" href="#">
+                                                <img
+                                                    src="assets/images/small/flag-03.png"
+                                                    alt="img-flag"
+                                                    className="img-fluid me-2"
+                                                />
+                                                Spanish
+                                            </a>
+                                            <a className="iq-sub-card" href="#">
+                                                <img
+                                                    src="assets/images/small/flag-04.png"
+                                                    alt="img-flag"
+                                                    className="img-fluid me-2"
+                                                />
+                                                Italian
+                                            </a>
+                                            <a className="iq-sub-card" href="#">
+                                                <img
+                                                    src="assets/images/small/flag-05.png"
+                                                    alt="img-flag"
+                                                    className="img-fluid me-2"
+                                                />
+                                                German
+                                            </a>
+                                            <a className="iq-sub-card" href="#">
+                                                <img
+                                                    src="assets/images/small/flag-06.png"
+                                                    alt="img-flag"
+                                                    className="img-fluid me-2"
+                                                />
+                                                Japanese
+                                            </a>
+                                        </div>
+                                    </li>
                                     <li className="nav-item">
                                         <a href='#' className="rtl-switch-toogle">
                                             <span className="form-check form-switch">
@@ -351,17 +395,35 @@ const Header = () => {
 
                                             onClick={(e) => handleClick(e, 'profile')}
                                         >
-                                            <img
+                                            {/* <img
                                                 src="assets/images/user/1.jpg"
                                                 className="img-fluid rounded-circle me-3"
                                                 alt="user"
-                                            />
+                                            /> */}
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">Admin</h6>
-                                                <span className="font-size-12">online</span>
+                                                <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
+                                                    Log out
+                                                    <i className="ri-login-box-line ms-2" />
+                                                </button>
                                             </div>
                                         </a>
-                                        
+                                        {/* <div className="iq-sub-dropdown iq-user-dropdown">
+                                            <div className="iq-card shadow-none m-0">
+                                                <div className="iq-card-body p-0 ">
+                                                    <div className="bg-primary p-3">
+                                                        <h5 className="mb-0 text-white line-height">Hello Bini Emma</h5>
+                                                        <span className="text-white font-size-12">online</span>
+                                                    </div>
+                                                   
+                                                    <div className="d-inline-block w-100 text-center p-3">
+                                                        <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
+                                                            Log out
+                                                            <i className="ri-login-box-line ms-2" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> */}
                                     </li>
                                 </ul>
                             </div>
