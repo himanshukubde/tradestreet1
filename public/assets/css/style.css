@@ -5092,16 +5092,16 @@ table tr {
 .css-1ex1afd-MuiTableCell-root {
 
   text-align: center !important;
- 
+
 }
 
- 
-.tss-178gktx-MUIDataTableHeadCell-contentWrapper{
+
+.tss-178gktx-MUIDataTableHeadCell-contentWrapper {
   justify-content: center !important;
 }
 
 
-.dropdown-menu{
+.dropdown-menu {
   max-height: 150px;
   overflow: auto;
 }
@@ -5111,7 +5111,7 @@ table tr {
 }
 
 a {
-  color: #fff;
+  color: #000;
 }
 
 .btn-primary {
@@ -5134,5 +5134,5 @@ a {
 
   background: linear-gradient(to right, #3f414d 0%, #3f414d 100%) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d5883', endColorstr='#0db5c8', GradientType=1);
- 
+
 }
