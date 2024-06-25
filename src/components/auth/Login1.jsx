@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import {LoginPage} from '../Common API/Common'
+import { LoginPage } from '../Common API/Common'
 
 const Login = () => {
     const [Username, setUserName] = useState('');
@@ -11,44 +11,46 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-        const data = { Username: Username, password: password}
+        const data = { Username: Username, password: password }
         await LoginPage(data)
-        .then((response)=>{
-            
-            if(response.Status){
-                localStorage.setItem("Role", response.Role)
-                console.log(response)
-                Swal.fire({
-                    title: "Login!",
-                    text: "User Login  successfully!",
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-                setTimeout(()=>{
-                    if (response.Role === 'Admin') {
-                        navigate('/admin/dashboards');
-                    } else if (response.Role === 'User') {
-                        navigate('/user/dashboard');
-                    }
-                },1500)
-            }
-            else{
+            .then((response) => {
 
-                Swal.fire({
-                    title: "Error!",
-                    text: "User Login  Error!",
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
+                if (response.Status) {
+                    localStorage.setItem("Role", response.Role)
+                    localStorage.setItem("name", Username)
 
-            }
-        })
-        .catch((err)=>{
-            console.log("Error in user login", err)
-        })
-         
+                    console.log(response)
+                    Swal.fire({
+                        title: "Login!",
+                        text: "User Login  successfully!",
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    setTimeout(() => {
+                        if (response.Role === 'Admin') {
+                            navigate('/admin/dashboards');
+                        } else if (response.Role === 'User') {
+                            navigate('/user/dashboard');
+                        }
+                    }, 1500)
+                }
+                else {
+
+                    Swal.fire({
+                        title: "Error!",
+                        text: "User Login  Error!",
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error in user login", err)
+            })
+
     };
     const toggle = (e) => {
         e.preventDefault();
