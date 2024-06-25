@@ -852,8 +852,6 @@ const Addscript = () => {
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-                                            {/* <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option> */}
-                                            {/* <option value={"PatternOption"}>PatternOption</option> */}
                                         </select>
                                     </div>
                                 </div>
