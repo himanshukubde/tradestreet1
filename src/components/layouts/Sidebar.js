@@ -142,13 +142,13 @@ const Sidebar = () => {
                                     </li>
 
 
-
-                                    <li>
+                                    {/* <li>
                                         <Link to="allscript" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
                                             <span>Add Script Parameter</span>
                                         </Link>
-                                    </li>
+                                    </li> */}
+                                   
                                     <li>
                                         <Link to="brokercredential" className="iq-waves-effect">
                                             <i className="lab la-mendeley" />

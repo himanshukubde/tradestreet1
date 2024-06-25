@@ -625,7 +625,7 @@ const AddClient = () => {
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}
-        btn_name1_route={"/user/allscript"}
+        btn_name1_route={"/user/dashboard"}
       />
     </>
   );

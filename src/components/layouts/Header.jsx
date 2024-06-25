@@ -6,6 +6,7 @@ const Header = () => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [activeElement, setActiveElement] = useState(null);
     const navigate = useNavigate();
+    var username = localStorage.getItem('name')
 
     useEffect(() => {
         const handleScroll = () => {
@@ -728,7 +729,7 @@ const Header = () => {
                                                 alt="user"
                                             />
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">Neha mam</h6>
+                                                <h6 className="mb-0 line-height">{username}</h6>
                                                 <span className="font-size-12">online</span>
                                             </div>
                                         </a>
