@@ -27,7 +27,7 @@ const AddClient = () => {
 
   const [refresh, setRefresh] = useState(false)
 
-
+console.log("location",location.state.data)
 
 
 
@@ -87,9 +87,7 @@ const AddClient = () => {
       if (!values.Exchange) {
         errors.Exchange = "Select Exchange type"
       }
-      // if (!values.Instrument) {
-      //   errors.Instrument = "Select Instrument type"
-      // }
+ 
       if (!values.Symbol) {
         errors.Symbol = "Select Symbol type"
       }
@@ -99,18 +97,14 @@ const AddClient = () => {
       if (!values.Strike) {
         errors.Strike = "Select Strike Price type"
       }
-      // if (!values.expirydata1) {
-      //   errors.expirydata1 = "Select expirydata type"
-      // }
+    
       if (!values.TType) {
         errors.TType = "Select Transaction Type"
       }
       if (!values.Quantity) {
         errors.Quantity = "Select Quantity type"
       }
-      // if (!values.HoldExit) {
-      //   errors.HoldExit = "Enter HoldExit type"
-      // }
+   
       if (!values.ExitTime) {
         errors.ExitTime = "Select ExitTime type"
       }
@@ -202,11 +196,14 @@ const AddClient = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue('Strategy', "Multi Directional")
-    formik.setFieldValue('Exchange', "NFO")
+    formik.setFieldValue('Strategy', location.state.data.ScalpType)
+    formik.setFieldValue('Exchange', location.state.data.Exchange)
+    formik.setFieldValue('Instrument', location.state.data.InstrumentType || "OPTIDX")
+    formik.setFieldValue('Symbol', location.state.data['Instrument Symbol'])
 
 
-  }, [])
+
+  }, [location.state.data])
 
 
 
@@ -530,7 +527,7 @@ const AddClient = () => {
 
       const data = {
         Exchange: formik.values.Exchange,
-        Instrument: formik.values.Instrument,
+        Instrument: location.state.data.InstrumentType || formik.values.Instrument,
         Symbol: formik.values.Symbol
       }
       await Get_StrikePrice(data)

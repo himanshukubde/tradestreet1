@@ -15,9 +15,13 @@ const Coptyscript = ({ data }) => {
     const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('')
     const [getAllService, setAllservice] = useState({ loading: true, data: [] })
+   
 
-    const handleAddScript1 = () => {
-        const data = { selectGroup: selectGroup, selectStrategyType: "Scalping" };
+    const handleAddScript1 = (data1) => {
+        const selectedRowIndex = data1.rowIndex;
+        const selectedRow = getAllService.data[selectedRowIndex];
+
+        const data = { selectGroup: selectGroup, selectStrategyType: "Scalping" ,...selectedRow };
         navigate('/user/addscript/scalping', { state: { data } });
     }
     const handleAddScript2 = () => {
@@ -28,6 +32,7 @@ const Coptyscript = ({ data }) => {
         const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern' };
         navigate('/user/addscript/pattern', { state: { data } });
     }
+
 
 
 
@@ -85,7 +90,7 @@ const Coptyscript = ({ data }) => {
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return    <CopyPlus onClick={handleAddScript1}/>
+                return    <CopyPlus onClick={(e)=>handleAddScript1(tableMeta)}/>
             }
         }
     },
@@ -317,7 +322,7 @@ const Coptyscript = ({ data }) => {
                                                 <h4 className="card-title">Scalping</h4>
                                             </div>
                                             <div className='d-flex justify-content-end'>
-                                                <button className='btn btn-primary' onClick={handleAddScript1}>Add Script</button>
+                                                <button className='btn btn-primary' onClick={(e)=>handleAddScript1(e)}>Add Script</button>
                                             </div>
                                         </div>
 
