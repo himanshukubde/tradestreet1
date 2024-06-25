@@ -33,7 +33,7 @@ const Traderesponse = () => {
 
                         </form>
                 
-                            <div className="table-responsive">
+                         <div className="table-responsive">
                                 <table id="datatable" className="table table-striped table-bordered">
                                     <thead>
                                         <tr>
