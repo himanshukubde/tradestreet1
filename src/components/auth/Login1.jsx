@@ -29,7 +29,7 @@ const Login = () => {
                     });
                     setTimeout(() => {
                         if (response.Role === 'Admin') {
-                            navigate('/admin/dashboards');
+                            navigate('/admin/dashboard');
                         } else if (response.Role === 'User') {
                             navigate('/user/dashboard');
                         }

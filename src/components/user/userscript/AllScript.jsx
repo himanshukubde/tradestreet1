@@ -469,7 +469,7 @@ const Addscript = () => {
                                                                 <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
                                                                     <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
                                                                 </button>
-                                                                {/* <a href="" id='modal1' data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"></a> */}
+                                                               
                                                             </td>
 
                                                             <td>Tiger Nixon</td>
