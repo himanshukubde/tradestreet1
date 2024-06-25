@@ -17,7 +17,8 @@ import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
 import Addscript from '../components/admin/script/Addscript';
 import AddScriptOption from '../components/admin/script/AddScript.Option'
-import AddScriptPattern from '../components/admin/script/AddScript.Pattern'
+
+
 
 const AdminRoute = () => {
   return (
@@ -42,7 +43,11 @@ const AdminRoute = () => {
             <Route path="/strategygroup" element={<Strategygroup />} />
             <Route path="/userlog" element={<Userlog />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
-            <Route path="/addscript/pattern" element={<AddScriptPattern />} />
+           
+            
+
+
+
 
 
           </Routes>

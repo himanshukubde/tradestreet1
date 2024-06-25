@@ -151,51 +151,7 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                    <li className="nav-item">
-
-                                        <div className={`iq-sub-dropdown ${activeElement === 'language' ? 'iq-show' : ''}`}>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-02.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                French
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-03.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Spanish
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-04.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Italian
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-05.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                German
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-06.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Japanese
-                                            </a>
-                                        </div>
-                                    </li>
+                                 
                                     <li className="nav-item">
                                         <a href='#' className="rtl-switch-toogle">
                                             <span className="form-check form-switch">
@@ -401,70 +357,11 @@ const Header = () => {
                                                 alt="user"
                                             />
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">Neha Ma'am</h6>
-                                                <span className="font-size-12">Available</span>
+                                                <h6 className="mb-0 line-height">Admin</h6>
+                                                <span className="font-size-12">online</span>
                                             </div>
                                         </a>
-                                        <div className="iq-sub-dropdown iq-user-dropdown">
-                                            <div className="iq-card shadow-none m-0">
-                                                <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3">
-                                                        <h5 className="mb-0 text-white line-height">Hello Bini Emma</h5>
-                                                        <span className="text-white font-size-12">online</span>
-                                                    </div>
-                                                    <Link to="/user/profile" className="iq-sub-card iq-bg-primary-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-primary">
-                                                                <i className="ri-file-user-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">My Profile</h6>
-                                                                <p className="mb-0 font-size-12">View personal profile details.</p>
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                    <Link to="/user/editprofile" className="iq-sub-card iq-bg-warning-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-warning">
-                                                                <i className="ri-profile-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Edit Profile</h6>
-                                                                <p className="mb-0 font-size-12">Modify your personal details.</p>
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                    <a href="account-setting.html" className="iq-sub-card iq-bg-info-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-info">
-                                                                <i className="ri-account-box-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Account settings</h6>
-                                                                <p className="mb-0 font-size-12">Manage your account parameters.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="privacy-setting.html" className="iq-sub-card iq-bg-danger-hover">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="rounded card-icon bg-soft-danger">
-                                                                <i className="ri-lock-line" />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Privacy Settings</h6>
-                                                                <p className="mb-0 font-size-12">Control your privacy parameters.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <div className="d-inline-block w-100 text-center p-3">
-                                                        <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
-                                                            Log out
-                                                            <i className="ri-login-box-line ms-2" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </li>
                                 </ul>
                             </div>
