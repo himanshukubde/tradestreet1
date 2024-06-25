@@ -5,9 +5,11 @@ import { CreateAccount, Get_Broker_Name, GetGroupNames } from '../../Common API/
 import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 
 const Adduser = () => {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         fname: '',
         email: '',
@@ -34,7 +36,6 @@ const Adduser = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [optionsArray, setoptionsArray] = useState([]);
 
-
     const getBrokerName = async () => {
         await Get_Broker_Name()
             .then((response) => {
@@ -60,8 +61,6 @@ const Adduser = () => {
         getBrokerName()
     }, [])
 
-
-   
 
 
     const GetAllGroupDetails = async () => {
@@ -102,24 +101,106 @@ const Adduser = () => {
     }, [])
 
 
-
     const formik = useFormik({
-
         initialValues: {
-
+            UserName: '',
+            Email: '',
+            Password: '',
+            Confirm_Password: '',
+            PhoneNo: '',
+            Select_Licence: '',
+            Select_Licence_Type: '',
+            From_Date: '',
+            To_Date: '',
+            Service_Count: '',
+            Select_Broker: ''
         },
-
         validate: (values) => {
             let errors = {};
+            if (!values.UserName) {
+                errors.SignuserName = "Enter UserName"
+            }
 
+            if (!values.Email) {
+                errors.Email = "Enter Email ID";
+            } else {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|ymail|rediffmail|hotmail|outlook|aol|icloud|protonmail|example).(com|co.in|in|net|org|edu|gov|uk|us|info|biz|io|...)[a-zA-Z]{0,}$/;
+                if (!emailRegex.test(values.Email)) {
+                    errors.Email = "Enter a valid Email ID";
+                }
+            }
+            if (!values.Password) {
+                errors.Password = "Enter Password"
+            }
+            if (!values.Confirm_Password) {
+                errors.Confirm_Password = "Enter Confirm_Password"
+            }
+            if (!values.PhoneNo) {
+                errors.PhoneNo = "Enter PhoneNo"
+            }
+            if (!values.Select_Licence) {
+                errors.Select_Licence = "Enter Select_Licence"
+            }
+            if (!values.Select_Licence_Type) {
+                errors.Select_Licence_Type = "Enter Select_Licence_Type"
+            }
+            if (!values.From_Date) {
+                errors.From_Date = "Enter From_Date"
+            }
+            if (!values.To_Date) {
+                errors.To_Date = "Enter To_Date"
+            }
+            if (!values.Service_Count) {
+                errors.Service_Count = "Enter Service_Count"
+            }
+            if (!values.Select_Broker) {
+                errors.Select_Broker = "Enter Select_Broker"
+            }
             return errors;
         },
         onSubmit: async (values) => {
             const req = {
-
+                SignuserName: values.UserName,
+                Signpassword: values.Password,
+                ConfirmPassword: values.Confirm_Password,
+                SignEmail: values.Email,
+                mobile_no: values.PhoneNo,
+                Day: values.Select_Licence_Type == '11' ? "2 Day Demo" : values.Select_Licence_Type == '21' ? "1 Week Demo" : values.Select_Licence_Type == '12' ? "2 Day Live" : values.Select_Licence_Type == '22' ? "1 Month Live" : '',
+                ser: values.Select_Licence == '1' ? 2 : Number(values.Service_Count),
+                SSDate: values.From_Date,
+                SEDate: values.To_Date,
+                BrokerName: values.Select_Licence == '1' ? "Demo Account" : values.Select_Broker,
+                Group: selectedOptions && selectedOptions
             }
 
 
+            await CreateAccount(req)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "User Created!",
+                            text: "New User Added successfully..!",
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        setTimeout(() => {
+                            navigate('/admin/clientservice')
+                        }, 1500)
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Error in User create..!",
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in adding the new user", err)
+                })
         },
     });
 
@@ -147,7 +228,6 @@ const Adduser = () => {
             col_size: 6,
             disable: false,
         },
-
         {
             name: "Password",
             label: "Password",
@@ -178,7 +258,7 @@ const Adduser = () => {
         {
             name: "Select_Licence",
             label: "Select Licence",
-            type: "select",
+            type: "select1",
             options: [
                 { label: "Demo", value: "1" },
                 { label: "Live", value: "2" },
@@ -192,7 +272,7 @@ const Adduser = () => {
         {
             name: "Select_Licence_Type",
             label: "Select Licence Type",
-            type: "select",
+            type: "select1",
             options: formik.values.Select_Licence == '1' ? [
                 { label: "2 Day Demo", value: "11" },
                 { label: "1 Week Demo", value: "21" },
@@ -227,7 +307,13 @@ const Adduser = () => {
         {
             name: "Service_Count",
             label: "Service Count",
-            type: "text",
+            type: "select",
+            options: [
+                { label: "0", value: "0" },
+                { label: "1", value: "1" },
+                { label: "2", value: "2" },
+                { label: "5", value: "5" },
+            ],
             label_size: 12,
             showWhen: (values) => formik.values.Select_Licence == '2',
             hiding: false,
@@ -237,7 +323,7 @@ const Adduser = () => {
         {
             name: "Select_Broker",
             label: "Select Broker",
-            type: "select",
+            type: "select1",
             options: getBroker.data && getBroker.data.map((item) => ({
                 label: item.BrokerName,
                 value: item.BrokerName
@@ -298,11 +384,21 @@ const Adduser = () => {
     }, [formik.values.Select_Licence])
 
 
-    // useEffect(()=>{
-    //         setSelectedOptions(selected);
-           
-        
-    // },[])
+
+
+    useEffect(() => {
+
+        if (formik.values.Select_Licence == "1") {
+            formik.setFieldValue('Service_Count', "2")
+            formik.setFieldValue('Select_Broker', "")
+
+        }
+    }, [formik.values.Select_Licence])
+
+
+
+
+
 
     return (
         <>
@@ -322,7 +418,9 @@ const Adduser = () => {
                             <DropdownMultiselect
                                 options={optionsArray}
                                 name="groupName"
-                                // onSelect={()=>setSelectedOptions(selected)}
+                                handleOnChange={(selected) => {
+                                    setSelectedOptions(selected)
+                                }}
                             />
                         </div>
                     }
