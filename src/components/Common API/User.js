@@ -40,3 +40,14 @@ export const getNetPnLData = async (data) => {
   
     }
 }
+
+
+export const get_Trade_Response = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Traderesponse`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
