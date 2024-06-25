@@ -178,7 +178,7 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="net" className="iq-waves-effect">
+                                        <Link to="profitandloss" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Net P&L</span>
                                         </Link>

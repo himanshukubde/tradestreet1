@@ -82,7 +82,7 @@ const Clientservice = () => {
             label: "Group",
             options: {
                 filter: true,
-                sort: true,
+                sort: true,   
             }
         },
         {

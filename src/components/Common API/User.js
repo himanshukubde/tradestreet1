@@ -26,3 +26,17 @@ export const Get_Profile_Data = async (data) => {
     }
 
 }
+
+
+
+export const getNetPnLData = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}NetPnL`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}

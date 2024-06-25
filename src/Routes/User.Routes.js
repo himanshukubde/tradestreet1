@@ -12,10 +12,10 @@ import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import LastPattern from '../components/user/pattern/LastPattern';
 import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/describe/Discription';
-import Tradehistory from '../components/user/history/Tradehistory';
+import Tradehistory from '../components/user/Tradehistory/Tradehistory';
 import Updateparameter from '../components/user/parameter/Updateparameter';
-import Traderesponse from '../components/user/trade/Traderesponse';
-import Net from '../components/user/p&l/Net';
+import Traderesponse from '../components/user/TradeResponse/Traderesponse';
+import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/track/Pannel';
 
 const UserRoute = () => {
@@ -41,7 +41,7 @@ const UserRoute = () => {
             <Route path="/tradehistory" element={<Tradehistory />} />
             <Route path="/updateparameter" element={<Updateparameter />} />
             <Route path="/traderesponse" element={<Traderesponse />} />
-            <Route path="/net" element={<Net />} />
+            <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />
           </Routes>
           <Footer />

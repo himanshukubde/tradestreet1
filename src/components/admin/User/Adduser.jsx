@@ -153,9 +153,7 @@ const Adduser = () => {
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service_Count"
             }
-            if (!values.Select_Broker) {
-                errors.Select_Broker = "Enter Select_Broker"
-            }
+            
             return errors;
         },
         onSubmit: async (values) => {
