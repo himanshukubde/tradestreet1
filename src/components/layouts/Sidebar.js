@@ -151,13 +151,13 @@ const Sidebar = () => {
                                    
                                     <li>
                                         <Link to="brokercredential" className="iq-waves-effect">
-                                            <i className="lab la-mendeley" />
+                                            <i className="lab la-joget" />
                                             <span>Technical Patterns</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="lastpattern" className="iq-waves-effect">
-                                            <i className="lab la-mendeley" />
+                                            <i className="lab la-ioxhost" />
                                             <span>Last Patterns</span>
                                         </Link>
                                     </li>
@@ -179,19 +179,19 @@ const Sidebar = () => {
                                     </li>
                                     <li>
                                         <Link to="profitandloss" className="iq-waves-effect">
-                                            <i className="la la-sellsy" />
+                                            <i className="las la-universal-access" />
                                             <span>Net P&L</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="pannel" className="iq-waves-effect">
-                                            <i className="la la-sellsy" />
+                                            <i className="lab la-ello" />
                                             <span>Panel Track</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="discription" className="iq-waves-effect">
-                                            <i className="la la-sellsy" />
+                                            <i className="lab la-get-pocket" />
                                             <span>Description</span>
                                         </Link>
                                     </li>

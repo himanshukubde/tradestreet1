@@ -95,7 +95,7 @@ const Login = () => {
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/2.png"
+                                                    src="assets/images/tradesoft.jpg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -151,9 +151,10 @@ const Login = () => {
                                         <div className="owl-item active" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/3.png"
+                                                    src="/assets/images/tradesoft.jpg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
+                                                    style={{ borderRadius: 20 }}
                                                 />
                                                 <h4 className="mb-1 text-white">Manage your orders</h4>
                                                 <p>
