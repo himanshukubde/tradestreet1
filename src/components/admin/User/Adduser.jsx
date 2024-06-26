@@ -118,7 +118,7 @@ const Adduser = () => {
         validate: (values) => {
             let errors = {};
             if (!values.UserName) {
-                errors.SignuserName = "Enter UserName"
+                errors.UserName = "Enter User Name"
             }
 
             if (!values.Email) {
@@ -133,16 +133,16 @@ const Adduser = () => {
                 errors.Password = "Enter Password"
             }
             if (!values.Confirm_Password) {
-                errors.Confirm_Password = "Enter Confirm_Password"
+                errors.Confirm_Password = "Enter Confirm Password"
             }
             if (!values.PhoneNo) {
-                errors.PhoneNo = "Enter PhoneNo"
+                errors.PhoneNo = "Enter Phone Number"
             }
             if (!values.Select_Licence) {
-                errors.Select_Licence = "Enter Select_Licence"
+                errors.Select_Licence = "Enter Select License"
             }
             if (!values.Select_Licence_Type) {
-                errors.Select_Licence_Type = "Enter Select_Licence_Type"
+                errors.Select_Licence_Type = "Enter Select License Type"
             }
             if (!values.From_Date) {
                 errors.From_Date = "Enter From_Date"
@@ -151,7 +151,7 @@ const Adduser = () => {
                 errors.To_Date = "Enter To_Date"
             }
             if (!values.Service_Count) {
-                errors.Service_Count = "Enter Service_Count"
+                errors.Service_Count = "Enter Service Count"
             }
             
             return errors;
@@ -219,7 +219,7 @@ const Adduser = () => {
         },
         {
             name: "Email",
-            label: "Email",
+            label: "Email ID",
             type: "text",
             label_size: 12,
             hiding: false,
@@ -246,7 +246,7 @@ const Adduser = () => {
         },
         {
             name: "PhoneNo",
-            label: "Mobile Number",
+            label: "Phone Number",
             type: "text",
             label_size: 12,
             hiding: false,
@@ -255,7 +255,7 @@ const Adduser = () => {
         },
         {
             name: "Select_Licence",
-            label: "Select Licence",
+            label: "Select License",
             type: "select1",
             options: [
                 { label: "Demo", value: "1" },
@@ -269,14 +269,14 @@ const Adduser = () => {
         },
         {
             name: "Select_Licence_Type",
-            label: "Select Licence Type",
+            label: "Select License Type",
             type: "select1",
             options: formik.values.Select_Licence == '1' ? [
-                { label: "2 Day Demo", value: "11" },
+                { label: "2 Days Demo", value: "11" },
                 { label: "1 Week Demo", value: "21" },
             ] :
                 [
-                    { label: "2 Day Live", value: "12" },
+                    { label: "2 Days Live", value: "12" },
                     { label: "1 Month Live", value: "22" },
                 ],
             label_size: 12,
@@ -286,7 +286,7 @@ const Adduser = () => {
         },
         {
             name: "From_Date",
-            label: "From Date",
+            label: "Service Start Date",
             type: "date",
             label_size: 12,
             hiding: false,
@@ -295,12 +295,26 @@ const Adduser = () => {
         },
         {
             name: "To_Date",
-            label: "To Date",
+            label: "Service End Date",
             type: "date",
             label_size: 12,
             hiding: false,
             col_size: 3,
             disable: true,
+        },
+        {
+            name: "Select_Broker",
+            label: "Select Broker",
+            type: "select1",
+            options: getBroker.data && getBroker.data.map((item) => ({
+                label: item.BrokerName,
+                value: item.BrokerName
+            })),
+            showWhen: (values) => formik.values.Select_Licence == '2',
+            label_size: 12,
+            hiding: false,
+            col_size: 3,
+            disable: false,
         },
         {
             name: "Service_Count",
@@ -318,20 +332,7 @@ const Adduser = () => {
             col_size: 3,
             disable: false,
         },
-        {
-            name: "Select_Broker",
-            label: "Select Broker",
-            type: "select1",
-            options: getBroker.data && getBroker.data.map((item) => ({
-                label: item.BrokerName,
-                value: item.BrokerName
-            })),
-            showWhen: (values) => formik.values.Select_Licence == '2',
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: false,
-        },
+        
     ];
 
 
@@ -411,7 +412,7 @@ const Adduser = () => {
                     formik={formik}
                     btn_name1_route={"/admin/clientservice"}
                     additional_field={
-                        <div className='col-lg-6'>
+                        <div className='col-lg-6 mt-2' >
                             <h6>Select Group</h6>
                             <DropdownMultiselect
                                 options={optionsArray}
@@ -419,6 +420,7 @@ const Adduser = () => {
                                 handleOnChange={(selected) => {
                                     setSelectedOptions(selected)
                                 }}
+                                 
                             />
                         </div>
                     }

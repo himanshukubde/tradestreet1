@@ -3,7 +3,8 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { swap, useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'
+import { AddScript } from '../../Common API/User'
+import {Get_Symbol , Get_StrikePrice , GET_EXPIRY_DATE} from '../../Common API/Admin'
 
 
 const AddClient = () => {
@@ -34,7 +35,7 @@ const AddClient = () => {
 
     initialValues: {
       MainStrategy: location.state && location.state.data.selectStrategyType,
-      Username: location.state && location.state.data.selectGroup,
+      Username: UserName,
       Strategy: "",
       ETPattern: "",
       Timeframe: "",
@@ -118,7 +119,7 @@ const AddClient = () => {
     },
     onSubmit: async (values) => {
       const req = {
-        MainStrategy: "Scalping",
+        MainStrategy: location.state && location.state.data.selectStrategyType,
         Username: UserName,
         Strategy: values.Strategy,
         Exchange: values.Exchange,
@@ -161,8 +162,6 @@ const AddClient = () => {
         TradeCount: 2,
 
       }
-
-
       await AddScript(req)
         .then((response) => {
           if (response.Status) {

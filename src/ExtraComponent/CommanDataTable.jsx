@@ -6,6 +6,9 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
 
 
+    console.log("data :" , data)
+    console.log("data 1:" , columns)
+
 
     const NoDataIndication = () => (
         <div className="d-flex justify-content-start">

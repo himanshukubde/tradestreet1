@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddAdminScript } from '../../Common API/Admin'
  
 
 const AddClient = () => {
@@ -169,7 +169,7 @@ const AddClient = () => {
 
       }
 
-      await AddScript(req)
+      await AddAdminScript(req)
         .then((response) => {
           if (response.Status) {
             Swal.fire({

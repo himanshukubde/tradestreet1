@@ -5,7 +5,7 @@ import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
 import Dashboard from '../components/user/userdash/Userdashboard';
 import Broker from '../components/user/broker/Userbroker';
-import Addscript from '../components/user/userscript/Addscript';
+import Addscript from '../components/user/userscript/Addscript.scalping';
 import Allscript from '../components/user/userscript/AllScript';
 import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'

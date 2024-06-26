@@ -51,3 +51,38 @@ export const get_Trade_Response = async (data) => {
         return err
     }
 }
+
+
+
+
+export const GetAllUserScript = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Dashboard/${data.userName}`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetAllUserGroup = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}clientalotgroupname`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+
+export const AddScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Addscript`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}

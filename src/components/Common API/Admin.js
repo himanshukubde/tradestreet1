@@ -125,9 +125,9 @@ export const GET_EXPIRY_DATE = async (data) => {
     }
 }
 
-export const AddScript = async (data) => {
+export const AddAdminScript = async (data) => {
     try {
-        const res = await axios.post(`${Config.base_url}Addscript`, data)
+        const res = await axios.post(`${Config.base_url}AdminAddscript`, data)
         return res?.data
     }
     catch (err) {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Addscript = () => {
     const navigate = useNavigate()
+    const userName = localStorage.getItem('name')
 
     const [getGroupData, setGroupData] = useState({
         loading: true,
@@ -19,6 +20,14 @@ const Addscript = () => {
 
 
 
+    // const getClientGroupName = async()=>{
+    //     const data = {User : userName}
+    //     await Get_Client_Group_Name(data)
+    //     .then((response)=>{
+    //         if()
+    //     })
+
+    // }
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()

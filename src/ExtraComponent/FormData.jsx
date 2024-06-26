@@ -352,11 +352,12 @@ const DynamicForm = ({
                                 <select
                                   className="default-select wide form-control"
                                   aria-describedby="basic-addon1"
+                                  // placeholder={`Enter ${field.label}`}
                                   disabled={field.disable}
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                     <option value="">{`Select ${field.name}`}</option>
+                                     <option value="">{`${field.label}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
@@ -623,8 +624,8 @@ const DynamicForm = ({
                             <div className="row d-flex">
                               <div className="col-lg-12 ">
                                 <div className="form-check custom-checkbox input-block p-0">
-                                  <label className="col-lg-6 " htmlFor={field.name}>
-                                    {field.name}
+                                  <label className="col-lg-6 " htmlFor={field.label}>
+                                    {field.label}
                                   </label>
                                   <input
                                     type={field.type}
