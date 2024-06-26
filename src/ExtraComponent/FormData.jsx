@@ -356,7 +356,7 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                     <option value="">{`Select ${field.name}`}</option>
+                                  <option value="">{`Select ${field.name}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
@@ -553,8 +553,8 @@ const DynamicForm = ({
                                 />
                                 <i
                                   className={`fa-solid ${passwordVisible[field.name]
-                                    ? "fa-eye-slash"
-                                    : "fa-eye"
+                                    ? "ri-eye-off-line password-eye"
+                                    : "ri-eye-line password-eye"
                                     }`}
                                   style={{
                                     position: "absolute",

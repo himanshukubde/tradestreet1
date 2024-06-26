@@ -118,7 +118,7 @@ const Adduser = () => {
         validate: (values) => {
             let errors = {};
             if (!values.UserName) {
-                errors.SignuserName = "Enter UserName"
+                errors.UserName = "Please Enter Username"
             }
 
             if (!values.Email) {
@@ -153,7 +153,7 @@ const Adduser = () => {
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service_Count"
             }
-            
+
             return errors;
         },
         onSubmit: async (values) => {
@@ -254,8 +254,8 @@ const Adduser = () => {
             disable: false,
         },
         {
-            name: "Select_Licence",
-            label: "Select Licence",
+            name: "Select_License",
+            label: "Select License",
             type: "select1",
             options: [
                 { label: "Demo", value: "1" },
@@ -268,8 +268,8 @@ const Adduser = () => {
             disable: false,
         },
         {
-            name: "Select_Licence_Type",
-            label: "Select Licence Type",
+            name: "Select_License_Type",
+            label: "Select License Type",
             type: "select1",
             options: formik.values.Select_Licence == '1' ? [
                 { label: "2 Day Demo", value: "11" },

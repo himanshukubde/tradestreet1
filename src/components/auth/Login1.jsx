@@ -29,7 +29,7 @@ const Login = () => {
                     });
                     setTimeout(() => {
                         if (response.Role === 'Admin') {
-                            navigate('/admin/dashboards');
+                            navigate('/admin/dashboard');
                         } else if (response.Role === 'User') {
                             navigate('/user/dashboard');
                         }
@@ -238,7 +238,7 @@ const Login = () => {
                                     <a href="pages-recoverpw.html" className="float-end">
                                         Forgot password?
                                     </a>
-                                </div>
+                                </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                 <div className='position-relative'>
                                     <input
                                         type={changeType}
