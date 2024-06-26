@@ -1,10 +1,236 @@
+import React from 'react';
 import { CopyPlus } from 'lucide-react';
-import { handleAddScript1 } from './Copyscript';
+import { handleAddScript1, handleAddScript2, handleAddScript3 } from './Copyscript';
 
 
 
+export const getColumns = (handleAddScript1) => [
+    {
+        name: "S.No",
+        label: "S.No",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                const rowIndex = tableMeta.rowIndex;
+                return rowIndex + 1;
+            }
+        },
+    },
 
-export const columns1 = [
+    {
+        name: "coptScript",
+        label: "Copy Script",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <CopyPlus onClick={(e) => handleAddScript1(tableMeta)} />
+            }
+        }
+    },
+
+    {
+        name: "Trading",
+        label: "Trading",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <div className="iq-checkbox-mail">
+                    <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
+                        <input type="checkbox" className="custom-control-input" id="mailk" />
+                        <label className="custom-control-label" htmlFor="mailk" />
+                    </div>
+                </div>
+            }
+        }
+    },
+    {
+        name: "Squre_Off",
+        label: "Squre Off",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
+                    Squre Off
+                </button>
+            }
+        }
+    },
+    {
+        name: "ScalpType",
+        label: "ScalpType",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Exchange",
+        label: "Exchange",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Symbol",
+        label: "Symbol",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Token",
+        label: "Token",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TType",
+        label: "Trade Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TStype",
+        label: "Measurement Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Booking Point",
+        label: "Target value",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Re-entry Point",
+        label: "Re-entry Point",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Quantity",
+        label: "Quantity",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Trading",
+        label: "Trading",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExpiryDate",
+        label: "ExpiryDate",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeExecution",
+        label: "TradeExecution",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "LowerRange",
+        label: "LowerRange",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HigherRange",
+        label: "HigherRange",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HoldExit",
+        label: "HoldExit",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitDay",
+        label: "ExitDay",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitTime",
+        label: "ExitTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "EntryTime",
+        label: "EntryTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Expirytype",
+        label: "Expirytype",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Instrument Type",
+        label: "Instrument Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Lotsize",
+        label: "Lotsize",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+
+];
+
+export const getColumns1 = (handleAddScript2) => [
     {
         name: "S.No",
         label: "S.No",
@@ -24,7 +250,7 @@ export const columns1 = [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return    <CopyPlus />
+                return <CopyPlus onClick={(e) => handleAddScript2(tableMeta)} />
             }
         }
     },
@@ -364,8 +590,7 @@ export const columns1 = [
     },
 ];
 
-
-export const columns2 = [
+export const getColumns2 = (handleAddScript3) => [
     {
         name: "S.No",
         label: "S.No",
@@ -385,7 +610,7 @@ export const columns2 = [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return    <CopyPlus />
+                return <CopyPlus onClick={(e) => handleAddScript3(tableMeta)} />
             }
         }
     },
