@@ -7,7 +7,7 @@ import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../C
 
 
 const AddClient = () => {
-
+  var UserName = localStorage.getItem('name')
   const navigate = useNavigate()
   const location = useLocation()
   const [getSymbolData, setSymbolData] = useState({
@@ -27,7 +27,7 @@ const AddClient = () => {
 
   const [refresh, setRefresh] = useState(false)
 
-console.log("ddddd",location.state && location.state.data)
+  console.log("ddddd", location.state && location.state.data)
 
 
   const formik = useFormik({
@@ -86,7 +86,7 @@ console.log("ddddd",location.state && location.state.data)
       if (!values.Exchange) {
         errors.Exchange = "Select Exchange type"
       }
- 
+
       if (!values.Symbol) {
         errors.Symbol = "Select Symbol type"
       }
@@ -96,14 +96,14 @@ console.log("ddddd",location.state && location.state.data)
       if (!values.Strike) {
         errors.Strike = "Select Strike Price type"
       }
-    
+
       if (!values.TType) {
         errors.TType = "Select Transaction Type"
       }
       if (!values.Quantity) {
         errors.Quantity = "Select Quantity type"
       }
-   
+
       if (!values.ExitTime) {
         errors.ExitTime = "Select ExitTime type"
       }
@@ -118,8 +118,8 @@ console.log("ddddd",location.state && location.state.data)
     },
     onSubmit: async (values) => {
       const req = {
-        MainStrategy: location.state && location.state.data.selectStrategyType,
-        Username: location.state && location.state.data.selectGroup,
+        MainStrategy: "Scalping",
+        Username: UserName,
         Strategy: values.Strategy,
         Exchange: values.Exchange,
         Instrument: values.Instrument,
@@ -162,7 +162,7 @@ console.log("ddddd",location.state && location.state.data)
 
       }
 
-    
+
       await AddScript(req)
         .then((response) => {
           if (response.Status) {
