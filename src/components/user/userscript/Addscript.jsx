@@ -27,15 +27,14 @@ const AddClient = () => {
 
   const [refresh, setRefresh] = useState(false)
 
-console.log("location",location.state.data)
-
+console.log("ddddd",location.state && location.state.data)
 
 
   const formik = useFormik({
 
     initialValues: {
-      MainStrategy: location.state.data.selectStrategyType,
-      Username: location.state.data.selectGroup,
+      MainStrategy: location.state && location.state.data.selectStrategyType,
+      Username: location.state && location.state.data.selectGroup,
       Strategy: "",
       ETPattern: "",
       Timeframe: "",
@@ -119,8 +118,8 @@ console.log("location",location.state.data)
     },
     onSubmit: async (values) => {
       const req = {
-        MainStrategy: location.state.data.selectStrategyType,
-        Username: location.state.data.selectGroup,
+        MainStrategy: location.state && location.state.data.selectStrategyType,
+        Username: location.state && location.state.data.selectGroup,
         Strategy: values.Strategy,
         Exchange: values.Exchange,
         Instrument: values.Instrument,
@@ -196,14 +195,20 @@ console.log("location",location.state.data)
   });
 
   useEffect(() => {
-    formik.setFieldValue('Strategy', location.state.data.ScalpType)
-    formik.setFieldValue('Exchange', location.state.data.Exchange)
-    formik.setFieldValue('Instrument', location.state.data.InstrumentType || "OPTIDX")
-    formik.setFieldValue('Symbol', location.state.data['Instrument Symbol'])
+    formik.setFieldValue('Strategy', location.state && location.state.data.ScalpType)
+    formik.setFieldValue('Exchange', location.state && location.state.data.Exchange)
+    formik.setFieldValue('Instrument', location.state && location.state.data.InstrumentType || "OPTIDX")
+    formik.setFieldValue('Symbol', location.state && location.state.data['Instrument Symbol'])
+    formik.setFieldValue('TType', location.state && location.state.data.TType)
+    formik.setFieldValue('Quantity', location.state && location.state.data.Lotsize)
+    formik.setFieldValue('TStype', location.state && location.state.data.TStype)
+    formik.setFieldValue('Targetvalue', location.state && location.state.data.Targetvalue || "5.0")
+    formik.setFieldValue('Slvalue', location.state && location.state.data.Slvalue || "5.0")
+    formik.setFieldValue('ExitDay', location.state && location.state.data.ExitDay)
+    formik.setFieldValue('EntryTime', location.state && location.state.data.EntryTime)
+    formik.setFieldValue('ExitTime', location.state && location.state.data.ExitTime)
 
-
-
-  }, [location.state.data])
+  }, [location.state && location.state.data])
 
 
 
@@ -527,7 +532,7 @@ console.log("location",location.state.data)
 
       const data = {
         Exchange: formik.values.Exchange,
-        Instrument: location.state.data.InstrumentType || formik.values.Instrument,
+        Instrument: location.state && location.state.data.InstrumentType || formik.values.Instrument,
         Symbol: formik.values.Symbol
       }
       await Get_StrikePrice(data)

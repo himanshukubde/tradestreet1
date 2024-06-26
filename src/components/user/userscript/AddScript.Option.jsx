@@ -11,14 +11,14 @@ const AddClient = () => {
 
 
 
-
+    console.log("location", location.state && location.state.data)
 
 
     const formik = useFormik({
 
         initialValues: {
-            MainStrategy: location.state.data.selectStrategyType,
-            Username: location.state.data.selectGroup,
+            MainStrategy: location.state && location.state.data.selectStrategyType,
+            Username: location.state && location.state.data.selectGroup,
             Strategy: "",
             ETPattern: "",
             Timeframe: "",
@@ -314,7 +314,21 @@ const AddClient = () => {
 
     ];
 
-  
+    useEffect(() => {
+        formik.setFieldValue('Strategy', location.state && location.state.data.ScalpType)
+        formik.setFieldValue('Exchange', location.state && location.state.data.Exchange)
+        formik.setFieldValue('Instrument', location.state && location.state.data.InstrumentType || "OPTIDX")
+        formik.setFieldValue('Symbol', location.state && location.state.data['Instrument Symbol'])
+        formik.setFieldValue('TType', location.state && location.state.data.TType)
+        formik.setFieldValue('Quantity', location.state && location.state.data.Lotsize)
+        formik.setFieldValue('TStype', location.state && location.state.data.TStype)
+        formik.setFieldValue('Targetvalue', location.state && location.state.data.Targetvalue || "5.0")
+        formik.setFieldValue('Slvalue', location.state && location.state.data.Slvalue || "5.0")
+        formik.setFieldValue('ExitDay', location.state && location.state.data.ExitDay)
+        formik.setFieldValue('EntryTime', location.state && location.state.data.EntryTime)
+        formik.setFieldValue('ExitTime', location.state && location.state.data.ExitTime)
+
+    }, [location.state && location.state.data])
 
 
 
