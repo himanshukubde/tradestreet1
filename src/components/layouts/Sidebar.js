@@ -168,7 +168,7 @@ const Sidebar = () => {
                                     <li className={activeItem === 'smtp' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'smtp')}>
                                         <Link to="/admin/smtp" className="iq-waves-effect">
                                             <i className="la la-palette" />
-                                             <span>SMTP Details</span>
+                                            <span>SMTP Details</span>
                                         </Link>
                                     </li>
                                 </>
@@ -179,12 +179,12 @@ const Sidebar = () => {
                                             <i className="ri-hospital-fill" />
                                             <span>Dashboard</span>
                                         </Link>
-                                    </li> 
+                                    </li>
                                     <li>
- 
+
                                     </li>
                                     <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
- 
+
                                         <Link to="brokercredential" className="iq-waves-effect">
                                             <i className="lab la-joget" />
                                             <span>Technical Patterns</span>
