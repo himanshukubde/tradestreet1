@@ -598,11 +598,8 @@ const Tradehistory = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
-
                     const rowIndex = tableMeta.rowIndex;
-
                     return rowIndex + 1;
-
                 }
             },
         },
@@ -931,7 +928,6 @@ const Tradehistory = () => {
         {
             name: selectStrategyType == "Pattern" ? "ETime" : "ExitTime",
             label: "Exit Time",
-
             options: {
                 filter: true,
                 sort: true,
@@ -939,7 +935,6 @@ const Tradehistory = () => {
         },
         {
             name: selectStrategyType == "Scalping" ? "EquityCurve" : "PnL",
-
             label: "Equity Curve",
             options: {
                 filter: true,

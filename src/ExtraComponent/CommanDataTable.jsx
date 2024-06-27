@@ -4,10 +4,7 @@ import MUIDataTable from "mui-datatables";
 
 const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
-
-
-    console.log("data :" , data)
-    console.log("data 1:" , columns)
+ 
 
 
     const NoDataIndication = () => (

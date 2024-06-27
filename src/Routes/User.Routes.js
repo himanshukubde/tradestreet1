@@ -16,7 +16,7 @@ import Tradehistory from '../components/user/Tradehistory/Tradehistory';
 import Updateparameter from '../components/user/parameter/Updateparameter';
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
-import Pannel from '../components/user/track/Pannel';
+import Pannel from '../components/user/TrackPanel/TrackPannel';
 import TradeReport  from '../components/user/TradeReport/TradeReport'
 
 const UserRoute = () => {

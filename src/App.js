@@ -2,7 +2,7 @@ import React , { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AdminRoute from './Routes/Admin.Routes'
 import UserRoute from './Routes/User.Routes'
-import Login from './components/auth/Login1';
+import Login from './components/auth/Login';
 
 
 const App = () => {
