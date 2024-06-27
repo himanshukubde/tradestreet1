@@ -185,12 +185,12 @@ const Sidebar = () => {
                                             <i className="ri-hospital-fill" />
                                             <span>Dashboard</span>
                                         </Link>
-                                    </li> 
+                                    </li>
                                     <li>
- 
+
                                     </li>
                                     <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
- 
+
                                         <Link to="brokercredential" className="iq-waves-effect">
                                             <i className="lab la-joget" />
                                             <span>Technical Patterns</span>
