@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { AddScript, GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { AddAdminScript, GET_EXPIRY_DATE } from '../../Common API/Admin'
 
 
 const AddClient = () => {
@@ -145,7 +145,7 @@ const AddClient = () => {
                 PEDeepHigher: 0.0,
                 TradeCount: 2
             }
-            await AddScript(req)
+            await AddAdminScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({

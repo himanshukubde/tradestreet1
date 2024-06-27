@@ -6,7 +6,9 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
 
 
-    // No Data Image
+    console.log("data :" , data)
+    console.log("data 1:" , columns)
+
 
     const NoDataIndication = () => (
         <div className="d-flex justify-content-start">
@@ -71,7 +73,7 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
             ...column.options,
             setCellProps: () => ({
                 style: {
-                    width: column.width || 'auto', // Set the width or use 'auto'
+                    width: column.width || 'auto', 
                 }
             })
         }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Addscript = () => {
     const navigate = useNavigate()
+    const userName = localStorage.getItem('name')
 
     const [getGroupData, setGroupData] = useState({
         loading: true,
@@ -18,7 +19,7 @@ const Addscript = () => {
     })
 
 
-
+ 
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
@@ -51,13 +52,13 @@ const Addscript = () => {
 
 
     const getAllgroupService = async () => {
-        const data = { Data: selectStrategyType, Username: selectGroup }
+        const data = { Strategy: selectStrategyType, Group: selectGroup }
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        data: response.GroupScrdf
                     })
                     setRefresh(!refresh)
                 }
@@ -469,7 +470,7 @@ const Addscript = () => {
                                                                 <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
                                                                     <i class="las la-edit" style={{ "fontSize": "23px" }}></i>
                                                                 </button>
-                                                                {/* <a href="" id='modal1' data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"></a> */}
+                                                               
                                                             </td>
 
                                                             <td>Tiger Nixon</td>

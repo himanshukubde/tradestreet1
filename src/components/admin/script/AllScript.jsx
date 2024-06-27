@@ -12,7 +12,7 @@ const Addscript = () => {
         data: []
     })
 
-   
+
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
     const [getAllService, setAllservice] = useState({
@@ -734,6 +734,9 @@ const Addscript = () => {
 
     ];
 
+
+
+    // 1
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
@@ -759,20 +762,20 @@ const Addscript = () => {
             console.log("Group data fetch error")
         }
     }
-
     useEffect(() => {
         GetAllGroupDetails()
     }, [])
 
-
+    // 2
     const getAllgroupService = async () => {
-        const data = { Data: selectStrategyType, Username: selectGroup }
+        const data = { Strategy: selectStrategyType, Group: selectGroup }
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
+                    
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        data: response.GroupScrdf
                     })
 
                 }
@@ -790,8 +793,6 @@ const Addscript = () => {
     }
 
 
-
-
     const handleAddScript = () => {
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
         navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
@@ -799,21 +800,24 @@ const Addscript = () => {
     }
 
 
-    // useEffect(() => {
-    //     if (getGroupData.data && getGroupData.data.length > 0) {
-    //         setSelectGroup(getGroupData.data[0].GroupName);
-    //     }
-    // }, [getGroupData]);
-
-
+    
+    
     useEffect(() => {
         setStrategyType('Scalping')
-        setSelectGroup('komal')
     }, []);
+    
+    useEffect(() => {
+        if (getGroupData && getGroupData.data.length > 0) {
+            setSelectGroup(getGroupData.data[0].GroupName)
+        }
+    }, [])
+
 
     useEffect(() => {
         getAllgroupService()
     }, [selectStrategyType, selectGroup])
+
+
 
     return (
         <div>
@@ -847,13 +851,11 @@ const Addscript = () => {
                                     <div className="form-group col-md-6 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
-                                            onChange={(e) => {setAllservice({loading:true , data:[]}); setStrategyType(e.target.value)}}
+                                            onChange={(e) => { setAllservice({ loading: true, data: [] }); setStrategyType(e.target.value) }}
                                             value={selectStrategyType}>
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-                                            {/* <option value={"MultipleLegStretegy"}>MultipleLegStretegy</option> */}
-                                            {/* <option value={"PatternOption"}>PatternOption</option> */}
                                         </select>
                                     </div>
                                 </div>

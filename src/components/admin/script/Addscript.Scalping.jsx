@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import AddForm from "../../../ExtraComponent/FormData";
-import { swap, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddScript } from '../../Common API/Admin'
-
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddAdminScript } from '../../Common API/Admin'
+ 
 
 const AddClient = () => {
 
@@ -149,7 +149,6 @@ const AddClient = () => {
         ETPattern: "",
         Timeframe: "",
         Quantity: values.Quantity,
-        TradeExecution: "Paper Trade",
         FixedSM: "Single",
         serendate: "",
         Expirytype: "",
@@ -165,12 +164,9 @@ const AddClient = () => {
         CEDeepHigher: 0.0,
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
-        TradeCount: 2,
-
       }
 
-    
-      await AddScript(req)
+      await AddAdminScript(req)
         .then((response) => {
           if (response.Status) {
             Swal.fire({
@@ -180,9 +176,9 @@ const AddClient = () => {
               timer: 1500,
               timerProgressBar: true
             });
-            setTimeout(() => {
+            setTimeout(()=>{
               navigate('/admin/allscript')
-            }, 1500)
+            },1500)
           }
           else {
             Swal.fire({
@@ -204,8 +200,6 @@ const AddClient = () => {
   useEffect(() => {
     formik.setFieldValue('Strategy', "Multi Directional")
     formik.setFieldValue('Exchange', "NFO")
-
-
   }, [])
 
 
@@ -495,7 +489,7 @@ const AddClient = () => {
 
 
   const getSymbol = async () => {
-    if (formik.values.Exchange) {
+    if ( formik.values.Exchange) {
       const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
       await Get_Symbol(data)
         .then((response) => {
@@ -556,7 +550,7 @@ const AddClient = () => {
 
 
   const getExpiry = async () => {
-    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike && formik.values.Exchange != 'NSE') {
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol   && formik.values.Exchange!='NSE' ) {
       const data = {
         Exchange: formik.values.Exchange,
         Instrument: formik.values.Instrument,
@@ -572,7 +566,7 @@ const AddClient = () => {
               data: response['Expiry Date']
             })
 
-          } else {
+          }else{
             setExpiryDate({
               loading: false,
               data: []
@@ -580,7 +574,7 @@ const AddClient = () => {
 
           }
         })
-        .catch((err) => {
+        .catch((err)=>{
           console.log("Error in finding the Expiry date", err)
         })
     }
@@ -590,6 +584,13 @@ const AddClient = () => {
   useEffect(() => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
+
+
+
+
+
+
+
   useEffect(() => {
 
     if (formik.values.set_Range == "No") {
@@ -602,19 +603,19 @@ const AddClient = () => {
       formik.setFieldValue('EntryRange', "1")
 
     }
-    if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
+    if(formik.values.Instrument== "FUTIDX" || formik.values.Instrument == "FUTSTK"){
       formik.setFieldValue('Optiontype', "")
       formik.setFieldValue('Strike', "")
     }
-    if (formik.values.Exchange == "NSE") {
+    if(formik.values.Exchange== "NSE" ){
       formik.setFieldValue('Instrument', "")
-
+      
     }
 
-  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range , formik.values.Instrument , formik.values.Exchange])
 
 
-
+ 
   return (
     <>
       <AddForm
@@ -625,7 +626,7 @@ const AddClient = () => {
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}
-        btn_name1_route={"/user/allscript"}
+        btn_name1_route={"/admin/allscript"}
       />
     </>
   );
