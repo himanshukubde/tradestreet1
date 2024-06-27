@@ -6,7 +6,6 @@ const Header = () => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [activeElement, setActiveElement] = useState(null);
     const navigate = useNavigate();
-    var username = localStorage.getItem('name')
 
     useEffect(() => {
         const handleScroll = () => {
@@ -96,7 +95,12 @@ const Header = () => {
         }
     }, [isActive]);
 
-   
+    // const handleClick = () => {
+    //     // setIsActive(prevState => !prevState);
+    //     setIsActive(true);
+
+
+
 
     return (
         <>
@@ -120,7 +124,7 @@ const Header = () => {
                                         placeholder="Type here to search..."
                                     />
                                     <a className="search-link" href="#">
-                                        <i className="ri-search-line"  style={{color:"#fff"}}/>
+                                        <i className="ri-search-line" style={{ color: "#fff" }} />
                                     </a>
                                 </form>
                             </div>
@@ -397,8 +401,10 @@ const Header = () => {
                                                 alt="user"
                                             /> */}
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">{username}</h6>
-                                                <span className="font-size-12">Available</span>
+                                                <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
+                                                    Log out
+                                                    <i className="ri-login-box-line ms-2" />
+                                                </button>
                                             </div>
                                         </a>
                                         {/* <div className="iq-sub-dropdown iq-user-dropdown">
@@ -591,7 +597,82 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </li>
-                                   
+                                    {/* <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
+                                        <a
+                                            href="#"
+                                            className={`search-toggle iq-waves-effect ${activeElement === 'mail' ? 'active' : ''}`}
+                                            onClick={(e) => handleClick(e, 'mail')}
+                                        >
+                                            <i className="ri-mail-open-fill" />
+                                            <span className="bg-primary count-mail" />
+                                        </a>
+                                        <div className="iq-sub-dropdown">
+                                            <div className="iq-card shadow-none m-0">
+                                                <div className="iq-card-body p-0 ">
+                                                    <div className="bg-primary p-3">
+                                                        <h5 className="mb-0 text-white d-flex justify-content-between">
+                                                            All Messages
+                                                            <small className="badge  badge-dark float-end pt-1">
+                                                                5
+                                                            </small>
+                                                        </h5>
+                                                    </div>
+
+
+                                                    <a href="#" className="iq-sub-card">
+                                                        <div className="media align-items-center d-flex">
+                                                            <div className="">
+                                                                <img
+                                                                    className="avatar-40 rounded"
+                                                                    src="assets/images/user/03.jpg"
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                            <div className="media-body ms-3">
+                                                                <h6 className="mb-0 ">Why do we use it?</h6>
+                                                                <small className="float-end text-muted">
+                                                                    30 Jun
+                                                                </small>
+                                                                <p className="mb-0">Dolor sit</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" className="iq-sub-card">
+                                                        <div className="media align-items-center d-flex">
+                                                            <div className="">
+                                                                <img
+                                                                    className="avatar-40 rounded"
+                                                                    src="assets/images/user/04.jpg"
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                            <div className="media-body ms-3">
+                                                                <h6 className="mb-0 ">Variations Passages</h6>
+                                                                <small className="float-end text-muted">12 Sep</small>
+                                                                <p className="mb-0">Lorem Ipsum</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" className="iq-sub-card">
+                                                        <div className="media align-items-center d-flex">
+                                                            <div className="">
+                                                                <img
+                                                                    className="avatar-40 rounded"
+                                                                    src="assets/images/user/05.jpg"
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                            <div className="media-body ms-3">
+                                                                <h6 className="mb-0 ">Lorem Ipsum generators</h6>
+                                                                <small className="float-end text-muted">5 Dec</small>
+                                                                <p className="mb-0">Lorem Ipsum</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li> */}
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
                                         <a href="#"
@@ -606,7 +687,7 @@ const Header = () => {
                                                 alt="user"
                                             />
                                             <div className="caption">
-                                                <h6 className="mb-0 line-height">{username}</h6>
+                                                <h6 className="mb-0 line-height">Neha mam</h6>
                                                 <span className="font-size-12">online</span>
                                             </div>
                                         </a>
