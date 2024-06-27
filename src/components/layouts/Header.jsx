@@ -120,7 +120,7 @@ const Header = () => {
                                         placeholder="Type here to search..."
                                     />
                                     <a className="search-link" href="#">
-                                        <i className="ri-search-line" />
+                                        <i className="ri-search-line"  style={{color:"#fff"}}/>
                                     </a>
                                 </form>
                             </div>

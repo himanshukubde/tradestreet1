@@ -153,7 +153,7 @@ const Adduser = () => {
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service Count"
             }
-            
+
             return errors;
         },
         onSubmit: async (values) => {
@@ -254,7 +254,7 @@ const Adduser = () => {
             disable: false,
         },
         {
-            name: "Select_Licence",
+            name: "Select_License",
             label: "Select License",
             type: "select1",
             options: [
@@ -268,7 +268,7 @@ const Adduser = () => {
             disable: false,
         },
         {
-            name: "Select_Licence_Type",
+            name: "Select_License_Type",
             label: "Select License Type",
             type: "select1",
             options: formik.values.Select_Licence == '1' ? [
