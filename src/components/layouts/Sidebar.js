@@ -168,7 +168,7 @@ const Sidebar = () => {
                                     <li className={activeItem === 'smtp' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'smtp')}>
                                         <Link to="/admin/smtp" className="iq-waves-effect">
                                             <i className="la la-palette" />
-                                            <span>SMTP Details</span>
+                                             <span>SMTP Details</span>
                                         </Link>
                                     </li>
                                 </>
