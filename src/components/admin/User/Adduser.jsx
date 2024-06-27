@@ -254,7 +254,11 @@ const Adduser = () => {
             disable: false,
         },
         {
+
+            name: "Select_Licence",
+
             name: "Select_License",
+
             label: "Select License",
             type: "select1",
             options: [
@@ -268,7 +272,9 @@ const Adduser = () => {
             disable: false,
         },
         {
+
             name: "Select_License_Type",
+
             label: "Select License Type",
             type: "select1",
             options: formik.values.Select_Licence == '1' ? [
@@ -332,7 +338,7 @@ const Adduser = () => {
             col_size: 3,
             disable: false,
         },
-        
+
     ];
 
 
@@ -420,14 +426,12 @@ const Adduser = () => {
                                 handleOnChange={(selected) => {
                                     setSelectedOptions(selected)
                                 }}
-                                 
                             />
                         </div>
                     }
                 />
             )}
         </>
-
     );
 };
 

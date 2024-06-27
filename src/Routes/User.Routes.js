@@ -17,6 +17,7 @@ import Updateparameter from '../components/user/parameter/Updateparameter';
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/track/Pannel';
+import TradeReport  from '../components/user/TradeReport/TradeReport'
 
 const UserRoute = () => {
 
@@ -43,6 +44,9 @@ const UserRoute = () => {
             <Route path="/traderesponse" element={<Traderesponse />} />
             <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />
+            <Route path="/tradereport" element={<TradeReport />} />
+
+
           </Routes>
           <Footer />
         </div>
