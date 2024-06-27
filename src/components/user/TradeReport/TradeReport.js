@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { get_User_Data } from '../../Common API/Admin'
-import { get_Trade_Response } from '../../Common API/User'
+import { get_Trade_Report } from '../../Common API/User'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-const Tradehistory = () => {
+import Swal from 'sweetalert2';
+
+const TradeReport = () => {
     const [selectStrategyType, setStrategyType] = useState('')
-    const [tradeHistory, setTradeHistory] = useState('')
+    const [tradeReport, setTradeReport] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
     const [showTable, setShowTable] = useState(false)
 
     const [getAllTradeData, setAllTradeData] = useState({
-        loading: true,
-        data: [],
-
+        loading: true, 
+        data:[],
     })
-
-
-    console.log("getAllTradeData :" ,getAllTradeData)
 
     const Username = localStorage.getItem('name')
 
@@ -35,25 +33,20 @@ const Tradehistory = () => {
 
 
 
-    const GetTradeHistory = async () => {
+    const GetTradeReport = async () => {
         const data = { Data: selectStrategyType, Username: Username }
 
-        //GET TRADEHISTORY
+        //GET TRADE REPORT
         await get_User_Data(data)
             .then((response) => {
                 if (response.Status) {
-
-                    const filterLiveTrade = response.Data.filter((item) => {
-                        return item.TradeExecution == 'Live Trade'
-
-                    })
-                    setTradeHistory({
+                    setTradeReport({
                         loading: false,
-                        data: filterLiveTrade
+                        data: response.Data
                     })
                 }
                 else {
-                    setTradeHistory({
+                    setTradeReport({
                         loading: false,
                         data: []
                     })
@@ -63,15 +56,9 @@ const Tradehistory = () => {
             .catch((err) => {
                 console.log("Error in finding the user data", err)
             })
-
-
-
-        //
-
-
     }
     useEffect(() => {
-        GetTradeHistory()
+        GetTradeReport()
     }, [selectStrategyType])
 
 
@@ -241,7 +228,6 @@ const Tradehistory = () => {
             }
         },
     ];
-
     const columns1 = [
         {
             name: "S.No",
@@ -733,10 +719,6 @@ const Tradehistory = () => {
         },
 
     ];
-
-
-    
-
     const columns3 = [
         {
             name: "S.No",
@@ -754,6 +736,38 @@ const Tradehistory = () => {
             },
         },
         {
+            name: "ETime",
+            label: "ETime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EPrice",
+            label: "EPrice",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "ExitTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },  
+        {
+            name: "ExitPrice",
+            label: "ExitPrice",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
             name: "Symbol",
             label: "Symbol",
             options: {
@@ -762,24 +776,96 @@ const Tradehistory = () => {
             }
         },
         {
-            name: "Orderdetail",
-            label: "Orderdetail",
+            name: "MainSymbol",
+            label: "MainSymbol",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "DateTime",
-            label: "DateTime",
+            name: "STG",
+            label: "STG",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "Response",
-            label: "Response",
+            name: "LotSize",
+            label: "LotSize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trade",
+            label: "Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target",
+            label: "Target",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL",
+            label: "SL",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Option Type",
+            label: "Option Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Strike price",
+            label: "Strike price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Spot Price",
+            label: "Spot Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Hashing",
+            label: "Hashing",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeType",
+            label: "TradeType",
             options: {
                 filter: true,
                 sort: true,
@@ -795,7 +881,6 @@ const Tradehistory = () => {
         },
         
     ];
-
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
@@ -817,22 +902,28 @@ const Tradehistory = () => {
             PatternName: ""
         }
 
-        await get_Trade_Response(data)
+        await get_Trade_Report(data)
 
             .then((response) => {
                 if (response.Status) {
                     setAllTradeData({
                         loading: false,
-                        data: response.Data,
-
+                        data: response.CloseData,
                     })
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setAllTradeData({
                         loading: false,
                         data: [],
                     })
+
                 }
             })
             .catch((err) => {
@@ -841,12 +932,7 @@ const Tradehistory = () => {
 
 
     }
-
-
-
-
     useEffect(() => {
-
         setStrategyType('Scalping')
     }, []);
 
@@ -858,7 +944,7 @@ const Tradehistory = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Trade History</h4>
+                                <h4 className="card-title">Trade Report</h4>
                             </div>
                         </div>
                         <div className="iq-card-body">
@@ -895,7 +981,7 @@ const Tradehistory = () => {
                                             selectStrategyType === "Option Strategy" ? columns1 :
                                                 selectStrategyType === "Pattern" ? columns2 : columns
                                         }
-                                        data={tradeHistory.data}
+                                        data={tradeReport.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
                                     />
@@ -924,4 +1010,4 @@ const Tradehistory = () => {
     );
 };
 
-export default Tradehistory;
+export default TradeReport;

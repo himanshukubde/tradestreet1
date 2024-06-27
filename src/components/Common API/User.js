@@ -86,3 +86,13 @@ export const AddScript = async (data) => {
         return err
     }
 }
+
+export const get_Trade_Report = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Tradereport`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}

@@ -8,8 +8,9 @@ import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from 'sweetalert2';
 const Tradehistory = () => {
- 
+
     const [selectStrategyType, setStrategyType] = useState('')
     const [selectStrategyName, setStrategyName] = useState('')
     const [tradeHistory, setTradeHistory] = useState('')
@@ -20,10 +21,10 @@ const Tradehistory = () => {
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
-        data1:"",
-        data2:"",
-        data3:"",
-        data4:"" 
+        data1: "",
+        data2: "",
+        data3: "",
+        data4: ""
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
@@ -31,7 +32,7 @@ const Tradehistory = () => {
         data2: []
     })
 
-   
+
 
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
@@ -42,7 +43,7 @@ const Tradehistory = () => {
         data: []
     })
 
-    
+
 
     const [getFiveLossTrade, setFiveLossTrade] = useState({
         loading: true,
@@ -56,10 +57,10 @@ const Tradehistory = () => {
     })
 
 
- 
+
 
     const Username = localStorage.getItem('name')
-   
+
     // Date Formetor
     const convertDateFormat = (date) => {
         const dateObj = new Date(date);
@@ -71,8 +72,8 @@ const Tradehistory = () => {
 
 
 
- 
- 
+
+
 
 
     const GetTradeHistory = async () => {
@@ -881,7 +882,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -894,7 +895,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -902,14 +903,14 @@ const Tradehistory = () => {
         },
         {
             name: "PnL",
-            
+
             label: "PnL",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-          
+
 
     ];
 
@@ -917,7 +918,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -930,22 +931,22 @@ const Tradehistory = () => {
         {
             name: selectStrategyType == "Pattern" ? "ETime" : "ExitTime",
             label: "Exit Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name:  selectStrategyType == "Scalping" ? "EquityCurve" :"PnL",
-            
+            name: selectStrategyType == "Scalping" ? "EquityCurve" : "PnL",
+
             label: "Equity Curve",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-         
+
 
     ];
 
@@ -954,7 +955,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -967,7 +968,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -975,26 +976,26 @@ const Tradehistory = () => {
         },
         {
             name: "Drawdown",
-           
+
             label: "Drawdown",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-         
+
 
     ];
 
 
-    
+
 
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
 
 
- 
+
 
     const handleSubmit = async () => {
         const data = {
@@ -1010,7 +1011,7 @@ const Tradehistory = () => {
             TradePattern: "",
             PatternName: ""
         }
- 
+
         await get_Trade_History(data)
 
             .then((response) => {
@@ -1018,23 +1019,29 @@ const Tradehistory = () => {
                     setAllTradeData({
                         loading: false,
                         data: response.data,
-                        data1:response.profitconsistant,
-                        data2:response.profitconcount,
-                        data3:response.lossconcount,
-                        data4:response.lossconsistant,
-                        
+                        data1: response.profitconsistant,
+                        data2: response.profitconcount,
+                        data3: response.lossconcount,
+                        data4: response.lossconsistant,
+
                     })
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setAllTradeData({
                         loading: false,
                         data: [],
-                        data1:"",
-                        data2:"",
-                        data3:"",
-                        data4:""
-                       
+                        data1: "",
+                        data2: "",
+                        data3: "",
+                        data4: ""
+
                     })
                 }
             })
@@ -1046,9 +1053,6 @@ const Tradehistory = () => {
         await get_PnL_Data(data)
             .then((response) => {
                 if (response.Status) {
-
-
-
                     const newDataArray = response.Barchart.map(item => ({
                         PnL: item.PnL,
                         ETime: item.ETime.split(' ')[1].substring(0, 5)
@@ -1167,10 +1171,10 @@ const Tradehistory = () => {
     }
 
 
-   
+
 
     useEffect(() => {
- 
+
         setStrategyType('Scalping')
     }, []);
 
@@ -1187,12 +1191,12 @@ const Tradehistory = () => {
     const chartOptions1 = {
         zoom: { enabled: true },
         data: getEquityCurveDetails && getEquityCurveDetails.data,
-        series: [{ type: 'line', xKey: selectStrategyType == "Pattern" ? "ETime": 'ExitTime', yKey:  selectStrategyType == "Scalping" ? "EquityCurve" : 'PnL' }],
+        series: [{ type: 'line', xKey: selectStrategyType == "Pattern" ? "ETime" : 'ExitTime', yKey: selectStrategyType == "Scalping" ? "EquityCurve" : 'PnL' }],
     }
 
 
 
- 
+
     const chartOptions2 = {
         zoom: { enabled: true },
         data: getDropDownData && getDropDownData.data,
@@ -1267,7 +1271,7 @@ const Tradehistory = () => {
                         <div className="iq-card-body">
                             <div className="was-validated ">
                                 <div className='row'>
-                                    
+
                                     <div className="form-group col-lg-3">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
@@ -1406,11 +1410,11 @@ const Tradehistory = () => {
                                                                         tabIndex={-1}
                                                                         role="tab"
                                                                     >
-                                                                       Consistent Loss Making
+                                                                        Consistent Loss Making
 
                                                                     </a>
                                                                 </li>
-                                                                 
+
 
                                                             </ul>
                                                         </div>
@@ -1430,8 +1434,8 @@ const Tradehistory = () => {
                                                                     <div className="col-sm-12">
                                                                         <div className="iq-card">
                                                                             <div className="iq-card-body">
-                                                                                 <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
-                                                                                 <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
+                                                                                <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
+                                                                                <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
 
                                                                             </div>
                                                                         </div>
@@ -1444,10 +1448,10 @@ const Tradehistory = () => {
                                                             <div className="container-fluid">
                                                                 <div className="row">
                                                                     <div className="col-sm-12">
-                                                                    <div className="iq-card">
+                                                                        <div className="iq-card">
                                                                             <div className="iq-card-body">
-                                                                                 <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
-                                                                                 <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+                                                                                <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
+                                                                                <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
 
                                                                             </div>
                                                                         </div>
@@ -1461,7 +1465,7 @@ const Tradehistory = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
 
 
 
@@ -1483,7 +1487,7 @@ const Tradehistory = () => {
 
                                     {/* EquityCurve  Graph show */}
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                    EquityCurve
+                                        EquityCurve
                                     </p>
                                     <div style={{ width: '100%', height: '500px' }}>
                                         <AgChartsReact options={chartOptions1} />
