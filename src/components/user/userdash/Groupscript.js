@@ -52,7 +52,7 @@ const GroupScript = ({ data, selectedType, GroupName }) => {
 
     const GetAllUserScriptDetails = async () => {
 
-        const data = { Data: stgType, Username: userName }
+        const data = { Data: stgType, Username: GroupName }
 
 
         await GetAllGroupService(data)

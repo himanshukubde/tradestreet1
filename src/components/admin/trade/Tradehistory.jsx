@@ -110,9 +110,6 @@ const Tradehistory = () => {
     const GetTradeHistory = async () => {
         const data = { Data: selectStrategyType, Username: selectGroup }
 
-
-
-
         //GET TRADEHISTORY
         await get_User_Data(data)
             .then((response) => {

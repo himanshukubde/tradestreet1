@@ -149,7 +149,6 @@ const AddClient = () => {
         ETPattern: "",
         Timeframe: "",
         Quantity: values.Quantity,
-        TradeExecution: "Paper Trade",
         FixedSM: "Single",
         serendate: "",
         Expirytype: "",
@@ -165,8 +164,6 @@ const AddClient = () => {
         CEDeepHigher: 0.0,
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
-        TradeCount: 2,
-
       }
 
       await AddAdminScript(req)

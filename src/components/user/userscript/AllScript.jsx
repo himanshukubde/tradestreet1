@@ -19,15 +19,7 @@ const Addscript = () => {
     })
 
 
-
-    // const getClientGroupName = async()=>{
-    //     const data = {User : userName}
-    //     await Get_Client_Group_Name(data)
-    //     .then((response)=>{
-    //         if()
-    //     })
-
-    // }
+ 
     const GetAllGroupDetails = async () => {
         try {
             await GetGroupNames()
@@ -60,13 +52,13 @@ const Addscript = () => {
 
 
     const getAllgroupService = async () => {
-        const data = { Data: selectStrategyType, Username: selectGroup }
+        const data = { Strategy: selectStrategyType, Group: selectGroup }
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        data: response.GroupScrdf
                     })
                     setRefresh(!refresh)
                 }

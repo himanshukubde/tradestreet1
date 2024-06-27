@@ -768,13 +768,14 @@ const Addscript = () => {
 
     // 2
     const getAllgroupService = async () => {
-        const data = { Data: selectStrategyType, Username: selectGroup }
+        const data = { Strategy: selectStrategyType, Group: selectGroup }
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
+                    
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        data: response.GroupScrdf
                     })
 
                 }
@@ -799,10 +800,17 @@ const Addscript = () => {
     }
 
 
+    
+    
     useEffect(() => {
         setStrategyType('Scalping')
-        setSelectGroup('komal')
     }, []);
+    
+    useEffect(() => {
+        if (getGroupData && getGroupData.data.length > 0) {
+            setSelectGroup(getGroupData.data[0].GroupName)
+        }
+    }, [])
 
 
     useEffect(() => {

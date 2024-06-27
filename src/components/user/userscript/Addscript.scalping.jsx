@@ -25,12 +25,6 @@ const AddClient = () => {
     data: []
   })
 
-
-  const [refresh, setRefresh] = useState(false)
-
-  console.log("ddddd", location.state && location.state.data)
-
-
   const formik = useFormik({
 
     initialValues: {
@@ -523,7 +517,7 @@ const AddClient = () => {
 
   useEffect(() => {
     getSymbol()
-  }, [formik.values.Instrument, formik.values.Exchange, refresh])
+  }, [formik.values.Instrument, formik.values.Exchange])
 
 
   const getStrikePrice = async () => {
@@ -622,7 +616,7 @@ const AddClient = () => {
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
-        page_title="Add Script scalping"
+        page_title="Add Script"
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}
