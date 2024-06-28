@@ -40,9 +40,12 @@ const Adduser = () => {
         await Get_Broker_Name()
             .then((response) => {
                 if (response.Status) {
+                    const filterOutBroker = response.Brokernamelist.filter((item)=>{
+                        return item.BrokerName!='Demo'
+                    })
                     setBroker({
                         loading: false,
-                        data: response.Brokernamelist
+                        data: filterOutBroker
                     })
                 }
                 else {
@@ -108,8 +111,8 @@ const Adduser = () => {
             Password: '',
             Confirm_Password: '',
             PhoneNo: '',
-            Select_Licence: '',
-            Select_Licence_Type: '',
+            Select_License: '',
+            Select_License_Type: '',
             From_Date: '',
             To_Date: '',
             Service_Count: '',
@@ -138,11 +141,11 @@ const Adduser = () => {
             if (!values.PhoneNo) {
                 errors.PhoneNo = "Enter Phone Number"
             }
-            if (!values.Select_Licence) {
-                errors.Select_Licence = "Enter Select License"
+            if (!values.Select_License) {
+                errors.Select_License = "Enter Select License"
             }
-            if (!values.Select_Licence_Type) {
-                errors.Select_Licence_Type = "Enter Select License Type"
+            if (!values.Select_License_Type) {
+                errors.Select_License_Type = "Enter Select License Type"
             }
             if (!values.From_Date) {
                 errors.From_Date = "Enter From_Date"
@@ -163,11 +166,11 @@ const Adduser = () => {
                 ConfirmPassword: values.Confirm_Password,
                 SignEmail: values.Email,
                 mobile_no: values.PhoneNo,
-                Day: values.Select_Licence_Type == '11' ? "2 Day Demo" : values.Select_Licence_Type == '21' ? "1 Week Demo" : values.Select_Licence_Type == '12' ? "2 Day Live" : values.Select_Licence_Type == '22' ? "1 Month Live" : '',
-                ser: values.Select_Licence == '1' ? 2 : Number(values.Service_Count),
+                Day: values.Select_License_Type == '11' ? "2 Day Demo" : values.Select_License_Type == '21' ? "1 Week Demo" : values.Select_License_Type == '12' ? "2 Day Live" : values.Select_License_Type == '22' ? "1 Month Live" : '',
+                ser: values.Select_License == '1' ? 2 : Number(values.Service_Count),
                 SSDate: values.From_Date,
                 SEDate: values.To_Date,
-                BrokerName: values.Select_Licence == '1' ? "Demo Account" : values.Select_Broker,
+                BrokerName: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
                 Group: selectedOptions && selectedOptions
             }
 
@@ -201,10 +204,6 @@ const Adduser = () => {
                 })
         },
     });
-
-
-
-
 
 
     const fields = [
@@ -255,10 +254,8 @@ const Adduser = () => {
         },
         {
 
-            name: "Select_Licence",
-
             name: "Select_License",
-
+            name: "Select_License",
             label: "Select License",
             type: "select1",
             options: [
@@ -274,10 +271,9 @@ const Adduser = () => {
         {
 
             name: "Select_License_Type",
-
             label: "Select License Type",
             type: "select1",
-            options: formik.values.Select_Licence == '1' ? [
+            options: formik.values.Select_License == '1' ? [
                 { label: "2 Days Demo", value: "11" },
                 { label: "1 Week Demo", value: "21" },
             ] :
@@ -316,7 +312,7 @@ const Adduser = () => {
                 label: item.BrokerName,
                 value: item.BrokerName
             })),
-            showWhen: (values) => formik.values.Select_Licence == '2',
+            showWhen: (values) => formik.values.Select_License == '2',
             label_size: 12,
             hiding: false,
             col_size: 3,
@@ -333,7 +329,7 @@ const Adduser = () => {
                 { label: "5", value: "5" },
             ],
             label_size: 12,
-            showWhen: (values) => formik.values.Select_Licence == '2',
+            showWhen: (values) => formik.values.Select_License == '2',
             hiding: false,
             col_size: 3,
             disable: false,
@@ -342,12 +338,9 @@ const Adduser = () => {
     ];
 
 
-
-
-
     //Select Date form date and end date
     const currentDate = new Date();
-    const daysToSubtract = formik.values.Select_Licence_Type === '11' || formik.values.Select_Licence_Type === '12' ? 2 : formik.values.Select_Licence_Type === '21' ? 7 : formik.values.Select_Licence_Type === '22' ? 30 : 0;
+    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ? 2 : formik.values.Select_License_Type === '21' ? 7 : formik.values.Select_License_Type === '22' ? 30 : 0;
     currentDate.setDate(currentDate.getDate() + daysToSubtract);
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -366,7 +359,7 @@ const Adduser = () => {
 
     // Set Date 
     useEffect(() => {
-        if (formik.values.Select_Licence_Type == undefined || formik.values.Select_Licence_Type == null) {
+        if (formik.values.Select_License_Type == undefined || formik.values.Select_License_Type == null) {
             formik.setFieldValue('From_Date', '')
             formik.setFieldValue('To_Date', '')
 
@@ -376,7 +369,7 @@ const Adduser = () => {
             formik.setFieldValue('From_Date', form_Date)
             formik.setFieldValue('To_Date', formattedDate)
         }
-    }, [formik.values.Select_Licence_Type])
+    }, [formik.values.Select_License_Type])
 
 
     //set Date when change to Licence type
@@ -386,25 +379,15 @@ const Adduser = () => {
         formik.setFieldValue('To_Date', '')
 
 
-    }, [formik.values.Select_Licence])
-
-
+    }, [formik.values.Select_License])
 
 
     useEffect(() => {
-
-        if (formik.values.Select_Licence == "1") {
+        if (formik.values.Select_License == "1") {
             formik.setFieldValue('Service_Count', "2")
             formik.setFieldValue('Select_Broker', "")
-
         }
-    }, [formik.values.Select_Licence])
-
-
-
-
-
-
+    }, [formik.values.Select_License])
     return (
         <>
             {optionsArray.length > 0 && (

@@ -165,7 +165,6 @@ const AddClient = () => {
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
       }
-
       await AddAdminScript(req)
         .then((response) => {
           if (response.Status) {

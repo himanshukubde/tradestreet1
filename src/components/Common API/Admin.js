@@ -300,3 +300,16 @@ export const Get_Broker_Name = async () => {
     }
 }
 
+
+export const DeleteScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Admin_Delete_Script`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+
+  
+    }
+}
+
