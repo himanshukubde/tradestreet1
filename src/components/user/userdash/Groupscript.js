@@ -52,15 +52,15 @@ const GroupScript = ({ data, selectedType, GroupName }) => {
 
     const GetAllUserScriptDetails = async () => {
 
-        const data = { Data: stgType, Username: GroupName }
-
+       
+        const data = { Strategy: stgType, Group: GroupName }
 
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        data: response.GroupScrdf
 
                     });
                 } else {

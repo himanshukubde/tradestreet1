@@ -1,10 +1,11 @@
 import React from 'react';
 import { CopyPlus } from 'lucide-react';
 import { handleAddScript1, handleAddScript2, handleAddScript3 } from './Copyscript';
+import { Trash2 } from 'lucide-react';
 
 
 
-export const getColumns = (handleAddScript1) => [
+export const getColumns = (handleAddScript1, handleDelete) => [
     {
         name: "S.No",
         label: "S.No",
@@ -16,6 +17,17 @@ export const getColumns = (handleAddScript1) => [
                 return rowIndex + 1;
             }
         },
+    },
+    {
+        name: "Action",
+        label: "Action",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <Trash2 onClick={() => handleDelete(tableMeta)} />
+            }
+        }
     },
 
     {
@@ -230,7 +242,7 @@ export const getColumns = (handleAddScript1) => [
 
 ];
 
-export const getColumns1 = (handleAddScript2) => [
+export const getColumns1 = (handleAddScript2, handleDelete) => [
     {
         name: "S.No",
         label: "S.No",
@@ -242,6 +254,17 @@ export const getColumns1 = (handleAddScript2) => [
                 return rowIndex + 1;
             }
         },
+    },
+    {
+        name: "Action",
+        label: "Action",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <Trash2 onClick={() => handleDelete(tableMeta)} />
+            }
+        }
     },
     {
         name: "coptScript",
@@ -590,7 +613,7 @@ export const getColumns1 = (handleAddScript2) => [
     },
 ];
 
-export const getColumns2 = (handleAddScript3) => [
+export const getColumns2 = (handleAddScript3, handleDelete) => [
     {
         name: "S.No",
         label: "S.No",
@@ -603,6 +626,22 @@ export const getColumns2 = (handleAddScript3) => [
             }
         },
     },
+    {
+        name: "Action",
+        label: "Action",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn btn-primary '  onClick={() => handleDelete(tableMeta)}>
+                    Squre Off
+                </button>
+
+                </>
+            }
+        }
+    },
+
     {
         name: "coptScript",
         label: "Copy Script",
@@ -638,9 +677,7 @@ export const getColumns2 = (handleAddScript3) => [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <button data-bs-toggle="modal" data-bs-target="#myModal" style={{ border: "none" }}>
-                    Squre Off
-                </button>
+                return
             }
         }
     },

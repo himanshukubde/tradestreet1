@@ -14,6 +14,7 @@ const Addscript = () => {
         data: []
     })
 
+    const [refresh, setRefresh] = useState(false)
 
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
@@ -25,30 +26,6 @@ const Addscript = () => {
 
 
 
-    // ETPattern: "Premium Addition"
-    // Group: ""
-    // Groupname: "S-Group"
-    // Sop: "Option Strategy"
-    // Strategy: "LongStrangle"
-    // Symbol: "BANKNIFTY26JUN24F"
-    // TType: ""
-    // Timeframe: ""
-    // Tradepattern: ""
-
-
-
-    // {
-
-    //     "ETPattern": "Premium Addition",
-    //         "Group": "",
-    //             "Groupname": "S-Group",
-    //                 "Sop": "Option Strategy",
-    //                     "Strategy": "LongStrangle",
-    //                         "Symbol": "BANKNIFTY",
-    //                             "TType": "",
-    //                                 "Timeframe": "",
-    //                                     "Tradepattern": ""
-    // }
     const handleDelete = async (rowData) => {
         const index = rowData.rowIndex
 
@@ -67,10 +44,11 @@ const Addscript = () => {
         console.log(data)
         console.log(getAllService.data[index])
 
-        // return
         await DeleteScript(data)
             .then((response) => {
                 if (response.Status) {
+                    setRefresh(!refresh)
+                     
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",
@@ -937,7 +915,7 @@ const Addscript = () => {
 
     useEffect(() => {
         getAllgroupService()
-    }, [selectStrategyType, selectGroup])
+    }, [selectStrategyType, selectGroup , refresh])
 
 
 

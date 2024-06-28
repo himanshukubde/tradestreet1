@@ -11,7 +11,7 @@ const AddClient = () => {
 
 
 
-    console.log("location", location.state && location.state.data)
+    console.log("location -", location.state && location.state.data)
 
 
     const formik = useFormik({

@@ -25,6 +25,9 @@ const AddClient = () => {
     data: []
   })
 
+
+  console.log("location :", location.state && location.state.data)
+
   const formik = useFormik({
 
     initialValues: {
@@ -156,6 +159,9 @@ const AddClient = () => {
         TradeCount: 2,
 
       }
+
+
+      console.log(req)
       await AddScript(req)
         .then((response) => {
           if (response.Status) {

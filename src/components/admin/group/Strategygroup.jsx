@@ -21,7 +21,7 @@ const Strategygroup = () => {
     });
 
 
- 
+
 
     const columns = [
         {
@@ -84,7 +84,7 @@ const Strategygroup = () => {
                 sort: true,
             }
         },
-        
+
     ];
 
     const handleInputChange = (e) => {
@@ -175,7 +175,7 @@ const Strategygroup = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Strategy Group</h4>
+                                <h4 className="card-title">Strategy Grouphh</h4>
                             </div>
                             <div className="iq-card-header-toolbar d-flex align-items-center">
 
@@ -184,134 +184,69 @@ const Strategygroup = () => {
                                     type="button"
                                     className="btn btn-primary"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"
+                                    data-bs-target="#exampleModal1"
                                 >
                                     Add Strategy
                                 </button>
                                 {/* Modal */}
 
-                                <div className={`modal fade ${showModal ? 'show' : ''}`}
-                                    id="exampleModal"
+                                <div
+                                    className="modal fade"
+                                    id="exampleModal1"
                                     tabIndex={-1}
                                     aria-labelledby="exampleModalLabel"
-                                    aria-hidden={!showModal}
-                                    style={{ display: showModal ? 'block' : 'none' }}>
-                                    <div className="modal-dialog modal-lg">
+                                    aria-hidden="true"
+                                    style={{ display: "none" }}
+                                >
+                                    <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
                                                 <h5 className="modal-title" id="exampleModalLabel">
-                                                    Strategy Group
+                                                    ccpppp
                                                 </h5>
-                                                <button type="button"
+                                                <button
+                                                    type="button"
                                                     className="btn-close"
                                                     data-bs-dismiss="modal"
                                                     aria-label="Close"
-                                                    onClick={toggleModal} />
+                                                />
                                             </div>
                                             <div className="modal-body">
                                                 <form>
-                                                    <div className="row">
-                                                        <div className="col-md-12 mb-3">
-                                                            <label htmlFor="validationDefault01">Group Name</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control my-2"
-                                                                id="GroupName"
-                                                                placeholder="Enter Group Name"
-                                                                onChange={handleInputChange}
-                                                                value={strategyGroupInfo.GroupName}
-                                                            />
-                                                        </div>
-                                                        <div className="col-md-6 mb-3">
-                                                            <label htmlFor="validationDefault02">Fund Requirement</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control my-2"
-                                                                id="FundReuirement"
-                                                                placeholder="Enter Fund"
-                                                                value={strategyGroupInfo.FundReuirement}
-                                                                onChange={handleInputChange}
-                                                            />
-                                                        </div>
-                                                        <div className="col-md-6 mb-3">
-                                                            <label htmlFor="validationDefaultUsername">Risk in %</label>
-                                                            <div className="input-group">
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control my-2"
-                                                                    id="Risk"
-                                                                    placeholder="Enter Risk in %"
-                                                                    value={strategyGroupInfo.Risk}
-                                                                    onChange={handleInputChange}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <label htmlFor="TimeOrigin">Time Origin</label>
-                                                            <select
-                                                                className="form-select my-2"
-                                                                id="TimeOrigin"
-                                                                value={strategyGroupInfo.TimeOrigin}
-                                                                onChange={handleInputChange}
-                                                            >
-                                                                <option value="">Select Time Origin</option>
-                                                                <option value="Weekly">Weekly</option>
-                                                                <option value="Monthly">Monthly</option>
-                                                                <option value="Half Yearly">Half Yearly</option>
-                                                                <option value="Yearly">Yearly</option>
-                                                            </select>
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <label htmlFor="ProductType">Select product type</label>
-                                                            <select
-                                                                className="form-select my-2"
-                                                                id="ProductType"
-                                                                value={strategyGroupInfo.ProductType}
-                                                                onChange={handleInputChange}
-                                                            >
-                                                                <option value="">Select Product Type</option>
-                                                                <option value="Intraday">Intraday</option>
-                                                                <option value="Delivery">Delivery</option>
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-md-12 mb-3">
-                                                            <label htmlFor="validationTextarea">Message</label>
-                                                            <textarea
-                                                                className="form-control my-2"
-                                                                id="Message"
-                                                                rows={5}
-                                                                value={strategyGroupInfo.Message}
-                                                                onChange={handleInputChange}
-                                                            />
-                                                        </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="api">API Key:</label>
+                                                        <input type="text" className="form-control my-2" id="email1" />
                                                     </div>
                                                     <div className="form-group">
-                                                        <div className="form-check">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="checkbox"
-
-                                                                id="invalidCheck2"
-                                                                required=""
-                                                            />
-                                                            <label className="form-check-label" htmlFor="invalidCheck2">
-                                                                Agree to terms and conditions
-                                                            </label>
-                                                        </div>
+                                                        <label htmlFor="secret">API Secret:</label>
+                                                        <input type="text" className="form-control my-2" id="pwd" />
                                                     </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="secret">API Secret:</label>
+                                                        <input type="text" className="form-control my-2" id="pwd" />
+                                                    </div>
+
+
                                                 </form>
+
                                             </div>
                                             <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={toggleModal}>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                >
                                                     Close
                                                 </button>
-                                                <button type="button" className="btn btn-primary" onClick={handleClick}>
-                                                    Add
-                                                </button>
+                                                    <button type="button" className="btn btn-primary">
+                                                        Update
+                                                    </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                         {/* Table data */}
@@ -319,38 +254,11 @@ const Strategygroup = () => {
                             <div className="iq-card-body">
                                 <div className="table-responsive">
                                     <GridExample
-                                            columns={columns}
-                                            data={getGroupData.data}
-                                           
-                                            checkBox={false}
-                                        />
-                                    {/* <table id="datatable" className="table table-striped table-bordered">
-                                        <thead>
-                                            <tr className='text-center'>
-                                                <th>S.No</th>
-                                                <th>Group Name</th>
-                                                <th>Fund Requirenment</th>
-                                                <th>Risk in %</th>
-                                                <th>Time</th>
-                                                <th>Product Type</th>
-                                                <th>Message</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {getGroupData.data && getGroupData.data.map((item, index) => (
+                                        columns={columns}
+                                        data={getGroupData.data}
+                                        checkBox={false}
+                                    />
 
-                                                <tr className='text-center'>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item.GroupName}</td>
-                                                    <td>{item.Fund_Requierment}</td>
-                                                    <td>{item.Risk}</td>
-                                                    <td>{item.Time}</td>
-                                                    <td>{item.PRtype}</td>
-                                                    <td>{item.Message}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table> */}
                                 </div>
                             </div>
                         </div>
