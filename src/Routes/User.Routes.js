@@ -18,6 +18,7 @@ import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/TrackPanel/TrackPannel';
 import TradeReport  from '../components/user/TradeReport/TradeReport'
+import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
 
 const UserRoute = () => {
 
@@ -34,9 +35,8 @@ const UserRoute = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<Editprofile />} />
             <Route path="/lastpattern" element={<LastPattern />} />
-
             <Route path="/addscript/scalping" element={<Addscript />} />
-
+            <Route path="/addscript/pattern" element={<AddScriptPattern />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
@@ -45,8 +45,6 @@ const UserRoute = () => {
             <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />
             <Route path="/tradereport" element={<TradeReport />} />
-
-
           </Routes>
           <Footer />
         </div>

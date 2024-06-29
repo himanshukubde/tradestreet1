@@ -32,8 +32,8 @@ const AddClient = () => {
             Slvalue: 1.0,
             TStype: "",
             Quantity: 0,
-            LowerRange: 0.0,
-            HigherRange: 0.0,
+            Higher_Range: 0.0,
+            Lower_Range: 0.0,
             HoldExit: "",
             EntryPrice: 0.0,
             EntryRange: 0.0,
@@ -99,6 +99,7 @@ const AddClient = () => {
             if (!values.Striketype) {
                 errors.Striketype = "Select Striketype type"
             }
+             
             return errors;
         },
         onSubmit: async (values) => {
@@ -117,15 +118,15 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
-                LowerRange: 0.0,
-                HigherRange: 0.0,
+                LowerRange: values.Lower_Range,
+                HigherRange: values.Higher_Range,
                 HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                TradeExecution: "Paper Trade",
+                
                 FixedSM: "",
                 TType: "",
                 serendate: "2023-10-25",
@@ -133,24 +134,24 @@ const AddClient = () => {
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
                 DepthofStrike: values.DepthofStrike,
-                DeepStrike: 0,
+                DeepStrike: values.DeepStrike,
                 Group: "",
-                CEDepthLower: 0.0,
-                CEDepthHigher: 0.0,
-                PEDepthLower: 0.0,
-                PEDepthHigher: 0.0,
-                CEDeepLower: 0.0,
-                CEDeepHigher: 0.0,
-                PEDeepLower: 0.0,
-                PEDeepHigher: 0.0,
-                TradeCount: 2
+                CEDepthLower: values.CEDepthLower,
+                CEDepthHigher: values.CEDepthHigher,
+                PEDepthLower: values.PEDepthLower,
+                PEDepthHigher: values.PEDepthHigher,
+                CEDeepLower: values.CEDeepLower,
+                CEDeepHigher: values.CEDeepHigher,
+                PEDeepLower: values.PEDeepLower,
+                PEDeepHigher: values.PEDeepHigher,
+                
             }
             await AddAdminScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Script Added !",
-                            text: "New Script Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -162,7 +163,7 @@ const AddClient = () => {
                     else {
                         Swal.fire({
                             title: "Error !",
-                            text: "Error in added new Script..!",
+                            text: response.massage,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -188,9 +189,9 @@ const AddClient = () => {
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
-        formik.setFieldValue('ATM', 1)
-        formik.setFieldValue('Lower_Range', 1)
-        formik.setFieldValue('Higher_Range', 1)
+        formik.setFieldValue('DeepStrike', 1)
+        formik.setFieldValue('Lower_Range', 0)
+        formik.setFieldValue('Higher_Range', 0)
     }, [])
 
     useEffect(() => {
@@ -283,7 +284,7 @@ const AddClient = () => {
                 { label: "Leg vice", value: "Leg vice" },
 
             ],
-            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" ,
+            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -295,7 +296,7 @@ const AddClient = () => {
             type: "cp",
             hiding: false,
             label_size: 12,
-            showWhen: (value) =>value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            showWhen: (value) =>(value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
             col_size: 4,
             disable: false,
         },
@@ -310,7 +311,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
             col_size: 4,
             disable: false,
         },
@@ -320,7 +321,7 @@ const AddClient = () => {
             type: "number",
             hiding: false,
             label_size: 12,
-            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
 
             col_size: 4,
             disable: false,
@@ -331,7 +332,7 @@ const AddClient = () => {
             type: "number",
             hiding: false,
             label_size: 12,
-            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
             col_size: 4,
             disable: false,
 
@@ -342,7 +343,7 @@ const AddClient = () => {
             type: "number",
             hiding: false,
             label_size: 12,
-            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy=='ShortShifting' || value.Strategy=='LongShifting') ,
+            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
             col_size: 12,
             disable: false,
 
@@ -356,6 +357,16 @@ const AddClient = () => {
             col_size: 12,
             disable: false,
         },
+        // {
+        //     name: "TStype",
+        //     label: "Measurment Type",
+        //     type: "cp",
+        //     hiding: false,
+        //     label_size: 12,
+        //     showWhen: (value) =>value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+        //     col_size: 6,
+        //     disable: false,
+        // },
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -497,10 +508,10 @@ const AddClient = () => {
             label: "Strike Type",
             type: "select",
             options: [
-                { label: "Depth_of_Strike", value: "Depth_of_Strike" },
-                { label: "Straddle_Width", value: "Straddle_Width" },
-                { label: "Premium_Range", value: "Premium_Range" },
-                { label: "Per_ATM", value: "Per_ATM" },
+                { label: "Depth of Strike", value: "Depth_of_Strike" },
+                { label: "Straddle Width", value: "Straddle_Width" },
+                { label: "Premium Range", value: "Premium_Range" },
+                { label: "Per ATM", value: "Per_ATM" },
             ],
             showWhen: (value) => value.Strategy != "ShortStraddle" && value.Strategy != "LongStraddle" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'ShortStraddle' && value.Strategy != 'LongStraddle',
 
@@ -511,35 +522,15 @@ const AddClient = () => {
         },
         {
             name: "DepthofStrike",
-            label: "Depth of Strike",
+            label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "Per ATM" : "Depth of Strike",
             type: "number",
             hiding: false,
-            showWhen: (value) => value.Striketype == "Depth_of_Strike" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
+            showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
             label_size: 12,
             col_size: 3,
             disable: false,
         },
-        {
-            name: "Percentage",
-            label: "Percentage",
-            type: "number",
-            showWhen: (value) => value.Striketype == "Straddle_Width" && value.Measurment_Type != "Shifting/FourLeg",
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-
-        {
-            name: "ATM",
-            label: "ATM",
-            type: "number",
-            showWhen: (value) => value.Striketype == "Per_ATM" && value.Measurment_Type != "Shifting/FourLeg",
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
+        
         {
             name: "Lower_Range",
             label: "Lower Range",
@@ -561,10 +552,10 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "Deep_Strike",
+            name: "DeepStrike",
             label: "Deep Strike",
             type: "number",
-            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor",
+            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" ||  value.Strategy == "ShortIronCondor",
             hiding: false,
             label_size: 12,
             col_size: 3,
@@ -574,7 +565,7 @@ const AddClient = () => {
             name: "Shifting_Value",
             label: "Shifting Value",
             type: "number",
-            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy!='ShortFourLegStretegy' && value.Strategy!='LongFourLegStretegy',
+            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
             hiding: false,
             label_size: 12,
             col_size: 12,
@@ -622,12 +613,17 @@ const AddClient = () => {
 
         if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
             formik.setFieldValue('Striketype', "Depth_of_Strike")
-
-
         }
+        if (formik.values.Striketype != "Premium_Range") {
+            formik.setFieldValue('Higher_Range', 1)
+            formik.setFieldValue('Lower_Range', 1)
+        }
+        // if(formik.values.Striketype=="LongStraddle" || formik.values.Striketype=="ShortStraddle"){
+        //     formik.setFieldValue('Striketype', "")
+        // }
 
 
-    }, [formik.values.Strategy])
+    }, [formik.values.Strategy , formik.values.Striketype])
 
 
 

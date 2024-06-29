@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
+import CurrentScript from './CurrentScript'
 import { GetAllUserGroup } from '../../Common API/User'
 
 const Userdashboard = () => {
@@ -98,6 +99,7 @@ const Userdashboard = () => {
                                             <select className="form-select" required=""
                                                 onChange={(e) => { setActiveTab(e.target.value) }}
                                                 value={activeTab}>
+                                                <option value="currentScript">Current Script</option>
                                                 <option value="copyScript">Copy Script</option>
                                                 <option value="group">Group Script</option>
                                             </select>
@@ -144,7 +146,6 @@ const Userdashboard = () => {
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
                                                     {subTab && <Coptyscript data={subTab} selectedType={activeTab} />}
-
                                                 </div>
                                             </div>
                                         )}
@@ -153,6 +154,13 @@ const Userdashboard = () => {
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
                                                     {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} />}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {activeTab === 'currentScript' && (
+                                            <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
+                                                <div className="tab-content mt-3">
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab}/>}
                                                 </div>
                                             </div>
                                         )}

@@ -40,15 +40,7 @@ const GroupScript = ({ data, selectedType, GroupName }) => {
         navigate('/user/addscript/pattern', { state: { data } });
     }
 
-    const AddScript = (data) => {
-        if (data === "optionStrategy") {
-            navigate('/user/addscript/option');
-        } else if (data === "pattern") {
-            navigate('/user/addscript/pattern');
-        } else {
-            navigate('/user/addscript/scalping');
-        }
-    }
+    
 
     const GetAllUserScriptDetails = async () => {
 
@@ -89,14 +81,7 @@ const GroupScript = ({ data, selectedType, GroupName }) => {
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
                                     {data && (
                                         <>
-                                            <div className="iq-card-header d-flex justify-content-between">
-                                                <div className="iq-header-title">
-                                                    <h4 className="card-title">{data}</h4>
-                                                </div>
-                                                <div className='d-flex justify-content-end'>
-                                                    <button className='btn btn-primary' onClick={() => AddScript(data)}>Add Script</button>
-                                                </div>
-                                            </div>
+                                             
                                             <div className="iq-card-body">
                                                 <div className="table-responsive">
                                                     {getAllService.loading ? <Loader /> :

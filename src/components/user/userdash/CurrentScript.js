@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import { GetAllUserScript, DeleteUserScript } from '../../Common API/User';
 import Loader from '../../../ExtraComponent/Loader';
-import { getColumns, getColumns1, getColumns2 } from './Columns';
+import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
 
 const Coptyscript = ({ data, selectedType }) => {
@@ -23,28 +23,7 @@ const Coptyscript = ({ data, selectedType }) => {
         PremiumRotation: []
     });
 
-    const handleAddScript1 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.ScalpingData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", ...selectedRow };
-        navigate('/user/addscript/scalping', { state: { data } });
-    }
-
-    const handleAddScript2 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.OptionData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
-        navigate('/user/addscript/option', { state: { data } });
-    }
-
-    const handleAddScript3 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.PatternData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
-        navigate('/user/addscript/pattern', { state: { data } });
-    }
-
-
+    
     const handleDelete = async (rowData) => {
         const index = rowData.rowIndex
         const req =
@@ -120,7 +99,15 @@ const Coptyscript = ({ data, selectedType }) => {
             })
     }
 
-     
+    const AddScript = (data) => {
+        if (data === "Option Strategy") {
+            navigate('/user/addscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
+        } else if (data === "Pattern") {
+            navigate('/user/addscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
+        } else {
+            navigate('/user/addscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+        }
+    }
 
     const GetAllUserScriptDetails = async () => {
         const data = { userName: userName };
@@ -170,13 +157,20 @@ const Coptyscript = ({ data, selectedType }) => {
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
                                     {data && (
                                         <>
-                                           
+                                            <div className="iq-card-header d-flex justify-content-between">
+                                                <div className="iq-header-title">
+                                                    <h4 className="card-title">{data}</h4>
+                                                </div>
+                                                <div className='d-flex justify-content-end'>
+                                                    <button className='btn btn-primary' onClick={() => AddScript(data)}>Add Script</button>
+                                                </div>
+                                            </div>
                                             <div className="iq-card-body">
                                                 <div className="table-responsive">
 
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
-                                                            columns={data === "Scalping" ? getColumns(handleAddScript1, handleDelete) : data === "Option Strategy" ? getColumns1(handleAddScript2, handleDelete) : data === "Pattern" ? getColumns2(handleAddScript3, handleDelete) : getColumns(handleAddScript1, handleDelete)}
+                                                            columns={data === "Scalping" ? getColumns3(handleDelete) : data === "Option Strategy" ? getColumns4(handleDelete) : data === "Pattern" ? getColumns5(handleDelete) : getColumns3( handleDelete)}
                                                             data={data === "Scalping" ? getAllService.ScalpingData : data === "Option Strategy" ? getAllService.OptionData : data === "Pattern" ? getAllService.PatternData : []}
                                                             checkBox={false}
                                                         />
