@@ -47,7 +47,7 @@ const Userdashboard = () => {
 
     useEffect(() => {
         getUserAllGroup()
-    }, [activeTab , refresh])
+    }, [activeTab])
 
 
     return (

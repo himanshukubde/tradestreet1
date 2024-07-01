@@ -3,11 +3,13 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { AddAdminScript, GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { AddScript} from '../../Common API/User'
 
 
 const AddClient = () => {
     const location = useLocation()
+    const userName = localStorage.getItem('name')
     const navigate = useNavigate()
     const [getExpiry, setExpiry] = useState({
         loading: true,
@@ -15,11 +17,12 @@ const AddClient = () => {
     })
 
 
+ 
     const formik = useFormik({
 
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
-            Username: location.state.data.selectGroup,
+            Username: "",
             Strategy: "",
             ETPattern: "",
             Timeframe: "",
@@ -105,7 +108,7 @@ const AddClient = () => {
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
-                Username: location.state.data.selectGroup,
+                Username: userName,
                 Strategy: values.Strategy,
                 ETPattern: values.ETPattern,
                 Timeframe: "",
@@ -128,6 +131,8 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 FixedSM: "",
                 TType: "",
+                TradeExecution: "Paper Trade",
+                TradeCount: 3,
                 serendate: "2023-10-25",
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
@@ -145,9 +150,8 @@ const AddClient = () => {
                 PEDeepHigher: values.PEDeepHigher,
                 
             }
-            // console.log(req)
-            // return 
-            await AddAdminScript(req)
+           
+            await AddScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
@@ -158,7 +162,7 @@ const AddClient = () => {
                             timerProgressBar: true
                         });
                         setTimeout(() => {
-                            navigate('/admin/allscript')
+                            navigate('/user/dashboard')
                         }, 1500)
                     }
                     else {
@@ -358,16 +362,7 @@ const AddClient = () => {
             col_size: 12,
             disable: false,
         },
-        // {
-        //     name: "TStype",
-        //     label: "Measurment Type",
-        //     type: "cp",
-        //     hiding: false,
-        //     label_size: 12,
-        //     showWhen: (value) =>value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
-        //     col_size: 6,
-        //     disable: false,
-        // },
+        
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -619,15 +614,10 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
-        // if(formik.values.Striketype=="LongStraddle" || formik.values.Striketype=="ShortStraddle"){
-        //     formik.setFieldValue('Striketype', "")
-        // }
+         
 
 
     }, [formik.values.Strategy , formik.values.Striketype])
-
-
-
 
 
     return (
@@ -638,7 +628,7 @@ const AddClient = () => {
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}
-                btn_name1_route={"/admin/allscript"}
+                btn_name1_route={"/user/dashboard"}
             />
 
         </>

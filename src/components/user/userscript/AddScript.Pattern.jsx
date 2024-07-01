@@ -3,11 +3,13 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { AddAdminScript, GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name } from '../../Common API/Admin'
+import {GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name } from '../../Common API/Admin'
+import { AddScript} from '../../Common API/User'
 
 const AddClient = () => {
 
     const location = useLocation()
+    const userName = localStorage.getItem('name')
     const navigate = useNavigate()
     const [getSymbolData, setSymbolData] = useState({
         loading: true,
@@ -45,13 +47,15 @@ const AddClient = () => {
 
 
 
-console.log("Cpp", location.state.data.selectGroup)
+ 
+
+console.log("location.state.data.selectStrategyType :", location.state.data.selectStrategyType)
 
     const formik = useFormik({
 
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
-            Username: location.state.data.selectGroup,
+            Username: "",
             Strategy: "",
             ETPattern: "",
             Timeframe: "",
@@ -96,69 +100,69 @@ console.log("Cpp", location.state.data.selectGroup)
 
         validate: (values) => {
             let errors = {};
-            // if (!values.Exchange) {
-            //     errors.Exchange = "Select Exchange type"
-            // }
-            // if (!values.Instrument) {
-            //     errors.Instrument = "Enter Instrument Type"
-            // }
-            // if (!values.Symbol) {
-            //     errors.Symbol = "Enter Symbol Type"
-            // }
-            // if (!values.Optiontype) {
-            //     errors.Optiontype = "Enter Option Type"
-            // }
-            // if (!values.Strike) {
-            //     errors.Strike = "Enter Strike Price"
-            // }
-            // if (!values.expirydata1) {
-            //     errors.expirydata1 = "Enter expirydata Type"
-            // }
+            if (!values.Exchange) {
+                errors.Exchange = "Select Exchange type"
+            }
+            if (!values.Instrument) {
+                errors.Instrument = "Enter Instrument Type"
+            }
+            if (!values.Symbol) {
+                errors.Symbol = "Enter Symbol Type"
+            }
+            if (!values.Optiontype) {
+                errors.Optiontype = "Enter Option Type"
+            }
+            if (!values.Strike) {
+                errors.Strike = "Enter Strike Price"
+            }
+            if (!values.expirydata1) {
+                errors.expirydata1 = "Enter expirydata Type"
+            }
             
-            // if (!values.Strategy) {
-            //     errors.Strategy = "Enter Strategy Type"
-            // }
-            // if (!values.Timeframe) {
-            //     errors.Timeframe = "Enter Timeframe Type"
-            // }
-            // if (!values.ETPattern) {
-            //     errors.ETPattern = "Enter ETPattern Type"
-            // }
-            // if (!values.HoldExit) {
-            //     errors.HoldExit = "Enter HoldExit Type"
-            // }
-            // if (!values.TStype) {
-            //     errors.TStype = "Enter TStype Type"
-            // }
-            // if (!values.Slvalue) {
-            //     errors.Slvalue = "Enter Slvalue Type"
-            // }
-            // if (!values.Targetvalue) {
-            //     errors.Targetvalue = "Enter Targetvalue Type"
-            // }
+            if (!values.Strategy) {
+                errors.Strategy = "Enter Strategy Type"
+            }
+            if (!values.Timeframe) {
+                errors.Timeframe = "Enter Timeframe Type"
+            }
+            if (!values.ETPattern) {
+                errors.ETPattern = "Enter ETPattern Type"
+            }
+            if (!values.HoldExit) {
+                errors.HoldExit = "Enter HoldExit Type"
+            }
+            if (!values.TStype) {
+                errors.TStype = "Enter TStype Type"
+            }
+            if (!values.Slvalue) {
+                errors.Slvalue = "Enter Slvalue Type"
+            }
+            if (!values.Targetvalue) {
+                errors.Targetvalue = "Enter Targetvalue Type"
+            }
 
-            // if (!values.TType) {
-            //     errors.TType = "Enter TType Type"
-            // }
-            // if (!values.Quantity) {
-            //     errors.Quantity = "Enter Quantity Type"
-            // }
-            // if (!values.ExitDay) {
-            //     errors.ExitDay = "Enter ExitDay Type"
-            // }
-            // if (!values.EntryTime) {
-            //     errors.EntryTime = "Enter EntryTime Type"
-            // }
-            // if (!values.ExitTime) {
-            //     errors.ExitTime = "Enter ExitTime Type"
-            // }
+            if (!values.TType) {
+                errors.TType = "Enter TType Type"
+            }
+            if (!values.Quantity) {
+                errors.Quantity = "Enter Quantity Type"
+            }
+            if (!values.ExitDay) {
+                errors.ExitDay = "Enter ExitDay Type"
+            }
+            if (!values.EntryTime) {
+                errors.EntryTime = "Enter EntryTime Type"
+            }
+            if (!values.ExitTime) {
+                errors.ExitTime = "Enter ExitTime Type"
+            }
 
             return errors;
         },
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
-                Username: location.state.data.selectGroup,
+                Username: userName,
                 Strategy: values.Strategy,
                 ETPattern: values.ETPattern,
                 Timeframe: values.Timeframe,
@@ -179,7 +183,8 @@ console.log("Cpp", location.state.data.selectGroup)
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                
+                TradeExecution: "Paper Trade",
+                TradeCount: 3,
                 FixedSM: "",
                 TType: values.TType,
                 serendate: "2023-10-25",
@@ -198,9 +203,8 @@ console.log("Cpp", location.state.data.selectGroup)
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
             }
-            console.log("CPP :", req)
-
-            await AddAdminScript(req)
+           
+            await AddScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
@@ -211,7 +215,7 @@ console.log("Cpp", location.state.data.selectGroup)
                             timerProgressBar: true
                         });
                         setTimeout(() => {
-                            navigate('/admin/allscript')
+                            navigate('/user/dashboard')
                         }, 1500)
                     }
                     else {
@@ -721,7 +725,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}
-                btn_name1_route={"/admin/allscript"}
+                btn_name1_route={"/user/dashboard"}
             />
         </>
     );

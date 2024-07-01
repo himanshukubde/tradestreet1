@@ -1,7 +1,7 @@
 import React from 'react';
 import { CopyPlus } from 'lucide-react';
-import { handleAddScript1, handleAddScript2, handleAddScript3 } from './Copyscript';
-import { Trash2 } from 'lucide-react';
+// import { handleAddScript1, handleAddScript2, handleAddScript3 } from './Copyscript';
+// import { Trash2 } from 'lucide-react';
 
 
 
@@ -30,8 +30,6 @@ export const getColumns = (handleAddScript1) => [
             }
         }
     },
-
-
 
     {
         name: "ScalpType",
