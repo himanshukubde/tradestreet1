@@ -6,7 +6,7 @@ import Footer from '../components/layouts/Footer';
 import Dashboard from '../components/user/userdash/Userdashboard';
 import Broker from '../components/user/broker/Userbroker';
 import Addscript from '../components/user/userscript/Addscript.scalping';
-import Allscript from '../components/user/userscript/AllScript';
+ 
 import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import LastPattern from '../components/user/pattern/LastPattern';
@@ -30,7 +30,7 @@ const UserRoute = () => {
           <Header />
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/allscript" element={<Allscript />} />
+             
             <Route path="/broker" element={<Broker />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<Editprofile />} />

@@ -1,16 +1,22 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import AddForm from "../../../ExtraComponent/FormData";
-import { swap, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
-import {Get_Symbol , Get_StrikePrice , GET_EXPIRY_DATE} from '../../Common API/Admin'
+
 
 
 const AddClient = () => {
-  var UserName = localStorage.getItem('name')
+
+  const userName = localStorage.getItem('name')
+
   const navigate = useNavigate()
   const location = useLocation()
+
+
+ 
   const [getSymbolData, setSymbolData] = useState({
     loading: true,
     data: []
@@ -26,13 +32,17 @@ const AddClient = () => {
   })
 
 
-  console.log("location :", location.state && location.state.data)
+  const [refresh, setRefresh] = useState(false)
+
+
+
+
 
   const formik = useFormik({
 
     initialValues: {
-      MainStrategy: location.state && location.state.data.selectStrategyType,
-      Username: UserName,
+      MainStrategy: "",
+      Username: "",
       Strategy: "",
       ETPattern: "",
       Timeframe: "",
@@ -41,10 +51,10 @@ const AddClient = () => {
       Instrument: "",
       Strike: "",
       Optiontype: "",
-      Targetvalue: 5.0,
-      Slvalue: 5.0,
+      Targetvalue: 1.0,
+      Slvalue: 1.0,
       TStype: "Point",
-      Quantity: 5,
+      Quantity: 1,
       LowerRange: 1,
       HigherRange: 1,
       HoldExit: "",
@@ -53,6 +63,7 @@ const AddClient = () => {
       EntryTime: "",
       ExitTime: "",
       ExitDay: "",
+      TradeCount: 3,
       TradeExecution: "Paper Trade",
       FixedSM: "Single",
       TType: "",
@@ -71,7 +82,6 @@ const AddClient = () => {
       CEDeepHigher: 0.0,
       PEDeepLower: 0.0,
       PEDeepHigher: 0.0,
-      TradeCount: 2,
       set_Range: "",
       Set_First_Trade_Range: ""
     },
@@ -84,17 +94,24 @@ const AddClient = () => {
       if (!values.Exchange) {
         errors.Exchange = "Select Exchange type"
       }
-
+      if (!values.Instrument) {
+        errors.Instrument = "Select Instrument type"
+      }
+      // if (!values.Instrument) {
+      //   errors.Instrument = "Select Instrument type"
+      // }
       if (!values.Symbol) {
         errors.Symbol = "Select Symbol type"
       }
-      if (!values.Optiontype) {
+      if (!values.Optiontype && (values.Instrument == "OPTSTK" || values.Instrument == "OPTIDX")) {
         errors.Optiontype = "Select Optiontype type"
       }
-      if (!values.Strike) {
+      if (!values.Strike && (values.Instrument == "OPTSTK" || values.Instrument == "OPTIDX")) {
         errors.Strike = "Select Strike Price type"
       }
-
+      if (!values.expirydata1) {
+        errors.expirydata1 = "Select Expiry Date"
+      }
       if (!values.TType) {
         errors.TType = "Select Transaction Type"
       }
@@ -111,13 +128,29 @@ const AddClient = () => {
       if (!values.ExitDay) {
         errors.ExitDay = "Select ExitDay type"
       }
+      if (!values.EntryPrice && values.Set_First_Trade_Range == "Yes") {
+        errors.EntryPrice = "Enter Lowest Price"
+      }
+      if (!values.EntryRange && values.Set_First_Trade_Range == "Yes") {
+        errors.EntryRange = "Enter High Price"
+      }
+
+      if (!values.HigherRange && values.set_Range == "Yes") {
+        errors.EntryRange = "Enter High Price"
+      }
+      if (!values.LowerRange && values.set_Range == "Yes") {
+        errors.EntryRange = "Enter High Price"
+      }
+      if (!values.HoldExit && values.set_Range == "Yes") {
+        errors.EntryRange = "Enter High Price"
+      }
 
       return errors;
     },
     onSubmit: async (values) => {
       const req = {
-        MainStrategy: location.state && location.state.data.selectStrategyType,
-        Username: UserName,
+        MainStrategy: location.state.data.selectStrategyType,
+        Username: userName,
         Strategy: values.Strategy,
         Exchange: values.Exchange,
         Instrument: values.Instrument,
@@ -156,30 +189,26 @@ const AddClient = () => {
         CEDeepHigher: 0.0,
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
-        TradeCount: 2,
-
+        TradeCount: 3
       }
-
-
-      console.log(req)
       await AddScript(req)
         .then((response) => {
           if (response.Status) {
             Swal.fire({
               title: "Script Added !",
-              text: "New Script Added successfully..!",
+              text: response.massage,
               icon: "success",
               timer: 1500,
               timerProgressBar: true
             });
             setTimeout(() => {
-              navigate('/admin/allscript')
+              navigate('/user/dashboard')
             }, 1500)
           }
           else {
             Swal.fire({
               title: "Error !",
-              text: "Error in added new Script..!",
+              text: response.massage,
               icon: "error",
               timer: 1500,
               timerProgressBar: true
@@ -194,20 +223,9 @@ const AddClient = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue('Strategy', location.state && location.state.data.ScalpType)
-    formik.setFieldValue('Exchange', location.state && location.state.data.Exchange)
-    formik.setFieldValue('Instrument', location.state && location.state.data.InstrumentType || "OPTIDX")
-    formik.setFieldValue('Symbol', location.state && location.state.data['Instrument Symbol'])
-    formik.setFieldValue('TType', location.state && location.state.data.TType)
-    formik.setFieldValue('Quantity', location.state && location.state.data.Lotsize)
-    formik.setFieldValue('TStype', location.state && location.state.data.TStype)
-    formik.setFieldValue('Targetvalue', location.state && location.state.data.Targetvalue || "5.0")
-    formik.setFieldValue('Slvalue', location.state && location.state.data.Slvalue || "5.0")
-    formik.setFieldValue('ExitDay', location.state && location.state.data.ExitDay)
-    formik.setFieldValue('EntryTime', location.state && location.state.data.EntryTime)
-    formik.setFieldValue('ExitTime', location.state && location.state.data.ExitTime)
-
-  }, [location.state && location.state.data])
+    formik.setFieldValue('Strategy', "Multi Directional")
+    formik.setFieldValue('Exchange', "NFO")
+  }, [])
 
 
 
@@ -453,7 +471,11 @@ const AddClient = () => {
     {
       name: "HoldExit",
       label: "Hold/Exit",
-      type: "text",
+      type: "select",
+      options: [
+        { label: "Hold", value: "Hold" },
+        { label: "Exit", value: "Exit" },
+      ],
       showWhen: (values) => values.set_Range == "Yes",
       label_size: 12,
       col_size: 4,
@@ -476,7 +498,7 @@ const AddClient = () => {
     {
       name: "EntryTime",
       label: "Entry Time",
-      type: "text",
+      type: "timepiker",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -485,7 +507,7 @@ const AddClient = () => {
     {
       name: "ExitTime",
       label: "Exit Time",
-      type: "text",
+      type: "timepiker",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -523,7 +545,7 @@ const AddClient = () => {
 
   useEffect(() => {
     getSymbol()
-  }, [formik.values.Instrument, formik.values.Exchange])
+  }, [formik.values.Instrument, formik.values.Exchange, refresh])
 
 
   const getStrikePrice = async () => {
@@ -531,7 +553,7 @@ const AddClient = () => {
 
       const data = {
         Exchange: formik.values.Exchange,
-        Instrument: location.state && location.state.data.InstrumentType || formik.values.Instrument,
+        Instrument: formik.values.Instrument,
         Symbol: formik.values.Symbol
       }
       await Get_StrikePrice(data)
@@ -557,7 +579,7 @@ const AddClient = () => {
 
 
   const getExpiry = async () => {
-    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Strike && formik.values.Exchange != 'NSE') {
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Exchange != 'NSE') {
       const data = {
         Exchange: formik.values.Exchange,
         Instrument: formik.values.Instrument,
@@ -591,6 +613,9 @@ const AddClient = () => {
   useEffect(() => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
+
+
+
   useEffect(() => {
 
     if (formik.values.set_Range == "No") {
@@ -609,11 +634,13 @@ const AddClient = () => {
     }
     if (formik.values.Exchange == "NSE") {
       formik.setFieldValue('Instrument', "")
-
+      formik.setFieldValue('Symbol', "")
+      formik.setFieldValue('expirydata1', "")
+      formik.setFieldValue('Strike', "")
+      formik.setFieldValue('Optiontype', "")
     }
 
   }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
-
 
 
   return (
@@ -622,7 +649,7 @@ const AddClient = () => {
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
-        page_title="Add Script"
+        page_title="Add Script scalping"
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}

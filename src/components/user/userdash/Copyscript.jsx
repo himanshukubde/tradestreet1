@@ -91,8 +91,7 @@ const Coptyscript = ({ data, selectedType }) => {
                             PatternName: ""
 
                         } : ''
-
-       
+                        
         await DeleteUserScript(req)
             .then((response) => {
                 if (response.Status) {
