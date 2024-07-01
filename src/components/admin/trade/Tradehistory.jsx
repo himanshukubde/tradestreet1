@@ -8,7 +8,7 @@ import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
 
-
+import Swal from 'sweetalert2';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -1059,6 +1059,12 @@ const Tradehistory = () => {
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setAllTradeData({
                         loading: false,
                         data: [],

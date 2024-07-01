@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
-import {GetAllUserGroup } from '../../Common API/User'
+import CurrentScript from './CurrentScript'
+import { GetAllUserGroup } from '../../Common API/User'
 
 const Userdashboard = () => {
     const userName = localStorage.getItem('name')
@@ -10,40 +11,43 @@ const Userdashboard = () => {
     const [activeTab1, setActiveTab1] = useState('CurrentPosition')
     const [activeTab, setActiveTab] = useState('copyScript')
     const [subTab, setSubTab] = useState('Scalping')
-    const [getGroup , setGroup] = useState('')
-    const [getGroupName , setGroupName] = useState({
-            loading:true,
-            data:[]
-        })
+    const [refresh , setRefresh] = useState(false)
+    const [getGroup, setGroup] = useState('')
+    const [getGroupName, setGroupName] = useState({
+        loading: true,
+        data: []
+    })
 
- 
-    const getUserAllGroup = async()=>{
-        const data = {User : userName}
+
+    const getUserAllGroup = async () => {
+        const data = { User: userName }
         await GetAllUserGroup(data)
-        .then((response)=>{
-            if(response.Status){
-                setGroupName({
-                    loading: false,
-                    data :response.Data
-                })
-            }
-            else{
-                setGroupName({
-                    loading: false,
-                    data :[]
-                })
+            .then((response) => {
+                if (response.Status) {
+                    setRefresh(!refresh)
+                    setGroupName({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setGroupName({
+                        loading: false,
+                        data: []
+                    })
+                    
 
-            }
-        })
-        .catch((err)=>{
-            console.log("Error in finding the group name" , err)
-        })
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the group name", err)
+            })
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getUserAllGroup()
-    },[activeTab])
+    }, [activeTab , refresh])
 
 
     return (
@@ -83,7 +87,7 @@ const Userdashboard = () => {
                                 </li>
                             </ul>
 
-
+ 
                             <div className='row'>
 
                                 {activeTab1 === 'CurrentPosition' && (
@@ -95,6 +99,7 @@ const Userdashboard = () => {
                                             <select className="form-select" required=""
                                                 onChange={(e) => { setActiveTab(e.target.value) }}
                                                 value={activeTab}>
+                                                <option value="currentScript">Current Script</option>
                                                 <option value="copyScript">Copy Script</option>
                                                 <option value="group">Group Script</option>
                                             </select>
@@ -117,14 +122,14 @@ const Userdashboard = () => {
                                                 <select className="form-select" required=""
                                                     onChange={(e) => { setGroup(e.target.value) }}
                                                     value={getGroup}>
-                                                        <option value=''>Select Group Name</option>
-                                                        {
-                                                            getGroupName && getGroupName.data.map((item)=>{
-                                                                return  <option value={item}>{item}</option>
-                                                               
-                                                            })
-                                                        }
-                                                    
+                                                    <option value=''>Select Group Name</option>
+                                                    {
+                                                        getGroupName && getGroupName.data.map((item) => {
+                                                            return <option value={item}>{item}</option>
+
+                                                        })
+                                                    }
+
                                                 </select>
                                             </div>
                                         )}
@@ -140,8 +145,7 @@ const Userdashboard = () => {
                                         {activeTab === 'copyScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab  && <Coptyscript data={subTab} selectedType={activeTab}  />}
-                                                 
+                                                    {subTab && <Coptyscript data={subTab} selectedType={activeTab} />}
                                                 </div>
                                             </div>
                                         )}
@@ -149,7 +153,14 @@ const Userdashboard = () => {
                                         {activeTab === 'group' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                {subTab  && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup}  />}
+                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} />}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {activeTab === 'currentScript' && (
+                                            <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
+                                                <div className="tab-content mt-3">
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab}/>}
                                                 </div>
                                             </div>
                                         )}

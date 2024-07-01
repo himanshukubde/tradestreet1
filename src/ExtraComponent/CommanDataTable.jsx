@@ -1,47 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import MUIDataTable from "mui-datatables";
 
+// NoDataIndication Component
+const NoDataIndication = () => (
+    <div className="d-flex justify-content-start">
+        <img
+            src='../../../../assets/images/norecordfound.png'
+            alt="No data found"
+            style={{ marginLeft: '23rem' }}
+        />
+    </div>
+);
 
 const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
 
-
-    console.log("data :" , data)
-    console.log("data 1:" , columns)
-
-
-    const NoDataIndication = () => (
-        <div className="d-flex justify-content-start">
-            <img 
-                src='../../../../assets/images/norecordfound.png' 
-                alt="No data found"
-                style={{marginLeft:'23rem'}}
-                // className='mx-auto'
-            />
-        </div>
-    );
-    
-
-    const options = {
-        filterType: false,
-        selectableRowsHeader: false,
-        selectableRows: checkBox ? "single" : false,
-        onRowsSelect: (currentRowsSelected, allRowsSelected) => {
-            if (allRowsSelected.length > 0) {
-                const selectedIndex = allRowsSelected[0].index;
-                const rowData = data[selectedIndex];
+    const handleRowSelect = useCallback((currentRowsSelected, allRowsSelected) => {
+        if (allRowsSelected.length > 0) {
+            const selectedIndex = allRowsSelected[0].index;
+            const rowData = data[selectedIndex];
+            if (rowData !== selectedRowData) {
                 setSelectedRowData(rowData);
                 onRowSelect(rowData); // Call the callback function
-            } else {
+            }
+        } else {
+            if (selectedRowData !== null) {
                 setSelectedRowData(null);
                 onRowSelect(null); // Call the callback function with null
             }
-        },
+        }
+    }, [data, selectedRowData, onRowSelect]);
+
+    const options = useMemo(() => ({
+        filterType: false,
+        selectableRowsHeader: false,
+        selectableRows: checkBox ? "single" : false,
+        onRowsSelect: handleRowSelect,
         rowsSelected: selectedRowData ? [data.indexOf(selectedRowData)] : [],
         customToolbarSelect: () => { },
         textLabels: {
             body: {
-                noMatch: NoDataIndication(),
+                noMatch: <NoDataIndication />,
                 toolTip: "Sort",
             },
             pagination: {
@@ -51,7 +50,7 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 displayRows: "of",
             },
             selectedRows: {
-                text: "row (s) selected",
+                text: "row(s) selected",
             },
         },
         download: false,
@@ -64,20 +63,19 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 textAlign: 'center',
             }
         })
-    };
+    }), [checkBox, handleRowSelect, selectedRowData, data]);
 
-
-    const customizedColumns = columns.map(column => ({
+    const customizedColumns = useMemo(() => columns.map(column => ({
         ...column,
         options: {
             ...column.options,
             setCellProps: () => ({
                 style: {
-                    width: column.width || 'auto', 
+                    width: column.width || 'auto',
                 }
             })
         }
-    }));
+    })), [columns]);
 
     return (
         <div className="modal-body">
@@ -91,4 +89,4 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     );
 };
 
-export default FullDataTable;
+export default React.memo(FullDataTable);

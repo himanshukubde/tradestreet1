@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { GetAllGroupService, GetGroupNames } from '../../Common API/Admin';
+import { GetAllGroupService, GetGroupNames, DeleteScript } from '../../Common API/Admin';
 import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader'
+import { Trash2 } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const Addscript = () => {
     const navigate = useNavigate()
@@ -12,6 +14,7 @@ const Addscript = () => {
         data: []
     })
 
+    const [refresh, setRefresh] = useState(false)
 
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
@@ -20,6 +23,56 @@ const Addscript = () => {
         data: []
     })
 
+    const [GroupError, setGroupError] = useState('')
+    const [stgError, setStgError] = useState('')
+
+
+
+
+
+    const handleDelete = async (rowData) => {
+        const index = rowData.rowIndex
+        const data = {
+            Groupname: getAllService.data[index].Username,
+            Sop: selectStrategyType,
+            Strategy: selectStrategyType == 'Option Strategy' ? getAllService.data[index].STG : selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : getAllService.data[index].ScalpType,
+            Symbol: selectStrategyType == 'Option Strategy' ? getAllService.data[index].MainSymbol : selectStrategyType == 'Pattern' ? getAllService.data[index].Symbol : getAllService.data[index].Symbol,
+            ETPattern: selectStrategyType == 'Option Strategy' ? getAllService.data[index].Targettype : selectStrategyType == 'Pattern' ? getAllService.data[index].Pattern : "",
+            Timeframe: selectStrategyType == 'Pattern' ? getAllService.data[index]['Time frame'] : '',
+            TType: '',
+            Group: selectStrategyType == 'Pattern' ? '' : getAllService.data[index].GroupN,
+            Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
+        }
+
+        
+
+        await DeleteScript(data)
+            .then((response) => {
+                if (response.Status) {
+                    setRefresh(!refresh)
+
+                    Swal.fire({
+                        title: "Deleted",
+                        text: "Script Deleted successfully",
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: "error in script delete",
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("Error in delete script", err)
+            })
+    }
 
     const columns = [
         {
@@ -33,6 +86,17 @@ const Addscript = () => {
                     return rowIndex + 1;
                 }
             },
+        },
+        {
+            name: "Action",
+            label: "Action",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
+                }
+            }
         },
         {
             name: "ScalpType",
@@ -203,6 +267,8 @@ const Addscript = () => {
             }
         },
 
+
+
     ];
 
 
@@ -218,6 +284,17 @@ const Addscript = () => {
                     return rowIndex + 1;
                 }
             },
+        },
+        {
+            name: "Action",
+            label: "Action",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
+                }
+            }
         },
         {
             name: "STG",
@@ -523,6 +600,8 @@ const Addscript = () => {
                 sort: true,
             }
         },
+
+
     ];
 
 
@@ -538,6 +617,17 @@ const Addscript = () => {
                     return rowIndex + 1;
                 }
             },
+        },
+        {
+            name: "Action",
+            label: "Action",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
+                }
+            }
         },
         {
             name: "Username",
@@ -731,6 +821,17 @@ const Addscript = () => {
                 sort: true,
             }
         },
+        {
+            name: "Action",
+            label: "Action",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
+                }
+            }
+        },
 
     ];
 
@@ -741,6 +842,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
+                    console.log("CPP :",  response)
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -793,10 +895,15 @@ const Addscript = () => {
     }
 
 
+
+
     const handleAddScript = () => {
-        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
-        navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
-            selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
+        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType }; 
+        if(selectGroup!='' && selectStrategyType!=''){ 
+            navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
+                selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
+        }
+
     }
 
 
@@ -805,6 +912,22 @@ const Addscript = () => {
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
+    useEffect(() => {
+        if (selectGroup == '') {
+            setGroupError("Select Group Name")
+        }
+        else {
+            setGroupError("")
+        }
+        if (selectStrategyType == '') {
+            setStgError("Select Stragey Type")
+        }
+        else {
+            setStgError("")
+        }
+    }, [selectGroup, selectStrategyType,])
+
+
 
     useEffect(() => {
         if (getGroupData && getGroupData.data.length > 0) {
@@ -812,10 +935,15 @@ const Addscript = () => {
         }
     }, [])
 
+    useEffect(() => {
+        setStrategyType('Scalping')
+    }, []);
+
+
 
     useEffect(() => {
         getAllgroupService()
-    }, [selectStrategyType, selectGroup])
+    }, [selectStrategyType, selectGroup, refresh])
 
 
 
@@ -839,6 +967,7 @@ const Addscript = () => {
                                             onChange={(e) => setSelectGroup(e.target.value)}
                                             value={selectGroup}
                                         >
+                                            <option value=''>Select Group Name</option>
                                             {getGroupData.data && getGroupData.data.map((item) => {
                                                 return <>
                                                     <option value={item.GroupName}>{item.GroupName}</option>
@@ -846,17 +975,25 @@ const Addscript = () => {
                                             })}
 
 
+
                                         </select>
+                                        {GroupError && <div style={{ "color": "red" }}>
+                                            {GroupError}
+                                        </div>}
                                     </div>
                                     <div className="form-group col-md-5 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => { setAllservice({ loading: true, data: [] }); setStrategyType(e.target.value) }}
                                             value={selectStrategyType}>
+                                            <option value=''>Select Strategy Type</option>
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
                                         </select>
+                                        {stgError && <div style={{ "color": "red" }}>
+                                            {stgError}
+                                        </div>}
                                     </div>
                                     <div className='col-md-2 ms-2 mt-4'>
                                         <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>

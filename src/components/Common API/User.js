@@ -86,3 +86,34 @@ export const AddScript = async (data) => {
         return err
     }
 }
+
+export const get_Trade_Report = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Tradereport`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Get_Panle_Logs = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}PanelTrackAll`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+export const DeleteUserScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Squareoff`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}

@@ -17,6 +17,8 @@ import Strategygroup from '../components/admin/group/Strategygroup';
 import Userlog from '../components/admin/User/Userlog';
 import Addscript from '../components/admin/script/Addscript.Scalping';
 import AddScriptOption from '../components/admin/script/AddScript.Option'
+import PatternScript from '../components/admin/script/AddScript.Pattern'
+
 
 
 
@@ -35,6 +37,7 @@ const AdminRoute = () => {
             <Route path="/tradehistory" element={<Tradehistory />} />
             <Route path="/allscript" element={<Allscript />} />
             <Route path="/addscript/scalping" element={<Addscript />} />
+            <Route path="/addscript/pattern" element={<PatternScript />} />
             <Route path="/brokercredential" element={<Brokercredential />} />
             <Route path="/clientactivity" element={<Clientactivity />} />
             <Route path="/clientreport" element={<Clientreport />} />

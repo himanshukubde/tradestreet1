@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { setSmtpDetail } from '../../Common API/Admin'
-import Swal from 'sweetalert2'
-const Smtp = () => {
+import React, { useEffect, useState } from 'react';
+import { setSmtpDetail, Get_SMTP_Details } from '../../Common API/Admin';
+import Swal from 'sweetalert2';
 
-    const [email, setEmail] = useState('')
-    const [cc, setCc] = useState('')
-    const [password, setPassword] = useState('')
-    const [url, setUrl] = useState('')
+const Smtp = () => {
+    const [email, setEmail] = useState('');
+    const [cc, setCc] = useState('');
+    const [password, setPassword] = useState('');
+    const [url, setUrl] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [getSMTP, setSMTP] = useState({
+        loading: true,
+        data: []
+    });
 
     const handleSubmit = async () => {
         const data = {
@@ -14,32 +19,58 @@ const Smtp = () => {
             cc: cc,
             password: password,
             url: url
-        }
+        };
         await setSmtpDetail(data).then((response) => {
             if (response.Status) {
                 Swal.fire({
                     title: "Data Saved!",
-                    text: "Smtp detail saved Successfully",
+                    text: "SMTP detail saved Successfully",
                     icon: "success",
                     timer: 1500,
                     timerProgressBar: true
-
                 });
-            }
-            else {
+            } else {
                 Swal.fire({
                     title: "Error!",
-                    text: "Smtp detail cant be reflected",
+                    text: "SMTP detail can't be reflected",
                     icon: "error",
                     timer: 1500,
                     timerProgressBar: true
-
                 });
             }
         }).catch((error) => {
-            console.log("server error")
-        })
-    }
+            console.log("server error");
+        });
+    };
+
+    const getSMTPDetails = async () => {
+        await Get_SMTP_Details()
+            .then((response) => {
+                if (response.Status) {
+                    setEmail(response.SMTPDetail[0].email);
+                    setCc(response.SMTPDetail[0].cc);
+                    setPassword(response.SMTPDetail[0].password);
+                    setUrl(response.SMTPDetail[0].url);
+                } else {
+                    setEmail('');
+                    setCc('');
+                    setPassword('');
+                    setUrl('');
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the SMTP details", err);
+            });
+    };
+
+    useEffect(() => {
+        getSMTPDetails();
+    }, []);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
+
     return (
         <div>
             <div className='container-fluid'>
@@ -51,7 +82,6 @@ const Smtp = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
-
                             <div>
                                 <div className='row'>
                                     <div className="form-group col-md-6">
@@ -59,34 +89,44 @@ const Smtp = () => {
                                         <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} className="form-control my-2" id="email1" />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="pwd">CC</label>
-                                        <input type="text" onChange={(e) => setCc(e.target.value)} value={cc} className="form-control my-2" id="pwd" />
+                                        <label htmlFor="cc">CC</label>
+                                        <input type="text" onChange={(e) => setCc(e.target.value)} value={cc} className="form-control my-2" id="cc" />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="pwd">Password:</label>
-                                        <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} className="form-control my-2" id="pwd" />
+                                        <label htmlFor="password">Password:</label>
+                                        <div className="input-group">
+                                            <input 
+                                                type={passwordVisible ? "text" : "password"} 
+                                                onChange={(e) => setPassword(e.target.value)} 
+                                                value={password} 
+                                                className="form-control" 
+                                                id="password" 
+                                            />
+                                            <button 
+                                                type="button" 
+                                                className="btn btn-outline-secondary" 
+                                                onClick={togglePasswordVisibility}
+                                            >
+                                                {passwordVisible ? "Hide" : "Show"}
+                                            </button>
+                                        </div>
                                     </div>
-
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="pwd">URL</label>
-                                        <input type="password" onChange={(e) => setUrl(e.target.value)} value={url} className="form-control my-2" id="pwd" />
+                                        <label htmlFor="url">URL</label>
+                                        <input type="text" onChange={(e) => setUrl(e.target.value)} value={url} className="form-control my-2" id="url" />
                                     </div>
-
                                 </div>
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary me-1 mt-2">
-                                    Submit
+                                    Update
                                 </button>
-                                <button type="submit" className="btn iq-bg-danger mt-2">
-                                    Cancel
-                                </button>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    )
+    );
 }
 
-export default Smtp
+export default Smtp;

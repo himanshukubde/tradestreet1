@@ -25,7 +25,7 @@ const AddClient = () => {
     })
 
 
-    console.log("getTimeFrame :", getTimeFrame)
+  
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []

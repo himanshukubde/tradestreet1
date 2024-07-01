@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GetClientService } from '../../Common API/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
+import {Link} from 'react-router-dom'
 
 const Clientservice = () => {
     const [getClientService, setClientService] = useState({
@@ -130,7 +131,10 @@ const Clientservice = () => {
                             <div className="iq-header-title">
                                 <h4 className="card-title">Client Service</h4>
                             </div>
+                            <Link to="/admin/adduser" className='btn btn-primary rounded'>Add Client</Link>
+
                         </div>
+                         
                         <div className="iq-card-body">
                             <FullDataTable
                                 columns={columns}

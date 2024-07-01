@@ -5,6 +5,7 @@ import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from 'sweetalert2';
 const Tradehistory = () => {
     const [selectStrategyType, setStrategyType] = useState('')
     const [tradeHistory, setTradeHistory] = useState('')
@@ -829,6 +830,12 @@ const Tradehistory = () => {
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setAllTradeData({
                         loading: false,
                         data: [],

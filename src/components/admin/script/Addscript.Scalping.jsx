@@ -44,10 +44,10 @@ const AddClient = () => {
       Instrument: "",
       Strike: "",
       Optiontype: "",
-      Targetvalue: 5.0,
-      Slvalue: 5.0,
+      Targetvalue: 1.0,
+      Slvalue: 1.0,
       TStype: "Point",
-      Quantity: 5,
+      Quantity: 1,
       LowerRange: 1,
       HigherRange: 1,
       HoldExit: "",
@@ -56,7 +56,7 @@ const AddClient = () => {
       EntryTime: "",
       ExitTime: "",
       ExitDay: "",
-      TradeExecution: "Paper Trade",
+    
       FixedSM: "Single",
       TType: "",
       serendate: "",
@@ -74,7 +74,6 @@ const AddClient = () => {
       CEDeepHigher: 0.0,
       PEDeepLower: 0.0,
       PEDeepHigher: 0.0,
-      TradeCount: 2,
       set_Range: "",
       Set_First_Trade_Range: ""
     },
@@ -87,30 +86,31 @@ const AddClient = () => {
       if (!values.Exchange) {
         errors.Exchange = "Select Exchange type"
       }
+      if (!values.Instrument) {
+        errors.Instrument = "Select Instrument type"
+      }
       // if (!values.Instrument) {
       //   errors.Instrument = "Select Instrument type"
       // }
       if (!values.Symbol) {
         errors.Symbol = "Select Symbol type"
       }
-      if (!values.Optiontype) {
+      if (!values.Optiontype && ( values.Instrument=="OPTSTK" || values.Instrument == "OPTIDX") ) {
         errors.Optiontype = "Select Optiontype type"
       }
-      if (!values.Strike) {
+      if (!values.Strike && ( values.Instrument=="OPTSTK" || values.Instrument == "OPTIDX")) {
         errors.Strike = "Select Strike Price type"
       }
-      // if (!values.expirydata1) {
-      //   errors.expirydata1 = "Select expirydata type"
-      // }
+      if (!values.expirydata1) {
+        errors.expirydata1 = "Select Expiry Date"
+      }
       if (!values.TType) {
         errors.TType = "Select Transaction Type"
       }
       if (!values.Quantity) {
         errors.Quantity = "Select Quantity type"
       }
-      // if (!values.HoldExit) {
-      //   errors.HoldExit = "Enter HoldExit type"
-      // }
+      
       if (!values.ExitTime) {
         errors.ExitTime = "Select ExitTime type"
       }
@@ -120,6 +120,22 @@ const AddClient = () => {
       if (!values.ExitDay) {
         errors.ExitDay = "Select ExitDay type"
       }
+      if(!values.EntryPrice && values.Set_First_Trade_Range=="Yes"){
+         errors.EntryPrice = "Enter Lowest Price"
+      }
+      if(!values.EntryRange && values.Set_First_Trade_Range=="Yes"){
+        errors.EntryRange = "Enter High Price"
+     }
+
+     if(!values.HigherRange && values.set_Range=="Yes"){
+      errors.EntryRange = "Enter High Price"
+   }
+   if(!values.LowerRange && values.set_Range=="Yes"){
+    errors.EntryRange = "Enter High Price"
+ }
+ if(!values.HoldExit && values.set_Range=="Yes"){
+  errors.EntryRange = "Enter High Price"
+}
 
       return errors;
     },
@@ -165,13 +181,12 @@ const AddClient = () => {
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
       }
-
       await AddAdminScript(req)
         .then((response) => {
           if (response.Status) {
             Swal.fire({
               title: "Script Added !",
-              text: "New Script Added successfully..!",
+              text: response.massage,
               icon: "success",
               timer: 1500,
               timerProgressBar: true
@@ -183,7 +198,7 @@ const AddClient = () => {
           else {
             Swal.fire({
               title: "Error !",
-              text: "Error in added new Script..!",
+              text:  response.massage,
               icon: "error",
               timer: 1500,
               timerProgressBar: true
@@ -446,7 +461,11 @@ const AddClient = () => {
     {
       name: "HoldExit",
       label: "Hold/Exit",
-      type: "text",
+      type: "select",
+      options: [
+        { label: "Hold", value: "Hold" },
+        { label: "Exit", value: "Exit" },
+      ],
       showWhen: (values) => values.set_Range == "Yes",
       label_size: 12,
       col_size: 4,
@@ -469,7 +488,7 @@ const AddClient = () => {
     {
       name: "EntryTime",
       label: "Entry Time",
-      type: "text",
+      type: "timepiker",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -478,7 +497,7 @@ const AddClient = () => {
     {
       name: "ExitTime",
       label: "Exit Time",
-      type: "text",
+      type: "timepiker",
       label_size: 12,
       col_size: 4,
       disable: false,
@@ -609,6 +628,11 @@ const AddClient = () => {
     }
     if(formik.values.Exchange== "NSE" ){
       formik.setFieldValue('Instrument', "")
+      formik.setFieldValue('Symbol', "")
+      formik.setFieldValue('expirydata1', "")
+      formik.setFieldValue('Strike', "")
+      formik.setFieldValue('Optiontype', "")
+
       
     }
 
