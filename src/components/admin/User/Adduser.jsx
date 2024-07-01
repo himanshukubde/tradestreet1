@@ -20,8 +20,7 @@ const Adduser = () => {
         serviceCount: '1',
         selectDay: 'Two Days',
         selectGroup: 'Test',
-        startDate: '',
-        endDate: '',
+      
         enableTwoFactor: false,
     });
     const [getBroker, setBroker] = useState({
@@ -147,12 +146,7 @@ const Adduser = () => {
             if (!values.Select_License_Type) {
                 errors.Select_License_Type = "Enter Select License Type"
             }
-            if (!values.From_Date) {
-                errors.From_Date = "Enter From_Date"
-            }
-            if (!values.To_Date) {
-                errors.To_Date = "Enter To_Date"
-            }
+          
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service Count"
             }
