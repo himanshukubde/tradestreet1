@@ -126,7 +126,6 @@ const AddClient = () => {
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                
                 FixedSM: "",
                 TType: "",
                 serendate: "2023-10-25",
@@ -146,6 +145,8 @@ const AddClient = () => {
                 PEDeepHigher: values.PEDeepHigher,
                 
             }
+            // console.log(req)
+            // return 
             await AddAdminScript(req)
                 .then((response) => {
                     if (response.Status) {

@@ -23,12 +23,15 @@ const Addscript = () => {
         data: []
     })
 
+    const [GroupError, setGroupError] = useState('')
+    const [stgError, setStgError] = useState('')
+
+
 
 
 
     const handleDelete = async (rowData) => {
         const index = rowData.rowIndex
-
         const data = {
             Groupname: getAllService.data[index].Username,
             Sop: selectStrategyType,
@@ -41,14 +44,13 @@ const Addscript = () => {
             Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
         }
 
-        console.log(data)
-        console.log(getAllService.data[index])
+        
 
         await DeleteScript(data)
             .then((response) => {
                 if (response.Status) {
                     setRefresh(!refresh)
-                     
+
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",
@@ -840,6 +842,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
+                    console.log("CPP :",  response)
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -892,12 +895,31 @@ const Addscript = () => {
     }
 
 
+
+
     const handleAddScript = () => {
-        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
-        navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
-            selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
+        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType }; 
+        if(selectGroup!='' && selectStrategyType!=''){ 
+            navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
+                selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
+        }
+
     }
 
+    useEffect(() => {
+        if (selectGroup == '') {
+            setGroupError("Select Group Name")
+        }
+        else {
+            setGroupError("")
+        }
+        if (selectStrategyType == '') {
+            setStgError("Select Stragey Type")
+        }
+        else {
+            setStgError("")
+        }
+    }, [selectGroup, selectStrategyType,])
 
 
 
@@ -915,7 +937,7 @@ const Addscript = () => {
 
     useEffect(() => {
         getAllgroupService()
-    }, [selectStrategyType, selectGroup , refresh])
+    }, [selectStrategyType, selectGroup, refresh])
 
 
 
@@ -939,6 +961,7 @@ const Addscript = () => {
                                             onChange={(e) => setSelectGroup(e.target.value)}
                                             value={selectGroup}
                                         >
+                                            <option value=''>Select Group Name</option>
                                             {getGroupData.data && getGroupData.data.map((item) => {
                                                 return <>
                                                     <option value={item.GroupName}>{item.GroupName}</option>
@@ -946,17 +969,25 @@ const Addscript = () => {
                                             })}
 
 
+
                                         </select>
+                                        {GroupError && <div style={{ "color": "red" }}>
+                                            {GroupError}
+                                        </div>}
                                     </div>
                                     <div className="form-group col-md-6 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => { setAllservice({ loading: true, data: [] }); setStrategyType(e.target.value) }}
                                             value={selectStrategyType}>
+                                            <option value=''>Select Strategy Type</option>
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
                                         </select>
+                                        {stgError && <div style={{ "color": "red" }}>
+                                            {stgError}
+                                        </div>}
                                     </div>
                                 </div>
                             </form>

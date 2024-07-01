@@ -80,8 +80,6 @@ export const GetAllGroupService = async (data) => {
     }
 }
 
-
-
 export const Get_Symbol = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}GetSym`, data)
@@ -91,7 +89,6 @@ export const Get_Symbol = async (data) => {
         return err
     }
 }
-
 
 export const Get_StrikePrice = async (data) => {
     try {
@@ -178,7 +175,6 @@ export const Get_All_Service = async (data) => {
 
     }
 }
-
 
 export const get_User_Data = async (data) => {
     try {
@@ -288,7 +284,6 @@ export const Get_Client_Report = async (data) => {
 }
 
 
-
 export const Get_Broker_Name = async () => {
     try {
         const res = await axios.get(`${Config.base_url}Brokernamelist`)
@@ -300,7 +295,6 @@ export const Get_Broker_Name = async () => {
     }
 }
 
-
 export const DeleteScript = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Admin_Delete_Script`, data)
@@ -308,8 +302,16 @@ export const DeleteScript = async (data) => {
     }
     catch (err) {
         return err
+    }
+}
 
-  
+export const Get_SMTP_Details = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}SMTPDetail`)
+        return res?.data
+    }
+    catch (err) {
+        return err
     }
 }
 

@@ -5136,3 +5136,12 @@ a {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d5883', endColorstr='#0db5c8', GradientType=1);
 
 }
+
+
+.css-11mde6h-MuiPaper-root{
+  box-shadow:none !important
+}
+
+.uniform-bg {
+  background-color: #f8f9fa; /* Example background color, change as needed */
+}

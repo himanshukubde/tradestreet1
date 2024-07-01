@@ -24,6 +24,8 @@ const AddClient = () => {
         data: []
     })
 
+
+    console.log("getTimeFrame :", getTimeFrame)
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []
@@ -41,9 +43,9 @@ const AddClient = () => {
     const [refresh, setRefresh] = useState(false)
 
 
- 
 
 
+console.log("Cpp", location.state.data.selectGroup)
 
     const formik = useFormik({
 
@@ -94,64 +96,62 @@ const AddClient = () => {
 
         validate: (values) => {
             let errors = {};
-            if (!values.Exchange) {
-                errors.Exchange = "Select Exchange type"
-            }
-            if (!values.Instrument) {
-                errors.Instrument = "Enter Instrument Type"
-            }
-            if (!values.Symbol) {
-                errors.Symbol = "Enter Symbol Type"
-            }
-            if (!values.Optiontype) {
-                errors.Optiontype = "Enter Option Type"
-            }
-            if (!values.Strike) {
-                errors.Strike = "Enter Strike Price"
-            }
-            if (!values.expirydata1) {
-                errors.expirydata1 = "Enter expirydata Type"
-            }
-            if (!values.Instrument) {
-                errors.Instrument = "Enter Instrument Type"
-            }
-            if (!values.Strategy) {
-                errors.Strategy = "Enter Strategy Type"
-            }
-            if (!values.Timeframe) {
-                errors.Timeframe = "Enter Timeframe Type"
-            }
-            if (!values.ETPattern) {
-                errors.ETPattern = "Enter ETPattern Type"
-            }
-            if (!values.HoldExit) {
-                errors.HoldExit = "Enter HoldExit Type"
-            }
-            if (!values.TStype) {
-                errors.TStype = "Enter TStype Type"
-            }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Enter Slvalue Type"
-            }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Enter Targetvalue Type"
-            }
+            // if (!values.Exchange) {
+            //     errors.Exchange = "Select Exchange type"
+            // }
+            // if (!values.Instrument) {
+            //     errors.Instrument = "Enter Instrument Type"
+            // }
+            // if (!values.Symbol) {
+            //     errors.Symbol = "Enter Symbol Type"
+            // }
+            // if (!values.Optiontype) {
+            //     errors.Optiontype = "Enter Option Type"
+            // }
+            // if (!values.Strike) {
+            //     errors.Strike = "Enter Strike Price"
+            // }
+            // if (!values.expirydata1) {
+            //     errors.expirydata1 = "Enter expirydata Type"
+            // }
+            
+            // if (!values.Strategy) {
+            //     errors.Strategy = "Enter Strategy Type"
+            // }
+            // if (!values.Timeframe) {
+            //     errors.Timeframe = "Enter Timeframe Type"
+            // }
+            // if (!values.ETPattern) {
+            //     errors.ETPattern = "Enter ETPattern Type"
+            // }
+            // if (!values.HoldExit) {
+            //     errors.HoldExit = "Enter HoldExit Type"
+            // }
+            // if (!values.TStype) {
+            //     errors.TStype = "Enter TStype Type"
+            // }
+            // if (!values.Slvalue) {
+            //     errors.Slvalue = "Enter Slvalue Type"
+            // }
+            // if (!values.Targetvalue) {
+            //     errors.Targetvalue = "Enter Targetvalue Type"
+            // }
 
-            if (!values.TType) {
-                errors.TType = "Enter TType Type"
-            }
-            if (!values.Quantity) {
-                errors.Quantity = "Enter Quantity Type"
-            }
-            if (!values.ExitDay) {
-                errors.ExitDay = "Enter ExitDay Type"
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Enter EntryTime Type"
-            }
-            if (!values.ExitTime) {
-                errors.ExitTime = "Enter ExitTime Type"
-            }
+            // if (!values.TType) {
+            //     errors.TType = "Enter TType Type"
+            // }
+            // if (!values.Quantity) {
+            //     errors.Quantity = "Enter Quantity Type"
+            // }
+            // if (!values.ExitDay) {
+            //     errors.ExitDay = "Enter ExitDay Type"
+            // }
+            // if (!values.EntryTime) {
+            //     errors.EntryTime = "Enter EntryTime Type"
+            // }
+            // if (!values.ExitTime) {
+            //     errors.ExitTime = "Enter ExitTime Type"
+            // }
 
             return errors;
         },
@@ -167,7 +167,7 @@ const AddClient = () => {
                 Instrument: values.Instrument,
                 Strike: values.Strike,
                 Optiontype: values.Optiontype,
-                Targetvalue: 1.0,
+                Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
@@ -179,7 +179,7 @@ const AddClient = () => {
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                TradeExecution: "Paper Trade",
+                
                 FixedSM: "",
                 TType: values.TType,
                 serendate: "2023-10-25",
@@ -197,11 +197,10 @@ const AddClient = () => {
                 CEDeepHigher: 0.0,
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
-                TradeCount: 3
-
             }
-           
-            await AddScript(req)
+            console.log("CPP :", req)
+
+            await AddAdminScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
@@ -235,7 +234,6 @@ const AddClient = () => {
 
 
     useEffect(() => {
-        formik.setFieldValue('Add_OR_CopyData', "AddNewScriptData")
         formik.setFieldValue('Strategy', "CandlestickPattern")
         formik.setFieldValue('Exchange', "NFO")
         formik.setFieldValue('Instrument', "OPTIDX")
@@ -246,16 +244,7 @@ const AddClient = () => {
 
 
     const fields = [
-        {
-            name: "Add_OR_CopyData",
-            label: "Add OR CopyData",
-            type: "radio1",
-            title: [{ title: "Add New Script Data", value: "AddNewScriptData" }, { title: "Copy Previous Script Data", value: "CopyPreviousScriptData" }],
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-            hiding: false,
-        },
+
         {
             name: "Exchange",
             label: "Exchange",
@@ -276,7 +265,6 @@ const AddClient = () => {
             name: "Exchange",
             label: "Exchange",
             type: "cp",
-
             hiding: false,
             label_size: 12,
             col_size: 6,
@@ -378,32 +366,24 @@ const AddClient = () => {
                 { label: "Candlestick Pattern", value: "CandlestickPattern" },
                 { label: "Charting Pattern", value: "ChartingPattern" },
             ],
-            // showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
+
             label_size: 12,
             hiding: false,
-            col_size: 12,
+            col_size: 6,
             disable: false,
         },
         {
             name: "Timeframe",
             label: "Time Frame",
             type: "select",
-            options: [
-                { label: "1M", value: "1M" },
-                { label: "3M", value: "3M" },
-                { label: "5M", value: "5M" },
-                { label: "15M", value: "15M" },
-                { label: "45M", value: "45M" },
-                { label: "1h", value: "1h" },
-                { label: "2h", value: "2h" },
-                { label: "3h", value: "3h" },
-                { label: "4h", value: "4h" },
-                { label: "5d", value: "5d" },
-            ],
-            // showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
+            options: getTimeFrame && getTimeFrame.data.map((item) => ({
+                label: item,
+                value: item
+            })),
+          
             label_size: 12,
             hiding: false,
-            col_size: 12,
+            col_size: 6,
             disable: false,
         },
         {
@@ -422,7 +402,7 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 12,
+            col_size: 6,
             disable: false,
         },
         {
@@ -438,7 +418,7 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 12,
+            col_size: 6,
             disable: false,
         },
         {
@@ -448,7 +428,6 @@ const AddClient = () => {
             options: [
                 { label: "Point", value: "Point" },
                 { label: "Percantage", value: "Percantage" },
-
             ],
 
             label_size: 12,
@@ -644,19 +623,10 @@ const AddClient = () => {
 
         await Get_Pattern_Time_Frame()
             .then((response) => {
-                if (response.Status) {
-                    setTimeFrame({
-                        loading: false,
-                        data: response.data
-                    })
-                }
-                else {
-                    setTimeFrame({
-                        loading: false,
-                        data: []
-                    })
-
-                }
+                setTimeFrame({
+                    loading: false,
+                    data: response
+                })
             })
             .catch((err) => {
                 console.log("Error in finding the time frame", err)
@@ -757,4 +727,3 @@ const AddClient = () => {
     );
 };
 export default AddClient;
- 

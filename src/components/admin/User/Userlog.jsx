@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { GetGroupNames, Get_All_Service, get_User_Data } from '../../Common API/Admin'
-import { Eye } from 'lucide-react';
+import { Eye, Trash2 } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
+import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 
 
 const Userlog = () => {
@@ -21,9 +22,13 @@ const Userlog = () => {
         data: []
     })
 
+
     const [selectStrategyType, setStrategyType] = useState('')
 
     const getAllServiceGiven = async () => {
+        if (selectStrategyType == '') {
+            return ""
+        }
         const data = { Strategy: selectStrategyType && selectStrategyType }
         await Get_All_Service(data)
             .then((response) => {
@@ -46,9 +51,1127 @@ const Userlog = () => {
             })
     }
 
+
     useEffect(() => {
         getAllServiceGiven()
     }, [selectStrategyType])
+
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Action",
+            label: "View",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                }
+            }
+        },
+        {
+            name: "Total Service",
+            label: "Total Service",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "UsedService",
+            label: "UsedService",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "NFO",
+            label: "NFO",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "NSE",
+            label: "NSE",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "MCX",
+            label: "MCX",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CDS",
+            label: "CDS",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SingleScript",
+            label: "SingleScript",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "OneDirection",
+            label: "OneDirection",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Fixed Price",
+            label: "Fixed Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
+    const columns1 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Action",
+            label: "View",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                }
+            }
+        },
+        {
+            name: "Total Service",
+            label: "Total Service",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "UsedService",
+            label: "UsedService",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongStrangle",
+            label: "LongStrangle",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortStrangle",
+            label: "ShortStrangle",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongStraddle",
+            label: "LongStraddle",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortStraddle",
+            label: "ShortStraddle",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongIronButterfly",
+            label: "LongIronButterfly",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortIronButterfly",
+            label: "ShortIronButterfly",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongIronCondor",
+            label: "LongIronCondor",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortIronCondor",
+            label: "ShortIronCondor",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BearCallSpread",
+            label: "BearCallSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BearPutSpread",
+            label: "BearPutSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BullCallSpread",
+            label: "BullCallSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BullPutSpread",
+            label: "BullPutSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BullCallLadder",
+            label: "BullCallLadder",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "BullPutLadder",
+            label: "BullPutLadder",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CoveredCall",
+            label: "CoveredCall",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CoveredPut",
+            label: "CoveredPut",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongCollar",
+            label: "LongCollar",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortCollar",
+            label: "ShortCollar",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "RatioCallSpread",
+            label: "RatioCallSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "RatioPutSpread",
+            label: "RatioPutSpread",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongShifting",
+            label: "LongShifting",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortShifting",
+            label: "ShortShifting",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LongFourLegStrategy",
+            label: "LongFourLegStrategy",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ShortFourLegStrategy",
+            label: "ShortFourLegStrategy",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
+    const columns2 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Action",
+            label: "View",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                }
+            }
+        },
+        {
+            name: "Total Service",
+            label: "Total Service",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "UsedService",
+            label: "UsedService",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "NFO",
+            label: "NFO",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "NSE",
+            label: "NSE",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "MCX",
+            label: "MCX",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CDS",
+            label: "CDS",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Candlestickpattern",
+            label: "Candlestickpattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ChartPattern",
+            label: "ChartPattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+    ];
+
+    const columns3 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "ScalpType",
+            label: "ScalpType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TType",
+            label: "TType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Booking Point",
+            label: "Target Value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Re-entry Point",
+            label: "SL Value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExpiryDate",
+            label: "ExpiryDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeExecution",
+            label: "TradeExecution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitDay",
+            label: "ExitDay",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryTime",
+            label: "EntryTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "ExitTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SSDate",
+            label: "SSDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SEDate",
+            label: "SEDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lotsize",
+            label: "Lotsize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskStatus",
+            label: "TaskStatus",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskTime",
+            label: "TaskTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeCount",
+            label: "TradeCount",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+
+    ];
+
+    const columns4 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "STG",
+            label: "Strategy",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Targettype",
+            label: "Targettype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lotsize",
+            label: "Lotsize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Type",
+            label: "Instrument Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirydate",
+            label: "Expirydate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "strategytype",
+            label: "Measurment Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target value",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL value",
+            label: "SL value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lot Size",
+            label: "Lot Size",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Product Type",
+            label: "Product Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Entry Time",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exit Time",
+            label: "Exit Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SSDate",
+            label: "SSDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SEDate",
+            label: "SEDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "StrikeType",
+            label: "StrikeType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDepthLower",
+            label: "CEDepthLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDepthHigher",
+            label: "CEDepthHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDepthLower",
+            label: "PEDepthLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDepthHigher",
+            label: "PEDepthHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDeepLower",
+            label: "CEDeepLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "CEDeepHigher",
+            label: "CEDeepHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDeepLower",
+            label: "PEDeepLower",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PEDeepHigher",
+            label: "PEDeepHigher",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "FixedSM",
+            label: "FixedSM",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskStatus",
+            label: "TaskStatus",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskTime",
+            label: "TaskTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+
+    ];
+
+
+
+    const columns5 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "TradePattern",
+            label: "TradePattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expiry Date",
+            label: "Expiry Date",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Name",
+            label: "Instrument Name",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Lotsize",
+            label: "Lotsize",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Expirytype",
+            label: "Expirytype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Instrument Type",
+            label: "Instrument Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Pattern",
+            label: "Pattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TType",
+            label: "TType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TimeFrame",
+            label: "TimeFrame",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL value",
+            label: "SL Value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target value",
+            label: "Target value",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TStype",
+            label: "TStype",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trading",
+            label: "Trading",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitDay",
+            label: "ExitDay",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ExitTime",
+            label: "ExitTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryTime",
+            label: "EntryTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SSDate",
+            label: "SSDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SEDate",
+            label: "SEDate",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trend",
+            label: "Trend",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskStatus",
+            label: "TaskStatus",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TaskTime",
+            label: "TaskTime",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+
+    ];
+
 
     const GetAllGroupDetails = async () => {
         try {
@@ -86,8 +1209,10 @@ const Userlog = () => {
     }, []);
 
 
-    const handleModal = async (e, item) => {
-        const data = { Data: selectStrategyType, Username: item.Username }
+    const handleModal = async (rowIndex) => {
+        const index = rowIndex.rowIndex;
+        const data = { Data: selectStrategyType, Username: getServiceDetails.data[index].Username }
+
         await get_User_Data(data)
             .then((response) => {
                 if (response.Status) {
@@ -107,9 +1232,6 @@ const Userlog = () => {
             .catch((err) => {
                 console.log("Error in finding the user data", err)
             })
-
-
-
     }
 
     return (
@@ -135,315 +1257,46 @@ const Userlog = () => {
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-                                            <option value={"PatternOption"}>Pattern Option</option>
-                                            <option value={"Marketwise Option Strategy"}>Marketwise Option Strategy</option>
-
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
-
                             {getServiceDetails.loading ? <Loader /> :
                                 (
                                     selectStrategyType == "Scalping" ?
                                         <div className="iq-card-body">
-                                            <div className="table-responsive">
-                                                <table id="datatable" className="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S.No</th>
-                                                            <th>Total Service</th>
-                                                            <th>UserName</th>
-                                                            <th>Used Service</th>
-                                                            <th>NFO</th>
-                                                            <th>NSE</th>
-                                                            <th>MCX</th>
-                                                            <th>CDS</th>
-                                                            <th>Multi Directional</th>
-                                                            <th>One Directional</th>
-                                                            <th>Fixed Price</th>
-                                                            <th>View</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                return <tr key={index}>
-                                                                    <td>{index + 1}</td>
-                                                                    <td>{item['Total Service']}</td>
-                                                                    <td>{item.Username}</td>
-                                                                    <td>{item.UsedService}</td>
-                                                                    <td>{item.NFO}</td>
-                                                                    <td>{item.NSE}</td>
-                                                                    <td>{item.MCX}</td>
-                                                                    <td>{item.CDS}</td>
-                                                                    <td>{item.SingleScript}</td>
-                                                                    <td>{item.OneDirection}</td>
-                                                                    <td>{item['Fixed Price']}</td>
-                                                                    <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
-                                                                </tr>
-                                                            })
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
+
+                                            <FullDataTable
+                                                columns={columns}
+                                                data={getServiceDetails.data}
+                                                checkBox={false}
+                                            />
+
                                         </div> :
                                         selectStrategyType == "Option Strategy" ?
                                             <div className="iq-card-body">
-                                                <div className="table-responsive">
-                                                    <table id="datatable" className="table table-striped table-bordered">
-                                                        <thead>
-
-                                                            <tr>
-                                                                <th>S.No</th>
-                                                                <th>Total Service</th>
-                                                                <th>UserName</th>
-                                                                <th>Used Service</th>
-                                                                <th>Long Strangle</th>
-                                                                <th>Sort Strangle</th>
-                                                                <th>Long Straddle</th>
-                                                                <th>Sort Straddle</th>
-                                                                <th>Long Iron Butterfly</th>
-                                                                <th>Sort Iron Butterfly</th>
-                                                                <th>Long Iron Condor</th>
-                                                                <th>Sort Iron Condor</th>
-                                                                <th>Bear Call Spread</th>
-                                                                <th>Bear Put Spread</th>
-                                                                <th>Bull Call Spread</th>
-                                                                <th>Bull Put Spread</th>
-                                                                <th>Bull Call Ladder</th>
-                                                                <th>Bull Put Ladder</th>
-                                                                <th>Covered Call</th>
-                                                                <th>Covered Put</th>
-                                                                <th>Long Collar</th>
-                                                                <th>Short Collar</th>
-                                                                <th>Ratio Call Spread</th>
-                                                                <th>Ratio Put Spread</th>
-                                                                <th>Long Shifting</th>
-                                                                <th>Short Shifting</th>
-                                                                <th>Long Four LegStrategy</th>
-                                                                <th>Short Four LegStrategy</th>
-                                                                <th>View</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody >
-                                                            {
-                                                                getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                    return <tr key={index}>
-
-                                                                        <td>{index + 1}</td>
-                                                                        <td>{item['Total Service']}</td>
-                                                                        <td>{item.Username}</td>
-                                                                        <td>{item.UsedService}</td>
-                                                                        <td>{item.LongStrangle}</td>
-                                                                        <td>{item.ShortStrangle}</td>
-                                                                        <td>{item.LongStraddle}</td>
-                                                                        <td>{item.ShortStraddle}</td>
-                                                                        <td>{item.LongIronButterfly}</td>
-                                                                        <td>{item.ShortIronButterfly}</td>
-                                                                        <td>{item.LongIronCondor}</td>
-                                                                        <td>{item.ShortIronCondor}</td>
-                                                                        <td>{item.BearCallSpread}</td>
-                                                                        <td>{item.BearPutSpread}</td>
-                                                                        <td>{item.BullCallSpread}</td>
-                                                                        <td>{item.BullPutSpread}</td>
-                                                                        <td>{item.BullCallLadder}</td>
-                                                                        <td>{item.BullPutLadder}</td>
-                                                                        <td>{item.CoveredCall}</td>
-                                                                        <td>{item.CoveredPut}</td>
-                                                                        <td>{item.LongCollar}</td>
-                                                                        <td>{item.ShortCollar}</td>
-                                                                        <td>{item.RatioCallSpread}</td>
-                                                                        <td>{item.RatioPutSpread}</td>
-                                                                        <td>{item.LongShifting}</td>
-                                                                        <td>{item.ShortShifting}</td>
-                                                                        <td>{item.LongFourLegStrategy}</td>
-                                                                        <td>{item.ShortFourLegStrategy}</td>
-
-                                                                        <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
-
-                                                                    </tr>
-                                                                })
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                <FullDataTable
+                                                    columns={columns1}
+                                                    data={getServiceDetails.data}
+                                                    checkBox={false}
+                                                />
                                             </div> :
                                             selectStrategyType == "Pattern" ?
                                                 <div className="iq-card-body">
-                                                    <div className="table-responsive">
-                                                        <table id="datatable" className="table table-striped table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>S.No</th>
-                                                                    <th>Total Service</th>
-                                                                    <th>UserName</th>
-                                                                    <th>Used Service</th>
-                                                                    <th>NFO</th>
-                                                                    <th>NSE</th>
-                                                                    <th>MCX</th>
-                                                                    <th>CDS</th>
-                                                                    <th>Candlestickpattern</th>
-                                                                    <th>ChartPattern</th>
-
-                                                                    <th>View</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {
-                                                                    getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                        return <tr>
-                                                                            <td>{index + 1}</td>
-                                                                            <td>{item['Total Service']}</td>
-                                                                            <td>{item.Username}</td>
-                                                                            <td>{item.UsedService}</td>
-                                                                            <td>{item.NFO}</td>
-                                                                            <td>{item.NSE}</td>
-                                                                            <td>{item.MCX}</td>
-                                                                            <td>{item.CDS}</td>
-                                                                            <td>{item.Candlestickpattern}</td>
-                                                                            <td>{item.ChartPattern}</td>
-
-                                                                            <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
-
-                                                                        </tr>
-                                                                    })
-                                                                }
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div> :
-                                                selectStrategyType == "Marketwise Option Strategy" ?
                                                     <div className="iq-card-body">
-                                                        <div className="table-responsive">
-                                                            <table id="datatable" className="table table-striped table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>S.No</th>
-                                                                        <th>Total Service</th>
-                                                                        <th>UserName</th>
-                                                                        <th>Used Service</th>
-                                                                        <th>Marketwise Option Strategy</th>
-                                                                        <th>View</th>
-                                                                    </tr>
-
-
-
-
-                                                                </thead>
-                                                                <tbody>
-                                                                    {
-                                                                        getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                            return <tr>
-                                                                                <td>{index + 1}</td>
-                                                                                <td>{item['Total Service']}</td>
-                                                                                <td>{item.Username}</td>
-                                                                                <td>{item.UsedService}</td>
-                                                                                <td>{item['Marketwise Option Strategy']}</td>
-                                                                                <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
-
-
-                                                                            </tr>
-                                                                        })
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div> :
-                                                    selectStrategyType == "PatternOption" ?
-                                                        <div className="iq-card-body">
-                                                            <div className="table-responsive">
-                                                                <table id="datatable" className="table table-striped table-bordered">
-                                                                    <thead>
-
-                                                                        <tr>
-                                                                            <th>S.No</th>
-                                                                            <th>Total Service</th>
-                                                                            <th>UserName</th>
-                                                                            <th>Used Service</th>
-                                                                            <th>Long Strangle</th>
-                                                                            <th>Sort Strangle</th>
-                                                                            <th>Long Straddle</th>
-                                                                            <th>Sort Straddle</th>
-                                                                            <th>Long Iron Butterfly</th>
-                                                                            <th>Sort Iron Butterfly</th>
-                                                                            <th>Long Iron Condor</th>
-                                                                            <th>Sort Iron Condor</th>
-                                                                            <th>Bear Call Spread</th>
-                                                                            <th>Bear Put Spread</th>
-                                                                            <th>Bull Call Spread</th>
-                                                                            <th>Bull Put Spread</th>
-                                                                            <th>Bull Call Ladder</th>
-                                                                            <th>Bull Put Ladder</th>
-                                                                            <th>Covered Call</th>
-                                                                            <th>Covered Put</th>
-                                                                            <th>Long Collar</th>
-                                                                            <th>Short Collar</th>
-                                                                            <th>Ratio Call Spread</th>
-                                                                            <th>Ratio Put Spread</th>
-                                                                            <th>Long Shifting</th>
-                                                                            <th>Short Shifting</th>
-                                                                            <th>Long Four LegStrategy</th>
-                                                                            <th>Short Four LegStrategy</th>
-                                                                            <th>View</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody >
-
-
-
-                                                                        {
-                                                                            getServiceDetails.data && getServiceDetails.data.map((item, index) => {
-                                                                                return <tr key={index}>
-
-                                                                                    <td>{index + 1}</td>
-                                                                                    <td>{item['Total Service']}</td>
-                                                                                    <td>{item.Username}</td>
-                                                                                    <td>{item.UsedService}</td>
-                                                                                    <td>{item.LongStrangle}</td>
-                                                                                    <td>{item.ShortStrangle}</td>
-                                                                                    <td>{item.LongStraddle}</td>
-                                                                                    <td>{item.ShortStraddle}</td>
-                                                                                    <td>{item.LongIronButterfly}</td>
-                                                                                    <td>{item.ShortIronButterfly}</td>
-                                                                                    <td>{item.LongIronCondor}</td>
-                                                                                    <td>{item.ShortIronCondor}</td>
-                                                                                    <td>{item.BearCallSpread}</td>
-                                                                                    <td>{item.BearPutSpread}</td>
-                                                                                    <td>{item.BullCallSpread}</td>
-                                                                                    <td>{item.BullPutSpread}</td>
-                                                                                    <td>{item.BullCallLadder}</td>
-                                                                                    <td>{item.BullPutLadder}</td>
-                                                                                    <td>{item.CoveredCall}</td>
-                                                                                    <td>{item.CoveredPut}</td>
-                                                                                    <td>{item.LongCollar}</td>
-                                                                                    <td>{item.ShortCollar}</td>
-                                                                                    <td>{item.RatioCallSpread}</td>
-                                                                                    <td>{item.RatioPutSpread}</td>
-                                                                                    <td>{item.LongShifting}</td>
-                                                                                    <td>{item.ShortShifting}</td>
-                                                                                    <td>{item.LongFourLegStrategy}</td>
-                                                                                    <td>{item.ShortFourLegStrategy}</td>
-                                                                                    <td> {<Eye onClick={(e) => { setShowModal(!showModal); handleModal(e, item) }} />}</td>
-
-
-                                                                                </tr>
-                                                                            })
-                                                                        }
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div> : ""
+                                                        <FullDataTable
+                                                            columns={columns1}
+                                                            data={getServiceDetails.data}
+                                                            checkBox={false}
+                                                        />
+                                                    </div>
+                                                </div> : ""
                                 )
                             }
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
             {
                 <>
                     <div
@@ -456,7 +1309,7 @@ const Userlog = () => {
                         <div className="modal-dialog modal-lg modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title">Modal title</h5>
+                                    <h5 className="modal-title">All Scripts</h5>
                                     <button
                                         type="button"
                                         className="btn-close"
@@ -466,93 +1319,22 @@ const Userlog = () => {
                                     />
                                 </div>
                                 <div className="modal-body">
-                                    <div className="iq-card-body">
-                                        <div className="table-responsive">
-                                            <table id="datatable" className="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>S.No</th>
-                                                        <th>ScalpType</th>
-                                                        <th>Exchange</th>
-                                                        <th>Symbol</th>
-                                                        <th>Token</th>
-                                                        <th>TType</th>
-                                                        <th>Quantity</th>
-                                                        <th>Trading</th>
-                                                        <th>ExpiryDate</th>
-                                                        <th>TradeExecution</th>
-                                                        <th>ExitDay</th>
-                                                        <th>EntryTime</th>
-                                                        <th>ExitTime</th>
-                                                        <th>Expirytype</th>
-                                                        <th>SSDate</th>
-                                                        <th>SEDate</th>
-                                                        <th>Lotsize</th>
-                                                        <th>TaskStatus</th>
-                                                        <th>TaskTime</th>
-                                                        <th>TradeCount</th>
+                                     
+                                        <FullDataTable
+                                            columns={selectStrategyType == "Scalping" ? columns3 : selectStrategyType == "Option Strategy" ? columns4 : selectStrategyType == "Pattern" ? columns5 : []}
+                                            data={getUserData.data}
+                                            checkBox={false}
+                                        />
 
-
-                                                    </tr>
-
-                                                </thead>
-                                                <tbody>
-                                                    {
-                                                        getUserData.data && getUserData.data.map((item, index) => {
-                                                            return <tr>
-                                                                <td>{index + 1}</td>
-                                                                <td>{item.ScalpType}</td>
-                                                                <td>{item.Exchange}</td>
-                                                                <td>{item.Symbol}</td>
-                                                                <td>{item.Token}</td>
-                                                                <td>{item.TType}</td>
-                                                                <td>{item.Quantity}</td>
-                                                                <td>{item.Trading}</td>
-                                                                <td>{item.ExpiryDate}</td>
-                                                                <td>{item.TradeExecution}</td>
-                                                                <td>{item.ExitDay}</td>
-                                                                <td>{item.EntryTime}</td>
-                                                                <td>{item.ExitTime}</td>
-                                                                <td>{item.Expirytype}</td>
-                                                                <td>{item.SSDate}</td>
-                                                                <td>{item.SEDate}</td>
-                                                                <td>{item.Lotsize}</td>
-                                                                <td>{item.TaskStatus}</td>
-                                                                <td>{item.TaskTime}</td>
-                                                                <td>{item.TradeCount}</td>
-                                                            </tr>
-                                                        })
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
+                                   
                                 </div>
-                                <div className="modal-footer">
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary"
-                                        data-bs-dismiss="modal"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        Close
-                                    </button>
-                                    <button type="button" className="btn btn-primary">
-                                        Save changes
-                                    </button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </>
 
             }
-
-
-
-
         </>
     )
 }

@@ -9,19 +9,24 @@ const Strategygroup = () => {
         loading: true,
         data: []
     })
-
     const [showModal, setShowModal] = useState(false)
-    const [strategyGroupInfo, setStrategyGroupInfo] = useState({
-        GroupName: '',
-        FundReuirement: '',
-        Risk: '',
-        TimeOrigin: '',
-        ProductType: '',
-        Message: ''
-    });
+    const [GroupName, setGroupName] = useState('')
+    const [FundReuirement, setFundReuirement] = useState('')
+    const [Risk, setRisk] = useState('')
+    const [TimeOrigin, setTimeOrigin] = useState('')
+    const [ProductType, setProductType] = useState('')
+    const [Message, setMessage] = useState('')
+    const [error , setError] = useState({
+        Message:'',
+        ProductType:'',
+        TimeOrigin:'',
+        Risk :'',
+        FundReuirement:'',
+        GroupName:''
 
 
 
+    })
 
     const columns = [
         {
@@ -87,17 +92,10 @@ const Strategygroup = () => {
 
     ];
 
-    const handleInputChange = (e) => {
-        const { id, value } = e.target;
-        setStrategyGroupInfo((prevState) => ({
-            ...prevState,
-            [id]: value
-        }));
-    };
+    const handleSubmit = async () => {
+        const data = { GroupName: GroupName, FundReuirement: FundReuirement, Risk: Risk, TimeOrigin: TimeOrigin, ProductType: ProductType, Message: Message };
 
-    const handleClick = async () => {
-        const data = { strategyGroupInfo };
-        await Add_Group(data.strategyGroupInfo)
+        await Add_Group(data)
             .then((response) => {
                 if (response.Status) {
                     Swal.fire({
@@ -163,10 +161,35 @@ const Strategygroup = () => {
         GetAllGroupDetails()
     }, [])
 
-    const toggleModal = () => {
-        setShowModal(!showModal);
-    };
 
+    
+    useEffect(() => {
+        
+        if (Message=='') {
+            Errors.Message = "Please Enter Message";
+
+        }
+        
+        if (!ProductType) {
+            Errors.ProductType = "Please Select Product Type";
+        }
+        console.log(Errors)
+        if (!TimeOrigin) {
+            Errors.TimeOrigin = "Please Enter Time Origin";
+        }
+        if (!Risk) {
+            Errors.Risk = "Please Enter Risk";
+        }
+        if (!FundReuirement) {
+            Errors.FundReuirement = "Please Enter Fund Requirement";
+        }
+        if (!GroupName) {
+            Errors.GroupName = "Please Enter Group Name";
+        }
+    }, [Message, ProductType, TimeOrigin, Risk, FundReuirement, GroupName]);
+
+
+    
 
     return (
         <div>
@@ -179,77 +202,18 @@ const Strategygroup = () => {
                             </div>
                             <div className="iq-card-header-toolbar d-flex align-items-center">
 
-                                {/* Button trigger modal */}
+
                                 <button
                                     type="button"
                                     className="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal1"
+                                    onClick={() => setShowModal(true)}
                                 >
-                                    Add Strategy
+                                    Add Group
                                 </button>
-                                {/* Modal */}
-
-                                <div
-                                    className="modal fade"
-                                    id="exampleModal1"
-                                    tabIndex={-1}
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                    style={{ display: "none" }}
-                                >
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalLabel">
-                                                    ccpppp
-                                                </h5>
-                                                <button
-                                                    type="button"
-                                                    className="btn-close"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"
-                                                />
-                                            </div>
-                                            <div className="modal-body">
-                                                <form>
-                                                    <div className="form-group">
-                                                        <label htmlFor="api">API Key:</label>
-                                                        <input type="text" className="form-control my-2" id="email1" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label htmlFor="secret">API Secret:</label>
-                                                        <input type="text" className="form-control my-2" id="pwd" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label htmlFor="secret">API Secret:</label>
-                                                        <input type="text" className="form-control my-2" id="pwd" />
-                                                    </div>
-
-
-                                                </form>
-
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-secondary"
-                                                    data-bs-dismiss="modal"
-                                                >
-                                                    Close
-                                                </button>
-                                                    <button type="button" className="btn btn-primary">
-                                                        Update
-                                                    </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                             </div>
                         </div>
-                        {/* Table data */}
+
                         <div className="iq-card-body">
                             <div className="iq-card-body">
                                 <div className="table-responsive">
@@ -258,14 +222,160 @@ const Strategygroup = () => {
                                         data={getGroupData.data}
                                         checkBox={false}
                                     />
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {
+                showModal && <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered modal-xl">
+                        <div className="modal-content" style={{ width: '40rem' }}>
+                            <div className="modal-header border-0 pb-0">
+                                <div className="form-header modal-header-title text-start mb-0">
+                                    <h4 className="mb-0">Add Group</h4>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(false)}
+                                >
+                                </button>
+                            </div>
+                            <hr />
+                            <div className="container-fluid mt-3">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="group-name">Group Name</label>
+                                            <input
+                                                type="text"
+                                                className="form-control my-2 uniform-bg"
+                                                id="group-name"
+                                                placeholder="Enter group name"
+                                                onChange={(e) => setGroupName(e.target.value)}
+                                                value={GroupName}
+                                            />
+                                            {Errors.GroupName && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.GroupName}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="fund-requirement">Fund Requirement</label>
+                                            <input
+                                                type="text"
+                                                className="form-control my-2 uniform-bg"
+                                                id="fund-requirement"
+                                                placeholder="Enter Fund Requirement"
+                                                onChange={(e) => setFundReuirement(e.target.value)}
+                                                value={FundReuirement}
+                                            />
+                                            {Errors.FundReuirement && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.FundReuirement}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="risk">Risk</label>
+                                            <input
+                                                type="text"
+                                                className="form-control my-2 uniform-bg"
+                                                id="risk"
+                                                placeholder="Enter risk"
+                                                onChange={(e) => setRisk(e.target.value)}
+                                                value={Risk}
+                                            />
+                                            {Errors.Risk && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.Risk}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="time-origin">Time Origin</label>
+                                            <input
+                                                type="text"
+                                                className="form-control my-2 uniform-bg"
+                                                id="time-origin"
+                                                placeholder="Enter Time Origin"
+                                                onChange={(e) => setTimeOrigin(e.target.value)}
+                                                value={TimeOrigin}
+                                            />
+                                            {Errors.TimeOrigin && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.TimeOrigin}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="product-type">Select Product Type</label>
+                                            <select
+                                                className="form-control my-2 uniform-bg"
+                                                id="product-type"
+                                                onChange={(e) => setProductType(e.target.value)}
+                                                value={ProductType}
+                                            >
+                                                <option value="">Select Product Type</option>
+                                                <option value="Intraday">Intraday</option>
+                                                <option value="Delivery">Delivery</option>
+                                            </select>
+                                            {Errors.ProductType && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.ProductType}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="message">Message</label>
+                                            <textarea
+                                                className="form-control my-2 uniform-bg"
+                                                id="message"
+                                                style={{ width: '100%' }}
+                                                rows="4"
+                                                onChange={(e) => setMessage(e.target.value)}
+                                                value={Message}
+                                            ></textarea>
+                                            {Errors.Message && (
+                                                <div style={{ color: "red" }}>
+                                                    {Errors.Message}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div className='d-flex justify-content-end me-3 mb-3'>
+                                <button className='btn btn-primary' onClick={handleSubmit}>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div >
     );
 };
 

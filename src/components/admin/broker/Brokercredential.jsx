@@ -11,11 +11,11 @@ const Brokercredential = () => {
     const [borkerInfo, setBrokerInfo] = useState({
         Username: '',
         api_key: '',
-        Userid: '',
         Pwd: '',
-        DOB: '',
-        MOb: '',
-        APIPassword: ''
+        APIPassword: '',
+        Userid :'',
+        DOB:'',
+        MOb:''
     })
 
     const handleChange = (e) => {
@@ -80,11 +80,6 @@ const Brokercredential = () => {
                         <div className="iq-card-body">
                             <form>
                                 <div className="row">
-                                    {/* <div className="form-group col-md-6">
-                                        <label htmlFor="Selectuser" className='mb-2'>Select Username</label>
-                                        <select className="sform-select mb-2 col-md-6" required="">
-                                        </select>
-                                    </div> */}
                                     <div className="form-group col-md-6">
                                         <label htmlFor="user">Username</label>
                                         <input
@@ -108,17 +103,6 @@ const Brokercredential = () => {
                                         />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="user">User ID</label>
-                                        <input
-                                            type="text"
-                                            className="form-control my-2"
-                                            id="Userid"
-                                            placeholder='Enter User Id'
-                                            onChange={handleChange}
-                                            value={borkerInfo.Userid}
-                                        />
-                                    </div>
-                                    <div className="form-group col-md-6">
                                         <label htmlFor="user">Password</label>
                                         <input type="text"
                                             className="form-control my-2"
@@ -126,32 +110,12 @@ const Brokercredential = () => {
                                             placeholder='Enter Password'
                                             onChange={handleChange}
                                             value={borkerInfo.Pwd}
-
                                         />
                                     </div>
+                                    
+                                    
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="user">Date Of Birth</label>
-                                        <input
-                                            type="text"
-                                            className="form-control my-2"
-                                            id="DOB"
-                                            placeholder='Enter DOB'
-                                            onChange={handleChange}
-                                            value={borkerInfo.DOB}
-                                        />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="user">Phone No</label>
-                                        <input
-                                            type="text"
-                                            className="form-control my-2"
-                                            id="MOb"
-                                            placeholder='Enter Phone No'
-                                            onChange={handleChange}
-                                            value={borkerInfo.MOb} />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="api">API Password</label>
+                                        <label htmlFor="api">Authorization Key</label>
                                         <input
                                             type="text"
                                             className="form-control my-2"
@@ -171,9 +135,7 @@ const Brokercredential = () => {
                                 >
                                     Submit
                                 </button>
-                                <button type="submit" className="btn iq-bg-danger mt-2">
-                                    Cancel
-                                </button>
+                                
 
                             </form>
                         </div>
