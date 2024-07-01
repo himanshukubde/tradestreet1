@@ -16,16 +16,13 @@ const Strategygroup = () => {
     const [TimeOrigin, setTimeOrigin] = useState('')
     const [ProductType, setProductType] = useState('')
     const [Message, setMessage] = useState('')
-    const [error , setError] = useState({
-        Message:'',
-        ProductType:'',
-        TimeOrigin:'',
-        Risk :'',
-        FundReuirement:'',
-        GroupName:''
-
-
-
+    const [error, setError] = useState({
+        Message: '',
+        ProductType: '',
+        TimeOrigin: '',
+        Risk: '',
+        FundReuirement: '',
+        GroupName: ''
     })
 
     const columns = [
@@ -93,42 +90,48 @@ const Strategygroup = () => {
     ];
 
     const handleSubmit = async () => {
-        const data = { GroupName: GroupName, FundReuirement: FundReuirement, Risk: Risk, TimeOrigin: TimeOrigin, ProductType: ProductType, Message: Message };
+        if (error.Message != '' || error.ProductType != '' || error.TimeOrigin != '' || error.Risk != '' || error.FundReuirement != '' || error.GroupName != '') {
+            return
+        }
+        else {
 
-        await Add_Group(data)
-            .then((response) => {
-                if (response.Status) {
-                    Swal.fire({
-                        title: 'Created successfully!',
-                        text: 'Group created successfully!',
-                        icon: 'success',
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-                    setTimeout(() => {
-                        setShowModal(false)
-                    }, 1500)
+            const data = { GroupName: GroupName, FundReuirement: FundReuirement, Risk: Risk, TimeOrigin: TimeOrigin, ProductType: ProductType, Message: Message };
 
-                } else {
+            await Add_Group(data)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: 'Created successfully!',
+                            text: 'Group created successfully!',
+                            icon: 'success',
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        setTimeout(() => {
+                            setShowModal(false)
+                        }, 1500)
+
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Group name already exit',
+                            icon: 'error',
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log('Error in group creation...');
                     Swal.fire({
                         title: 'Error',
-                        text: 'Group name already exit',
+                        text: 'Group creation error!',
                         icon: 'error',
                         timer: 1500,
                         timerProgressBar: true
                     });
-                }
-            })
-            .catch((err) => {
-                console.log('Error in group creation...');
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Group creation error!',
-                    icon: 'error',
-                    timer: 1500,
-                    timerProgressBar: true
                 });
-            });
+        }
     };
 
     const GetAllGroupDetails = async () => {
@@ -162,34 +165,21 @@ const Strategygroup = () => {
     }, [])
 
 
-    
-    useEffect(() => {
-        
-        if (Message=='') {
-            Errors.Message = "Please Enter Message";
 
-        }
-        
-        if (!ProductType) {
-            Errors.ProductType = "Please Select Product Type";
-        }
-        console.log(Errors)
-        if (!TimeOrigin) {
-            Errors.TimeOrigin = "Please Enter Time Origin";
-        }
-        if (!Risk) {
-            Errors.Risk = "Please Enter Risk";
-        }
-        if (!FundReuirement) {
-            Errors.FundReuirement = "Please Enter Fund Requirement";
-        }
-        if (!GroupName) {
-            Errors.GroupName = "Please Enter Group Name";
-        }
+    useEffect(() => {
+        const newErrors = {
+            Message: Message ? '' : 'Please Enter Message',
+            ProductType: ProductType ? '' : 'Please Select Product Type',
+            TimeOrigin: TimeOrigin ? '' : 'Please Enter Time Origin',
+            Risk: Risk ? '' : 'Please Enter Risk',
+            FundReuirement: FundReuirement ? '' : 'Please Enter Fund Requirement',
+            GroupName: GroupName ? '' : 'Please Enter Group Name',
+        };
+        setError(newErrors);
     }, [Message, ProductType, TimeOrigin, Risk, FundReuirement, GroupName]);
 
 
-    
+    console.log(error.Message)
 
     return (
         <div>
@@ -198,11 +188,9 @@ const Strategygroup = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Strategy Grouphh</h4>
+                                <h4 className="card-title">Strategy Group</h4>
                             </div>
                             <div className="iq-card-header-toolbar d-flex align-items-center">
-
-
                                 <button
                                     type="button"
                                     className="btn btn-primary"
@@ -210,27 +198,24 @@ const Strategygroup = () => {
                                 >
                                     Add Group
                                 </button>
-
                             </div>
                         </div>
 
                         <div className="iq-card-body">
-                            <div className="iq-card-body">
-                                <div className="table-responsive">
-                                    <GridExample
-                                        columns={columns}
-                                        data={getGroupData.data}
-                                        checkBox={false}
-                                    />
-                                </div>
+                            <div className="table-responsive">
+                                <GridExample
+                                    columns={columns}
+                                    data={getGroupData.data}
+                                    checkBox={false}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {
-                showModal && <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+            {showModal && (
+                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
                     <div className="modal-dialog modal-dialog-centered modal-xl">
                         <div className="modal-content" style={{ width: '40rem' }}>
                             <div className="modal-header border-0 pb-0">
@@ -243,8 +228,7 @@ const Strategygroup = () => {
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
                                     onClick={() => setShowModal(false)}
-                                >
-                                </button>
+                                ></button>
                             </div>
                             <hr />
                             <div className="container-fluid mt-3">
@@ -260,9 +244,9 @@ const Strategygroup = () => {
                                                 onChange={(e) => setGroupName(e.target.value)}
                                                 value={GroupName}
                                             />
-                                            {Errors.GroupName && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.GroupName}
+                                            {error.GroupName && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.GroupName}
                                                 </div>
                                             )}
                                         </div>
@@ -278,9 +262,9 @@ const Strategygroup = () => {
                                                 onChange={(e) => setFundReuirement(e.target.value)}
                                                 value={FundReuirement}
                                             />
-                                            {Errors.FundReuirement && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.FundReuirement}
+                                            {error.FundReuirement && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.FundReuirement}
                                                 </div>
                                             )}
                                         </div>
@@ -298,9 +282,9 @@ const Strategygroup = () => {
                                                 onChange={(e) => setRisk(e.target.value)}
                                                 value={Risk}
                                             />
-                                            {Errors.Risk && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.Risk}
+                                            {error.Risk && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.Risk}
                                                 </div>
                                             )}
                                         </div>
@@ -316,9 +300,9 @@ const Strategygroup = () => {
                                                 onChange={(e) => setTimeOrigin(e.target.value)}
                                                 value={TimeOrigin}
                                             />
-                                            {Errors.TimeOrigin && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.TimeOrigin}
+                                            {error.TimeOrigin && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.TimeOrigin}
                                                 </div>
                                             )}
                                         </div>
@@ -338,9 +322,9 @@ const Strategygroup = () => {
                                                 <option value="Intraday">Intraday</option>
                                                 <option value="Delivery">Delivery</option>
                                             </select>
-                                            {Errors.ProductType && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.ProductType}
+                                            {error.ProductType && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.ProductType}
                                                 </div>
                                             )}
                                         </div>
@@ -356,9 +340,9 @@ const Strategygroup = () => {
                                                 onChange={(e) => setMessage(e.target.value)}
                                                 value={Message}
                                             ></textarea>
-                                            {Errors.Message && (
-                                                <div style={{ color: "red" }}>
-                                                    {Errors.Message}
+                                            {error.Message && (
+                                                <div style={{ color: 'red' }}>
+                                                    {error.Message}
                                                 </div>
                                             )}
                                         </div>
@@ -373,9 +357,8 @@ const Strategygroup = () => {
                         </div>
                     </div>
                 </div>
-
-            }
-        </div >
+            )}
+        </div>
     );
 };
 
