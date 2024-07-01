@@ -45,16 +45,14 @@ const AddClient = () => {
     const [refresh, setRefresh] = useState(false)
 
 
-
+  console.log(location.state.data)
 
  
 
-console.log("location.state.data.selectStrategyType :", location.state.data.selectStrategyType)
-
     const formik = useFormik({
-
+ 
         initialValues: {
-            MainStrategy: location.state.data.selectStrategyType,
+           MainStrategy: location.state.data.selectStrategyType,
             Username: "",
             Strategy: "",
             ETPattern: "",
@@ -238,9 +236,21 @@ console.log("location.state.data.selectStrategyType :", location.state.data.sele
 
 
     useEffect(() => {
-        formik.setFieldValue('Strategy', "CandlestickPattern")
-        formik.setFieldValue('Exchange', "NFO")
-        formik.setFieldValue('Instrument', "OPTIDX")
+        formik.setFieldValue('Exchange', location.state.data.Exchange)
+        formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
+        formik.setFieldValue('Symbol', location.state.data['Instrument Name'])
+        formik.setFieldValue('Strategy', location.state.data.TradePattern)
+        formik.setFieldValue('Timeframe', location.state.data.TimeFrame)
+        formik.setFieldValue('ETPattern', location.state.data.Pattern)
+        formik.setFieldValue('HoldExit', location.state.data.Trend)
+        formik.setFieldValue('TStype', location.state.data.TStype)
+        formik.setFieldValue('Slvalue', location.state.data['SL value'])
+        formik.setFieldValue('Targetvalue', location.state.data['Target value'])
+        formik.setFieldValue('TType', location.state.data.TType)
+        formik.setFieldValue('Quantity', location.state.data.Quantity)
+        formik.setFieldValue('ExitDay', location.state.data.ExitDay)
+        formik.setFieldValue('EntryTime', location.state.data.EntryTime)
+        formik.setFieldValue('ExitTime', location.state.data.ExitTime)
     }, [])
 
 
@@ -274,7 +284,6 @@ console.log("location.state.data.selectStrategyType :", location.state.data.sele
             col_size: 6,
             disable: false,
         },
-
         {
             name: "Instrument",
             label: "Instrument",
@@ -361,10 +370,9 @@ console.log("location.state.data.selectStrategyType :", location.state.data.sele
             col_size: 2,
             disable: false,
         },
-
         {
             name: "Strategy",
-            label: "Option Type",
+            label: "Select  Pattern Type",
             type: "select",
             options: [
                 { label: "Candlestick Pattern", value: "CandlestickPattern" },

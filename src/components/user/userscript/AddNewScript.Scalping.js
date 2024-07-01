@@ -36,7 +36,7 @@ const AddClient = () => {
 
 
 
-  console.log(location.state.data)
+  console.log(location.state.data.selectStrategyType)
 
 
   const formik = useFormik({
@@ -224,27 +224,8 @@ const AddClient = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue('Strategy', location.state.data.ScalpType)
-    formik.setFieldValue('Exchange', location.state.data.Exchange)
-    formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
-    formik.setFieldValue('Symbol', location.state.data['Instrument Symbol'])
-    formik.setFieldValue('expirydata1',  location.state.data.ExpiryDate)
-    formik.setFieldValue('TType', location.state.data.TType)
-    formik.setFieldValue('Lotsize', location.state.data.Lotsize )
-    formik.setFieldValue('Set_First_Trade_Range', location.state.data.EntryPrice==0 || location.state.data.EntryRange==0 ? "No" : "Yes" )
-    formik.setFieldValue('EntryPrice', location.state.data.EntryPrice)
-    formik.setFieldValue('EntryRange', location.state.data.EntryRange)
-    formik.setFieldValue('TStype', location.state.data.TStype)
-    formik.setFieldValue('Targetvalue', location.state.data['Booking Point'])
-    formik.setFieldValue('Slvalue', location.state.data['Re-entry Point'])
-    formik.setFieldValue('set_Range', location.state.data.LowerRange == 0 || location.state.data.HigherRange==0 ? "No" : "Yes")
-    formik.setFieldValue('LowerRange', location.state.data.LowerRange)
-    formik.setFieldValue('HigherRange', location.state.data.HigherRange)
-    formik.setFieldValue('HoldExit', location.state.data.HoldExit)
-    formik.setFieldValue('ExitDay', location.state.data.ExitDay)
-    formik.setFieldValue('EntryTime', location.state.data.EntryTime)
-    formik.setFieldValue('ExitTime', location.state.data.ExitTime)
-    
+    formik.setFieldValue('Strategy', "Multi Directional")
+    formik.setFieldValue('Exchange', "NFO")
   }, [])
 
 

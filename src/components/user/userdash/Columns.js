@@ -1,8 +1,6 @@
 import React from 'react';
 import { CopyPlus } from 'lucide-react';
-// import { handleAddScript1, handleAddScript2, handleAddScript3 } from './Copyscript';
-// import { Trash2 } from 'lucide-react';
-
+import Checkbox from '@mui/material/Checkbox';
 
 
 export const getColumns = (handleAddScript1) => [
@@ -55,14 +53,14 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
-    {
-        name: "Token",
-        label: "Token",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Token",
+    //     label: "Token",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "TType",
         label: "Trade Type",
@@ -103,14 +101,7 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "ExpiryDate",
         label: "ExpiryDate",
@@ -245,14 +236,8 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
+
     {
         name: "Username",
         label: "Username",
@@ -270,7 +255,7 @@ export const getColumns1 = (handleAddScript2) => [
         }
     },
     {
-        name: "TimeFrame",
+        name: "MainSymbol",
         label: "Main Signal",
         options: {
             filter: true,
@@ -713,14 +698,7 @@ export const getColumns2 = (handleAddScript3) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+  
     {
         name: "ExitDay",
         label: "ExitDay",
@@ -756,7 +734,7 @@ export const getColumns2 = (handleAddScript3) => [
 
 ];
 
-export const getColumns3 = (handleDelete) => [
+export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -790,12 +768,14 @@ export const getColumns3 = (handleDelete) => [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <div className="iq-checkbox-mail">
-                    <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
-                        <input type="checkbox" className="custom-control-input" id="mailk" />
-                        <label className="custom-control-label" htmlFor="mailk" />
-                    </div>
-                </div>
+                const isChecked = Boolean(value);
+                return (
+                    <Checkbox
+                        checked={isChecked}
+                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
+                    />
+
+                );
             }
         }
     },
@@ -872,14 +852,7 @@ export const getColumns3 = (handleDelete) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "ExpiryDate",
         label: "ExpiryDate",
@@ -971,7 +944,7 @@ export const getColumns3 = (handleDelete) => [
 
 ];
 
-export const getColumns4 = (handleDelete) => [
+export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -1006,12 +979,14 @@ export const getColumns4 = (handleDelete) => [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <div className="iq-checkbox-mail">
-                    <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
-                        <input type="checkbox" className="custom-control-input" id="mailk" />
-                        <label className="custom-control-label" htmlFor="mailk" />
-                    </div>
-                </div>
+                const isChecked = Boolean(value);
+                return (
+                    <Checkbox
+                        checked={isChecked}
+                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
+                    />
+
+                );
             }
         }
     },
@@ -1032,14 +1007,7 @@ export const getColumns4 = (handleDelete) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Username",
         label: "Username",
@@ -1322,7 +1290,7 @@ export const getColumns4 = (handleDelete) => [
     },
 ];
 
-export const getColumns5 = (handleDelete) => [
+export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -1357,12 +1325,15 @@ export const getColumns5 = (handleDelete) => [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <div className="iq-checkbox-mail">
-                    <div className="custom-control custom-checkbox" style={{ textAlign: "center" }}>
-                        <input type="checkbox" className="custom-control-input" id="mailk" />
-                        <label className="custom-control-label" htmlFor="mailk" />
-                    </div>
-                </div>
+                const isChecked = Boolean(value);
+                return (
+                    <Checkbox
+                        checked={isChecked}
+                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
+                        
+                    />
+
+                );
             }
         }
     },
@@ -1519,14 +1490,7 @@ export const getColumns5 = (handleDelete) => [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "ExitDay",
         label: "ExitDay",

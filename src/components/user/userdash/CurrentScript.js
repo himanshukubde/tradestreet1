@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
-import { GetAllUserScript, DeleteUserScript } from '../../Common API/User';
+import { GetAllUserScript, DeleteUserScript, Discontinue, Continue } from '../../Common API/User';
 import Loader from '../../../ExtraComponent/Loader';
 import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ const Coptyscript = ({ data, selectedType }) => {
 
 
     const navigate = useNavigate();
-    const [refresh , setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('');
     const [getAllService, setAllservice] = useState({
         loading: true,
@@ -23,7 +23,7 @@ const Coptyscript = ({ data, selectedType }) => {
         PremiumRotation: []
     });
 
-    
+
     const handleDelete = async (rowData) => {
         const index = rowData.rowIndex
         const req =
@@ -71,7 +71,7 @@ const Coptyscript = ({ data, selectedType }) => {
 
                         } : ''
 
-       
+
         await DeleteUserScript(req)
             .then((response) => {
                 if (response.Status) {
@@ -99,13 +99,195 @@ const Coptyscript = ({ data, selectedType }) => {
             })
     }
 
+    const HandleContinueDiscontinue = async (rowData) => {
+        const index = rowData.rowIndex
+        const trading = getAllService.ScalpingData[index].Trading
+        if (trading) {
+
+            Swal.fire({
+                title: "Do you want to Discontinue",
+                text: "You won't be able to revert this!",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const req =
+                        data == 'Scalping' ?
+                            {
+                                Username: userName,
+                                MainStrategy: data,
+                                Strategy: getAllService.ScalpingData[index].ScalpType,
+                                Symbol: getAllService.ScalpingData[index].Symbol,
+                                ETPattern: "",
+                                Timeframe: "",
+                                TType: "",
+                                Group: getAllService.OptionData[index].GroupN,
+                                TradePattern: "",
+                                TSymbol: "",
+                                PatternName: ""
+                            } : data == 'Option Strategy' ?
+                                {
+                                    MainStrategy: data,
+                                    Strategy: getAllService.OptionData[index].STG,
+                                    Symbol: getAllService.OptionData[index].MainSymbol,
+                                    Username: userName,
+                                    ETPattern: getAllService.OptionData[index].Targettype,
+                                    Timeframe: "",
+                                    TType: "",
+                                    Group: getAllService.OptionData[index].GroupN,
+                                    TSymbol: "",
+                                    TradePattern: "",
+                                    PatternName: ""
+                                }
+                                : data == 'Pattern' ?
+                                    {
+
+                                        MainStrategy: data,
+                                        Strategy: getAllService.PatternData[index].TradePattern,
+                                        Symbol: getAllService.PatternData[index].Symbol,
+                                        Username: userName,
+                                        ETPattern: getAllService.PatternData[index].Pattern,
+                                        Timeframe: getAllService.PatternData[index].TimeFrame,
+                                        TType: getAllService.PatternData[index].TType,
+                                        Group: "",
+                                        TSymbol: "",
+                                        TradePattern: "",
+                                        PatternName: ""
+
+                                    } : ''
+
+
+                    await Discontinue(req)
+                        .then((response) => {
+                            if (response.Status) {
+                                setRefresh(!refresh)
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "Script Discontinued",
+                                    icon: "success",
+                                    timer: 1500,
+                                    timerProgressBar: true
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Error !",
+                                    text:response.massage,
+                                    icon: "error",
+                                    timer: 1500,
+                                    timerProgressBar: true
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.log("Error in delete script", err)
+                        })
+                }
+            })
+        }
+        else {
+            {
+
+                Swal.fire({
+                    title: "Do you want to Continue", 
+                    text: "You won't be able to revert this!",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes"
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        const req =
+                            data == 'Scalping' ?
+                                {
+                                    Username: userName,
+                                    MainStrategy: data,
+                                    Strategy: getAllService.ScalpingData[index].ScalpType,
+                                    Symbol: getAllService.ScalpingData[index].Symbol,
+                                    ETPattern: "",
+                                    Timeframe: "",
+                                    TType: "",
+                                    Group: getAllService.OptionData[index].GroupN,
+                                    TradePattern: "",
+                                    TSymbol: "",
+                                    PatternName: ""
+                                } : data == 'Option Strategy' ?
+                                    {
+                                        MainStrategy: data,
+                                        Strategy: getAllService.OptionData[index].STG,
+                                        Symbol: getAllService.OptionData[index].MainSymbol,
+                                        Username: userName,
+                                        ETPattern: getAllService.OptionData[index].Targettype,
+                                        Timeframe: "",
+                                        TType: "",
+                                        Group: getAllService.OptionData[index].GroupN,
+                                        TSymbol: "",
+                                        TradePattern: "",
+                                        PatternName: ""
+                                    }
+                                    : data == 'Pattern' ?
+                                        {
+    
+                                            MainStrategy: data,
+                                            Strategy: getAllService.PatternData[index].TradePattern,
+                                            Symbol: getAllService.PatternData[index].Symbol,
+                                            Username: userName,
+                                            ETPattern: getAllService.PatternData[index].Pattern,
+                                            Timeframe: getAllService.PatternData[index].TimeFrame,
+                                            TType: getAllService.PatternData[index].TType,
+                                            Group: "",
+                                            TSymbol: "",
+                                            TradePattern: "",
+                                            PatternName: ""
+    
+                                        } : ''
+    
+    
+                        await Continue(req)
+                            .then((response) => {
+                                if (response.Status) {
+                                    setRefresh(!refresh)
+                                    Swal.fire({
+                                        title: "Success",
+                                        text: "Script Continued",
+                                        icon: "success",
+                                        timer: 1500,
+                                        timerProgressBar: true
+                                    });
+                                }
+                                else {
+                                    Swal.fire({
+                                        title: "Error !",
+                                        text: "",
+                                        icon: response.massage,
+                                        timer: 1500,
+                                        timerProgressBar: true
+                                    });
+                                }
+                            })
+                            .catch((err) => {
+                                console.log("Error in delete script", err)
+                            })
+                    }
+                })
+            }
+
+        }
+
+
+    }
+
     const AddScript = (data) => {
         if (data === "Option Strategy") {
-            navigate('/user/addscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
+            navigate('/user/newscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
         } else if (data === "Pattern") {
-            navigate('/user/addscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
+            navigate('/user/newscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
         } else {
-            navigate('/user/addscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+            navigate('/user/newscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
         }
     }
 
@@ -144,7 +326,7 @@ const Coptyscript = ({ data, selectedType }) => {
 
     useEffect(() => {
         GetAllUserScriptDetails();
-    }, [selectedType , refresh]);
+    }, [selectedType, refresh]);
 
     return (
         <div className="container-fluid">
@@ -170,7 +352,7 @@ const Coptyscript = ({ data, selectedType }) => {
 
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
-                                                            columns={data === "Scalping" ? getColumns3(handleDelete) : data === "Option Strategy" ? getColumns4(handleDelete) : data === "Pattern" ? getColumns5(handleDelete) : getColumns3( handleDelete)}
+                                                            columns={data === "Scalping" ? getColumns3(handleDelete, HandleContinueDiscontinue) : data === "Option Strategy" ? getColumns4(handleDelete, HandleContinueDiscontinue) : data === "Pattern" ? getColumns5(handleDelete, HandleContinueDiscontinue) : getColumns3(handleDelete, HandleContinueDiscontinue)}
                                                             data={data === "Scalping" ? getAllService.ScalpingData : data === "Option Strategy" ? getAllService.OptionData : data === "Pattern" ? getAllService.PatternData : []}
                                                             checkBox={false}
                                                         />
