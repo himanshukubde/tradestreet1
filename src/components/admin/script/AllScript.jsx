@@ -772,7 +772,7 @@ const Addscript = () => {
         await GetAllGroupService(data)
             .then((response) => {
                 if (response.Status) {
-                    
+
                     setAllservice({
                         loading: false,
                         data: response.GroupScrdf
@@ -800,12 +800,12 @@ const Addscript = () => {
     }
 
 
-    
-    
+
+
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
-    
+
     useEffect(() => {
         if (getGroupData && getGroupData.data.length > 0) {
             setSelectGroup(getGroupData.data[0].GroupName)
@@ -832,7 +832,7 @@ const Addscript = () => {
                         <div className="iq-card-body">
                             <form className="was-validated ">
                                 <div className='d-flex'>
-                                    <div className="form-group col-md-6 ms-2">
+                                    <div className="form-group col-md-5 ms-2">
                                         <label>Group Name</label>
                                         <select className="form-select "
                                             required=""
@@ -848,7 +848,7 @@ const Addscript = () => {
 
                                         </select>
                                     </div>
-                                    <div className="form-group col-md-6 ms-2">
+                                    <div className="form-group col-md-5 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => { setAllservice({ loading: true, data: [] }); setStrategyType(e.target.value) }}
@@ -858,11 +858,14 @@ const Addscript = () => {
                                             <option value={"Pattern"}>Pattern Script</option>
                                         </select>
                                     </div>
+                                    <div className='col-md-2 ms-2 mt-4'>
+                                        <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
+                                    </div>
                                 </div>
                             </form>
-                            <div className='d-flex justify-content-end'>
+                            {/* <div className='d-flex justify-content-end'>
                                 <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
-                            </div>
+                            </div> */}
                             <div className="iq-card-body">
                                 {getAllService.loading ? <Loader /> :
                                     <FullDataTable
