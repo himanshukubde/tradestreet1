@@ -33,10 +33,9 @@ export const getNetPnLData = async (data) => {
     catch (err) {
         return err
 
-  
+
     }
 }
-
 
 export const get_Trade_Response = async (data) => {
     try {
@@ -127,3 +126,15 @@ export const Discontinue = async (data) => {
         return err
     }
 }
+
+
+export const OpenPosition = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}DashboardOpen/${data.name}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+

@@ -779,6 +779,7 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             }
         }
     },
+    
 
     {
         name: "ScalpType",

@@ -4,6 +4,7 @@ import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
 import CurrentScript from './CurrentScript'
 import { GetAllUserGroup } from '../../Common API/User'
+import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 
 const Userdashboard = () => {
     const userName = localStorage.getItem('name')
@@ -11,7 +12,7 @@ const Userdashboard = () => {
     const [activeTab1, setActiveTab1] = useState('CurrentPosition')
     const [activeTab, setActiveTab] = useState('copyScript')
     const [subTab, setSubTab] = useState('Scalping')
-    const [refresh , setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false)
     const [getGroup, setGroup] = useState('')
     const [getGroupName, setGroupName] = useState({
         loading: true,
@@ -35,7 +36,7 @@ const Userdashboard = () => {
                         loading: false,
                         data: []
                     })
-                    
+
 
                 }
             })
@@ -43,11 +44,67 @@ const Userdashboard = () => {
                 console.log("Error in finding the group name", err)
             })
     }
-
-
     useEffect(() => {
         getUserAllGroup()
     }, [activeTab])
+
+
+
+    const columns = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+
+        {
+            name: "ScalpType",
+            label: "ScalpType",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Exchange",
+            label: "Exchange",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Token",
+            label: "Token",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TType",
+            label: "Trade Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
 
 
     return (
@@ -87,13 +144,10 @@ const Userdashboard = () => {
                                 </li>
                             </ul>
 
- 
+
                             <div className='row'>
-
                                 {activeTab1 === 'CurrentPosition' && (
-
                                     <div className='d-flex'>
-
                                         <div className="form-group col-md-6 ms-2">
                                             <label>Type</label>
                                             <select className="form-select" required=""
@@ -126,14 +180,11 @@ const Userdashboard = () => {
                                                     {
                                                         getGroupName && getGroupName.data.map((item) => {
                                                             return <option value={item}>{item}</option>
-
                                                         })
                                                     }
-
                                                 </select>
                                             </div>
                                         )}
-
                                     </div>
                                 )}
                             </div>
@@ -160,10 +211,40 @@ const Userdashboard = () => {
                                         {activeTab === 'currentScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab}/>}
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} />}
                                                 </div>
                                             </div>
                                         )}
+                                    </>
+                                )}
+                            </div>
+
+                            <div className="tab-content">
+                                {activeTab1 === 'OpenPosition' && (
+
+                                    <>
+                                        <div>
+
+                                            <h4>Scalping</h4>
+                                            <FullDataTable
+                                                columns={columns}
+                                                data={getGroupName.data}
+                                                checkBox={false}
+                                            />
+                                        </div>
+
+                                        <h4>Option</h4>
+                                        <FullDataTable
+                                            columns={columns}
+                                            data={getGroupName.data}
+                                            checkBox={false}
+                                        />
+                                        <h4>Pattern</h4>
+                                        <FullDataTable
+                                            columns={columns}
+                                            data={getGroupName.data}
+                                            checkBox={false}
+                                        />
                                     </>
                                 )}
                             </div>
