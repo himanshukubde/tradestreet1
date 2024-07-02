@@ -5138,10 +5138,34 @@ a {
 }
 
 
-.css-11mde6h-MuiPaper-root{
-  box-shadow:none !important
+.css-11mde6h-MuiPaper-root {
+  box-shadow: none !important
 }
 
 .uniform-bg {
-  background-color: #f8f9fa; /* Example background color, change as needed */
+  background-color: #f8f9fa;
+  /* Example background color, change as needed */
+}
+
+.MuiTableRow-head {
+  background: #3f414d !important;
+}
+
+.MuiTableCell-head {
+  background: #3f414d !important;
+}
+
+.tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+  color: #fff !important;
+  background-color: #3f414d !important;
+}
+
+.css-1ygcj2i-MuiTableCell-root {
+
+  padding: 8px !important;
+
 }
