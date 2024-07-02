@@ -19,6 +19,10 @@ import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/TrackPanel/TrackPannel';
 import TradeReport  from '../components/user/TradeReport/TradeReport'
 import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
+import AddNewScalpingScript from '../components/user/userscript/AddNewScript.Scalping'
+import AddNewScalpingOption from '../components/user/userscript/AddNewScript.Option'
+import AddNewScalpingPattern from '../components/user/userscript/AddNewScript.Pattern'
+
 
 const UserRoute = () => {
 
@@ -45,6 +49,10 @@ const UserRoute = () => {
             <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />
             <Route path="/tradereport" element={<TradeReport />} />
+            <Route path="/newscript/scalping" element={<AddNewScalpingScript />} />
+            <Route path="/newscript/option" element={<AddNewScalpingOption />} />
+            <Route path="/newscript/pattern" element={<AddNewScalpingPattern />} />
+
           </Routes>
           <Footer />
         </div>

@@ -187,30 +187,21 @@ const AddClient = () => {
 
     
     useEffect(() => {
-        formik.setFieldValue('Measurment_Type',
-            location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
-                location.state.data.STG == 'LongIronButterfly' || location.state.data.STG == 'ShortIronButterfly' || location.state.data.STG == 'LongIronCondor' || location.state.data.STG == 'ShortIronCondor' ? "Butterfly/Condor" :
-                    location.state.data.STG == 'BearCallSpread' || location.state.data.STG == 'BearPutSpread' || location.state.data.STG == 'BullCallSpread' || location.state.data.STG == 'BullPutSpread' ? 'Spread' :
-                        location.state.data.STG == 'BullCallLadder' || location.state.data.STG == 'BullPutLadder' || location.state.data.STG == 'CoveredCall' || location.state.data.STG == 'CoveredPut' ? "Ladder/Coverd" :
-                            location.state.data.STG == 'LongCollar' || location.state.data.STG == 'ShortCollar' || location.state.data.STG == 'RatioCallSpread' || location.state.data.STG == 'RatioPutSpread' ? "Collar/Ratio" :
-                                location.state.data.STG == 'LongFourLegStretegy' || location.state.data.STG == 'ShortShifting' || location.state.data.STG == 'LongShifting' || location.state.data.STG == 'ShortFourLegStretegy' ? "Shifting/FourLeg" : ""
-        )
-        formik.setFieldValue('Strategy', location.state.data.STG)
-        formik.setFieldValue('Symbol', location.state.data.MainSymbol)
-        formik.setFieldValue('Expirytype', location.state.data.Expirytype)
-        formik.setFieldValue('ETPattern', location.state.data.Targettype)
-        formik.setFieldValue('TStype', location.state.data.strategytype)
-        formik.setFieldValue('Targetvalue', location.state.data['Target value'])
-        formik.setFieldValue('Slvalue', location.state.data['SL value'])
-        formik.setFieldValue('Quantity', location.state.data['Lot Size'])
-        formik.setFieldValue('ExitDay', location.state.data['Product Type'])
-        formik.setFieldValue('EntryTime', location.state.data['Entry Time'])
-        formik.setFieldValue('ExitTime', location.state.data['Exit Time'])
-        formik.setFieldValue('Striketype', location.state.data.StrikeType)
-        formik.setFieldValue('DepthofStrike', location.state.data.DepthofStrike )
-        formik.setFieldValue('DeepStrike', location.state.data.DeepStrike)
-        formik.setFieldValue('Lower_Range', location.state.data.LowerRange)
-        formik.setFieldValue('Higher_Range', location.state.data.HigherRange)
+        formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
+        formik.setFieldValue('Strategy', "ShortStrangle")
+        formik.setFieldValue('Symbol', "BANKNIFTY")
+        formik.setFieldValue('Expirytype', "Weekly")
+        formik.setFieldValue('ETPattern', "Premium Addition")
+        formik.setFieldValue('TStype', "Percentage")
+        formik.setFieldValue('Targetvalue', 1.00)
+        formik.setFieldValue('Slvalue', 1.00)
+        formik.setFieldValue('Quantity', 1)
+        formik.setFieldValue('ExitDay', "Intraday")
+        formik.setFieldValue('Striketype', "Depth_of_Strike")
+        formik.setFieldValue('DepthofStrike', 1)
+        formik.setFieldValue('DeepStrike', 1)
+        formik.setFieldValue('Lower_Range', 0)
+        formik.setFieldValue('Higher_Range', 0)
     }, [])
 
     

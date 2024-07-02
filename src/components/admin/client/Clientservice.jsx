@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { GetClientService } from '../../Common API/Admin';
+import { GetClientService, EditClientPanle, ExtendEndDate } from '../../Common API/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { SquarePen } from 'lucide-react';
 
 const Clientservice = () => {
     const [getClientService, setClientService] = useState({
         loading: true,
         data: []
     });
+    const [showModal, setShowModal] = useState(true)
+    const [showModal1, setShowModal1] = useState(false)
+
 
     const getAllClientService = async () => {
         await GetClientService()
@@ -29,6 +33,18 @@ const Clientservice = () => {
             });
     };
 
+    const handleEdit = (index) => {
+
+        if (getClientService.data[index].BrokerName == 'Demo') {
+
+
+        }
+
+
+
+
+    }
+
     useEffect(() => {
         getAllClientService();
     }, []);
@@ -43,6 +59,18 @@ const Clientservice = () => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                     const rowIndex = tableMeta.rowIndex;
                     return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Edit",
+            label: "Edit",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return <SquarePen onClick={() => handleEdit(rowIndex)} />
                 }
             },
         },
@@ -83,7 +111,7 @@ const Clientservice = () => {
             label: "Group",
             options: {
                 filter: true,
-                sort: true,   
+                sort: true,
             }
         },
         {
@@ -123,7 +151,7 @@ const Clientservice = () => {
 
 
     return (
-        <div>
+        <>
             <div className="row">
                 <div className="col-sm-12">
                     <div className="iq-card">
@@ -134,7 +162,7 @@ const Clientservice = () => {
                             <Link to="/admin/adduser" className='btn btn-primary rounded'>Add Client</Link>
 
                         </div>
-                         
+
                         <div className="iq-card-body">
                             <FullDataTable
                                 columns={columns}
@@ -145,7 +173,37 @@ const Clientservice = () => {
                     </div>
                 </div>
             </div>
-        </div>
+            {
+                <>
+                    <div
+                        className={`modal fade bd-example-modal-lg ${showModal ? 'show' : ''}`}
+                        tabIndex={-1}
+                        style={{ display: showModal ? 'block' : 'none' }}
+                        aria-hidden={!showModal}
+                        role="dialog"
+                    >
+                        <div className="modal-dialog modal-lg modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">All Scripts</h5>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                        onClick={() => setShowModal(false)}
+                                    />
+                                </div>
+                                <div className="modal-body">
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            }
+        </>
     );
 };
 

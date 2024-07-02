@@ -86,7 +86,7 @@ const GroupScript = ({ data, selectedType, GroupName }) => {
                                                 <div className="table-responsive">
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
-                                                            columns={data === "scalping" ? getColumns(handleAddScript1) : data === "optionStrategy" ? getColumns1(handleAddScript2) : data === "pattern" ? getColumns2(handleAddScript3) : getColumns(handleAddScript1)}
+                                                            columns={data === "Scalping" ? getColumns(handleAddScript1) : data === "Option Strategy" ? getColumns1(handleAddScript2) : data === "Pattern" ? getColumns2(handleAddScript3) : getColumns(handleAddScript1)}
                                                             data={getAllService.data}
                                                             checkBox={false}
                                                         />
