@@ -315,3 +315,23 @@ export const Get_SMTP_Details = async () => {
     }
 }
 
+export const ExtendEndDate = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ExtendEndDate`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const EditClientPanle = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ClientPanel`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
