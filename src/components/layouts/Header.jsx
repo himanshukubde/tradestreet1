@@ -479,7 +479,6 @@ const Header = () => {
 
 
 
-
                                     </li>
 
                                     <li className="nav-item">
@@ -764,16 +763,32 @@ const Header = () => {
                         </div>
                         <div className="modal-body">
                             <form>
+                              
                                 <div className="form-group">
                                     <label htmlFor="api">API Key:</label>
-                                    <input type="text" className="form-control my-2" id="email1" />
+                                    <input type="text" className="form-control my-2" id="apikey" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="secret">API Secret:</label>
-                                    <input type="text" className="form-control my-2" id="pwd" />
+                                    <input type="text" className="form-control my-2" id="apisecret" />
                                 </div>
 
-
+                                <div className="form-group">
+                                    <label htmlFor="secret">User Id:</label>
+                                    <input type="text" className="form-control my-2" id="userid" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="secret">Password</label>
+                                    <input type="text" className="form-control my-2" id="pwd" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="secret">DOB</label>
+                                    <input type="text" className="form-control my-2" id="dob" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="secret">API Password</label>
+                                    <input type="text" className="form-control my-2" id="dob" />
+                                </div>
                             </form>
 
                         </div>
