@@ -779,8 +779,6 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             }
         }
     },
-    
-
     {
         name: "ScalpType",
         label: "ScalpType",
@@ -853,7 +851,6 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    
     {
         name: "ExpiryDate",
         label: "ExpiryDate",
@@ -942,7 +939,6 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-
 ];
 
 export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
@@ -991,7 +987,6 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
             }
         }
     },
-
     {
         name: "STG",
         label: "STG",
@@ -1008,7 +1003,6 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    
     {
         name: "Username",
         label: "Username",
@@ -1338,7 +1332,6 @@ export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
             }
         }
     },
-
     {
         name: "Username",
         label: "Username",
@@ -1491,7 +1484,6 @@ export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    
     {
         name: "ExitDay",
         label: "ExitDay",

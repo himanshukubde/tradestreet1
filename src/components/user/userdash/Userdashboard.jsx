@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
 import CurrentScript from './CurrentScript'
 import { GetAllUserGroup, OpenPosition } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-
 const Userdashboard = () => {
     const userName = localStorage.getItem('name')
-    const [selectStrategyType, setStrategyType] = useState('')
     const [activeTab1, setActiveTab1] = useState('CurrentPosition')
-    const [activeTab, setActiveTab] = useState('copyScript')
+    const [activeTab, setActiveTab] = useState('currentScript')
     const [subTab, setSubTab] = useState('Scalping')
     const [refresh, setRefresh] = useState(false)
     const [getGroup, setGroup] = useState('')
@@ -24,10 +21,6 @@ const Userdashboard = () => {
         Option: [],
         Pattern: []
     })
-
-
-
-
 
     const getUserAllGroup = async () => {
         const data = { User: userName }
@@ -56,7 +49,6 @@ const Userdashboard = () => {
     useEffect(() => {
         getUserAllGroup()
     }, [activeTab])
-
 
     const GetOpenPosition = async () => {
         const data = { userName: userName }
@@ -88,11 +80,6 @@ const Userdashboard = () => {
     useEffect(() => {
         GetOpenPosition()
     }, [])
-
-
-
-
-
 
     const columns1 = [
         {
@@ -386,7 +373,6 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-
         {
             name: "Quantity",
             label: "Quantity",
@@ -429,7 +415,6 @@ const Userdashboard = () => {
         },
 
     ];
-
     return (
         <div className="container-fluid">
             <div className="row">
