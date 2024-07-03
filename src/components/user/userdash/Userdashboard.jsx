@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
 import CurrentScript from './CurrentScript'
-import { GetAllUserGroup } from '../../Common API/User'
+import { GetAllUserGroup, OpenPosition } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 
 const Userdashboard = () => {
@@ -18,6 +18,15 @@ const Userdashboard = () => {
         loading: true,
         data: []
     })
+    const [getPositionData, setPositionData] = useState({
+        loading: true,
+        Scalping: [],
+        Option: [],
+        Pattern: []
+    })
+
+
+
 
 
     const getUserAllGroup = async () => {
@@ -49,8 +58,43 @@ const Userdashboard = () => {
     }, [activeTab])
 
 
+    const GetOpenPosition = async () => {
+        const data = { userName: userName }
+        await OpenPosition(data)
+            .then((response) => {
+                if (response.Status) {
+                    console.log(response)
+                    setPositionData({
+                        loading: false,
+                        Scalping: response.Scalping,
+                        Option: response.Option,
+                        Pattern: response.Pattern
+                    })
+                }
+                else {
+                    setPositionData({
+                        loading: false,
+                        Scalping: [],
+                        Option: [],
+                        Pattern: []
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the open postion data", err)
+            })
+    }
 
-    const columns = [
+    useEffect(() => {
+        GetOpenPosition()
+    }, [])
+
+
+
+
+
+
+    const columns1 = [
         {
             name: "S.No",
             label: "S.No",
@@ -63,7 +107,6 @@ const Userdashboard = () => {
                 }
             },
         },
-
         {
             name: "ScalpType",
             label: "ScalpType",
@@ -72,9 +115,96 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
+
         {
-            name: "Exchange",
-            label: "Exchange",
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ETime",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EPrice",
+            label: "Entry Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeType",
+            label: "Trade Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trade",
+            label: "Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target",
+            label: "Target",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL",
+            label: "Stop Loss",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "GroupN",
+            label: "GroupN",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+    const columns2 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "STG",
+            label: "Strategy",
             options: {
                 filter: true,
                 sort: true,
@@ -89,6 +219,54 @@ const Userdashboard = () => {
             }
         },
         {
+            name: "ETime",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EPrice",
+            label: "Entry Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "LotSize",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trade",
+            label: "Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Option Type",
+            label: "Option Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Strike price",
+            label: "Strike price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
             name: "Token",
             label: "Token",
             options: {
@@ -97,15 +275,160 @@ const Userdashboard = () => {
             }
         },
         {
-            name: "TType",
+            name: "Hashing",
+            label: "Hashing",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeType",
             label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-    ];
+        {
+            name: "Target",
+            label: "Target",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL",
+            label: "Stop Loss",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "GroupN",
+            label: "GroupN",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
 
+
+    ];
+    const columns3 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "TradePattern",
+            label: "TradePattern",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SPattern",
+            label: "Pattern Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PatternTime",
+            label: "Pattern Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "ETime",
+            label: "Entry Time",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EPrice",
+            label: "Entry Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeType",
+            label: "Trade Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+        {
+            name: "Quantity",
+            label: "Quantity",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Target",
+            label: "Target",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SL",
+            label: "Stop Loss",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TimeFrame",
+            label: "Time Frame",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Trade",
+            label: "Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+    ];
 
     return (
         <div className="container-fluid">
@@ -221,30 +544,35 @@ const Userdashboard = () => {
 
                             <div className="tab-content">
                                 {activeTab1 === 'OpenPosition' && (
-
                                     <>
-                                        <div>
-
+                                        {console.log(getPositionData)}
+                                        <div className='mt-4'>
                                             <h4>Scalping</h4>
                                             <FullDataTable
-                                                columns={columns}
-                                                data={getGroupName.data}
+                                                columns={columns1}
+                                                data={getPositionData.Scalping}
                                                 checkBox={false}
                                             />
                                         </div>
 
-                                        <h4>Option</h4>
-                                        <FullDataTable
-                                            columns={columns}
-                                            data={getGroupName.data}
-                                            checkBox={false}
-                                        />
-                                        <h4>Pattern</h4>
-                                        <FullDataTable
-                                            columns={columns}
-                                            data={getGroupName.data}
-                                            checkBox={false}
-                                        />
+                                        <div className='mt-4'>
+                                            <h4>Option</h4>
+                                            <FullDataTable
+                                                columns={columns2}
+                                                data={getPositionData.Option}
+                                                checkBox={false}
+                                            />
+                                        </div>
+
+                                        <div className='mt-4'>
+
+                                            <h4>Pattern</h4>
+                                            <FullDataTable
+                                                columns={columns3}
+                                                data={getPositionData.Pattern}
+                                                checkBox={false}
+                                            />
+                                        </div>
                                     </>
                                 )}
                             </div>

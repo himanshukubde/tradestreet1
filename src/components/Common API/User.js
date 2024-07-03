@@ -130,11 +130,14 @@ export const Discontinue = async (data) => {
 
 export const OpenPosition = async (data) => {
     try {
-        const res = await axios.get(`${Config.base_url}DashboardOpen/${data.name}`)
+        const res = await axios.get(`${Config.base_url}DashboardOpen/${data.userName}`)
         return res?.data
     }
     catch (err) {
         return err
     }
 }
+
+
+ 
 
