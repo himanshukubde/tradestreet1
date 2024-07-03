@@ -369,4 +369,15 @@ export const GetAllTaskStatus = async () => {
 }
 
 
+
+export const Get_All_Client_Logs = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}UserallScriptDetail`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
  

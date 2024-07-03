@@ -19,6 +19,8 @@ const Clientservice = () => {
     const [getServiceCount, setServiceCount] = useState([]);
     const [getExtendDate, setExtendDate] = useState([]);
     const [getDate, setExDate] = useState('');
+    const [refresh , setRefresh]= useState(false)
+
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -38,22 +40,24 @@ const Clientservice = () => {
         fetchBrokerName();
     }, []);
 
-    useEffect(() => {
-        const fetchClientService = async () => {
-            try {
-                const response = await GetClientService();
-                if (response.Status) {
-                    setClientService({ loading: false, data: response.Profile });
-                } else {
-                    setClientService({ loading: false, data: [] });
-                }
-            } catch (error) {
-                console.log('Error in fetching client services', error);
-            }
-        };
 
+    const fetchClientService = async () => {
+        try {
+            const response = await GetClientService();
+            if (response.Status) {
+                
+                setClientService({ loading: false, data: response.Profile });
+            } else {
+                setClientService({ loading: false, data: [] });
+            }
+        } catch (error) {
+            console.log('Error in fetching client services', error);
+        }
+    };
+
+    useEffect(() => {
         fetchClientService();
-    }, []);
+    }, [refresh]);
 
     useEffect(() => {
         const fetchGroupDetails = async () => {
@@ -118,6 +122,7 @@ const Clientservice = () => {
             try {
                 const response = await EditClientPanle(req);
                 if (response.Status) {
+                    setRefresh(!refresh)
                     Swal.fire({
                         title: "Updated",
                         text: response.message,
