@@ -464,6 +464,8 @@ const Header = () => {
                                     </div>
                                 </div>
                             </div>
+
+
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     <li className="nav-item">
@@ -761,6 +763,7 @@ const Header = () => {
                                 aria-label="Close"
                             />
                         </div>
+                        
                         <div className="modal-body">
                             <form>
                               
