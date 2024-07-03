@@ -370,7 +370,7 @@ const DynamicForm = ({
                                   ))}
                                 </select>
 
- 
+
                                 {formik.touched[field.name] &&
                                   formik.errors[field.name] ? (
                                   <div style={{ color: "red" }}>
@@ -650,31 +650,31 @@ const DynamicForm = ({
                         <>
                           <div className={`col-lg-${field.col_size}`}>
                             <div className="row d-flex">
-                              <div className={`col-lg-${field.col_size}  `}>
-                                <div className="mb-3 input-block">
-                                  <label
-                                    className={`col-lg-${field.label_size}`}
-                                    htmlFor={field.name}
-                                  >
-                                    {field.label}
-                                  </label>
-                                  <textarea
-                                    className="form-control"
-                                    rows={field.row_size}
-                                    id={field.name}
-                                    name={field.name}
-                                    {...formik.getFieldProps(field.name)}
-                                    placeholder={field.label}
-                                  ></textarea>
-                                  {formik.errors[field.name] && (
-                                    <div style={{ color: "red" }}>
-                                      {formik.errors[field.name]}
-                                    </div>
-                                  )}
-                                </div>
+
+                              <div className="mb-3 input-block">
+                                <label
+                                  className={`col-lg-${field.label_size}`}
+                                  htmlFor={field.name}
+                                >
+                                  {field.label}
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  rows={field.row_size}
+                                  id={field.name}
+                                  name={field.name}
+                                  {...formik.getFieldProps(field.name)}
+                                  placeholder={field.label}
+                                ></textarea>
+                                {formik.touched[field.name] && formik.errors[field.name] && (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors[field.name]}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
+
                         </>
                       ) : field.type === "number" ? (
                         <>
