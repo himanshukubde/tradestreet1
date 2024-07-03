@@ -116,7 +116,7 @@ const Header = () => {
                     </div>
                     {role === 'Admin' ? (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
-                            <div className="iq-search-bar">
+                            {/* <div className="iq-search-bar">
                                 <form action="#" className="searchbox">
                                     <input
                                         type="text"
@@ -127,7 +127,7 @@ const Header = () => {
                                         <i className="ri-search-line" style={{ color: "#fff" }} />
                                     </a>
                                 </form>
-                            </div>
+                            </div> */}
                             <button
                                 className="navbar-toggler"
                                 type="button"

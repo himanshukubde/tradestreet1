@@ -44,7 +44,7 @@ const Addscript = () => {
             Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
         }
 
-        
+
 
         await DeleteScript(data)
             .then((response) => {
@@ -842,7 +842,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
-                    console.log("CPP :",  response)
+                    console.log("CPP :", response)
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -898,8 +898,8 @@ const Addscript = () => {
 
 
     const handleAddScript = () => {
-        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType }; 
-        if(selectGroup!='' && selectStrategyType!=''){ 
+        const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
+        if (selectGroup != '' && selectStrategyType != '') {
             navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
                 selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
         }
@@ -996,7 +996,7 @@ const Addscript = () => {
                                         </div>}
                                     </div>
                                     <div className='col-md-2 ms-2 mt-4'>
-                                        <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
+                                        <button style={{ height: "42px" }} className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
                                     </div>
                                 </div>
                             </form>
