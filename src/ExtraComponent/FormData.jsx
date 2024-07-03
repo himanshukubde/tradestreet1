@@ -357,7 +357,7 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                     <option value="">{`${field.label}`}</option>
+                                  <option value="">{`${field.label}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
@@ -370,6 +370,7 @@ const DynamicForm = ({
                                   ))}
                                 </select>
 
+ 
                                 {formik.touched[field.name] &&
                                   formik.errors[field.name] ? (
                                   <div style={{ color: "red" }}>
@@ -832,6 +833,29 @@ const DynamicForm = ({
                                     }}
                                   />
 
+                                  {formik.touched[field.name] &&
+                                    formik.errors[field.name] ? (
+                                    <div style={{ color: "red" }}>
+                                      {formik.errors[field.name]}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : field.type === "textType" ? (
+                        <>
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="row d-flex">
+                              <div className="col-lg-12 ">
+                                <div className="form-group input-block mt-3">
+                                  <h5 htmlFor={field.name}>
+                                    {field.label}
+                                  </h5>
+                                  {/* <h2 htmlFor={field.name}>
+                                    {field.name}
+                                  </h2> */}
                                   {formik.touched[field.name] &&
                                     formik.errors[field.name] ? (
                                     <div style={{ color: "red" }}>

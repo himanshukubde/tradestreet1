@@ -335,3 +335,17 @@ export const EditClientPanle = async (data) => {
     }
 }
 
+export const ServiceCount = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ServiceCountEx`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+ 
+
+
+ 
