@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {Get_Client_Report} from '../../Common API/Admin'
+import { Get_Client_Report } from '../../Common API/Admin'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
+import Checkbox from '@mui/material/Checkbox';
+
 
 
 const Clientreport = () => {
@@ -10,34 +12,34 @@ const Clientreport = () => {
         data: []
     })
 
-    const GetClientData = async()=>{
-        const data = {User  : selectUserName}
+    const GetClientData = async () => {
+        const data = { User: selectUserName }
         await Get_Client_Report(data)
-        .then((response)=>{
-            if(response.Status){
-                setTableData({
-                    loading:false,
-                    data:response.Data
-                })
-            }
-            else{
-                setTableData({
-                    loading:false,
-                    data:[]
-                })
-            }
-        })
-        .catch((err)=>{
-            console.log("Error in finding the client details" , err)
-        })
+            .then((response) => {
+                if (response.Status) {
+                    setTableData({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setTableData({
+                        loading: false,
+                        data: []
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the client details", err)
+            })
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         GetClientData()
-    },[selectUserName])
+    }, [selectUserName])
 
- 
+
     const columns = [
         {
             name: "S.No",
@@ -97,6 +99,14 @@ const Clientreport = () => {
             options: {
                 filter: true,
                 sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const isChecked = Boolean(value);
+                    return (
+                        <Checkbox
+                            checked={isChecked}
+                        />
+                    );
+                }
             }
         },
         {
@@ -123,15 +133,15 @@ const Clientreport = () => {
                 sort: true,
             }
         },
-         
+
     ];
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setSelectUserName('AllUser')
-    },[])
+    }, [])
 
-    
+
 
     return (
         <div>

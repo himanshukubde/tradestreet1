@@ -7,27 +7,21 @@ import { Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 const Addscript = () => {
-    const navigate = useNavigate()
-
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    })
-
+    const navigate = useNavigate()    
     const [refresh, setRefresh] = useState(false)
-
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
+    const [GroupError, setGroupError] = useState('')
+    const [stgError, setStgError] = useState('')
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [getAllService, setAllservice] = useState({
         loading: true,
         data: []
     })
-
-    const [GroupError, setGroupError] = useState('')
-    const [stgError, setStgError] = useState('')
-
-
-
+    const [getGroupData, setGroupData] = useState({
+        loading: true,
+        data: []
+    })
 
 
     const handleDelete = async (rowData) => {
@@ -842,7 +836,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
-                    console.log("CPP :", response)
+                    
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -898,6 +892,7 @@ const Addscript = () => {
 
 
     const handleAddScript = () => {
+        setFormSubmitted(true);
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
         if (selectGroup != '' && selectStrategyType != '') {
             navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
@@ -906,34 +901,28 @@ const Addscript = () => {
 
     }
 
-
-
-
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
+    
     useEffect(() => {
-        if (selectGroup == '') {
-            setGroupError("Select Group Name")
+        if (formSubmitted) {
+            if (selectGroup == '') {
+                setGroupError("Select Group Name")
+            } else {
+                setGroupError("")
+            }
+            if (selectStrategyType == '') {
+                setStgError("Select Strategy Type")
+            } else {
+                setStgError("")
+            }
         }
-        else {
-            setGroupError("")
-        }
-        if (selectStrategyType == '') {
-            setStgError("Select Stragey Type")
-        }
-        else {
-            setStgError("")
-        }
-    }, [selectGroup, selectStrategyType,])
+    }, [selectGroup, selectStrategyType, formSubmitted])
 
 
 
-    useEffect(() => {
-        if (getGroupData && getGroupData.data.length > 0) {
-            setSelectGroup(getGroupData.data[0].GroupName)
-        }
-    }, [])
+   
 
     useEffect(() => {
         setStrategyType('Scalping')
@@ -944,7 +933,7 @@ const Addscript = () => {
     useEffect(() => {
         getAllgroupService()
     }, [selectStrategyType, selectGroup, refresh])
-
+  
 
 
     return (
@@ -1000,9 +989,7 @@ const Addscript = () => {
                                     </div>
                                 </div>
                             </form>
-                            {/* <div className='d-flex justify-content-end'>
-                                <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
-                            </div> */}
+                             
                             <div className="iq-card-body">
                                 {getAllService.loading ? <Loader /> :
                                     <FullDataTable

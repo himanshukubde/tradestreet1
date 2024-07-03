@@ -76,10 +76,6 @@ const Clientservice = () => {
 
         fetchGroupDetails();
     }, []);
-
-
-
-   
    
     const formik = useFormik({
         initialValues: {
@@ -301,11 +297,6 @@ const Clientservice = () => {
     const formattedDate = currentDate.toISOString().split('T')[0];
     const fromDate = new Date();
     const form_Date = fromDate.toISOString().split('T')[0];
-
-
-
-    console.log("optionsArray :" , optionsArray)
-
  
     return (
         <>

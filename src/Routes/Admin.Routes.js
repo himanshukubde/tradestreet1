@@ -12,9 +12,9 @@ import Brokercredential from '../components/admin/broker/Brokercredential';
 import Clientactivity from '../components/admin/client/Clientactivity';
 import Clientreport from '../components/admin/client/Clientreport';
 import Smtp from '../components/admin/detail/Smtp';
-import Servicereport from '../components/admin/report/Servicereport';
+import UserLogs from '../components/admin/User/UserLogs';
 import Strategygroup from '../components/admin/group/Strategygroup';
-import Userlog from '../components/admin/User/Userlog';
+import ServiceReport from '../components/admin/User/ServiceReport';
 import Addscript from '../components/admin/script/Addscript.Scalping';
 import AddScriptOption from '../components/admin/script/AddScript.Option'
 import PatternScript from '../components/admin/script/AddScript.Pattern'
@@ -42,9 +42,9 @@ const AdminRoute = () => {
             <Route path="/clientactivity" element={<Clientactivity />} />
             <Route path="/clientreport" element={<Clientreport />} />
             <Route path="/smtp" element={<Smtp />} />
-            <Route path="/servicereport" element={<Servicereport />} />
+            <Route path="/userlogs" element={<UserLogs />} />
             <Route path="/strategygroup" element={<Strategygroup />} />
-            <Route path="/userlog" element={<Userlog />} />
+            <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
            
             

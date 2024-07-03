@@ -347,5 +347,26 @@ export const ServiceCount = async (data) => {
 
  
 
+export const GetExchange = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}Exchange`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+export const GetAllTaskStatus = async () => {
+    try {
+        const res = await axios.get(`${Config.base_url}TaskStatus`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 
  
