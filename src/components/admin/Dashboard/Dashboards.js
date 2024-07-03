@@ -13,6 +13,18 @@ const Dashboards = () => {
         totalTwoDaysLive: 0,
         activeTwoDaysLive: 0,
         expiredTwoDaysLive: 0,
+        totalserviceCount1: 0,
+        totalserviceCount2: 0,
+        totalserviceCount5: 0,
+        expiredserviceCount1: 0,
+        expiredserviceCount2: 0,
+        expiredserviceCount5: 0,
+        activeserviceCount1: 0,
+        activeserviceCount2: 0,
+        activeserviceCount5: 0,
+
+
+
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -33,6 +45,15 @@ const Dashboards = () => {
                         totalTwoDaysLive: result["Total Two Days Live Account"],
                         activeTwoDaysLive: result["Active Two Days Live Account"],
                         expiredTwoDaysLive: result["Expired Two Days Live Account"],
+                        totalserviceCount1: result['Total Service Count 1'],
+                        totalserviceCount2: result['Total Service Count 2'],
+                        totalserviceCount5: result['Total Service Count 5'],
+                        expiredserviceCount1: result['Expired Service Count 1'],
+                        expiredserviceCount2: result['Expired Service Count 2'],
+                        expiredserviceCount5: result['Expired Service Count 5'],
+                        activeserviceCount1: result['Active  Service Count 1'],
+                        activeserviceCount2: result['Active  Service Count 2'],
+                        activeserviceCount5: result['Active  Service Count 5'],
                     })
                     setLoading(false);
                 }
@@ -47,6 +68,15 @@ const Dashboards = () => {
                         totalTwoDaysLive: 0,
                         activeTwoDaysLive: 0,
                         expiredTwoDaysLive: 0,
+                        totalserviceCount1: 0,
+                        totalserviceCount2: 0,
+                        totalserviceCount5: 0,
+                        expiredserviceCount1: 0,
+                        expiredserviceCount2: 0,
+                        expiredserviceCount5: 0,
+                        activeserviceCount1: 0,
+                        activeserviceCount2: 0,
+                        activeserviceCount5: 0,
                     })
                     setLoading(false);
                 }
@@ -381,322 +411,314 @@ const Dashboards = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="col-lg-4">
+                                <div className="iq-card ">
+                                    <div className="iq-card-header d-flex justify-content-between">
+                                        <div className="iq-header-title">
+                                            <h4 className="card-title">Total Service Count of 1</h4>
+                                        </div>
+                                    </div>
+                                    <div className="iq-card-body">
+                                        <div className="progress mt-3">
+                                            <div
+                                                className="progress-bar bg-primary"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-warning"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-info"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-danger"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-success"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-secondary"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                        </div>
+                                        <div className="table-responsive mt-4">
+                                            <table className="table mb-0 table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-online mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Total: </h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.totalserviceCount1}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-blue mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Active: </h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.activeserviceCount1}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-primary mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Expired: </h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.expiredserviceCount1}</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="col-lg-4">
+                                <div className="iq-card ">
+                                    <div className="iq-card-header d-flex justify-content-between">
+                                        <div className="iq-header-title">
+                                            <h4 className="card-title">Total Service Count of 2</h4>
+                                        </div>
+                                    </div>
+                                    <div className="iq-card-body">
+                                        <div className="progress mt-3">
+                                            <div
+                                                className="progress-bar bg-primary"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-warning"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-info"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-danger"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-success"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-secondary"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                        </div>
+                                        <div className="table-responsive mt-4">
+                                            <table className="table mb-0 table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-online mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Total:</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.totalserviceCount2}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-blue mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Active</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.activeserviceCount2}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-primary mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Expired</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.expiredserviceCount2}</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-lg-4">
+                                <div className="iq-card ">
+                                    <div className="iq-card-header d-flex justify-content-between">
+                                        <div className="iq-header-title">
+                                            <h4 className="card-title">Total Service Count of 5</h4>
+                                        </div>
+                                    </div>
+                                    <div className="iq-card-body">
+                                        <div className="progress mt-3">
+                                            <div
+                                                className="progress-bar bg-primary"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-warning"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-info"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-danger"
+                                                role="progressbar"
+                                                aria-valuenow={40}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "40%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-success"
+                                                role="progressbar"
+                                                aria-valuenow={20}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "20%" }}
+                                            ></div>
+                                            <div
+                                                className="progress-bar bg-secondary"
+                                                role="progressbar"
+                                                aria-valuenow={10}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                style={{ width: "10%" }}
+                                            ></div>
+                                        </div>
+                                        <div className="table-responsive mt-4">
+                                            <table className="table mb-0 table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-online mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Total</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.totalserviceCount5}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-blue mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Active</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.activeserviceCount5}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="iq-profile-avatar status-primary mt-4"> </div>
+                                                        </td>
+                                                        <td>
+                                                            <h4>Expired</h4>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-muted">{dashData.expiredserviceCount5}</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-12">
-                            <div className="row">
-                                <div className="col-lg-4">
-                                    <div className="iq-card ">
-                                        <div className="iq-card-header d-flex justify-content-between">
-                                            <div className="iq-header-title">
-                                                <h4 className="card-title">1 Script</h4>
-                                            </div>
-                                        </div>
-                                        <div className="iq-card-body">
-                                            <div className="progress mt-3">
-                                                <div
-                                                    className="progress-bar bg-primary"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-warning"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-info"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-danger"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-success"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-secondary"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                            </div>
-                                            <div className="table-responsive mt-4">
-                                                <table className="table mb-0 table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-online mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Total: </h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.totalLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-blue mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Active: </h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.activeLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-primary mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Expired: </h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.expiredLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-
-                                <div className="col-lg-4">
-                                    <div className="iq-card ">
-                                        <div className="iq-card-header d-flex justify-content-between">
-                                            <div className="iq-header-title">
-                                                <h4 className="card-title">2 Script</h4>
-                                            </div>
-                                        </div>
-                                        <div className="iq-card-body">
-                                            <div className="progress mt-3">
-                                                <div
-                                                    className="progress-bar bg-primary"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-warning"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-info"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-danger"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-success"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-secondary"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                            </div>
-                                            <div className="table-responsive mt-4">
-                                                <table className="table mb-0 table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-online mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Total:</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.totalFreeDemo}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-blue mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Active</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.activeFreeDemo}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-primary mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Expired</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.expiredFreeDemo}</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-4">
-                                    <div className="iq-card ">
-                                        <div className="iq-card-header d-flex justify-content-between">
-                                            <div className="iq-header-title">
-                                                <h4 className="card-title">5 Script</h4>
-                                            </div>
-                                        </div>
-                                        <div className="iq-card-body">
-                                            <div className="progress mt-3">
-                                                <div
-                                                    className="progress-bar bg-primary"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-warning"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-info"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-danger"
-                                                    role="progressbar"
-                                                    aria-valuenow={40}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "40%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-success"
-                                                    role="progressbar"
-                                                    aria-valuenow={20}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "20%" }}
-                                                ></div>
-                                                <div
-                                                    className="progress-bar bg-secondary"
-                                                    role="progressbar"
-                                                    aria-valuenow={10}
-                                                    aria-valuemin={0}
-                                                    aria-valuemax={100}
-                                                    style={{ width: "10%" }}
-                                                ></div>
-                                            </div>
-                                            <div className="table-responsive mt-4">
-                                                <table className="table mb-0 table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-online mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Total</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.totalTwoDaysLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-blue mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Active</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.activeTwoDaysLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div className="iq-profile-avatar status-primary mt-4"> </div>
-                                                            </td>
-                                                            <td>
-                                                                <h4>Expired</h4>
-                                                            </td>
-                                                            <td>
-                                                                <span className="text-muted">{dashData.expiredTwoDaysLive}</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-                            </div>
-                        </div>
                         <div className="col-lg-4">
                             <div className="iq-card iq-user-profile-block">
                                 <div className="iq-card-body">

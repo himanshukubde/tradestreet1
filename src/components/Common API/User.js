@@ -13,8 +13,6 @@ export const Get_Last_Pattern_All_Data = async (data) => {
 
 }
 
-
-
 export const Get_Profile_Data = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}Profile/${data.username}`)
@@ -27,8 +25,6 @@ export const Get_Profile_Data = async (data) => {
 
 }
 
-
-
 export const getNetPnLData = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}NetPnL`, data)
@@ -37,10 +33,9 @@ export const getNetPnLData = async (data) => {
     catch (err) {
         return err
 
-  
+
     }
 }
-
 
 export const get_Trade_Response = async (data) => {
     try {
@@ -51,3 +46,98 @@ export const get_Trade_Response = async (data) => {
         return err
     }
 }
+
+export const GetAllUserScript = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Dashboard/${data.userName}`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetAllUserGroup = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}clientalotgroupname`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AddScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Addscript`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const get_Trade_Report = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Tradereport`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Get_Panle_Logs = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}PanelTrackAll`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const DeleteUserScript = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Squareoff`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Continue = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Continue`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Discontinue = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Discontinue`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+export const OpenPosition = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}DashboardOpen/${data.userName}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+ 
+

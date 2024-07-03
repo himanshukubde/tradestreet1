@@ -4,7 +4,7 @@ import MUIDataTable from "mui-datatables";
 
 const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
-
+ 
 
 
     const NoDataIndication = () => (
@@ -22,8 +22,8 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const options = {
         filterType: false,
         selectableRowsHeader: false,
-        selectableRows: checkBox ? "single" : false,
-        onRowsSelect: (currentRowsSelected, allRowsSelected) => {
+        selectableRows: checkBox ? "single" : "none",
+        onRowSelectionChange: (currentRowsSelected, allRowsSelected) => {
             if (allRowsSelected.length > 0) {
                 const selectedIndex = allRowsSelected[0].index;
                 const rowData = data[selectedIndex];

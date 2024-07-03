@@ -352,11 +352,12 @@ const DynamicForm = ({
                                 <select
                                   className="default-select wide form-control"
                                   aria-describedby="basic-addon1"
+                                  // placeholder={`Enter ${field.label}`}
                                   disabled={field.disable}
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                     <option value="">{`Select ${field.name}`}</option>
+                                  <option value="">{`${field.label}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
@@ -368,6 +369,7 @@ const DynamicForm = ({
                                     </option>
                                   ))}
                                 </select>
+
 
                                 {formik.touched[field.name] &&
                                   formik.errors[field.name] ? (
@@ -553,8 +555,8 @@ const DynamicForm = ({
                                 />
                                 <i
                                   className={`fa-solid ${passwordVisible[field.name]
-                                    ? "fa-eye-slash"
-                                    : "fa-eye"
+                                    ? "ri-eye-off-line password-eye"
+                                    : "ri-eye-line password-eye"
                                     }`}
                                   style={{
                                     position: "absolute",
@@ -623,8 +625,8 @@ const DynamicForm = ({
                             <div className="row d-flex">
                               <div className="col-lg-12 ">
                                 <div className="form-check custom-checkbox input-block p-0">
-                                  <label className="col-lg-6 " htmlFor={field.name}>
-                                    {field.name}
+                                  <label className="col-lg-6 " htmlFor={field.label}>
+                                    {field.label}
                                   </label>
                                   <input
                                     type={field.type}
@@ -648,31 +650,31 @@ const DynamicForm = ({
                         <>
                           <div className={`col-lg-${field.col_size}`}>
                             <div className="row d-flex">
-                              <div className={`col-lg-${field.col_size}  `}>
-                                <div className="mb-3 input-block">
-                                  <label
-                                    className={`col-lg-${field.label_size}`}
-                                    htmlFor={field.name}
-                                  >
-                                    {field.label}
-                                  </label>
-                                  <textarea
-                                    className="form-control"
-                                    rows={field.row_size}
-                                    id={field.name}
-                                    name={field.name}
-                                    {...formik.getFieldProps(field.name)}
-                                    placeholder={field.label}
-                                  ></textarea>
-                                  {formik.errors[field.name] && (
-                                    <div style={{ color: "red" }}>
-                                      {formik.errors[field.name]}
-                                    </div>
-                                  )}
-                                </div>
+
+                              <div className="mb-3 input-block">
+                                <label
+                                  className={`col-lg-${field.label_size}`}
+                                  htmlFor={field.name}
+                                >
+                                  {field.label}
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  rows={field.row_size}
+                                  id={field.name}
+                                  name={field.name}
+                                  {...formik.getFieldProps(field.name)}
+                                  placeholder={field.label}
+                                ></textarea>
+                                {formik.touched[field.name] && formik.errors[field.name] && (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors[field.name]}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
+
                         </>
                       ) : field.type === "number" ? (
                         <>
@@ -831,6 +833,29 @@ const DynamicForm = ({
                                     }}
                                   />
 
+                                  {formik.touched[field.name] &&
+                                    formik.errors[field.name] ? (
+                                    <div style={{ color: "red" }}>
+                                      {formik.errors[field.name]}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : field.type === "textType" ? (
+                        <>
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="row d-flex">
+                              <div className="col-lg-12 ">
+                                <div className="form-group input-block mt-3">
+                                  <h5 htmlFor={field.name}>
+                                    {field.label}
+                                  </h5>
+                                  {/* <h2 htmlFor={field.name}>
+                                    {field.name}
+                                  </h2> */}
                                   {formik.touched[field.name] &&
                                     formik.errors[field.name] ? (
                                     <div style={{ color: "red" }}>

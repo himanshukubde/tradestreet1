@@ -238,7 +238,7 @@ const Login = () => {
                                     <a href="pages-recoverpw.html" className="float-end">
                                         Forgot password?
                                     </a>
-                                </div>
+                                </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                 <div className='position-relative'>
                                     <input
                                         type={changeType}

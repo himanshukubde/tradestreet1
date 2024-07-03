@@ -8,7 +8,7 @@ import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
 
-
+import Swal from 'sweetalert2';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -109,9 +109,6 @@ const Tradehistory = () => {
 
     const GetTradeHistory = async () => {
         const data = { Data: selectStrategyType, Username: selectGroup }
-
-
-
 
         //GET TRADEHISTORY
         await get_User_Data(data)
@@ -1062,6 +1059,12 @@ const Tradehistory = () => {
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setAllTradeData({
                         loading: false,
                         data: [],
@@ -1437,7 +1440,7 @@ const Tradehistory = () => {
                                                                 className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
                                                                 role="tablist"
                                                             >
-                                                                <li className="col-md-4 p-0">
+                                                                <li className="col-md-6 p-0">
                                                                     <a
                                                                         className="nav-link active"
                                                                         data-bs-toggle="pill"
@@ -1448,7 +1451,7 @@ const Tradehistory = () => {
                                                                         Consistent Profit-Making
                                                                     </a>
                                                                 </li>
-                                                                <li className="col-md-4 p-0">
+                                                                <li className="col-md-6 p-0">
                                                                     <a
                                                                         className="nav-link"
                                                                         data-bs-toggle="pill"
