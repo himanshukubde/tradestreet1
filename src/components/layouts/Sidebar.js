@@ -131,16 +131,16 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
                                      
+                                    <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
+                                        <Link to="/admin/userlogs" className="iq-waves-effect">
+                                            <i className="la la-envelope-open" />
+                                            <span>User Panel Log</span>
+                                        </Link>
+                                    </li>
                                     <li className={activeItem === 'servicereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'servicereport')}>
                                         <Link to="/admin/servicerepor" className="iq-waves-effect">
                                             <i className="la la-cog" />
                                             <span>Service Report</span>
-                                        </Link>
-                                    </li>
-                                    <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
-                                        <Link to="/admin/userlogs" className="iq-waves-effect">
-                                            <i className="la la-envelope-open" />
-                                            <span>User Logs</span>
                                         </Link>
                                     </li>
                                      

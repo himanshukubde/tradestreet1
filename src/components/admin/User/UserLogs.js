@@ -104,7 +104,7 @@ const Pannel = () => {
         },
         {
             name: "TType",
-            label: "TType",
+            label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
@@ -112,7 +112,7 @@ const Pannel = () => {
         },
         {
             name: "TStype",
-            label: "TStype",
+            label: "Measurement Type",
             options: {
                 filter: true,
                 sort: true,
@@ -120,7 +120,7 @@ const Pannel = () => {
         },
         {
             name: "Booking Point",
-            label: "Booking Point",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -128,7 +128,7 @@ const Pannel = () => {
         },
         {
             name: "Re-entry Point",
-            label: "Re-entry Point",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
@@ -143,26 +143,8 @@ const Pannel = () => {
             }
         },
         {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const isChecked = Boolean(value);
-                    return (
-                        <Checkbox
-                            checked={isChecked}
-                             
-                        />
-
-                    );
-                }
-            }
-        },
-        {
             name: "ExpiryDate",
-            label: "ExpiryDate",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
@@ -170,15 +152,7 @@ const Pannel = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "HigherRange",
-            label: "HigherRange",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
@@ -186,7 +160,15 @@ const Pannel = () => {
         },
         {
             name: "LowerRange",
-            label: "LowerRange",
+            label: "Lower Range",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "HigherRange",
+            label: "Higher Range",
             options: {
                 filter: true,
                 sort: true,
@@ -378,7 +360,7 @@ const Pannel = () => {
         },
         {
             name: "TradeCount",
-            label: "TradeCount",
+            label: "Trade Count",
             options: {
                 filter: true,
                 sort: true,
@@ -1051,21 +1033,21 @@ const Pannel = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Panel Track</h4>
+                                <h4 className="card-title">User Panel Logs</h4>
                             </div>
                         </div>
                         <div className="iq-card-body">
                             <div>
                                 <div className='row'>
                                     <div className="form-group col-lg-3">
-                                        <label>User Name</label>
+                                        <label>Username</label>
                                         <select
                                             className="form-select my-2"
                                             required
                                             onChange={(e) => setUserName(e.target.value)}
                                             value={userName}
                                         >
-                                            <option value="">select userName</option>
+                                            <option value="">Select Username</option>
                                             {clientService.data && clientService.data.map((item, index) => (
                                                 <option key={index} value={item.Username}>
                                                     {item.Username}
@@ -1074,7 +1056,7 @@ const Pannel = () => {
                                         </select>
                                     </div>
                                     <div className="form-group col-lg-3">
-                                        <label>Stragey</label>
+                                        <label>Strategy</label>
 
                                         <select className="form-select my-2" required=""
                                             onChange={(e) => setScript(e.target.value)}
@@ -1087,11 +1069,11 @@ const Pannel = () => {
 
                                     </div>
                                     <div className="form-group col-md-4">
-                                        <label htmlFor="email">Activity</label>
+                                        <label htmlFor="email">Task Status</label>
                                         <select className="form-select my-2" required=""
                                             onChange={(e) => setActivity(e.target.value)}
                                             value={getActivity}>
-                                            <option value="">Select Activity</option>
+                                            <option value="">Select Task Status</option>
 
                                             {gettaskStatus && gettaskStatus.map((item) => {
                                                 return <option value={item}>{item}</option>
