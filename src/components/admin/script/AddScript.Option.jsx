@@ -99,7 +99,7 @@ const AddClient = () => {
             if (!values.Striketype) {
                 errors.Striketype = "Select Striketype type"
             }
-             
+
             return errors;
         },
         onSubmit: async (values) => {
@@ -143,7 +143,7 @@ const AddClient = () => {
                 CEDeepHigher: values.CEDeepHigher,
                 PEDeepLower: values.PEDeepLower,
                 PEDeepHigher: values.PEDeepHigher,
-                
+
             }
             // console.log(req)
             // return 
@@ -215,7 +215,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 2,
             disable: false,
         },
         {
@@ -243,7 +243,7 @@ const AddClient = () => {
 
             ,
             label_size: 12,
-            col_size: 3,
+            col_size: 2,
             disable: false,
             hiding: false,
         },
@@ -276,6 +276,74 @@ const AddClient = () => {
             disable: false,
         },
         {
+            name: "Striketype",
+            label: "Strike Type",
+            type: "select",
+            options: [
+                { label: "Depth of Strike", value: "Depth_of_Strike" },
+                { label: "Straddle Width", value: "Straddle_Width" },
+                { label: "Premium Range", value: "Premium_Range" },
+                { label: "Per ATM", value: "Per_ATM" },
+            ],
+            showWhen: (value) => value.Strategy != "ShortStraddle" && value.Strategy != "LongStraddle" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'ShortStraddle' && value.Strategy != 'LongStraddle',
+
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "DepthofStrike",
+            label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "Per ATM" : "Depth of Strike",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+
+        {
+            name: "Lower_Range",
+            label: "Lower Range",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Higher_Range",
+            label: "Higher Range",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "DeepStrike",
+            label: "Deep Strike",
+            type: "number",
+            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor",
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Shifting_Value",
+            label: "Shifting Value",
+            type: "number",
+            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
             name: "ETPattern",
             label: "Risk Handle",
             type: "select",
@@ -297,7 +365,7 @@ const AddClient = () => {
             type: "cp",
             hiding: false,
             label_size: 12,
-            showWhen: (value) =>(value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            showWhen: (value) => (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
             col_size: 4,
             disable: false,
         },
@@ -305,11 +373,14 @@ const AddClient = () => {
             name: "TStype",
             label: "Measurment Type",
             type: "select",
-            options: [
-                { label: "Percentage", value: "Percentage" },
-                { label: "Point", value: "Point" },
-
-            ],
+            options: formik.values.ETPattern == "Premium Addition" ?
+                [
+                    { label: "Point", value: "Point" },
+                ] :
+                [
+                    { label: "Percentage", value: "Percentage" },
+                    { label: "Point", value: "Point" },
+                ],
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -355,19 +426,10 @@ const AddClient = () => {
             type: "number",
             hiding: false,
             label_size: 12,
-            col_size: 12,
+            col_size: 4,
             disable: false,
         },
-        // {
-        //     name: "TStype",
-        //     label: "Measurment Type",
-        //     type: "cp",
-        //     hiding: false,
-        //     label_size: 12,
-        //     showWhen: (value) =>value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
-        //     col_size: 6,
-        //     disable: false,
-        // },
+
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -504,74 +566,7 @@ const AddClient = () => {
             disable: false,
         },
 
-        {
-            name: "Striketype",
-            label: "Strike Type",
-            type: "select",
-            options: [
-                { label: "Depth of Strike", value: "Depth_of_Strike" },
-                { label: "Straddle Width", value: "Straddle_Width" },
-                { label: "Premium Range", value: "Premium_Range" },
-                { label: "Per ATM", value: "Per_ATM" },
-            ],
-            showWhen: (value) => value.Strategy != "ShortStraddle" && value.Strategy != "LongStraddle" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'ShortStraddle' && value.Strategy != 'LongStraddle',
 
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "DepthofStrike",
-            label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "Per ATM" : "Depth of Strike",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        
-        {
-            name: "Lower_Range",
-            label: "Lower Range",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Higher_Range",
-            label: "Higher Range",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "DeepStrike",
-            label: "Deep Strike",
-            type: "number",
-            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" ||  value.Strategy == "ShortIronCondor",
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Shifting_Value",
-            label: "Shifting Value",
-            type: "number",
-            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 12,
-            disable: false,
-        },
     ];
 
 
@@ -624,7 +619,7 @@ const AddClient = () => {
         // }
 
 
-    }, [formik.values.Strategy , formik.values.Striketype])
+    }, [formik.values.Strategy, formik.values.Striketype])
 
 
 

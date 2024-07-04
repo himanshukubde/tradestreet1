@@ -312,7 +312,7 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                  <option value="">{`Select ${field.name}`}</option>
+                                  <option value="">{`Select ${field.label}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option
@@ -357,7 +357,7 @@ const DynamicForm = ({
                                   id={field.name}
                                   {...formik.getFieldProps(field.name)}
                                 >
-                                  <option value="">{`${field.label}`}</option>
+                                  <option value="">{`Select ${field.label}`}</option>
                                   {field.options.map((option, index) => (
 
                                     <option

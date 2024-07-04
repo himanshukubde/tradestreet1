@@ -139,7 +139,7 @@ const Strategygroup = () => {
             const data = {
                 GroupName: values.GroupName,
                 FundReuirement: values.FundReuirement,
-                Risk: values.Risk,
+                Risk: values.Risk.toString(),
                 TimeOrigin: values.TimeOrigin,
                 ProductType: values.ProductType,
                 Message: values.Message

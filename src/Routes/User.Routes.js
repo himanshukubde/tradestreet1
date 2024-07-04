@@ -22,6 +22,7 @@ import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
 import AddNewScalpingScript from '../components/user/userscript/AddNewScript.Scalping'
 import AddNewScalpingOption from '../components/user/userscript/AddNewScript.Option'
 import AddNewScalpingPattern from '../components/user/userscript/AddNewScript.Pattern'
+import Brokercredential from '../components/user/pattern/Technical'
 
 
 const UserRoute = () => {
@@ -52,6 +53,8 @@ const UserRoute = () => {
             <Route path="/newscript/scalping" element={<AddNewScalpingScript />} />
             <Route path="/newscript/option" element={<AddNewScalpingOption />} />
             <Route path="/newscript/pattern" element={<AddNewScalpingPattern />} />
+            <Route path="/brokercredential" element={<Brokercredential />} />
+
 
           </Routes>
           <Footer />

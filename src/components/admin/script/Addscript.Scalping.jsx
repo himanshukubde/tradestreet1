@@ -135,14 +135,9 @@ const AddClient = () => {
         errors.Group = "Select Unique ID"
       }
       if (!values.HoldExit && values.set_Range == "Yes") {
-        errors.EntryRange = "Enter High Price"
+        errors.HoldExit = "Select Hold or Exit"
       }
-      if (!values.HoldExit && values.set_Range == "Yes") {
-        errors.EntryRange = "Enter High Price"
-      }
-      if (!values.HoldExit && values.set_Range == "Yes") {
-        errors.EntryRange = "Enter High Price"
-      }
+
       if (!values.Slvalue) {
         errors.Slvalue = "Select Stop Loss"
       }
@@ -190,33 +185,75 @@ const AddClient = () => {
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
       }
-      await AddAdminScript(req)
-        .then((response) => {
-          if (response.Status) {
-            Swal.fire({
-              title: "Script Added !",
-              text: response.massage,
-              icon: "success",
-              timer: 1500,
-              timerProgressBar: true
-            });
-            setTimeout(() => {
-              navigate('/admin/allscript')
-            }, 1500)
-          }
-          else {
-            Swal.fire({
-              title: "Error !",
-              text: response.massage,
-              icon: "error",
-              timer: 1500,
-              timerProgressBar: true
-            });
-          }
-        })
-        .catch((err) => {
-          console.log("Error in added new Script", err)
-        })
+      if (values.Set_First_Trade_Range == "Yes" && (values.EntryPrice >= values.EntryRange || values.EntryRange == 0 || values.EntryPrice == 0)) {
+        Swal.fire({
+          title: "Error",
+          text: "First Trade Higher Price should be greater than First Trade Lower Price",
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+
+      }
+      else if (values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
+        Swal.fire({
+          title: "Error",
+          text: "Higher Price should be greater than Lower Price",
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+
+      }
+      else if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (values.Targetvalue <= values.HigherRange || values.Slvalue >= values.LowerRange)) {
+        Swal.fire({
+          title: "Error",
+          text: values.Targetvalue <= values.HigherRange ? "Target should be Greater than Higher Range " : "Stoploss should be Smaller than Lower Range",
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+      }
+      else if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (values.Targetvalue >= values.LowerRange || values.Slvalue <= values.HigherRange)) {
+        Swal.fire({
+          title: "Error",
+          text: values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range",
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+      }
+
+
+      else {
+        await AddAdminScript(req)
+          .then((response) => {
+            if (response.Status) {
+              Swal.fire({
+                title: "Script Added !",
+                text: response.massage,
+                icon: "success",
+                timer: 1500,
+                timerProgressBar: true
+              });
+              setTimeout(() => {
+                navigate('/admin/allscript')
+              }, 1500)
+            }
+            else {
+              Swal.fire({
+                title: "Error !",
+                text: response.massage,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+              });
+            }
+          })
+          .catch((err) => {
+            console.log("Error in added new Script", err)
+          })
+      }
 
     },
   });
@@ -224,6 +261,13 @@ const AddClient = () => {
   useEffect(() => {
     formik.setFieldValue('Strategy', "Multi Directional")
     formik.setFieldValue('Exchange', "NFO")
+    formik.setFieldValue("TType", "BUY")
+    formik.setFieldValue("ExitDay", "Intraday")
+    formik.setFieldValue("EntryPrice", 1)
+    formik.setFieldValue("EntryRange", 1)
+    formik.setFieldValue("Instrument", "FUTIDX")
+
+
   }, [])
 
 
@@ -253,7 +297,7 @@ const AddClient = () => {
         label: item,
         value: item,
       })),
-     
+
 
       hiding: false,
       label_size: 12,
@@ -266,9 +310,9 @@ const AddClient = () => {
       type: "select",
       options: formik.values.Exchange == "NFO" ?
         [
-          { label: "OPTIDX", value: "OPTIDX" },
           { label: "FUTIDX", value: "FUTIDX" },
           { label: "FUTSTK", value: "FUTSTK" },
+          { label: "OPTIDX", value: "OPTIDX" },
           { label: "OPTSTK", value: "OPTSTK" },
         ]
         : formik.values.Exchange == "MCX" ?
@@ -279,8 +323,8 @@ const AddClient = () => {
           ]
           : formik.values.Exchange == "CDS" ?
             [
-              { label: "FUTCUR", value: "FUTCUR" },
               { label: "OPTCUR", value: "OPTCUR" },
+              { label: "FUTCUR", value: "FUTCUR" },
             ]
             :
             [],
@@ -335,7 +379,7 @@ const AddClient = () => {
     {
       name: "expirydata1",
       label: "Expiry Date",
-      type: "select",
+      type: "select1",
       options: getExpiryDate && getExpiryDate.data.map((item) => ({
         label: item,
         value: item
@@ -349,7 +393,7 @@ const AddClient = () => {
     {
       name: "TType",
       label: "Transaction Type",
-      type: "select",
+      type: "select1",
       options: [
         { label: "BUY", value: "BUY" },
         { label: "SELL", value: "SELL" },
@@ -697,7 +741,7 @@ const AddClient = () => {
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
-        page_title="Add Script scalping"
+        page_title="Add Script Scalping"
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}
