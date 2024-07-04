@@ -45,8 +45,6 @@ const AddClient = () => {
     const [refresh, setRefresh] = useState(false)
 
 
-  console.log(location.state.data)
-
  
 
     const formik = useFormik({

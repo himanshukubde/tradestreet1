@@ -1007,6 +1007,7 @@ const Pannel = () => {
             setUserName(clientService.data[0].Username)
         }
 
+
         setScript('Scalping')
 
         if (gettaskStatus && gettaskStatus.length > 0) {

@@ -12,7 +12,7 @@ const Profile = () => {
         }
         await Get_Profile_Data(data).then((response) => {
             if (response.Profile) {
-                console.log(response.Profile[0])
+      
                 setData(response.Profile[0])
             }
         })

@@ -36,9 +36,6 @@ const AddClient = () => {
 
 
 
-  console.log(location.state.data.selectStrategyType)
-
-
   const formik = useFormik({
 
     initialValues: {

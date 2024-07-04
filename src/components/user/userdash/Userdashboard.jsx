@@ -54,7 +54,7 @@ const Userdashboard = () => {
         await OpenPosition(data)
             .then((response) => {
                 if (response.Status) {
-                    console.log(response)
+  
                     setPositionData({
                         loading: false,
                         Scalping: response.Scalping,
@@ -528,7 +528,6 @@ const Userdashboard = () => {
                             <div className="tab-content">
                                 {activeTab1 === 'OpenPosition' && (
                                     <>
-                                        {console.log(getPositionData)}
                                         <div className='mt-4'>
                                             <h4>Scalping</h4>
                                             <FullDataTable
