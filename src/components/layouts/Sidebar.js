@@ -71,9 +71,9 @@ const Sidebar = () => {
     return (
         <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
-                <a href="index.html">
-                    <img src="/assets/images/logo.png" className="img-fluid" alt="Logo" />
-                    <span>Trade</span>
+                <a href="#">
+                    <img src="/assets/images/tradstreet.png" className="img-fluid" alt="Logo" />
+                    {/* <span>Trade</span> */}
                 </a>
                 <div className="iq-menu-bt-sidebar">
                     <div className="iq-menu-bt align-self-center">
@@ -105,7 +105,7 @@ const Sidebar = () => {
                                             <span>Dashboard</span>
                                         </Link>
                                     </li>
-                                     
+
                                     <li className={activeItem === 'strategygroup' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'strategygroup')}>
                                         <Link to="/admin/strategygroup" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
@@ -143,7 +143,7 @@ const Sidebar = () => {
                                             <span>Service Report</span>
                                         </Link>
                                     </li>
-                                     
+
                                     <li className={activeItem === 'tradehistory' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradehistory')}>
                                         <Link to="/admin/tradehistory" className="iq-waves-effect">
                                             <i className="las la-history"></i>
