@@ -5,6 +5,8 @@ import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader'
 import { Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const Addscript = () => {
     const navigate = useNavigate()    
@@ -94,7 +96,7 @@ const Addscript = () => {
         },
         {
             name: "ScalpType",
-            label: "ScalpType",
+            label: "Scalp Type",
             options: {
                 filter: true,
                 sort: true,
@@ -142,7 +144,7 @@ const Addscript = () => {
         },
         {
             name: "Booking Point",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -150,7 +152,7 @@ const Addscript = () => {
         },
         {
             name: "Re-entry Point",
-            label: "Re-entry Point",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
@@ -164,17 +166,27 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        // {
+        //     name: "Trading",
+        //     label: "Trading",
+        //     options: {
+        //         filter: true,
+        //         sort: true,
+        //         customBodyRender: (value, tableMeta, updateValue) => {
+        //             const isChecked = Boolean(value);
+        //             return (
+        //                 <Checkbox
+        //                     checked={isChecked}
+                            
+        //                 />
+    
+        //             );
+        //         }
+        //     }
+        // },
         {
             name: "ExpiryDate",
-            label: "ExpiryDate",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
@@ -182,7 +194,7 @@ const Addscript = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
@@ -190,7 +202,7 @@ const Addscript = () => {
         },
         {
             name: "LowerRange",
-            label: "LowerRange",
+            label: "Lower Range",
             options: {
                 filter: true,
                 sort: true,
@@ -198,7 +210,7 @@ const Addscript = () => {
         },
         {
             name: "HigherRange",
-            label: "HigherRange",
+            label: "Higher Range",
             options: {
                 filter: true,
                 sort: true,
@@ -206,7 +218,7 @@ const Addscript = () => {
         },
         {
             name: "HoldExit",
-            label: "HoldExit",
+            label: "Hold/Exit",
             options: {
                 filter: true,
                 sort: true,
@@ -214,15 +226,7 @@ const Addscript = () => {
         },
         {
             name: "ExitDay",
-            label: "ExitDay",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -230,20 +234,28 @@ const Addscript = () => {
         },
         {
             name: "EntryTime",
-            label: "EntryTime",
+            label: "Entry  Time",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "Expirytype",
-            label: "Expirytype",
+            name: "ExitTime",
+            label: "Exit  Time",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+        // {
+        //     name: "Expirytype",
+        //     label: "Expiry Type",
+        //     options: {
+        //         filter: true,
+        //         sort: true,
+        //     }
+        // },
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -252,14 +264,14 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        // {
+        //     name: "Lotsize",
+        //     label: "Lot Size",
+        //     options: {
+        //         filter: true,
+        //         sort: true,
+        //     }
+        // },
 
 
 

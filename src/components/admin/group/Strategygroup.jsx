@@ -36,7 +36,7 @@ const Strategygroup = () => {
         },
         {
             name: "Fund_Requierment",
-            label: "Fund Requierment",
+            label: "Fund Requirement",
             options: {
                 filter: true,
                 sort: true,
@@ -197,15 +197,15 @@ const Strategygroup = () => {
         },
         {
             name: 'FundReuirement',
-            label: 'Fund Reuirement',
-            type: 'text',
+            label: 'Fund Requirement',
+            type: 'text3',
             label_size: 12,
             col_size: 6,
         },
         {
             name: 'Risk',
-            label: 'Risk',
-            type: 'text',
+            label: 'Risk in %',
+            type: 'text4',
             label_size: 12,
             col_size: 6,
         },
@@ -224,7 +224,7 @@ const Strategygroup = () => {
         },
         {
             name: 'ProductType',
-            label: 'ProductType',
+            label: 'Product Type',
             type: 'select',
             options: [
                 { label: 'Intraday', value: 'Intraday' },
@@ -257,7 +257,7 @@ const Strategygroup = () => {
                                     className="btn btn-primary"
                                     onClick={() => setShowModal(true)}
                                 >
-                                    Add Group
+                                    Add New Group
                                 </button>
                             </div>
                         </div>
@@ -281,7 +281,7 @@ const Strategygroup = () => {
                         <div className="modal-content" style={{ width: '40rem' }}>
                             <div className="modal-header border-0 pb-0">
                                 <div className="form-header modal-header-title text-start mb-0">
-                                    <h4 className="mb-0">Add Group</h4>
+                                    <h4 className="mb-0">Add New Group</h4>
                                 </div>
                                 <button
                                     type="button"
@@ -296,7 +296,7 @@ const Strategygroup = () => {
                                 fields={fields.filter(
                                     field => !field.showWhen || field.showWhen(formik.values)
                                 )}
-                                btn_name='Update'
+                                btn_name='Add Group'
                                 formik={formik}
                                 btn_name1_route='/admin/clientservice'
                             />

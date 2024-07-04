@@ -384,7 +384,7 @@ const AddClient = () => {
     },
     {
       name: "EntryPrice",
-      label: "Lowest Price",
+      label: "First Trade Lower Price",
       type: "text5",
       showWhen: (values) => values.Set_First_Trade_Range == "Yes",
       col_size: 6,
@@ -393,7 +393,7 @@ const AddClient = () => {
     },
     {
       name: "EntryRange",
-      label: "Highest Price",
+      label: "First Trade Higher Price",
       type: "text5",
       showWhen: (values) => values.Set_First_Trade_Range == "Yes",
       label_size: 12,

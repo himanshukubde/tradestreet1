@@ -53,16 +53,16 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
             };
 
             const response = await UpdateBrokerData(req);
-        
+
             if (response.Status) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Broker key updated successfully.',
                     icon: 'success',
                     confirmButtonText: 'OK',
-                    timer:"1000"
+                    timer: "1000"
                 }).then(() => {
-                    closeModal(false); 
+                    closeModal(false);
                 });
             } else {
                 Swal.fire({
@@ -70,7 +70,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                     text: 'Failed to update broker key.',
                     icon: 'error',
                     confirmButtonText: 'OK',
-                    timer:"1000"
+                    timer: "1000"
 
                 });
             }
@@ -122,18 +122,17 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "Password",
             type: 'text',
-            label: formik.values.BrokerName === "Angel" ? "User Password" : "PWD",
-            showWhen: values => formik.values.BrokerName === "Angel",
+            label: formik.values.BrokerName === "Angel" ? "User PIN" : "PWD",
+            showWhen: values => values.BrokerName === "Angel",
             disable: false,
             label_size: 12,
             col_size: 6,
         },
         {
             name: "mobileno",
-         
             type: "text",
-            label: formik.values.BrokerName === "Angel" ? "Mobile No." : "Mobile No.",
-            showWhen: values => formik.values.BrokerName === "Angel",
+            label: formik.values.BrokerName === "Aliceblue" ? "Mobile No." : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "Aliceblue",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -142,7 +141,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
             name: "APIPassword",
             type: "text",
             label: formik.values.BrokerName === "Angel" ? "API Password" : "API Password",
-            showWhen: values => formik.values.BrokerName === "Angel",
+            showWhen: (values) => values.BrokerName === "Aliceblue",
+
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -150,8 +150,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "DOB",
             type: "text",
-            label: formik.values.BrokerName === "Angel" ? "DOB" : "DOB",
-            showWhen: values => formik.values.BrokerName === "Angel",
+            label: formik.values.BrokerName == "Angel" ? "Auth Key" : "DOB",
+            showWhen: (values) => values.BrokerName === "Angel",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -177,7 +177,10 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                                 />
                             </div>
                             <Formikform
-                                fields={fields}
+                                fields={fields.filter(
+                                    (field) => !field.showWhen || field.showWhen(formik.values)
+                                )}
+                               
                                 btn_name="Update"
                                 formik={formik}
                             />
