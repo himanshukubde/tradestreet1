@@ -17,7 +17,7 @@ const AddClient = () => {
   })
 
 
-  console.log(getAllExchange)
+
   const [getStricke, setStricke] = useState({
     loading: true,
     data: []

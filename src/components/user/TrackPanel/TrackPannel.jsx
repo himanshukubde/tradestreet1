@@ -117,7 +117,7 @@ const Pannel = () => {
             From_date: fromDate == '' ? formattedDate : convertDateFormat(fromDate),
             To_date: ToDate == '' ? Defult_To_Date : convertDateFormat(ToDate)
         }
-        console.log(data)
+  
 
         await Get_Panle_Logs(data)
             .then((response) => {

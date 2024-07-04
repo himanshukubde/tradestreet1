@@ -36,8 +36,6 @@ const AddClient = () => {
 
 
 
-  console.log(location.state.data)
-
 
   const formik = useFormik({
 

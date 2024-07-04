@@ -139,5 +139,25 @@ export const OpenPosition = async (data) => {
 }
 
 
+export const GetBrokerData = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Brokername/${data.userName}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
  
+export const UpdateBrokerData = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Broker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 

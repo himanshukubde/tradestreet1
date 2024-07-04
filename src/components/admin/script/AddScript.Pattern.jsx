@@ -198,7 +198,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
             }
-            console.log("CPP :", req)
+        
 
             await AddAdminScript(req)
                 .then((response) => {
