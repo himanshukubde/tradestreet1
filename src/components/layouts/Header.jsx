@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UpdateBrokerKey from "./Update_Broker_Key";
+import { TradingStatus, ConnectBroker } from "../Common API/User";
+import Swal from 'sweetalert2';
+
 
 const Header = () => {
     const navigate = useNavigate();
@@ -12,6 +15,67 @@ const Header = () => {
     const [activeElement, setActiveElement] = useState(null);
     const [getModal, setModal] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [getTradingStatus, setTradingStatus] = useState(false);
+
+    const handleToggle = async (event) => {
+        const newStatus = event.target.checked;
+
+        const requestData = {
+            Username: Username,
+            session: "",
+            AccToken: "",
+            usrid: "",
+            sid: "",
+            jwt_Token: ""
+        };
+
+        try {
+            const response = await ConnectBroker(requestData);
+
+            if (response.Status) {
+                setTradingStatus(newStatus);
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Trading On successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 1000
+                }).then(() => {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                });
+            } else {
+                setTradingStatus(!newStatus);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Trading Off successfully.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 1000
+                }).then(() => {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                });
+            }
+        } catch (error) {
+            setTradingStatus(!newStatus);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong!',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                timer: 1000
+            }).then(() => {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            });
+        }
+    };
+
+
 
     const handleOpenModal = () => {
         setIsModalVisible(true);
@@ -108,6 +172,21 @@ const Header = () => {
         }
     }, [isActive]);
 
+    const fetchData = async () => {
+        const requestData = { userName: Username };
+        const response = await TradingStatus(requestData);
+
+        if (response.Status) {
+            setTradingStatus(true)
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+
     return (
         <>
             <div className={`iq-top-navbar ${isFixed ? 'fixed-header' : ''}`}>
@@ -199,9 +278,10 @@ const Header = () => {
                                                     type="checkbox"
                                                     role="switch"
                                                     id="rtl-switch"
+                                                    checked={getTradingStatus}
+                                                    onChange={handleToggle}
                                                 />
-                                                <span className="rtl-toggle-tooltip ltr-tooltip">on</span>
-                                                <span className="rtl-toggle-tooltip rtl-tooltip">off</span>
+                                                <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
                                             </span>
                                         </a>
                                     </li>
@@ -485,9 +565,10 @@ const Header = () => {
                                                     type="checkbox"
                                                     role="switch"
                                                     id="rtl-switch"
+                                                    checked={getTradingStatus}
+                                                    onChange={handleToggle}
                                                 />
-                                                <span className="rtl-toggle-tooltip ltr-tooltip">on</span>
-                                                <span className="rtl-toggle-tooltip rtl-tooltip">off</span>
+                                                <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
                                             </span>
                                         </a>
                                     </li>

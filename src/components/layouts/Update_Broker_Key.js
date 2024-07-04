@@ -103,27 +103,27 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         },
         {
             name: "username",
-            label: formik.values.BrokerName === "Angel" ? "Username " : "Username",
+            label: formik.values.BrokerName === "Angel" ? "Username " : formik.values.BrokerName === "Aliceblue" ? "Username " : "Username",
+            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue",
             type: 'text',
             label_size: 12,
             col_size: 6,
             disable: false,
-            showWhen: values => formik.values.BrokerName === "Angel",
         },
         {
             name: "api_key",
-            label: formik.values.BrokerName === "Angel" ? "App Api Key " : "Api Key",
+            label: formik.values.BrokerName === "Angel" ? "App Api Key" :formik.values.BrokerName === "Aliceblue" ? "App Api Key" : "Username",
+            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue",
             type: 'text',
             label_size: 12,
             col_size: 6,
             disable: false,
-            showWhen: values => formik.values.BrokerName === "Angel",
         },
         {
             name: "Password",
             type: 'text',
             label: formik.values.BrokerName === "Angel" ? "User PIN" : "PWD",
-            showWhen: values => values.BrokerName === "Angel",
+            showWhen: (values) => values.BrokerName === "Angel",
             disable: false,
             label_size: 12,
             col_size: 6,
@@ -132,7 +132,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
             name: "mobileno",
             type: "text",
             label: formik.values.BrokerName === "Aliceblue" ? "Mobile No." : "Mobile No.",
-            showWhen: (values) => values.BrokerName === "Aliceblue",
+            showWhen: (values) => values.BrokerName === "Zerodha",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -141,7 +141,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
             name: "APIPassword",
             type: "text",
             label: formik.values.BrokerName === "Angel" ? "API Password" : "API Password",
-            showWhen: (values) => values.BrokerName === "Aliceblue",
+            showWhen: (values) => values.BrokerName === "Zerodha",
 
             label_size: 12,
             col_size: 6,
@@ -180,7 +180,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                                 fields={fields.filter(
                                     (field) => !field.showWhen || field.showWhen(formik.values)
                                 )}
-                               
+
                                 btn_name="Update"
                                 formik={formik}
                             />

@@ -161,3 +161,22 @@ export const UpdateBrokerData = async (data) => {
 }
 
 
+export const TradingStatus = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}TradingStatus/${data.userName}`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const ConnectBroker = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ConnectBroker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
