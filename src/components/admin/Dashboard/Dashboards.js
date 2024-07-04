@@ -1056,7 +1056,7 @@ const Dashboards = () => {
                                         >
                                             <svg
                                                 id="SvgjsSvg20683"
-                                                width={649}
+                                                width={560}
                                                 height={340}
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 version="1.1"
