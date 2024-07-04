@@ -1324,7 +1324,8 @@ div#lottie-fullscreen svg path {
 }
 
 .iq-sidebar-logo img {
-  height: 45px;
+  height: 60px;
+  width: 160px;
 }
 
 .iq-top-navbar .iq-navbar-custom .iq-menu-bt-sidebar .iq-menu-bt {
@@ -5168,4 +5169,14 @@ a {
 
   padding: 8px !important;
 
+}
+
+body.sidebar-main .iq-sidebar {
+  width: 260px;
+  left: 0;
+  z-index: 999;
+background: linear-gradient(to right,
+      #3f414d 0%,
+      #3f414d 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#089bab', endColorstr='#0db5c8', GradientType=1);
 }
