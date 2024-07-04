@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
-import {AddBrokerCredential} from '../../Common API/Admin'
+import { AdminAddBrokerCredential } from '../../Common API/Admin'
 import Swal from 'sweetalert2'
 
 const Brokercredential = () => {
-    const [getData , setData] = useState({
-        data:[]
+    const [getData, setData] = useState({
+        data: []
     })
 
 
     const [borkerInfo, setBrokerInfo] = useState({
-        Username: '',
-        api_key: '',
-        Pwd: '',
-        APIPassword: '',
-        Userid :'',
-        DOB:'',
-        MOb:''
+        api_key: "",
+        Pwd: "",
+        Userid: "",
+        DOB: "",
+        
     })
 
     const handleChange = (e) => {
@@ -30,11 +28,11 @@ const Brokercredential = () => {
 
         try {
             const data = { borkerInfo }
-            await AddBrokerCredential(data.borkerInfo)
+            await AdminAddBrokerCredential(data.borkerInfo)
                 .then((response) => {
                     if (response.Status) {
                         setData({
-                            data:response.Data
+                            data: response.Data
                         })
                         Swal.fire({
                             title: "Updated successfully!",
@@ -86,18 +84,18 @@ const Brokercredential = () => {
                                             type="text"
                                             className="form-control my-2"
                                             id="Username"
-                                            placeholder='enter username'
+                                            placeholder='Enter Username'
                                             onChange={handleChange}
-                                            value={borkerInfo.Username}
+                                            value={borkerInfo.Userid}
                                         />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="user">Api key</label>
+                                        <label htmlFor="user">API key</label>
                                         <input
                                             type="text"
                                             className="form-control my-2"
                                             id="api_key"
-                                            placeholder='Enter Api Key'
+                                            placeholder='Enter API Key'
                                             onChange={handleChange}
                                             value={borkerInfo.api_key}
                                         />
@@ -112,8 +110,8 @@ const Brokercredential = () => {
                                             value={borkerInfo.Pwd}
                                         />
                                     </div>
-                                    
-                                    
+
+
                                     <div className="form-group col-md-6">
                                         <label htmlFor="api">Authorization Key</label>
                                         <input
@@ -122,7 +120,7 @@ const Brokercredential = () => {
                                             id="APIPassword"
                                             placeholder='Enter API Password'
                                             onChange={handleChange}
-                                            value={borkerInfo.APIPassword}
+                                            value={borkerInfo.DOB}
                                         />
                                     </div>
 
@@ -135,7 +133,7 @@ const Brokercredential = () => {
                                 >
                                     Submit
                                 </button>
-                                
+
 
                             </form>
                         </div>

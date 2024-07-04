@@ -166,24 +166,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        // {
-        //     name: "Trading",
-        //     label: "Trading",
-        //     options: {
-        //         filter: true,
-        //         sort: true,
-        //         customBodyRender: (value, tableMeta, updateValue) => {
-        //             const isChecked = Boolean(value);
-        //             return (
-        //                 <Checkbox
-        //                     checked={isChecked}
-                            
-        //                 />
-    
-        //             );
-        //         }
-        //     }
-        // },
+         
         {
             name: "ExpiryDate",
             label: "Expiry Date",
@@ -248,14 +231,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        // {
-        //     name: "Expirytype",
-        //     label: "Expiry Type",
-        //     options: {
-        //         filter: true,
-        //         sort: true,
-        //     }
-        // },
+        
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -264,17 +240,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        // {
-        //     name: "Lotsize",
-        //     label: "Lot Size",
-        //     options: {
-        //         filter: true,
-        //         sort: true,
-        //     }
-        // },
-
-
-
+        
     ];
 
 
@@ -304,7 +270,7 @@ const Addscript = () => {
         },
         {
             name: "STG",
-            label: "STG",
+            label: "Option Type",
             options: {
                 filter: true,
                 sort: true,
@@ -318,38 +284,17 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+       
+         
         {
             name: "Targettype",
-            label: "Targettype",
+            label: "Risk Handle",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "TimeFrame",
-            label: "Main Signal",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -360,7 +305,7 @@ const Addscript = () => {
         },
         {
             name: "Expirydate",
-            label: "Expirydate",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
@@ -382,17 +327,10 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "IName",
-            label: "IName",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
         {
             name: "Expirytype",
-            label: "Expirytype",
+            label: "Expiry Type",
             options: {
                 filter: true,
                 sort: true,
@@ -400,7 +338,7 @@ const Addscript = () => {
         },
         {
             name: "strategytype",
-            label: "strategytype",
+            label: "Measurement Type",
             options: {
                 filter: true,
                 sort: true,
@@ -408,7 +346,7 @@ const Addscript = () => {
         },
         {
             name: "Target value",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -416,7 +354,7 @@ const Addscript = () => {
         },
         {
             name: "SL value",
-            label: "SL value",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
@@ -424,7 +362,7 @@ const Addscript = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
@@ -440,7 +378,7 @@ const Addscript = () => {
         },
         {
             name: "Product Type",
-            label: "Product Type",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -463,136 +401,8 @@ const Addscript = () => {
             }
         },
         {
-            name: "DepthofStrike",
-            label: "DepthofStrike",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Spread",
-            label: "Spread",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "StrikeType",
-            label: "StrikeType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LowerRange",
-            label: "LowerRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "HigherRange",
-            label: "HigherRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthLower",
-            label: "CEDepthLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthHigher",
-            label: "CEDepthHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthLower",
-            label: "PEDepthLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthHigher",
-            label: "PEDepthHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepLower",
-            label: "CEDeepLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepHigher",
-            label: "CEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepLower",
-            label: "PEDeepLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepHigher",
-            label: "PEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "FixedSM",
-            label: "FixedSM",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TaskStatus",
-            label: "TaskStatus",
+            label: "Strike Type",
             options: {
                 filter: true,
                 sort: true,
@@ -606,8 +416,6 @@ const Addscript = () => {
                 sort: true,
             }
         },
-
-
     ];
 
 
@@ -636,13 +444,22 @@ const Addscript = () => {
             }
         },
         {
-            name: "Username",
-            label: "Username",
+            name: "TradePattern",
+            label: "Pattern Name",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+        {
+            name: "Pattern",
+            label: "Pattern Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        
         {
             name: "Exchange",
             label: "Exchange",
@@ -668,56 +485,17 @@ const Addscript = () => {
             }
         },
         {
-            name: "Expirydate",
-            label: "Expirydate",
+            name: "Expiry Date",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Instrument Name",
-            label: "Instrument Name",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expirytype",
-            label: "Expirytype",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradePattern",
-            label: "TradePattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TType",
-            label: "TType",
+            label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
@@ -733,15 +511,7 @@ const Addscript = () => {
         },
         {
             name: "TimeFrame",
-            label: "TimeFrame",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL value",
-            label: "SL value",
+            label: "Time Frame",
             options: {
                 filter: true,
                 sort: true,
@@ -749,15 +519,7 @@ const Addscript = () => {
         },
         {
             name: "Target value",
-            label: "Target value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target value",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -765,15 +527,18 @@ const Addscript = () => {
         },
         {
             name: "SL value",
-            label: "SL value",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+       
+         
+        
         {
             name: "TStype",
-            label: "TStype",
+            label: "Measurement Type",
             options: {
                 filter: true,
                 sort: true,
@@ -781,23 +546,16 @@ const Addscript = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "ExitDay",
-            label: "ExitDay",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -805,7 +563,7 @@ const Addscript = () => {
         },
         {
             name: "EntryTime",
-            label: "EntryTime",
+            label: "Entry Time",
             options: {
                 filter: true,
                 sort: true,
@@ -827,17 +585,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Action",
-            label: "Action",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
-                }
-            }
-        },
+        
 
     ];
 

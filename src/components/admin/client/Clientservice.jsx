@@ -279,13 +279,13 @@ const Clientservice = () => {
             },
         },
         { name: 'Username', label: 'Username', options: { filter: true, sort: true } },
-        { name: 'Mobile_No', label: 'Mobile_No', options: { filter: true, sort: true } },
-        { name: 'BrokerName', label: 'BrokerName', options: { filter: true, sort: true } },
-        { name: 'EmailId', label: 'EmailId', options: { filter: true, sort: true } },
+        { name: 'Mobile_No', label: 'Mobile Number', options: { filter: true, sort: true } },
+        { name: 'BrokerName', label: 'Broker Name', options: { filter: true, sort: true } },
+        { name: 'EmailId', label: 'Email ID', options: { filter: true, sort: true } },
         { name: 'Group', label: 'Group', options: { filter: true, sort: true } },
-        { name: 'ServiceStartDate', label: 'ServiceStartDate', options: { filter: true, sort: true } },
-        { name: 'CreateDate', label: 'CreateDate', options: { filter: true, sort: true } },
-        { name: 'ServiceEndDate', label: 'ServiceEndDate', options: { filter: true, sort: true } },
+        { name: 'CreateDate', label: 'Account Create Date', options: { filter: true, sort: true } },
+        { name: 'ServiceStartDate', label: 'Service Start Date', options: { filter: true, sort: true } },
+        { name: 'ServiceEndDate', label: 'Service End Date', options: { filter: true, sort: true } },
         { name: 'Total Service Count', label: 'Total Service Count', options: { filter: true, sort: true } },
     ];
 
@@ -313,7 +313,7 @@ const Clientservice = () => {
                                 <h4 className='card-title'>Client Service</h4>
                             </div>
                             <Link to='/admin/adduser' className='btn btn-primary rounded'>
-                                Add Client
+                                Add New Client
                             </Link>
                         </div>
                         <div className='iq-card-body'>

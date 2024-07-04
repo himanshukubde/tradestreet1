@@ -203,7 +203,7 @@ const Adduser = () => {
     const fields = [
         {
             name: "UserName",
-            label: "User Name",
+            label: "Username",
             type: "text",
             label_size: 12,
             hiding: false,
@@ -239,7 +239,7 @@ const Adduser = () => {
         },
         {
             name: "PhoneNo",
-            label: "Phone Number",
+            label: "Mobile Number",
             type: "text",
             label_size: 12,
             hiding: false,
@@ -250,7 +250,7 @@ const Adduser = () => {
 
             name: "Select_License",
             name: "Select_License",
-            label: "Select License",
+            label: "Select License Type",
             type: "select1",
             options: [
                 { label: "Demo", value: "1" },
@@ -265,7 +265,7 @@ const Adduser = () => {
         {
 
             name: "Select_License_Type",
-            label: "Select License Type",
+            label: "Select Days",
             type: "select1",
             options: formik.values.Select_License == '1' ? [
                 { label: "2 Days Demo", value: "11" },

@@ -70,6 +70,18 @@ export const AddBrokerCredential = async (data) => {
     }
 }
 
+
+ 
+export const AdminAddBrokerCredential = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}AdmBroker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 export const GetAllGroupService = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Groupstrategies`, data)
