@@ -21,7 +21,6 @@ const Userdashboard = () => {
         Option: [],
         Pattern: []
     })
-
     const getUserAllGroup = async () => {
         const data = { User: userName }
         await GetAllUserGroup(data)
@@ -76,7 +75,6 @@ const Userdashboard = () => {
                 console.log("Error in finding the open postion data", err)
             })
     }
-
     useEffect(() => {
         GetOpenPosition()
     }, [])
