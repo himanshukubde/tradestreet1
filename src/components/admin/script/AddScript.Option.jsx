@@ -15,6 +15,17 @@ const AddClient = () => {
     })
 
 
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+          title: "Error",
+          text: text,
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+    
+      }
+
     const formik = useFormik({
 
         initialValues: {
@@ -96,6 +107,15 @@ const AddClient = () => {
             if (!values.Expirytype) {
                 errors.Expirytype = "Select Expirytype type"
             }
+            if (!values.Lower_Range &&  values.Striketype =='Premium_Range') {
+                errors.Lower_Range = "Enter Lower Range"
+            }
+            
+
+            if (!values.Higher_Range && values.Striketype =='Premium_Range') {
+                errors.Higher_Range = "Enter Higher Range"
+            }
+            
             if (!values.Striketype) {
                 errors.Striketype = "Select Striketype type"
             }
@@ -145,36 +165,44 @@ const AddClient = () => {
                 PEDeepHigher: values.PEDeepHigher,
 
             }
-            // console.log(req)
-            // return 
-            await AddAdminScript(req)
-                .then((response) => {
-                    if (response.Status) {
-                        Swal.fire({
-                            title: "Script Added !",
-                            text: response.massage,
-                            icon: "success",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
-                        setTimeout(() => {
-                            navigate('/admin/allscript')
-                        }, 1500)
-                    }
-                    else {
-                        Swal.fire({
-                            title: "Error !",
-                            text: response.massage,
-                            icon: "error",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
+            if(values.Striketype=="Depth_of_Strike" && (values.DepthofStrike<0 || values.DepthofStrike>10)){
+                SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
+            }
+            else if(values.Striketype=="Premium_Range" && (values.Lower_Range >=values.Higher_Range) ){
 
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error in added new Script", err)
-                })
+                SweentAlertFun("Higher Range should be Greater than Lower Range")
+            }
+            else{
+
+                await AddAdminScript(req)
+                    .then((response) => {
+                        if (response.Status) {
+                            Swal.fire({
+                                title: "Script Added !",
+                                text: response.massage,
+                                icon: "success",
+                                timer: 1500,
+                                timerProgressBar: true
+                            });
+                            setTimeout(() => {
+                                navigate('/admin/allscript')
+                            }, 1500)
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Error !",
+                                text: response.massage,
+                                icon: "error",
+                                timer: 1500,
+                                timerProgressBar: true
+                            });
+    
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("Error in added new Script", err)
+                    })
+            }    
         },
     });
     useEffect(() => {
@@ -193,6 +221,12 @@ const AddClient = () => {
         formik.setFieldValue('DeepStrike', 1)
         formik.setFieldValue('Lower_Range', 0)
         formik.setFieldValue('Higher_Range', 0)
+        formik.setFieldValue('EntryTime', "09:15:00")
+        formik.setFieldValue('ExitTime', "15:25:00")
+        formik.setFieldValue('TStype', "Point")
+
+
+
     }, [])
 
     useEffect(() => {
@@ -295,7 +329,7 @@ const AddClient = () => {
         {
             name: "DepthofStrike",
             label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "Per ATM" : "Depth of Strike",
-            type: "number",
+            type: "text4",
             hiding: false,
             showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
             label_size: 12,
@@ -378,8 +412,8 @@ const AddClient = () => {
                     { label: "Point", value: "Point" },
                 ] :
                 [
-                    { label: "Percentage", value: "Percentage" },
                     { label: "Point", value: "Point" },
+                    { label: "Percentage", value: "Percentage" },
                 ],
             hiding: false,
             label_size: 12,

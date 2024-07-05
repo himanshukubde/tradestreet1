@@ -31,6 +31,18 @@ const AddClient = () => {
   const [refresh, setRefresh] = useState(false)
 
 
+
+
+  const SweentAlertFun = (text) => {
+    Swal.fire({
+      title: "Error",
+      text: text,
+      icon: "error",
+      timer: 1500,
+      timerProgressBar: true
+    });
+
+  }
   const formik = useFormik({
     initialValues: {
       MainStrategy: location.state.data.selectStrategyType,
@@ -186,42 +198,24 @@ const AddClient = () => {
         PEDeepHigher: 0.0,
       }
       if (values.Set_First_Trade_Range == "Yes" && (values.EntryPrice >= values.EntryRange || values.EntryRange == 0 || values.EntryPrice == 0)) {
-        Swal.fire({
-          title: "Error",
-          text: "First Trade Higher Price should be greater than First Trade Lower Price",
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
-        });
+
+        SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
       }
       else if (values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
-        Swal.fire({
-          title: "Error",
-          text: "Higher Price should be greater than Lower Price",
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
-        });
+        SweentAlertFun("Higher Price should be greater than Lower Price")
 
       }
       else if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (values.Targetvalue <= values.HigherRange || values.Slvalue >= values.LowerRange)) {
-        Swal.fire({
-          title: "Error",
-          text: values.Targetvalue <= values.HigherRange ? "Target should be Greater than Higher Range " : "Stoploss should be Smaller than Lower Range",
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
-        });
+
+        SweentAlertFun(values.Targetvalue <= values.HigherRange ? "Target should be Greater than Higher Range " : "Stoploss should be Smaller than Lower Range")
+
+
       }
       else if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (values.Targetvalue >= values.LowerRange || values.Slvalue <= values.HigherRange)) {
-        Swal.fire({
-          title: "Error",
-          text: values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range",
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
-        });
+
+        SweentAlertFun(values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
+
       }
 
 
