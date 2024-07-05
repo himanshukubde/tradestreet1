@@ -25,7 +25,6 @@ export const GetAdminDashboard = async (data) => {
 
 }
 
-
 export const Add_Group = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}AdminStrategiesGroup`, data)
@@ -59,7 +58,6 @@ export const GetClientService = async () => {
 
 }
 
-
 export const AddBrokerCredential = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Broker`, data)
@@ -69,8 +67,6 @@ export const AddBrokerCredential = async (data) => {
         return err
     }
 }
-
-
  
 export const AdminAddBrokerCredential = async (data) => {
     try {
@@ -199,7 +195,6 @@ export const get_User_Data = async (data) => {
     }
 }
 
-
 export const get_Trade_History = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Tradehistory`, data)
@@ -232,7 +227,6 @@ export const get_EQuityCurveData = async (data) => {
 
     }
 }
-
 
 export const get_DrapDownData = async (data) => {
     try {
@@ -270,7 +264,6 @@ export const get_FiveMostLossTrade = async (data) => {
     }
 }
 
-
 export const GetClientLogs = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Clientactivity`, data)
@@ -294,7 +287,6 @@ export const Get_Client_Report = async (data) => {
   
     }
 }
-
 
 export const Get_Broker_Name = async () => {
     try {
@@ -355,9 +347,7 @@ export const ServiceCount = async (data) => {
     catch (err) {
         return err
     }
-}
-
- 
+} 
 
 export const GetExchange = async () => {
     try {
@@ -369,7 +359,6 @@ export const GetExchange = async () => {
     }
 }
 
-
 export const GetAllTaskStatus = async () => {
     try {
         const res = await axios.get(`${Config.base_url}TaskStatus`)
@@ -380,11 +369,19 @@ export const GetAllTaskStatus = async () => {
     }
 }
 
-
-
 export const Get_All_Client_Logs = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}UserallScriptDetail`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const ExpriyEndDate = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}AddExpiry/${data.Username}`)
         return res?.data
     }
     catch (err) {

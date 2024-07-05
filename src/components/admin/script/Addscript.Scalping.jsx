@@ -90,71 +90,78 @@ const AddClient = () => {
 
     validate: (values) => {
       let errors = {};
+      const maxTime = "15:29:59";
+      const minTime = "09:15:00";
+
       if (!values.Strategy) {
-        errors.Strategy = "Select Strategy type"
+        errors.Strategy = "Please select a strategy type.";
       }
       if (!values.Exchange) {
-        errors.Exchange = "Select Exchange type"
+        errors.Exchange = "Please select an exchange type.";
       }
-      if (!values.Instrument && values.Exchange != 'NSE') {
-        errors.Instrument = "Select Instrument type"
+      if (!values.Instrument && values.Exchange !== 'NSE') {
+        errors.Instrument = "Please select an instrument type.";
       }
-
       if (!values.Symbol) {
-        errors.Symbol = "Select Symbol type"
+        errors.Symbol = "Please select a symbol type.";
       }
-      if (!values.Optiontype && (values.Instrument == "OPTSTK" || values.Instrument == "OPTIDX")) {
-        errors.Optiontype = "Select Optiontype type"
+      if (!values.Optiontype && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
+        errors.Optiontype = "Please select an option type.";
       }
-      if (!values.Strike && (values.Instrument == "OPTSTK" || values.Instrument == "OPTIDX")) {
-        errors.Strike = "Select Strike Price type"
+      if (!values.Strike && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
+        errors.Strike = "Please select a strike price.";
       }
-      if (!values.expirydata1 && values.Exchange != 'NSE') {
-        errors.expirydata1 = "Select Expiry Date"
+      if (!values.expirydata1 && values.Exchange !== 'NSE') {
+        errors.expirydata1 = "Please select an expiry date.";
       }
       if (!values.TType) {
-        errors.TType = "Select Transaction Type"
+        errors.TType = "Please select a transaction type.";
       }
       if (!values.Quantity) {
-        errors.Quantity = "Select Quantity type"
+        errors.Quantity = "Please enter the quantity.";
       }
-
       if (!values.ExitTime) {
-        errors.ExitTime = "Select ExitTime type"
+        errors.ExitTime = "Please select an exit time.";
+      } else if (values.ExitTime > maxTime) {
+        errors.ExitTime = "Exit time must be before 15:29:59.";
       }
       if (!values.EntryTime) {
-        errors.EntryTime = "Select EntryTime type"
+        errors.EntryTime = "Please select an entry time.";
+      } else if (values.EntryTime < minTime) {
+        errors.EntryTime = "Entry time must be after 09:15:00.";
       }
       if (!values.ExitDay) {
-        errors.ExitDay = "Select ExitDay type"
+        errors.ExitDay = "Please select an exit day.";
       }
-      if (!values.EntryPrice && values.Set_First_Trade_Range == "Yes") {
-        errors.EntryPrice = "Enter Lowest Price"
+      if (!values.EntryPrice && values.Set_First_Trade_Range === "Yes") {
+        errors.EntryPrice = "Please enter the lowest price.";
       }
-      if (!values.EntryRange && values.Set_First_Trade_Range == "Yes") {
-        errors.EntryRange = "Enter Highest Price"
+      if (!values.EntryRange && values.Set_First_Trade_Range === "Yes") {
+        errors.EntryRange = "Please enter the highest price.";
       }
       if (!values.Targetvalue) {
-        errors.Targetvalue = "Enter Target value"
+        errors.Targetvalue = "Please enter a target value.";
       }
-      if (!values.LowerRange && (values.set_Range == "Yes" || values.Strategy == "Fixed Price")) {
-        errors.LowerRange = "Enter Lower Price"
+      if (!values.LowerRange && (values.set_Range === "Yes" || values.Strategy === "Fixed Price")) {
+        errors.LowerRange = "Please enter the lower price.";
       }
-      if (!values.HigherRange && (values.set_Range == "Yes" || values.Strategy == "Fixed Price")) {
-        errors.HigherRange = "Enter Higher Price"
+      if (!values.HigherRange && (values.set_Range === "Yes" || values.Strategy === "Fixed Price")) {
+        errors.HigherRange = "Please enter the higher price.";
       }
-      if (!values.Group && values.Strategy == "Fixed Price") {
-        errors.Group = "Select Unique ID"
+      if (!values.Group && values.Strategy === "Fixed Price") {
+        errors.Group = "Please select a unique ID.";
       }
-      if (!values.HoldExit && values.set_Range == "Yes") {
-        errors.HoldExit = "Select Hold or Exit"
+      if (!values.HoldExit && values.set_Range === "Yes") {
+        errors.HoldExit = "Please select whether to hold or exit.";
+      }
+      if (!values.Slvalue) {
+        errors.Slvalue = "Please select a stop loss value.";
       }
 
-      if (!values.Slvalue) {
-        errors.Slvalue = "Select Stop Loss"
-      }
       return errors;
     },
+
+
     onSubmit: async (values) => {
       const req = {
         MainStrategy: location.state.data.selectStrategyType,
@@ -202,7 +209,7 @@ const AddClient = () => {
         SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
       }
-      else if (values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
+      else if (values.set_Range == "Yes" && values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
         SweentAlertFun("Higher Price should be greater than Lower Price")
 
       }
@@ -217,7 +224,6 @@ const AddClient = () => {
         SweentAlertFun(values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
 
       }
-
 
       else {
         await AddAdminScript(req)

@@ -34,19 +34,18 @@ const Addscript = () => {
             Strategy: selectStrategyType == 'Option Strategy' ? getAllService.data[index].STG : selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : getAllService.data[index].ScalpType,
             Symbol: selectStrategyType == 'Option Strategy' ? getAllService.data[index].MainSymbol : selectStrategyType == 'Pattern' ? getAllService.data[index].Symbol : getAllService.data[index].Symbol,
             ETPattern: selectStrategyType == 'Option Strategy' ? getAllService.data[index].Targettype : selectStrategyType == 'Pattern' ? getAllService.data[index].Pattern : "",
-            Timeframe: selectStrategyType == 'Pattern' ? getAllService.data[index]['Time frame'] : '',
-            TType: '',
+            Timeframe: selectStrategyType == 'Pattern' ? getAllService.data[index].TimeFrame : '',
+            TType: selectStrategyType == 'Pattern' ? getAllService.data[index].TType : "",
             Group: selectStrategyType == 'Pattern' ? '' : getAllService.data[index].GroupN,
             Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
         }
 
 
-
+        
         await DeleteScript(data)
             .then((response) => {
                 if (response.Status) {
                     setRefresh(!refresh)
-
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",

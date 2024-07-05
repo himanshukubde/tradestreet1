@@ -45,7 +45,7 @@ const AddClient = () => {
 
 
 
-console.log("Cpp", location.state.data.selectGroup)
+    console.log("Cpp", location.state.data.selectGroup)
 
     const formik = useFormik({
 
@@ -72,7 +72,7 @@ console.log("Cpp", location.state.data.selectGroup)
             EntryTime: "",
             ExitTime: "",
             ExitDay: "",
-            TradeExecution: "Paper Trade",
+
             FixedSM: "",
             TType: "",
             serendate: "2023-10-25",
@@ -96,6 +96,8 @@ console.log("Cpp", location.state.data.selectGroup)
 
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
             if (!values.Exchange) {
                 errors.Exchange = "Select Exchange type"
             }
@@ -114,7 +116,7 @@ console.log("Cpp", location.state.data.selectGroup)
             if (!values.expirydata1) {
                 errors.expirydata1 = "Enter expirydata Type"
             }
-            
+
             if (!values.Strategy) {
                 errors.Strategy = "Enter Strategy Type"
             }
@@ -146,11 +148,15 @@ console.log("Cpp", location.state.data.selectGroup)
             if (!values.ExitDay) {
                 errors.ExitDay = "Enter ExitDay Type"
             }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Enter EntryTime Type"
-            }
             if (!values.ExitTime) {
-                errors.ExitTime = "Enter ExitTime Type"
+                errors.ExitTime = "Please select an exit time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit time must be before 15:29:59.";
+            }
+            if (!values.EntryTime) {
+                errors.EntryTime = "Please select an entry time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry time must be after 09:15:00.";
             }
 
             return errors;
@@ -179,10 +185,10 @@ console.log("Cpp", location.state.data.selectGroup)
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                
+
                 FixedSM: "",
                 TType: values.TType,
-                serendate: "2023-10-25",
+
                 expirydata1: values.expirydata1,
                 Expirytype: "",
                 Striketype: "",
@@ -198,7 +204,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
             }
-        
+
 
             await AddAdminScript(req)
                 .then((response) => {
@@ -380,7 +386,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 label: item,
                 value: item
             })),
-          
+
             label_size: 12,
             hiding: false,
             col_size: 6,
