@@ -5116,3 +5116,6 @@ body.sidebar-main .iq-sidebar {
       #3f414d 100%) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#089bab', endColorstr='#0db5c8', GradientType=1);
 }
+.MuiTableCell-root{
+  text-align: center !important;
+}
