@@ -183,7 +183,6 @@ const LastPattern = () => {
                                 <div className="iq-header-title">
                                     <h4 className="card-title">Technical Pattern</h4>
                                 </div>
-
                             </div>
                             <div className="iq-card-body">
                                 <div className='row'>
@@ -210,7 +209,6 @@ const LastPattern = () => {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="table-responsive">
                                     {getLastPatternData.loading ? <Loader /> :
                                         <FullDataTable

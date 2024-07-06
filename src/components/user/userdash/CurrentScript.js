@@ -87,7 +87,7 @@ const Coptyscript = ({ data, selectedType }) => {
                 else {
                     Swal.fire({
                         title: "Error !",
-                        text: "error in script delete",
+                        text: "Error in script delete",
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -166,7 +166,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                 setRefresh(!refresh)
                                 Swal.fire({
                                     title: "Success",
-                                    text: "Script Discontinued",
+                                    text: response.massage,
                                     icon: "success",
                                     timer: 1500,
                                     timerProgressBar: true

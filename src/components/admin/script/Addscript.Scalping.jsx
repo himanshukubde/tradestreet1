@@ -16,8 +16,6 @@ const AddClient = () => {
     data: []
   })
 
-
-
   const [getStricke, setStricke] = useState({
     loading: true,
     data: []
@@ -26,13 +24,8 @@ const AddClient = () => {
     loading: true,
     data: []
   })
-
-
-  const [refresh, setRefresh] = useState(false)
-
-
-
-
+ 
+  
   const SweentAlertFun = (text) => {
     Swal.fire({
       title: "Error",
@@ -55,8 +48,8 @@ const AddClient = () => {
       Instrument: "",
       Strike: "",
       Optiontype: "",
-      Targetvalue: 0,
-      Slvalue: 0,
+      Targetvalue: 1,
+      Slvalue: 1,
       TStype: "Point",
       Quantity: 1,
       LowerRange: 1,
@@ -112,7 +105,7 @@ const AddClient = () => {
         errors.Strike = "Please select a strike price.";
       }
       if (!values.expirydata1 && values.Exchange !== 'NSE') {
-        errors.expirydata1 = "Please select an expiry date.";
+        errors.expirydata1 = "Select Expiry date.";
       }
       if (!values.TType) {
         errors.TType = "Please select a transaction type.";
@@ -265,13 +258,8 @@ const AddClient = () => {
     formik.setFieldValue("ExitDay", "Intraday")
     formik.setFieldValue("EntryPrice", 1)
     formik.setFieldValue("EntryRange", 1)
-    formik.setFieldValue("Instrument", "FUTIDX")
-
-
+    formik.setFieldValue("Instrument", "FUTIDX") 
   }, [])
-
-
-
 
   const fields = [
     {
@@ -580,8 +568,6 @@ const AddClient = () => {
     },
   ];
 
-
-
   const getSymbol = async () => {
     if (formik.values.Exchange) {
       const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
@@ -610,7 +596,7 @@ const AddClient = () => {
 
   useEffect(() => {
     getSymbol()
-  }, [formik.values.Instrument, formik.values.Exchange, refresh])
+  }, [formik.values.Instrument, formik.values.Exchange])
 
 
   const getStrikePrice = async () => {
@@ -638,8 +624,6 @@ const AddClient = () => {
     getStrikePrice()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
-
-
   const get_Exchange = async () => {
 
     await GetExchange()
@@ -659,9 +643,6 @@ const AddClient = () => {
   useEffect(() => {
     get_Exchange()
   }, [])
-
-
-
 
   const getExpiry = async () => {
     if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Exchange != 'NSE') {
@@ -699,12 +680,6 @@ const AddClient = () => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
-
-
-
-
-
-
   useEffect(() => {
 
     if (formik.values.set_Range == "No") {
@@ -732,8 +707,6 @@ const AddClient = () => {
     }
 
   }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
-
-
 
   return (
     <>

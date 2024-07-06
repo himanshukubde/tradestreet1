@@ -13,9 +13,9 @@ const AddClient = () => {
         loading: true,
         data: []
     })
+
     const [getAllExchange, setAllExchange] = useState([])
-
-
+    
     const [getStricke, setStricke] = useState({
         loading: true,
         data: []
@@ -73,7 +73,6 @@ const AddClient = () => {
             EntryTime: "",
             ExitTime: "",
             ExitDay: "",
-
             FixedSM: "",
             TType: "",
             serendate: "2023-10-25",
@@ -133,11 +132,11 @@ const AddClient = () => {
             if (!values.TStype) {
                 errors.TStype = "Please Enter TS Type.";
             }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Please Enter Stop Loss Value.";
+            if (!values.Slvalue || values.Slvalue==0) {
+                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : "Please Enter Stoploss Value.";
             }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Please Enter Target Value.";
+            if (!values.Targetvalue || values.Targetvalue==0) {
+                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" :"Please Enter Target Value.";
             }
             if (!values.TType) {
                 errors.TType = "Please Enter Transaction Type.";
@@ -454,7 +453,7 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "TStype",
+            name: " ",
             label: "Measurment Type",
             type: "select",
             options: [
@@ -471,7 +470,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target value",
-            type: "number",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -481,7 +480,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "Stop Loss",
-            type: "number",
+            type: "text3",
 
 
             label_size: 12,
@@ -506,22 +505,14 @@ const AddClient = () => {
         {
             name: "Quantity",
             label: "Quantity",
-            type: "number",
+            type: "text5",
 
             label_size: 12,
             hiding: false,
             col_size: 4,
             disable: false,
         },
-        // {
-        //     name: "Quantity",
-        //     label: "Quantity",
-        //     type: "cp",
-        //     label_size: 12,
-        //     hiding: false,
-        //     col_size: 3,
-        //     disable: false,
-        // },
+        
         {
             name: "ExitDay",
             label: "Exit Day",

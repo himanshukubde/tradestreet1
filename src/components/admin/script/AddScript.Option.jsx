@@ -121,7 +121,7 @@ const AddClient = () => {
             if (!values.Striketype) {
                 errors.Striketype = "Please select a strike type.";
             }
-            if (!values.Unique_ID) {
+            if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy" )) {
                 errors.Unique_ID = "Please select Unique ID.";
             }
             if (!values.PEDeepLower && values.PEDeepLower == 0) {
@@ -177,10 +177,14 @@ const AddClient = () => {
                 }
 
             }
+            console.log(errors)
+
+        
 
             return errors;
         },
 
+        // console.log("CPPPP")
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -260,6 +264,8 @@ const AddClient = () => {
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
             }
+
+            console.log("CPPPP")
             try {
                 const response = await AddAdminScript(req);
                 if (response.Status) {
