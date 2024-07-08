@@ -180,9 +180,9 @@ const Sidebar = () => {
                                     <li>
 
                                     </li>
-                                    <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
+                                    <li className={activeItem === 'technical/pattern' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'technical/pattern')}>
 
-                                        <Link to="brokercredential" className="iq-waves-effect">
+                                        <Link to="technical/pattern" className="iq-waves-effect">
                                             <i className="lab la-joget" />
                                             <span>Technical Patterns</span>
                                         </Link>

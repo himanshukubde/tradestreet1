@@ -3,6 +3,8 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../Common API/Admin
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../Common API/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
+import { AgChartsReact } from "ag-charts-react";
+import "ag-charts-enterprise";
 
 const LastPattern = () => {
     const Username = localStorage.getItem('name');
@@ -15,17 +17,19 @@ const LastPattern = () => {
     const [patternNames, setPatternNames] = useState([]);
     const [allSymbols, setAllSymbols] = useState([]);
     const [availableScripts, setAvailableScripts] = useState([]);
-
+    const [getCandlestickTable, setCandlestickTable] = useState({
+        loading: true,
+        data1: [],
+        data2: []
+    })
+    const [ChartPatternTableData, setChartPatternTableData] = useState({
+        loading: true,
+        data: []
+    });
     const [timeFrameData, setTimeFrameData] = useState({
         loading: true,
         data: []
     });
-
-    const [patternTableData, setPatternTableData] = useState({
-        loading: true,
-        data: []
-    });
-
     const columns = [
         {
             name: "S.No",
@@ -109,7 +113,6 @@ const LastPattern = () => {
             }
         },
     ];
-
     const columns1 = [
         {
             name: "S.No",
@@ -121,6 +124,148 @@ const LastPattern = () => {
             }
         },
         {
+            name: "open",
+            label: "open",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "close",
+            label: "close",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "high",
+            label: "high",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "low",
+            label: "low",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreOpen",
+            label: "PreOpen",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreHigh",
+            label: "PreHigh",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreLow",
+            label: "PreLow",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreClose",
+            label: "PreClose",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreOpen2",
+            label: "PreOpen2",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PreHigh2",
+            label: "PreHigh2",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "PreLow2",
+            label: "PreLow2",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "PreClose2",
+            label: "PreClose2",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "PreOpen3",
+            label: "PreOpen3",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "PreLow3",
+            label: "PreLow3",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "PreClose3",
+            label: "PreClose3",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "total",
+            label: "total",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "body_length",
+            label: "body_length",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "upper_shadow",
+            label: "upper_shadow",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
+            name: "lower_shadow",
+            label: "lower_shadow",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, {
             name: "Pattern",
             label: "Pattern",
             options: {
@@ -128,32 +273,7 @@ const LastPattern = () => {
                 sort: true,
             }
         },
-        {
-            name: "Start Pattern",
-            label: "Start Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End Pattern",
-            label: "End Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
     ];
-
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
@@ -223,12 +343,12 @@ const LastPattern = () => {
         await ChartPatternAPI(data)
             .then((response) => {
                 if (response.Status) {
-                    setPatternTableData({
+                    setChartPatternTableData({
                         loading: false,
                         data: response.Data
                     });
                 } else {
-                    setPatternTableData({
+                    setChartPatternTableData({
                         loading: false,
                         data: []
                     });
@@ -256,15 +376,18 @@ const LastPattern = () => {
 
         await Candlestick_Pattern(data)
             .then((response) => {
+                console.log("response :", response)
                 if (response.Status) {
-                    setPatternTableData({
+                    setCandlestickTable({
                         loading: false,
-                        data: response.Data
+                        data1: response.Data.CandleData,
+                        data2: response.Data.PatternData
                     });
                 } else {
-                    setPatternTableData({
+                    setCandlestickTable({
                         loading: false,
-                        data: []
+                        data1: [],
+                        data2: []
                     });
                 }
             })
@@ -301,6 +424,12 @@ const LastPattern = () => {
         fetchPatternNames();
     }, []);
 
+
+
+
+   
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -317,6 +446,7 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Select Technical pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedPatternType(e.target.value)} value={selectedPatternType}>
+                                            <option value="">Please Select Pattern</option>
                                             <option value="Candlestick Patterns">Candlestick Patterns</option>
                                             <option value="Charting Patterns">Charting Patterns</option>
                                         </select>
@@ -328,6 +458,8 @@ const LastPattern = () => {
                                             <>
                                                 <label>Pattern</label>
                                                 <select className="form-control form-control-lg mt-2" onChange={(e) => setCandlestickPattern(e.target.value)} value={candlestickPattern}>
+                                                    <option value="">Please Select Pattern</option>
+
                                                     {patternNames && patternNames.data.map((item) => (
                                                         <option value={item} key={item}>{item}</option>
                                                     ))}
@@ -337,6 +469,7 @@ const LastPattern = () => {
                                             <>
                                                 <label>Script</label>
                                                 <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
+                                                    <option value="">Please Select Script</option>
                                                     <option value="AvailableScript">Available Script</option>
                                                     <option value="MyScript">My Script</option>
                                                 </select>
@@ -348,6 +481,7 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Time Frame</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedTimeFrame(e.target.value)} value={selectedTimeFrame}>
+                                            <option value="">Please Select Time Frame</option>
                                             {timeFrameData && timeFrameData.data.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}
@@ -358,6 +492,8 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
+                                            <option value="">Please Select Specific Pattern</option>
+
                                             {selectedPatternType === "Candlestick Patterns"
                                                 ? allSymbols && allSymbols.map((item) => (
                                                     <option value={item} key={item}>{item}</option>
@@ -374,34 +510,32 @@ const LastPattern = () => {
                                 </div>
                             </div>
                         </div>
-
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
                                     {patternNames.loading ? <Loader /> : (
                                         <FullDataTable
-                                            columns={selectedPatternType === 'Candlestick Patterns' ? columns1 : columns}
-                                            data={patternNames.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={selectedPatternType === 'Candlestick Patterns' ? false : true}
+                                            columns={columns1}
+                                            data={getCandlestickTable.data2}
+                                            checkBox={false}
                                         />
                                     )}
                                 </>
-
                                 : <>
-                                    {patternTableData.loading ? <Loader /> : (
+
+
+                                    {ChartPatternTableData.loading ? <Loader /> : (
                                         <FullDataTable
-                                            columns={selectedPatternType === 'Candlestick Patterns' ? columns1 : columns}
-                                            data={patternTableData.data}
+                                            columns={columns}
+                                            data={ChartPatternTableData.data}
                                             onRowSelect={handleRowSelect}
-                                            checkBox={selectedPatternType === 'Candlestick Patterns' ? false : true}
+                                            checkBox={true}
                                         />
                                     )}
                                 </>
-
-
                             }
-
+                           
+                             
                         </div>
                     </div>
                 </div>

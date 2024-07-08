@@ -509,18 +509,7 @@ const Header = () => {
                         </nav>
                     ) : (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
-                            <div className="iq-search-bar">
-                                <form action="#" className="searchbox">
-                                    <input
-                                        type="text"
-                                        className="text search-input"
-                                        placeholder="Type here to search..."
-                                    />
-                                    <a className="search-link" href="#">
-                                        <i className="ri-search-line" />
-                                    </a>
-                                </form>
-                            </div>
+                          
                             <button
                                 className="navbar-toggler"
                                 type="button"

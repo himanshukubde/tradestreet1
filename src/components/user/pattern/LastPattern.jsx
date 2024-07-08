@@ -3,6 +3,7 @@ import { Get_Pattern_Name, Get_Pattern_Charting } from '../../Common API/Admin'
 import { Get_Last_Pattern_All_Data , AvailableScript , GetSymbolIp } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
+import { createRoot } from "react-dom/client";
 
 const LastPattern = () => {
 
@@ -187,6 +188,14 @@ const LastPattern = () => {
         
     }
 
+
+
+  
+
+
+
+
+
     return (
         <div>
             <div className="container-fluid">
@@ -239,6 +248,10 @@ const LastPattern = () => {
                                 <div className='mt-3'>
                                     <button className='btn btn-primary' onClick={HandleSubmit}>Submit</button>
                                 </div>
+                                <div className="row">
+                               
+                            </div>
+                            
                             </div>
                         </div>
                     </div>
