@@ -273,7 +273,7 @@ const Header = () => {
                                             </a>
                                         </div>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <a href='#' className="rtl-switch-toogle">
                                             <span className="form-check form-switch">
                                                 <input
@@ -287,7 +287,7 @@ const Header = () => {
                                                 <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
                                             </span>
                                         </a>
-                                    </li>
+                                    </li> */}
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />

@@ -24,19 +24,16 @@ const Tradehistory = () => {
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
-        data1:"",
-        data2:"",
-        data3:"",
-        data4:"" 
+        data1: "",
+        data2: "",
+        data3: "",
+        data4: ""
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
         data: [],
         data2: []
     })
-
-   
-
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
         data: []
@@ -45,12 +42,10 @@ const Tradehistory = () => {
         loading: true,
         data: []
     })
-
     const [getGroupData, setGroupData] = useState({
         loading: true,
         data: []
     })
-
     const [getFiveLossTrade, setFiveLossTrade] = useState({
         loading: true,
         data: [],
@@ -63,7 +58,7 @@ const Tradehistory = () => {
     })
 
 
- 
+
     // Date Formetor
     const convertDateFormat = (date) => {
         const dateObj = new Date(date);
@@ -618,9 +613,6 @@ const Tradehistory = () => {
         },
     ];
 
-
-
-
     const columns2 = [
         {
             name: "S.No",
@@ -808,8 +800,6 @@ const Tradehistory = () => {
 
     ];
 
-
-
     const columns3 = [
         {
             name: "S.No",
@@ -913,7 +903,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -926,7 +916,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -934,14 +924,14 @@ const Tradehistory = () => {
         },
         {
             name: "PnL",
-            
+
             label: "PnL",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-          
+
 
     ];
 
@@ -949,7 +939,7 @@ const Tradehistory = () => {
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -962,31 +952,30 @@ const Tradehistory = () => {
         {
             name: selectStrategyType == "Pattern" ? "ETime" : "ExitTime",
             label: "Exit Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name:  selectStrategyType == "Scalping" ? "EquityCurve" :"PnL",
-            
+            name: selectStrategyType == "Scalping" ? "EquityCurve" : "PnL",
+
             label: "Equity Curve",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-         
+
 
     ];
-
 
     const columns6 = [
         {
             name: "S.No",
             label: "S.No",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -999,7 +988,7 @@ const Tradehistory = () => {
         {
             name: "ETime",
             label: "Entry Time",
-            
+
             options: {
                 filter: true,
                 sort: true,
@@ -1007,26 +996,22 @@ const Tradehistory = () => {
         },
         {
             name: "Drawdown",
-           
+
             label: "Drawdown",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-         
+
 
     ];
 
-
-    
 
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
 
-
- 
 
     const handleSubmit = async () => {
         const data = {
@@ -1042,7 +1027,7 @@ const Tradehistory = () => {
             TradePattern: "",
             PatternName: ""
         }
- 
+
         await get_Trade_History(data)
 
             .then((response) => {
@@ -1050,11 +1035,11 @@ const Tradehistory = () => {
                     setAllTradeData({
                         loading: false,
                         data: response.data,
-                        data1:response.profitconsistant,
-                        data2:response.profitconcount,
-                        data3:response.lossconcount,
-                        data4:response.lossconsistant,
-                        
+                        data1: response.profitconsistant,
+                        data2: response.profitconcount,
+                        data3: response.lossconcount,
+                        data4: response.lossconsistant,
+
                     })
                     setShowTable(true)
                 }
@@ -1068,11 +1053,11 @@ const Tradehistory = () => {
                     setAllTradeData({
                         loading: false,
                         data: [],
-                        data1:"",
-                        data2:"",
-                        data3:"",
-                        data4:""
-                       
+                        data1: "",
+                        data2: "",
+                        data3: "",
+                        data4: ""
+
                     })
                 }
             })
@@ -1205,12 +1190,6 @@ const Tradehistory = () => {
     }
 
 
-    // useEffect(() => {
-    //     if (getGroupData.data && getGroupData.data.length > 0) {
-    //         setSelectGroup(getGroupData.data[0].GroupName);
-    //     }
-    // }, [getGroupData]);
-
     useEffect(() => {
         setSelectGroup('komal')
         setStrategyType('Scalping')
@@ -1224,32 +1203,23 @@ const Tradehistory = () => {
         series: [{ type: 'bar', xKey: 'ETime', yKey: 'PnL' }],
     }
 
-
-
     const chartOptions1 = {
         zoom: { enabled: true },
         data: getEquityCurveDetails && getEquityCurveDetails.data,
-        series: [{ type: 'line', xKey: selectStrategyType == "Pattern" ? "ETime": 'ExitTime', yKey:  selectStrategyType == "Scalping" ? "EquityCurve" : 'PnL' }],
+        series: [{ type: 'line', xKey: selectStrategyType == "Pattern" ? "ETime" : 'ExitTime', yKey: selectStrategyType == "Scalping" ? "EquityCurve" : 'PnL' }],
     }
 
-
-
- 
     const chartOptions2 = {
         zoom: { enabled: true },
         data: getDropDownData && getDropDownData.data,
         series: [{ type: 'line', xKey: 'ETime', yKey: 'Drawdown' }],
     }
 
-
-
-
     const ETime = getFiveProfitTrade && getFiveProfitTrade.data.map(item => item.ETime);
     const PnL = getFiveProfitTrade && getFiveProfitTrade.data.map(item => item.PnL);
 
     const ETime1 = getFiveLossTrade && getFiveLossTrade.data.map(item => item.ETime);
     const PnL1 = getFiveLossTrade && getFiveLossTrade.data.map(item => item.PnL < 0 ? -1 * (item.PnL) : item.PnL);
-
 
 
     const options = {
@@ -1292,8 +1262,9 @@ const Tradehistory = () => {
         }]
     };
 
-
-
+    useEffect(() => {
+        setShowTable(false)
+    }, [selectStrategyType, selectGroup])
 
 
     return (
@@ -1306,6 +1277,7 @@ const Tradehistory = () => {
                                 <h4 className="card-title">Trade History</h4>
                             </div>
                         </div>
+
                         <div className="iq-card-body">
                             <div className="was-validated ">
                                 <div className='row'>
@@ -1360,216 +1332,215 @@ const Tradehistory = () => {
                             }
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
 
-                            {
-                                showTable && <>
-                                    <div className='mt-3'>
-                                        <GridExample
-                                            columns={columns3}
-                                            data={getAllTradeData.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
+                            {showTable && <>
+                                <div className='mt-3'>
+                                    <GridExample
+                                        columns={columns3}
+                                        data={getAllTradeData.data}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={false}
+                                    />
+                                </div>
 
 
-                                    {/* PnL Graph Table */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Profit and Loss Table
-                                    </p>
-                                    <div className=''>
-                                        <GridExample
-                                            columns={columns4}
-                                            data={getPnLData.data2}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
+                                {/* PnL Graph Table */}
+                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    Profit and Loss Table
+                                </p>
+                                <div className=''>
+                                    <GridExample
+                                        columns={columns4}
+                                        data={getPnLData.data2}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={false}
+                                    />
+                                </div>
 
 
-                                    {/* PnL Graph show */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Profit and Loss Graph
-                                    </p>
-                                    <div style={{ width: '100%', height: '500px' }}>
-                                        <AgChartsReact options={chartOptions} />
-                                    </div>
+                                {/* PnL Graph show */}
+                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    Profit and Loss Graph
+                                </p>
+                                <div style={{ width: '100%', height: '500px' }}>
+                                    <AgChartsReact options={chartOptions} />
+                                </div>
 
-                                    {/* 5 Most profit and loss graph */}
+                                {/* 5 Most profit and loss graph */}
 
-                                    <div className='d-flex'>
-                                        <div id="chart" style={{ width: '50%', height: '300px' }}>
+                                <div className='d-flex'>
+                                    <div id="chart" style={{ width: '50%', height: '300px' }}>
 
-                                            <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                                5 most Profit Trade
-                                            </p>
-                                            <ApexCharts
-                                                options={options}
-                                                series={options.series}
-                                                type="pie"
-                                                width={options.chart.width}
-                                            />
-                                        </div>
-                                        <div id="chart" style={{ width: '50%', height: '300px' }}>
-                                            <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                                5 most Loss Trade
-                                            </p>
-                                            <ApexCharts
-                                                options={options1}
-                                                series={options1.series}
-                                                type="pie"
-                                                width={options1.chart.width}
-                                            />
-                                        </div>
-
-                                    </div>
-
-                                    {/*  Consistent Loss & Profit-Making Trades: */}
-                                    <div>
                                         <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Consistent Loss & Profit-Making Trades:
+                                            5 most Profit Trade
                                         </p>
+                                        <ApexCharts
+                                            options={options}
+                                            series={options.series}
+                                            type="pie"
+                                            width={options.chart.width}
+                                        />
+                                    </div>
+                                    <div id="chart" style={{ width: '50%', height: '300px' }}>
+                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            5 most Loss Trade
+                                        </p>
+                                        <ApexCharts
+                                            options={options1}
+                                            series={options1.series}
+                                            type="pie"
+                                            width={options1.chart.width}
+                                        />
                                     </div>
 
-                                    <div className="container-fluid">
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="iq-card">
-                                                    <div className="iq-card-body p-0">
-                                                        <div className="iq-edit-list">
-                                                            <ul
-                                                                className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
-                                                                role="tablist"
-                                                            >
-                                                                <li className="col-md-6 p-0">
-                                                                    <a
-                                                                        className="nav-link active"
-                                                                        data-bs-toggle="pill"
-                                                                        href="#personal-information"
-                                                                        aria-selected="true"
-                                                                        role="tab"
-                                                                    >
-                                                                        Consistent Profit-Making
-                                                                    </a>
-                                                                </li>
-                                                                <li className="col-md-6 p-0">
-                                                                    <a
-                                                                        className="nav-link"
-                                                                        data-bs-toggle="pill"
-                                                                        href="#chang-pwd"
-                                                                        aria-selected="false"
-                                                                        tabIndex={-1}
-                                                                        role="tab"
-                                                                    >
-                                                                       Consistent Loss Making
+                                </div>
 
-                                                                    </a>
-                                                                </li>
-                                                                 
+                                {/*  Consistent Loss & Profit-Making Trades: */}
+                                <div>
+                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        Consistent Loss & Profit-Making Trades:
+                                    </p>
+                                </div>
 
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-12">
-                                                <div className="iq-edit-list-data">
-                                                    <div className="tab-content">
-                                                        <div
-                                                            className="tab-pane fade active show"
-                                                            id="personal-information"
-                                                            role="tabpanel"
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-lg-12">
+                                            <div className="iq-card">
+                                                <div className="iq-card-body p-0">
+                                                    <div className="iq-edit-list">
+                                                        <ul
+                                                            className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
+                                                            role="tablist"
                                                         >
-                                                            <div className="container-fluid">
-                                                                <div className="row">
-                                                                    <div className="col-sm-12">
-                                                                        <div className="iq-card">
-                                                                            <div className="iq-card-body">
-                                                                                 <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
-                                                                                 <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
+                                                            <li className="col-md-6 p-0">
+                                                                <a
+                                                                    className="nav-link active"
+                                                                    data-bs-toggle="pill"
+                                                                    href="#personal-information"
+                                                                    aria-selected="true"
+                                                                    role="tab"
+                                                                >
+                                                                    Consistent Profit-Making
+                                                                </a>
+                                                            </li>
+                                                            <li className="col-md-6 p-0">
+                                                                <a
+                                                                    className="nav-link"
+                                                                    data-bs-toggle="pill"
+                                                                    href="#chang-pwd"
+                                                                    aria-selected="false"
+                                                                    tabIndex={-1}
+                                                                    role="tab"
+                                                                >
+                                                                    Consistent Loss Making
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                </a>
+                                                            </li>
 
-                                                        </div>
-                                                        <div className="tab-pane fade" id="chang-pwd" role="tabpanel">
-                                                            <div className="container-fluid">
-                                                                <div className="row">
-                                                                    <div className="col-sm-12">
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-12">
+                                            <div className="iq-edit-list-data">
+                                                <div className="tab-content">
+                                                    <div
+                                                        className="tab-pane fade active show"
+                                                        id="personal-information"
+                                                        role="tabpanel"
+                                                    >
+                                                        <div className="container-fluid">
+                                                            <div className="row">
+                                                                <div className="col-sm-12">
                                                                     <div className="iq-card">
-                                                                            <div className="iq-card-body">
-                                                                                 <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
-                                                                                 <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+                                                                        <div className="iq-card-body">
+                                                                            <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
+                                                                            <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
 
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
+
+                                                    </div>
+                                                    <div className="tab-pane fade" id="chang-pwd" role="tabpanel">
+                                                        <div className="container-fluid">
+                                                            <div className="row">
+                                                                <div className="col-sm-12">
+                                                                    <div className="iq-card">
+                                                                        <div className="iq-card-body">
+                                                                            <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
+                                                                            <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                </div>
 
 
 
-                                    {/* EquityCurve */}
 
-                                    <div>
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            EquityCurve
-                                        </p>
+                                {/* EquityCurve */}
 
-                                        <GridExample
-                                            columns={columns5}
-                                            data={getEquityCurveDetails.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
-
-
-                                    {/* EquityCurve  Graph show */}
+                                <div>
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        EquityCurve
+                                    </p>
+
+                                    <GridExample
+                                        columns={columns5}
+                                        data={getEquityCurveDetails.data}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={false}
+                                    />
+                                </div>
+
+
+                                {/* EquityCurve  Graph show */}
+                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                     EquityCurve
-                                    </p>
-                                    <div style={{ width: '100%', height: '500px' }}>
-                                        <AgChartsReact options={chartOptions1} />
-                                    </div>
+                                </p>
+                                <div style={{ width: '100%', height: '500px' }}>
+                                    <AgChartsReact options={chartOptions1} />
+                                </div>
 
 
 
-                                    <div>
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Drawdown Table
-                                        </p>
-
-                                        <GridExample
-                                            columns={columns6}
-                                            data={getDropDownData.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
-
-
-                                    {/* EquityCurve  Graph show */}
+                                <div>
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Drawdown Graph
+                                        Drawdown Table
                                     </p>
-                                    <div style={{ width: '100%', height: '500px' }}>
-                                        <AgChartsReact options={chartOptions2} />
-                                    </div>
+
+                                    <GridExample
+                                        columns={columns6}
+                                        data={getDropDownData.data}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={false}
+                                    />
+                                </div>
 
 
-                                </>
-                            }
+                                {/* EquityCurve  Graph show */}
+                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    Drawdown Graph
+                                </p>
+                                <div style={{ width: '100%', height: '500px' }}>
+                                    <AgChartsReact options={chartOptions2} />
+                                </div>
+
+
+                            </>}
+
                         </div>
                     </div>
                 </div>

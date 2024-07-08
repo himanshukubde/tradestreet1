@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Get_Pattern_Name, Get_Pattern_Charting } from '../../Common API/Admin'
-import { Get_Last_Pattern_All_Data } from '../../Common API/User'
+import { Get_Last_Pattern_All_Data , AvailableScript , GetSymbolIp } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
 
 const LastPattern = () => {
+
+
+    const UserName = localStorage.getItem('name')
     const [getLastPatternData, setLastPatternData] = useState({
         loading: true,
         data: []
@@ -13,6 +16,7 @@ const LastPattern = () => {
     const [selectPattern, setSelectPattern] = useState('')
     const [getChartPattern, setChartPattern] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
+    const [getAllSymbol , setSymbol] = useState([])
 
     const getLastPattern = async () => {
         const data = { Pattern: selectPattern }
@@ -173,6 +177,16 @@ const LastPattern = () => {
         setSelectedRowData(rowData);
     };
 
+
+
+ 
+
+
+
+    const HandleSubmit = ()=>{
+        
+    }
+
     return (
         <div>
             <div className="container-fluid">
@@ -221,6 +235,9 @@ const LastPattern = () => {
                                         />
                                     }
 
+                                </div>
+                                <div className='mt-3'>
+                                    <button className='btn btn-primary' onClick={HandleSubmit}>Submit</button>
                                 </div>
                             </div>
                         </div>

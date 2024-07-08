@@ -160,7 +160,6 @@ export const UpdateBrokerData = async (data) => {
     }
 }
 
-
 export const TradingStatus = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}TradingStatus/${data.userName}`, data)
@@ -174,6 +173,48 @@ export const TradingStatus = async (data) => {
 export const ConnectBroker = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}ConnectBroker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AvailableScript = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Script/AvailableScript`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+export const GetSymbolIp = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}SymbolP/${data.Username}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+export const ChartPatternAPI = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ChartPattern`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Candlestick_Pattern = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}CandlestickPattern`, data)
         return res?.data
     }
     catch (err) {

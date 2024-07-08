@@ -332,9 +332,12 @@ const Adduser = () => {
     ];
 
 
+
+
+
     //Select Date form date and end date
     const currentDate = new Date();
-    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ? 2 : formik.values.Select_License_Type === '21' ? 7 : formik.values.Select_License_Type === '22' ? 30 : 0;
+    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ?  TwoDays(new Date()) : formik.values.Select_License_Type === '21' ?   WeekDays(new Date()) : formik.values.Select_License_Type === '22' ? 30 : 0;
     currentDate.setDate(currentDate.getDate() + daysToSubtract);
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -382,6 +385,66 @@ const Adduser = () => {
             formik.setFieldValue('Select_Broker', "")
         }
     }, [formik.values.Select_License])
+
+
+    function TwoDays(startDate) {
+        let daysToAdd = 0;
+        const currentDay = startDate.getDay();
+  
+        if (currentDay === 6) { // Saturday
+            daysToAdd = 4; 
+        } else if (currentDay === 0) { // Sunday
+            daysToAdd = 3; 
+        } else if (currentDay === 1) { // Monday
+            daysToAdd = 3; 
+        } else if (currentDay === 2) { // Tuesday
+            daysToAdd = 3; 
+        } else if (currentDay === 3) { // Wednesday
+            daysToAdd = 3; 
+        } else if (currentDay === 4) { // Thursday
+            daysToAdd = 5; 
+        } else if (currentDay === 5) { // Friday
+            daysToAdd = 5; 
+        } else {
+            daysToAdd = 3; 
+        }
+
+        return daysToAdd
+    }
+
+
+    
+    function WeekDays(startDate) {
+        let daysToAdd = 0;
+        const currentDay = startDate.getDay();
+  
+        if (currentDay === 6) { // Saturday
+            daysToAdd = 9; 
+        } else if (currentDay === 0) { // Sunday
+            daysToAdd = 8; 
+        } else if (currentDay === 1) { // Monday
+            daysToAdd = 7; 
+        } else if (currentDay === 2) { // Tuesday
+            daysToAdd = 7; 
+        } else if (currentDay === 3) { // Wednesday
+            daysToAdd = 7; 
+        } else if (currentDay === 4) { // Thursday
+            daysToAdd = 7; 
+        } else if (currentDay === 5) { // Friday
+            daysToAdd = 7; 
+        } else {
+            daysToAdd = 7; 
+        }
+        return daysToAdd
+   
+    }
+    
+ 
+
+    
+    
+
+
     return (
         <>
             {optionsArray.length > 0 && (
