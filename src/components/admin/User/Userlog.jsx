@@ -1264,7 +1264,7 @@ const Userlog = () => {
                             {getServiceDetails.loading ? <Loader /> :
                                 (
                                     selectStrategyType == "Scalping" ?
-                                        <div className="iq-card-body">
+                                        <div className="iq-card-body px-2">
 
                                             <FullDataTable
                                                 columns={columns}
@@ -1274,7 +1274,7 @@ const Userlog = () => {
 
                                         </div> :
                                         selectStrategyType == "Option Strategy" ?
-                                            <div className="iq-card-body">
+                                            <div className="iq-card-body px-2">
                                                 <FullDataTable
                                                     columns={columns1}
                                                     data={getServiceDetails.data}
@@ -1282,8 +1282,8 @@ const Userlog = () => {
                                                 />
                                             </div> :
                                             selectStrategyType == "Pattern" ?
-                                                <div className="iq-card-body">
-                                                    <div className="iq-card-body">
+                                                <div className="iq-card-body px-2">
+                                                    <div className="iq-card-body px-0">
                                                         <FullDataTable
                                                             columns={columns1}
                                                             data={getServiceDetails.data}
@@ -1319,16 +1319,16 @@ const Userlog = () => {
                                     />
                                 </div>
                                 <div className="modal-body">
-                                     
-                                        <FullDataTable
-                                            columns={selectStrategyType == "Scalping" ? columns3 : selectStrategyType == "Option Strategy" ? columns4 : selectStrategyType == "Pattern" ? columns5 : []}
-                                            data={getUserData.data}
-                                            checkBox={false}
-                                        />
 
-                                   
+                                    <FullDataTable
+                                        columns={selectStrategyType == "Scalping" ? columns3 : selectStrategyType == "Option Strategy" ? columns4 : selectStrategyType == "Pattern" ? columns5 : []}
+                                        data={getUserData.data}
+                                        checkBox={false}
+                                    />
+
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

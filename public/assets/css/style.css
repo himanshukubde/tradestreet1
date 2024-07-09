@@ -5119,3 +5119,11 @@ body.sidebar-main .iq-sidebar {
 .MuiTableCell-root{
   text-align: center !important;
 }
+
+.MuiInputBase-root{
+  margin-bottom: 14px;
+}
+
+.MuiTablePagination-actions{
+  margin-bottom: 14px;
+}

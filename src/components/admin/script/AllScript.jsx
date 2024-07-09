@@ -1003,7 +1003,7 @@ const Addscript = () => {
                             {/* <div className='d-flex justify-content-end'>
                                 <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
                             </div> */}
-                            <div className="iq-card-body">
+                            <div className="iq-card-body px-2">
                                 {getAllService.loading ? <Loader /> :
                                     <FullDataTable
                                         columns={selectStrategyType == "Scalping" ? columns : selectStrategyType == "Option Strategy" ? columns1 : selectStrategyType == "Pattern" ? columns2 : columns}
