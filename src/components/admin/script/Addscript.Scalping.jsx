@@ -39,7 +39,7 @@ const AddClient = () => {
   const formik = useFormik({
     initialValues: {
       MainStrategy: location.state.data.selectStrategyType,
-      Username: location.state.data.selectGroup,
+      Username: "",
       Strategy: "",
       ETPattern: "",
       Timeframe: "",
@@ -260,6 +260,8 @@ const AddClient = () => {
     formik.setFieldValue("EntryPrice", 1)
     formik.setFieldValue("EntryRange", 1)
     formik.setFieldValue("Instrument", "FUTIDX") 
+    formik.setFieldValue("HoldExit", "Hold") 
+
   }, [])
 
   const fields = [
@@ -394,7 +396,7 @@ const AddClient = () => {
     },
     {
       name: "Quantity",
-      label: "Lot",
+      label: formik.values.Exchange=="NFO" ?  "Lot" : "Quantity",
       type: "text5",
       label_size: 12,
       col_size: 6,
@@ -468,7 +470,7 @@ const AddClient = () => {
     },
     {
       name: "set_Range",
-      label: "Set Range",
+      label: "Trade Range",
       type: "select",
       options: [
         { label: "Yes", value: "Yes" },
@@ -715,7 +717,7 @@ const AddClient = () => {
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
-        page_title="Add Script Scalping"
+        page_title="Add Script - Scalping"
         btn_name="Add"
         btn_name1="Cancel"
         formik={formik}

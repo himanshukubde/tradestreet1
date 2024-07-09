@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 const Addscript = () => {
-    const navigate = useNavigate()    
+    const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
@@ -41,7 +41,7 @@ const Addscript = () => {
         }
 
 
-        
+
         await DeleteScript(data)
             .then((response) => {
                 if (response.Status) {
@@ -165,7 +165,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-         
+
         {
             name: "ExpiryDate",
             label: "Expiry Date",
@@ -174,14 +174,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "TradeExecution",
-            label: "Trade Execution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+       
         {
             name: "LowerRange",
             label: "Lower Range",
@@ -201,6 +194,22 @@ const Addscript = () => {
         {
             name: "HoldExit",
             label: "Hold/Exit",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryPrice",
+            label: "First Trade Lower Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryRange",
+            label: "First Trade Higher Price",
             options: {
                 filter: true,
                 sort: true,
@@ -230,7 +239,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -239,7 +248,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
     ];
 
 
@@ -283,8 +292,8 @@ const Addscript = () => {
                 sort: true,
             }
         },
-       
-         
+
+
         {
             name: "Targettype",
             label: "Risk Handle",
@@ -293,7 +302,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-         
+
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -326,7 +335,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-         
+
         {
             name: "Expirytype",
             label: "Expiry Type",
@@ -458,7 +467,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
         {
             name: "Exchange",
             label: "Exchange",
@@ -491,7 +500,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
         {
             name: "TType",
             label: "Trade Type",
@@ -532,9 +541,9 @@ const Addscript = () => {
                 sort: true,
             }
         },
-       
-         
-        
+
+
+
         {
             name: "TStype",
             label: "Measurement Type",
@@ -551,7 +560,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -584,7 +593,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        
+
 
     ];
 
@@ -595,7 +604,7 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
-                    
+
                     if (response.Status) {
                         setGroupData({
                             loading: false,
@@ -663,7 +672,7 @@ const Addscript = () => {
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
-    
+
     useEffect(() => {
         if (formSubmitted) {
             if (selectGroup == '') {
@@ -681,8 +690,21 @@ const Addscript = () => {
 
 
 
-   
 
+
+
+    useEffect(() => {
+
+        if (!getGroupData.loading && getGroupData.data.length > 0) {
+
+            setSelectGroup(getGroupData && getGroupData.data[0].GroupName)
+
+        }
+
+    }, [getGroupData]);
+
+
+    // console.log("selectGroup :" ,selectGroup)
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
@@ -692,7 +714,7 @@ const Addscript = () => {
     useEffect(() => {
         getAllgroupService()
     }, [selectStrategyType, selectGroup, refresh])
-  
+
 
 
     return (
@@ -748,7 +770,7 @@ const Addscript = () => {
                                     </div>
                                 </div>
                             </form>
-                             
+
                             <div className="iq-card-body">
                                 {getAllService.loading ? <Loader /> :
                                     <FullDataTable
