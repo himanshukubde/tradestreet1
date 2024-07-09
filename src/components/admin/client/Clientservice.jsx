@@ -19,7 +19,7 @@ const Clientservice = () => {
     const [getServiceCount, setServiceCount] = useState([]);
     const [getExtendDate, setExtendDate] = useState([]);
     const [getDate, setExDate] = useState('');
-    const [refresh , setRefresh]= useState(false)
+    const [refresh, setRefresh] = useState(false)
 
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const Clientservice = () => {
         try {
             const response = await GetClientService();
             if (response.Status) {
-                
+
                 setClientService({ loading: false, data: response.Profile });
             } else {
                 setClientService({ loading: false, data: [] });
@@ -80,7 +80,7 @@ const Clientservice = () => {
 
         fetchGroupDetails();
     }, []);
-   
+
     const formik = useFormik({
         initialValues: {
             User: "",
@@ -94,17 +94,17 @@ const Clientservice = () => {
         },
         validate: values => {
             const errors = {};
-            if(showModal && clientService.data[selectedIndex].BrokerName != "Demo" && !values.Select_Product_Type){
-                errors.Select_Product_Type="Select Edit Type"
+            if (showModal && clientService.data[selectedIndex].BrokerName != "Demo" && !values.Select_Product_Type) {
+                errors.Select_Product_Type = "Select Edit Type"
             }
-            if(!values.Select_Broker){
+            if (!values.Select_Broker) {
                 errors.Select_Broker = "Select Broker Type"
             }
-            if(showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day){
-                errors.Select_Day="Select Days"
+            if (showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day) {
+                errors.Select_Day = "Select Days"
             }
-             
-            
+
+
             return errors;
 
         },
@@ -132,8 +132,8 @@ const Clientservice = () => {
                     });
                     setTimeout(() => {
                         setShowModal(false);
-                        formik.resetForm();  
-                        setSelectedOptions([]);  
+                        formik.resetForm();
+                        setSelectedOptions([]);
                     }, 1500);
                 } else {
                     Swal.fire({
@@ -271,23 +271,100 @@ const Clientservice = () => {
                     <SquarePen
                         onClick={() => {
                             setShowModal(true);
-                            
                             setSelectedIndex(tableMeta.rowIndex);
                         }}
                     />
                 ),
             },
         },
-        { name: 'Username', label: 'Username', options: { filter: true, sort: true } },
-        { name: 'Mobile_No', label: 'Mobile Number', options: { filter: true, sort: true } },
-        { name: 'BrokerName', label: 'Broker Name', options: { filter: true, sort: true } },
-        { name: 'EmailId', label: 'Email ID', options: { filter: true, sort: true } },
-        { name: 'Group', label: 'Group', options: { filter: true, sort: true } },
-        { name: 'CreateDate', label: 'Account Create Date', options: { filter: true, sort: true } },
-        { name: 'ServiceStartDate', label: 'Service Start Date', options: { filter: true, sort: true } },
-        { name: 'ServiceEndDate', label: 'Service End Date', options: { filter: true, sort: true } },
-        { name: 'Total Service Count', label: 'Total Service Count', options: { filter: true, sort: true } },
+        { 
+            name: 'Username', 
+            label: 'Username', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'Mobile_No', 
+            label: 'Mobile Number', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'BrokerName', 
+            label: 'Broker Name', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'EmailId', 
+            label: 'Email ID', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        {
+            name: 'Group',
+            label: 'Group',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta) => (
+                    
+                    <span>{Array.isArray(value) ? value.join(', ') : value ? "-" : value || '-'}</span>
+                ),
+            }
+        },
+        { 
+            name: 'CreateDate', 
+            label: 'Account Create Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'ServiceStartDate', 
+            label: 'Service Start Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'ServiceEndDate', 
+            label: 'Service End Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'Total Service Count', 
+            label: 'Total Service Count', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
     ];
+    
+  
+    
 
     const currentDate = new Date();
     currentDate.setDate(
@@ -302,11 +379,6 @@ const Clientservice = () => {
     const formattedDate = currentDate.toISOString().split('T')[0];
     const fromDate = new Date();
     const form_Date = fromDate.toISOString().split('T')[0];
-
-
-
-
-
 
     return (
         <>
@@ -343,8 +415,8 @@ const Clientservice = () => {
                                     aria-label='Close'
                                     onClick={() => {
                                         setShowModal(false);
-                                        formik.resetForm();  
-                                        setSelectedOptions([]);  
+                                        formik.resetForm();
+                                        setSelectedOptions([]);
                                     }}
                                 ></button>
                             </div>
@@ -395,7 +467,7 @@ const Clientservice = () => {
                                                     options={optionsArray}
                                                     name='groupName'
                                                     handleOnChange={(selected) => setSelectedOptions(selected)}
-                                                    selected={ showModal ? clientService.data[selectedIndex].Group :''} 
+                                                    selected={showModal ? clientService.data[selectedIndex].Group : ''}
                                                 />
                                             </div>
                                         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetClientService , GetClientLogs } from '../../Common API/Admin'
+import { GetClientService, GetClientLogs } from '../../Common API/Admin'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
@@ -7,7 +7,7 @@ import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 const Clientactivity = () => {
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
- 
+
     const [getClientActivityDetails, setClientActivityDetails] = useState({
         loading: true,
         data: []
@@ -19,11 +19,28 @@ const Clientactivity = () => {
     const [selectUserName, setSelectUserName] = useState('')
 
 
-     
-   
 
 
 
+    // set Defult Date 
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 7);
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+
+
+    // from date
+    const DefultToDate = new Date();
+
+    DefultToDate.setDate(DefultToDate.getDate());
+    const year1 = DefultToDate.getFullYear();
+    const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+    const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+    const Defult_To_Date = `${year1}-${month1}-${day1}`;
+ 
 
     const GetAllUserDetails = async () => {
         try {
@@ -57,36 +74,38 @@ const Clientactivity = () => {
     }, [])
 
 
+    const data = new Date()
 
+    console.log(data + 3)
 
     const getClientTetails = async () => {
-        const data = {User : selectUserName  , From_date : FromDate , To_date  :ToDate}
+        const data = { User: selectUserName, From_date: FromDate == "" ? formattedDate : FromDate, To_date: ToDate == "" ? Defult_To_Date : ToDate }
         await GetClientLogs(data)
-        .then((response)=>{
-            if(response.Status){
-                setClientActivityDetails({
-                    loading:false,
-                    data : response.Data
-                })
-            }
-            else{
-                setClientActivityDetails({
-                    loading:false,
-                    data : []
-                })
-            }
-        })
-        .catch((err)=>{
-            console.log("Error In finding the client details", err)
-        })
+            .then((response) => {
+                if (response.Status) {
+                    setClientActivityDetails({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setClientActivityDetails({
+                        loading: false,
+                        data: []
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log("Error In finding the client details", err)
+            })
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getClientTetails()
-    },[selectUserName , ToDate , FromDate])
+    }, [selectUserName, ToDate, FromDate])
 
-     
+
 
     const columns = [
         {
@@ -173,15 +192,9 @@ const Clientactivity = () => {
                 sort: true,
             }
         },
-         
+
     ];
 
-
-    // useEffect(() => {
-    //     if (getGroupData.data && getGroupData.data.length > 0) {
-    //         setSelectGroup(getGroupData.data[0].GroupName);
-    //     }
-    // }, [getGroupData]);
 
     useEffect(() => {
         setSelectUserName('komal')
@@ -219,12 +232,12 @@ const Clientactivity = () => {
                                             </div>
                                             <div className="form-group col-lg-3 ">
                                                 <label>Select form Date</label>
-                                                <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
+                                                <DatePicker className="form-select" selected={FromDate=="" ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                             </div>
                                             <div className="form-group col-lg-3">
                                                 <label>Select To Date</label>
-                                                <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
+                                                <DatePicker className="form-select" selected={ToDate=="" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                             </div>
                                         </div>

@@ -58,6 +58,24 @@ const Tradehistory = () => {
     })
 
 
+    // set Defult Date 
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 7);
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}.${month}.${day}`;
+
+
+    // from date
+    const DefultToDate = new Date();
+
+    DefultToDate.setDate(DefultToDate.getDate());
+    const year1 = DefultToDate.getFullYear();
+    const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+    const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+    const Defult_To_Date = `${year1}.${month1}.${day1}`;
+
 
     // Date Formetor
     const convertDateFormat = (date) => {
@@ -68,8 +86,7 @@ const Tradehistory = () => {
         return `${year}.${month}.${day}`;
     };
 
-
-
+ 
     const GetAllGroupDetails = async () => {
         try {
             await GetClientService()
@@ -1307,12 +1324,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-lg-3 ">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-lg-3">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate=="" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>

@@ -42,11 +42,8 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    const [refresh, setRefresh] = useState(false)
-
-
-
  
+
 
     const formik = useFormik({
 
@@ -132,17 +129,17 @@ const AddClient = () => {
             if (!values.TStype) {
                 errors.TStype = "Please Enter TS Type.";
             }
-            if (!values.Slvalue || values.Slvalue==0) {
-                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : "Please Enter Stoploss Value.";
+            if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
+                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
             }
-            if (!values.Targetvalue || values.Targetvalue==0) {
-                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" :"Please Enter Target Value.";
+            if (!values.Targetvalue || values.Targetvalue==0 || Number(values.Targetvalue)<0) {
+                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" : Number(values.Targetvalue)<0 ? "Target can not be Negative"  : "Please Enter Target Value.";
             }
             if (!values.TType) {
                 errors.TType = "Please Enter Transaction Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Please Enter Quantity.";
+                errors.Quantity = formik.values.Exchange =="NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
             }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select Exit Day.";
@@ -453,8 +450,8 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: " ",
-            label: "Measurment Type",
+            name: "TStype",
+            label: "Measurement Type",
             type: "select",
             options: [
                 { label: "Point", value: "Point" },
@@ -469,8 +466,8 @@ const AddClient = () => {
        
         {
             name: "Targetvalue",
-            label: "Target value",
-            type: "text3",
+            label: "Target",
+            type: "number",
 
             label_size: 12,
             hiding: false,
@@ -479,8 +476,8 @@ const AddClient = () => {
         },
         {
             name: "Slvalue",
-            label: "Stop Loss",
-            type: "text3",
+            label: "Stoploss",
+            type: "number",
 
 
             label_size: 12,
@@ -490,7 +487,7 @@ const AddClient = () => {
         },
         {
             name: "TType",
-            label: "Transation Type",
+            label: "Transaction Type",
             type: "select",
             options: [
                 { label: "BUY", value: "BUY" },
@@ -504,8 +501,8 @@ const AddClient = () => {
         },
         {
             name: "Quantity",
-            label: "Quantity",
-            type: "text5",
+            label: formik.values.Exchange =="NFO" ? "Lot" : "Quantity",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -577,7 +574,7 @@ const AddClient = () => {
 
     useEffect(() => {
         getSymbol()
-    }, [formik.values.Instrument, formik.values.Exchange, refresh])
+    }, [formik.values.Instrument, formik.values.Exchange])
 
 
     const getStrikePrice = async () => {

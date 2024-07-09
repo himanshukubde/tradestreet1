@@ -111,7 +111,7 @@ const AddClient = () => {
         errors.TType = "Please select a transaction type.";
       }
       if (!values.Quantity) {
-        errors.Quantity = "Please enter the quantity.";
+        errors.Quantity = formik.values.Exchange =="NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
       }
       if (!values.ExitTime) {
         errors.ExitTime = "Please select an exit time.";
@@ -133,7 +133,7 @@ const AddClient = () => {
         errors.EntryRange = "Please enter the highest price.";
       }
       if (!values.Targetvalue) {
-        errors.Targetvalue = "Please enter a target value.";
+        errors.Targetvalue = values.Strategy=="Fixed Price" ? "Please enter a target Price." : "Please enter a target value.";
       }
       if (!values.LowerRange && (values.set_Range || values.Strategy === "Fixed Price")) {
         errors.LowerRange = "Please enter the lower price.";
@@ -148,7 +148,7 @@ const AddClient = () => {
         errors.HoldExit = "Please select whether to hold or exit.";
       }
       if (!values.Slvalue) {
-        errors.Slvalue = "Please select a stop loss value.";
+        errors.Slvalue =  values.Strategy=="Fixed Price" ? "Please enter stop loss Price." : "Please select a stop loss value.";
       }
 
       return errors;
@@ -448,35 +448,6 @@ const AddClient = () => {
       disable: false,
     },
     {
-      name: "Targetvalue",
-      label: "Target Value",
-      type: "text5",
-      label_size: 12,
-      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "Slvalue",
-      label: "StopLoss Value",
-      type: "text5",
-      label_size: 12,
-      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "set_Range",
-      label: "Trade Range",
-      type: "checkbox",
-      
-      showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
-      label_size: 12,
-      col_size: 12,
-      hiding: false,
-      disable: false,
-    },
-    {
       name: "LowerRange",
       label: "Lower Price",
       type: "text5",
@@ -496,6 +467,36 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
+    {
+      name: "Targetvalue",
+      label: formik.values.Strategy=="Fixed Price" ? "Target Price" : "Target",
+      type: "text5",
+      label_size: 12,
+      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "Slvalue",
+      label: formik.values.Strategy=="Fixed Price" ? "Stoploss Price" : "Stoploss",
+      type: "text5",
+      label_size: 12,
+      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "set_Range",
+      label: "Trade Range",
+      type: "checkbox",
+      
+      showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
+      label_size: 12,
+      col_size: 12,
+      hiding: false,
+      disable: false,
+    },
+   
     {
       name: "HoldExit",
       label: "Hold/Exit",
