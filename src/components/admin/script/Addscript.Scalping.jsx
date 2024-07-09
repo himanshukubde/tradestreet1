@@ -77,8 +77,8 @@ const AddClient = () => {
       CEDeepHigher: 0.0,
       PEDeepLower: 0.0,
       PEDeepHigher: 0.0,
-      set_Range: "",
-      Set_First_Trade_Range: ""
+      set_Range: false,
+      Set_First_Trade_Range: false
     },
 
     validate: (values) => {
@@ -197,7 +197,7 @@ const AddClient = () => {
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
       }
-      if (values.Set_First_Trade_Range == "Yes" && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
+      if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
 
         SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
@@ -406,11 +406,8 @@ const AddClient = () => {
     {
       name: "Set_First_Trade_Range",
       label: "Set First Trade Range",
-      type: "select",
-      options: [
-        { label: "Yes", value: "Yes" },
-        { label: "No", value: "No" },
-      ],
+      type: "checkbox",
+     
       showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
@@ -421,7 +418,7 @@ const AddClient = () => {
       name: "EntryPrice",
       label: "First Trade Lower Price",
       type: "text5",
-      showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+      showWhen: (values) => formik.values.Set_First_Trade_Range == true,
       col_size: 6,
       disable: false,
       hiding: false,
@@ -430,7 +427,7 @@ const AddClient = () => {
       name: "EntryRange",
       label: "First Trade Higher Price",
       type: "text5",
-      showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+      showWhen: (values) => formik.values.Set_First_Trade_Range == "Yes",
       label_size: 12,
       col_size: 6,
       disable: false,
@@ -471,11 +468,8 @@ const AddClient = () => {
     {
       name: "set_Range",
       label: "Trade Range",
-      type: "select",
-      options: [
-        { label: "Yes", value: "Yes" },
-        { label: "No", value: "No" },
-      ],
+      type: "checkbox",
+      
       showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
       label_size: 12,
       col_size: 12,
