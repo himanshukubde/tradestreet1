@@ -197,24 +197,25 @@ const AddClient = () => {
         PEDeepLower: 0.0,
         PEDeepHigher: 0.0,
       }
-      if (values.Set_First_Trade_Range == "Yes" && (values.EntryPrice >= values.EntryRange || values.EntryRange == 0 || values.EntryPrice == 0)) {
+      if (values.Set_First_Trade_Range == "Yes" && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
 
         SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
       }
-      else if (values.set_Range == "Yes" && values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
+      else if (values.set_Range == "Yes" && Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0) {
         SweentAlertFun("Higher Price should be greater than Lower Price")
 
       }
-      else if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (values.Targetvalue <= values.HigherRange || values.Slvalue >= values.LowerRange)) {
+      else if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
 
-        SweentAlertFun(values.Targetvalue <= values.HigherRange ? "Target should be Greater than Higher Range " : "Stoploss should be Smaller than Lower Range")
+
+        SweentAlertFun( Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ?  "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
 
 
       }
-      else if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (values.Targetvalue >= values.LowerRange || values.Slvalue <= values.HigherRange)) {
+      else if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
 
-        SweentAlertFun(values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
+        SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
 
       }
 

@@ -3,8 +3,9 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../Common API/Admin
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../Common API/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
-import { AgChartsReact } from "ag-charts-react";
+// import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
+import AgChartsReact from "./CandlePattern";
 
 const LastPattern = () => {
     const Username = localStorage.getItem('name');
@@ -330,18 +331,18 @@ const LastPattern = () => {
     }, []);
 
     const fetchChartingData = async () => {
-        if (scriptType === '' || selectedTimeFrame === '' || chartPattern === '') {
-            return;
-        }
-        const data = {
-            Script: scriptType,
-            TimeFrame: selectedTimeFrame,
-            Username,
-            Symbol: chartPattern
-        };
+        try {
 
-        await ChartPatternAPI(data)
-            .then((response) => {
+            if (scriptType !== '' && selectedTimeFrame !== '' && chartPattern !== '') {
+                const data = {
+                    Script: scriptType,
+                    TimeFrame: selectedTimeFrame,
+                    Username: Username,
+                    Symbol: chartPattern
+                };
+
+                const response = await ChartPatternAPI(data);
+
                 if (response.Status) {
                     setChartPatternTableData({
                         loading: false,
@@ -353,30 +354,18 @@ const LastPattern = () => {
                         data: []
                     });
                 }
-            })
-            .catch((err) => {
-                console.log("Error in fetching charting data", err);
-            });
-    };
+            }
 
-    useEffect(() => {
-        fetchChartingData();
-    }, [selectedPatternType, scriptType, selectedTimeFrame, chartPattern]);
+            if (chartPattern !== '' && selectedTimeFrame !== '' && candlestickPattern !== '') {
+                const data = {
+                    PatternName: candlestickPattern,
+                    TimeFrame: selectedTimeFrame,
+                    Username: Username,
+                    Symbol: chartPattern
+                };
 
-    const fetchCandlestickPatternData = async () => {
-        if (scriptType === '' || selectedTimeFrame === '' || candlestickPattern === '') {
-            return;
-        }
-        const data = {
-            PatternName: candlestickPattern,
-            TimeFrame: selectedTimeFrame,
-            Username,
-            Symbol: chartPattern
-        };
+                const response = await Candlestick_Pattern(data);
 
-        await Candlestick_Pattern(data)
-            .then((response) => {
-                console.log("response :", response)
                 if (response.Status) {
                     setCandlestickTable({
                         loading: false,
@@ -390,15 +379,19 @@ const LastPattern = () => {
                         data2: []
                     });
                 }
-            })
-            .catch((err) => {
-                console.log("Error in fetching candlestick pattern data", err);
-            });
+            }
+        } catch (err) {
+            console.log("Error in fetching data:", err);
+
+        }
     };
 
     useEffect(() => {
-        fetchCandlestickPatternData();
-    }, [selectedPatternType, candlestickPattern, selectedTimeFrame, chartPattern]);
+        fetchChartingData();
+    }, [selectedPatternType, scriptType, selectedTimeFrame, chartPattern, candlestickPattern]);
+
+
+
 
     const fetchPatternNames = async () => {
         await Get_Pattern_Name()
@@ -427,8 +420,10 @@ const LastPattern = () => {
 
 
 
-   
+    useEffect(() => {
 
+
+    }, [selectedPatternType])
 
     return (
         <div className="container-fluid">
@@ -516,26 +511,34 @@ const LastPattern = () => {
                                     {patternNames.loading ? <Loader /> : (
                                         <FullDataTable
                                             columns={columns1}
-                                            data={getCandlestickTable.data2}
+                                            data={getCandlestickTable && getCandlestickTable.data2}
                                             checkBox={false}
                                         />
                                     )}
                                 </>
                                 : <>
-
-
                                     {ChartPatternTableData.loading ? <Loader /> : (
                                         <FullDataTable
                                             columns={columns}
-                                            data={ChartPatternTableData.data}
+                                            data={ChartPatternTableData && ChartPatternTableData.data}
                                             onRowSelect={handleRowSelect}
                                             checkBox={true}
                                         />
                                     )}
                                 </>
                             }
-                           
-                             
+                        </div>
+
+                        <div className="row">
+
+                            <div className="m-3">
+                                <div className='shadow p-3 mb-5 bg-white rounded'>
+                                    <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} />
+
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -127,7 +127,6 @@ export const Discontinue = async (data) => {
     }
 }
 
-
 export const OpenPosition = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}DashboardOpen/${data.userName}`)
@@ -138,7 +137,6 @@ export const OpenPosition = async (data) => {
     }
 }
 
-
 export const GetBrokerData = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}Brokername/${data.userName}`)
@@ -148,7 +146,6 @@ export const GetBrokerData = async (data) => {
         return err
     }
 }
-
  
 export const UpdateBrokerData = async (data) => {
     try {
@@ -190,7 +187,6 @@ export const AvailableScript = async (data) => {
     }
 }
 
-
 export const GetSymbolIp = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}SymbolP/${data.Username}`)
@@ -200,7 +196,6 @@ export const GetSymbolIp = async (data) => {
         return err
     }
 }
-
 
 export const ChartPatternAPI = async (data) => {
     try {
@@ -221,3 +216,14 @@ export const Candlestick_Pattern = async (data) => {
         return err
     }
 }
+
+export const LastPatternCandleData = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}DailyData/ADANIENT`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+

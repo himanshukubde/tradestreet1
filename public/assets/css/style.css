@@ -5120,4 +5120,11 @@ body.sidebar-main .iq-sidebar {
   text-align: center !important;
 }
 
- 
+.ag-chart-wrapper canvas , .ag-chart-wrapper .ag-charts-focus__wrapper{
+    height: 500px !important;
+    overflow-y: hidden;
+}
+
+.css-nfmglb-MuiTableCell-root{
+  padding:2px !important;
+}
