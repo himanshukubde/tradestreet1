@@ -57,7 +57,7 @@ const UserRoute = () => {
 
 
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
       {/* )} */}

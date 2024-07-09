@@ -54,7 +54,7 @@ const AdminRoute = () => {
 
 
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
       {/* )} */}
