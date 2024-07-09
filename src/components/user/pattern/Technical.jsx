@@ -3,7 +3,7 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../Common API/Admin
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../Common API/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
-// import { AgChartsReact } from "ag-charts-react";
+ 
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
 
@@ -420,10 +420,7 @@ const LastPattern = () => {
 
 
 
-    useEffect(() => {
-
-
-    }, [selectedPatternType])
+  
 
     return (
         <div className="container-fluid">

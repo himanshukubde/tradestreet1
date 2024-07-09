@@ -219,7 +219,10 @@ export const Candlestick_Pattern = async (data) => {
 
 export const LastPatternCandleData = async (data) => {
     try {
-        const res = await axios.get(`${Config.base_url}DailyData/ADANIENT`)
+        console.log(data)
+        // const res = await axios.get(`${Config.base_url}DailyData/${data.CartName}`)
+        const res = await axios.get(`${Config.base_url}DailyData/BAJAJ-AUTO`)
+
         return res?.data
     }
     catch (err) {

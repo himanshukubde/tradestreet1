@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Get_Pattern_Name, Get_Pattern_Charting } from '../../Common API/Admin'
-import { Get_Last_Pattern_All_Data , AvailableScript , GetSymbolIp } from '../../Common API/User'
+import { Get_Last_Pattern_All_Data, AvailableScript, GetSymbolIp, LastPatternCandleData } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
-import { createRoot } from "react-dom/client";
+import "ag-charts-enterprise";
+import AgChartsReact from "./CandlePattern";
 
 const LastPattern = () => {
 
@@ -14,10 +15,14 @@ const LastPattern = () => {
         data: []
     })
 
+    const [getCandleData, setCandleData] = useState({
+        loading: true,
+        data: []
+    })
     const [selectPattern, setSelectPattern] = useState('')
     const [getChartPattern, setChartPattern] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
-    const [getAllSymbol , setSymbol] = useState([])
+    const [getAllSymbol, setSymbol] = useState([])
 
     const getLastPattern = async () => {
         const data = { Pattern: selectPattern }
@@ -179,21 +184,57 @@ const LastPattern = () => {
     };
 
 
+    const HandleSubmit = async () => {
 
- 
+        // const data = {CartName: selectedRowData && selectedRowData.Symbol}
+        // await LastPatternCandleData(data)
+        // .then((response)=>{
+        //     if(response.Status){
+        //         setCandleData({
+        //             loading:false,
+        //             data: response.Data
+        //         })
+        //     }
+        //     else{
+        //         setCandleData({
+        //             loading:false,
+        //             data: []
+        //         })
+        //     }
 
-
-
-    const HandleSubmit = ()=>{
-        
+        // })
+        // .catch((err)=>{
+        //     console.log("Error in finding the candle data", err)
+        // })  
     }
 
+    const Dammy = async () => {
 
+        const data = { CartName: selectedRowData && selectedRowData.Symbol }
+        await LastPatternCandleData(data)
+            .then((response) => {
+                if (response.Status) {
+                    setCandleData({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setCandleData({
+                        loading: false,
+                        data: []
+                    })
+                }
 
-  
+            })
+            .catch((err) => {
+                console.log("Error in finding the candle data", err)
+            })
+    }
 
-
-
+    useEffect(() => {
+        Dammy()
+    }, [])
 
 
     return (
@@ -249,9 +290,12 @@ const LastPattern = () => {
                                     <button className='btn btn-primary' onClick={HandleSubmit}>Submit</button>
                                 </div>
                                 <div className="row">
-                               
-                            </div>
-                            
+                                    <div className='shadow p-3 mb-5 bg-white rounded'>
+                                        <AgChartsReact ChartData={getCandleData && getCandleData.data} />
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

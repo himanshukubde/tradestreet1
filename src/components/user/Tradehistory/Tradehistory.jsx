@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 const Tradehistory = () => {
 
     const [selectStrategyType, setStrategyType] = useState('')
-    const [selectStrategyName, setStrategyName] = useState('')
     const [tradeHistory, setTradeHistory] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
     const [ToDate, setToDate] = useState('');
@@ -31,8 +30,6 @@ const Tradehistory = () => {
         data: [],
         data2: []
     })
-
-
 
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
@@ -587,9 +584,6 @@ const Tradehistory = () => {
         },
     ];
 
-
-
-
     const columns2 = [
         {
             name: "S.No",
@@ -774,8 +768,6 @@ const Tradehistory = () => {
 
     ];
 
-
-
     const columns3 = [
         {
             name: "S.No",
@@ -944,7 +936,6 @@ const Tradehistory = () => {
 
 
     ];
-
 
     const columns6 = [
         {
