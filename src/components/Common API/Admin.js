@@ -162,6 +162,17 @@ export const Get_Pattern_Name = async () => {
     }
 }
 
+export const Get_Pattern_Name2 = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}CCPattern/${data.selectPattern}`)
+        return res?.data
+
+    }
+    catch (err) {
+        return err
+    }
+}
+
 export const Get_Pattern_Charting = async () => {
     try {
         const res = await axios.get(`${Config.base_url}Pattern/Charting`)

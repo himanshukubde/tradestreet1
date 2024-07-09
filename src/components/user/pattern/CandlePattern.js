@@ -10,29 +10,6 @@ const ChartExample = ({ ChartData }) => {
       ...item,
       date: new Date(item.date),
     }));
-
-
-
-  //   {
-  //     "open": 52578.0,
-  //     "close": 52578.0,
-  //     "high": 52578.0,
-  //     "low": 52578.0,
-  //     "date": "2024-07-08T15:30:00.000Z",
-  //     "volume": 0.0
-  // },
-
-
-  // {
-  //   "Date": "2024-01-01T00:00:00.000",
-  //   "open": 6770,
-  //   "high": 6795.5,
-  //   "low": 6682.0498046875,
-  //   "close": 6701.1000976562,
-  //   "Symbol": "BAJAJ-AUTO"
-  // },
-
-
     const chartOptions = {
       data: processedData,
       footnote: {
