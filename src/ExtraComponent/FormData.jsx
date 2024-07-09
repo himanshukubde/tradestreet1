@@ -62,11 +62,11 @@ const DynamicForm = ({
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
- 
-  
-  
 
- 
+
+
+
+
 
   const minTime = dayjs().hour(9).minute(15).second(0);
 
@@ -366,36 +366,33 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "checkbox" ? (
                         <>
-                          {(
-                            <>
-                              <div className={`col-lg-${field.col_size}`}>
-                                <div className="row d-flex justify-content-start">
-                                  <div className='mb-4' >
-                                    <div className="form-check custom-checkbox ">
-                                      <input
-                                        type={field.type}
-                                        className="form-check-input"
-                                        id={field.label}
-                                        {...formik.getFieldProps(field.name)}
-                                        checked={field.check_box_true}
-                                      />
-                                      <label
-                                        className="form-check-label"
-                                        htmlFor={field.label}
-                                      >
-                                        {field.label}
-                                      </label>
-                                    </div>
-                                    {formik.errors[field.name] && (
-                                      <div style={{ color: "red" }}>
-                                        {formik.errors[field.name]}
-                                      </div>
-                                    )}
-                                  </div>
+                          {console.log("check_box_true", field)}
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="row d-flex justify-content-start">
+                              <div className='mb-4'>
+                                <div className="form-check custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id={field.label}
+                                    {...formik.getFieldProps(field.name)}
+                                    checked={formik.values[field.name]}
+                                    onChange={() => {
+                                      formik.setFieldValue(field.name, !formik.values[field.name]);
+                                    }}
+                                  />
+                                  <label className="form-check-label" htmlFor={field.label}>
+                                    {field.label}
+                                  </label>
                                 </div>
+                                {formik.errors[field.name] && (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors[field.name]}
+                                  </div>
+                                )}
                               </div>
-                            </>
-                          )}
+                            </div>
+                          </div>
                         </>
                       ) : field.type === "radio" ? (
                         <>
@@ -679,7 +676,7 @@ const DynamicForm = ({
                                     {...formik.getFieldProps(field.name)}
                                   />
 
-                                 
+
 
                                   {formik.touched[field.name] &&
                                     formik.errors[field.name] ? (
@@ -885,11 +882,11 @@ const DynamicForm = ({
                                   )}
                                 />
                               </LocalizationProvider>
-                              { formik.errors[field.name] ? (
-                                    <div style={{ color: "red" }}>{formik.errors[field.name]}</div>
-                                  ) : null}
+                              {formik.errors[field.name] ? (
+                                <div style={{ color: "red" }}>{formik.errors[field.name]}</div>
+                              ) : null}
 
-                              
+
                             </div>
                           </div>
                         </>
