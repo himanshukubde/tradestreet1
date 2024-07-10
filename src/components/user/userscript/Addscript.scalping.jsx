@@ -90,8 +90,8 @@ const AddClient = () => {
             PEDeepHigher: 0.0,
             set_Range: "",
             Set_First_Trade_Range: "",
-            TradeCount: 3,
-            TradeExecution: "Paper Trade",
+            Trade_Count: 0,
+            Trade_Execution: "Paper Trade",
         },
         validate: (values) => {
             let errors = {};
@@ -153,6 +153,13 @@ const AddClient = () => {
             if (!values.HigherRange && (values.set_Range || values.Strategy === "Fixed Price")) {
                 errors.HigherRange = "Please enter the higher price.";
             }
+            if (!values.Trade_Count) {
+                errors.Trade_Count = "Please enter the Trade Count.";
+            }
+            if (!values.Trade_Execution) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            
             if (!values.Group && values.Strategy === "Fixed Price") {
                 errors.Group = "Please select a unique ID.";
             }
@@ -208,8 +215,8 @@ const AddClient = () => {
                 CEDeepHigher: 0.0,
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
-                TradeCount: 3,
-                TradeExecution: "Paper Trade"
+                TradeCount: values.Trade_Count,
+                TradeExecution: values.Trade_Execution
             }
             if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
 
@@ -283,6 +290,9 @@ const AddClient = () => {
         formik.setFieldValue('ExitDay', location.state.data.ExitDay)
         formik.setFieldValue('EntryTime', location.state.data.EntryTime)
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
+        formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+
     }, [])
 
 
@@ -557,6 +567,29 @@ const AddClient = () => {
             hiding: false,
         },
         {
+            name: "Trade_Execution",
+            label: "Trade Execution",
+            type: "select",
+            options: [
+              { label: "Paper Trade", value: "Paper Trade" },
+              { label: "Live Trade", value: "Live Trade" },
+            ],
+           
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
+          },
+          {
+            name: "Trade_Count",
+            label: "Trade Count",
+            type: "text5",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
+          },
+        {
             name: "ExitDay",
             label: "Exit Day",
             type: "select",
@@ -730,28 +763,28 @@ const AddClient = () => {
     useEffect(() => {
 
         if (formik.values.set_Range == false) {
-            formik.setFieldValue('LowerRange', "1")
-            formik.setFieldValue('HigherRange', "1")
-            formik.setFieldValue('HoldExit', "")
+          formik.setFieldValue('LowerRange', 0)
+          formik.setFieldValue('HigherRange', 0)
+          
         }
         if (formik.values.Set_First_Trade_Range) {
-            formik.setFieldValue('EntryPrice', "1")
-            formik.setFieldValue('EntryRange', "1")
-
+          formik.setFieldValue('EntryPrice', 0)
+          formik.setFieldValue('EntryRange', 0)
+    
         }
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-            formik.setFieldValue('Optiontype', "")
-            formik.setFieldValue('Strike', "")
+          formik.setFieldValue('Optiontype', "")
+          formik.setFieldValue('Strike', "")
         }
         if (formik.values.Exchange == "NSE") {
-            formik.setFieldValue('Instrument', "")
-            formik.setFieldValue('Symbol', "")
-            formik.setFieldValue('expirydata1', "")
-            formik.setFieldValue('Strike', "")
-            formik.setFieldValue('Optiontype', "")
+          formik.setFieldValue('Instrument', "")
+          formik.setFieldValue('Symbol', "")
+          formik.setFieldValue('expirydata1', "")
+          formik.setFieldValue('Strike', "")
+          formik.setFieldValue('Optiontype', "")
         }
-
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+    
+      }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
     return (

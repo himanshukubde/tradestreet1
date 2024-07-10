@@ -515,6 +515,7 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
+    
     {
       name: "Group",
       label: "Unique ID",

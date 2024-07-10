@@ -61,8 +61,12 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            TradeCount: 2
-        },
+            TradeCount: 2,
+            Unique_ID: ""
+            
+        },  
+             
+
 
         validate: (values) => {
             let errors = {};
@@ -152,6 +156,7 @@ const AddClient = () => {
 
             }
 
+            
 
            
             await AddScript(req)

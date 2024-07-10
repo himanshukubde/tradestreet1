@@ -796,6 +796,22 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
         }
     },
     {
+        name: "TradeExecution",
+        label: "Trade Execution",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "Symbol",
         label: "Symbol",
         options: {
@@ -990,6 +1006,22 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "STG",
         label: "STG",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeExecution",
+        label: "Trade Execution",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -1343,6 +1375,22 @@ export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "Exchange",
         label: "Exchange",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeExecution",
+        label: "Trade Execution",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
