@@ -75,7 +75,8 @@ const AddClient = () => {
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
             Trade_Count: 2,
-            Unique_ID: ""
+            Unique_ID: "",
+            Measurment_Type : ""
         },
 
 
@@ -87,14 +88,19 @@ const AddClient = () => {
             if (!values.Strategy) {
                 errors.Strategy = "Please select a strategy type.";
             }
+
+             
+            if (!values.Measurment_Type) {
+                errors.Measurment_Type = "Please select Option type.";
+            }
             if (!values.ETPattern) {
-                errors.ETPattern = "Please select an ETPattern type.";
+                errors.ETPattern = "Please select  ETPattern type.";
             }
             if (!values.Symbol) {
-                errors.Symbol = "Please select a symbol type.";
+                errors.Symbol = "Please select  symbol type.";
             }
             if (!values.Targetvalue) {
-                errors.Targetvalue = "Please enter a target value.";
+                errors.Targetvalue = "Please enter target value.";
             }
             if (!values.Slvalue) {
                 errors.Slvalue = "Please enter a stop loss value.";
@@ -196,6 +202,7 @@ const AddClient = () => {
             }
 
            
+            
 
             return errors;
         },
@@ -348,7 +355,7 @@ const AddClient = () => {
     const fields = [
         {
             name: "Measurment_Type",
-            label: "Measurement Type",
+            label: "Option Type",
             type: "select",
             options: [
                 { label: "Straddle/Strangle", value: "Straddle/Strangle" },

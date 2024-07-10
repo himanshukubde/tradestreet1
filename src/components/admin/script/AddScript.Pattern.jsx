@@ -115,19 +115,19 @@ const AddClient = () => {
                 errors.expirydata1 = "Enter Expiry Date.";
             }
             if (!values.Strategy) {
-                errors.Strategy = "Please Enter Strategy Type.";
+                errors.Strategy = "Please Select Pattern Type.";
             }
             if (!values.Timeframe) {
                 errors.Timeframe = "Please Enter Timeframe Type.";
             }
             if (!values.ETPattern) {
-                errors.ETPattern = "Please Enter Pattern Type.";
+                errors.ETPattern = "Please Select Pattern Name.";
             }
             if (!values.HoldExit) {
-                errors.HoldExit = "Please Enter Hold/Exit Type.";
+                errors.HoldExit = "Please Select Previous Trend.";
             }
             if (!values.TStype) {
-                errors.TStype = "Please Enter TS Type.";
+                errors.TStype = "Please Enter Measurement Type.";
             }
             if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
                 errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
@@ -388,7 +388,7 @@ const AddClient = () => {
 
         {
             name: "Strategy",
-            label: "Option Type",
+            label: "Pattern Type",
             type: "select",
             options: [
                 { label: "Candlestick Pattern", value: "CandlestickPattern" },
@@ -416,7 +416,7 @@ const AddClient = () => {
         },
         {
             name: "ETPattern",
-            label: "Select Pattern",
+            label: "Pattern Name",
             type: "select",
             options: formik.values.Strategy == 'ChartingPattern' ? getChartPattern.data && getChartPattern.data.map((item) => ({
                 label: item,

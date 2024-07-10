@@ -21,9 +21,28 @@ const Tradehistory = () => {
     })
 
 
-    console.log("getAllTradeData :" ,getAllTradeData)
+     
 
     const Username = localStorage.getItem('name')
+
+
+      // set Defult Date 
+      const currentDate = new Date();
+      currentDate.setDate(currentDate.getDate()-7);
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      const formattedDate = `${year}.${month}.${day}`;
+  
+  
+      // from date
+      const DefultToDate = new Date();
+  
+      DefultToDate.setDate(DefultToDate.getDate());
+      const year1 = DefultToDate.getFullYear();
+      const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+      const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+      const Defult_To_Date = `${year1}.${month1}.${day1}`;
 
     // Date Formetor
     const convertDateFormat = (date) => {
@@ -811,8 +830,8 @@ const Tradehistory = () => {
             Username: Username,
             ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
-            From_date: convertDateFormat(FromDate),
-            To_date: convertDateFormat(ToDate),
+            From_date: convertDateFormat(FromDate=='' ? formattedDate : FromDate),
+            To_date: convertDateFormat(ToDate=='' ? Defult_To_Date : ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
@@ -865,7 +884,7 @@ const Tradehistory = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Trade History</h4>
+                                <h4 className="card-title">Trade Response</h4>
                             </div>
                         </div>
                         <div className="iq-card-body">
@@ -880,17 +899,15 @@ const Tradehistory = () => {
                                             <option value={"Scalping"}>Scalping</option>
                                             <option value={"Option Strategy"}>Option Strategy</option>
                                             <option value={"Pattern"}>Pattern Script</option>
-
                                         </select>
                                     </div>
                                     <div className="form-group col-lg-3 ">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
-
+                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
                                     </div>
                                     <div className="form-group col-lg-3">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate=='' ? Defult_To_Date : ToDate } onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
