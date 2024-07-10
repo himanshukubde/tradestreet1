@@ -92,6 +92,9 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         }
     }, [userDetails]);
 
+    console.log("userDetails.data", userDetails.data.BrokerName)
+
+
     const fields = [
         {
             name: "BrokerName",
@@ -103,8 +106,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         },
         {
             name: "username",
-            label: formik.values.BrokerName === "Angel" ? "Username " : formik.values.BrokerName === "Aliceblue" ? "Username " : "Username",
-            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue",
+            label: formik.values.BrokerName === "Aliceblue" ? "Username " : formik.values.BrokerName === "5Paisa" ? "App Name " : "Username",
+            showWhen: (values) => values.BrokerName === "Aliceblue" || values.BrokerName === "5Paisa",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -112,8 +115,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         },
         {
             name: "api_key",
-            label: formik.values.BrokerName === "Angel" ? "App Api Key" :formik.values.BrokerName === "Aliceblue" ? "App Api Key" : "Username",
-            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue",
+            label: formik.values.BrokerName === "Angel" ? "App Api Key" : formik.values.BrokerName === "Aliceblue" ? "App Api Key" : formik.values.BrokerName === "ICICI" ? "App Api Key" : formik.values.BrokerName === "Upstox" ? "App Api Key" : formik.values.BrokerName === "5Paisa" ? "USER_ID" : "Username",
+            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue" || values.BrokerName === "ICICI" || values.BrokerName === "Upstox"  || values.BrokerName === "5Paisa",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -122,8 +125,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "Password",
             type: 'text',
-            label: formik.values.BrokerName === "Angel" ? "User PIN" : "PWD",
-            showWhen: (values) => values.BrokerName === "Angel",
+            label: formik.values.BrokerName === "Upstox" ? "Redirect Url" : formik.values.BrokerName === "5Paisa" ? "APP SOURCE" : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "Upstox" || values.BrokerName === "5Paisa",
             disable: false,
             label_size: 12,
             col_size: 6,
@@ -131,8 +134,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "mobileno",
             type: "text",
-            label: formik.values.BrokerName === "Aliceblue" ? "Mobile No." : "Mobile No.",
-            showWhen: (values) => values.BrokerName === "Zerodha",
+            label: formik.values.BrokerName === "Aliceblue" ? "Mobile No." :  formik.values.BrokerName === "5Paisa" ? "USER KEY" : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "Zerodha" || values.BrokerName === "5Paisa",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -140,9 +143,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "APIPassword",
             type: "text",
-            label: formik.values.BrokerName === "Angel" ? "API Password" : "API Password",
-            showWhen: (values) => values.BrokerName === "Zerodha",
-
+            label: formik.values.BrokerName === "5Paisa" ? "ENCRYPTION KEY" : "API Password",
+            showWhen: (values) =>  values.BrokerName === "5Paisa",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -150,8 +152,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "DOB",
             type: "text",
-            label: formik.values.BrokerName == "Angel" ? "Auth Key" : "DOB",
-            showWhen: (values) => values.BrokerName === "Angel",
+            label: formik.values.BrokerName === "ICICI" ? "Secret Key" : formik.values.BrokerName === "Upstox" ? "Secret Key" : formik.values.BrokerName === "5Paisa" ? "PASSWORD" : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "ICICI" || values.BrokerName === "Upstox" || values.BrokerName === "5Paisa",
             label_size: 12,
             col_size: 6,
             disable: false,
