@@ -627,7 +627,7 @@ const AddClient = () => {
         await ExpriyEndDate(data)
             .then((response) => {
                 if (response.stutus) {
-                    console.log("res", response)
+                    
                     setServiceEndDate(response.ExpiryDate)
                 }
                 else {
@@ -638,6 +638,7 @@ const AddClient = () => {
                 console.log("Error in finding the Service end date", err)
             })
     }
+
 
     useEffect(() => {
         GetExpriyEndDate()
@@ -692,8 +693,6 @@ const AddClient = () => {
                     }
                 })
         }
-
-
     }
     useEffect(() => {
         getStrikePrice()

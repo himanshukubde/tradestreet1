@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { GET_EXPIRY_DATE , ExpriyEndDate } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
 
 
@@ -16,6 +16,7 @@ const AddClient = () => {
         data: []
     })
 
+    const [serviceEndDate, setServiceEndDate] = useState('')
 
     const SweentAlertFun = (text) => {
         Swal.fire({
@@ -222,7 +223,7 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 FixedSM: "",
                 TType: "",
-                serendate: "2023-10-25",
+                serendate: serviceEndDate,
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
@@ -773,6 +774,27 @@ const AddClient = () => {
 
 
 
+    const GetExpriyEndDate = async () => {
+        const data = { Username: userName }
+        await ExpriyEndDate(data)
+            .then((response) => {
+                if (response.stutus) {
+                    
+                    setServiceEndDate(response.ExpiryDate)
+                }
+                else {
+                    setServiceEndDate('')
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the Service end date", err)
+            })
+    }
+
+
+    useEffect(() => {
+        GetExpriyEndDate()
+    }, [])
 
 
     useEffect(() => {

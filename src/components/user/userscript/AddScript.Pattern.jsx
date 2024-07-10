@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import {GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name , GetExchange } from '../../Common API/Admin'
+import {GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name , GetExchange , ExpriyEndDate} from '../../Common API/Admin'
 import { AddScript} from '../../Common API/User'
 
 const AddClient = () => {
@@ -43,6 +43,7 @@ const AddClient = () => {
         loading: true,
         data: []
     })
+    const [serviceEndDate, setServiceEndDate] = useState('')
     
 
     const formik = useFormik({
@@ -72,7 +73,7 @@ const AddClient = () => {
             ExitDay: "",
             FixedSM: "",
             TType: "",
-            serendate: "2023-10-25",
+            serendate: "",
             expirydata1: "",
             Expirytype: "",
             Striketype: "",
@@ -194,7 +195,7 @@ const AddClient = () => {
                 TradeExecution: values.Trade_Execution,
                 FixedSM: "",
                 TType: values.TType,
-                serendate: "2023-10-25",
+                serendate: serviceEndDate,
                 expirydata1: values.expirydata1,
                 Expirytype: "",
                 Striketype: "",
@@ -751,6 +752,27 @@ const AddClient = () => {
         GetPatternTimeFrame()
         GetPatternName()
         GetPatternCharting()
+    }, [])
+
+    const GetExpriyEndDate = async () => {
+        const data = { Username: userName }
+        await ExpriyEndDate(data)
+            .then((response) => {
+                if (response.stutus) {
+                    console.log("res", response)
+                    setServiceEndDate(response.ExpiryDate)
+                }
+                else {
+                    setServiceEndDate('')
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the Service end date", err)
+            })
+    }
+
+    useEffect(() => {
+        GetExpriyEndDate()
     }, [])
 
 
