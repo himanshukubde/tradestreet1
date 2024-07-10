@@ -86,7 +86,7 @@ const loginWithApi = async (UserDetails) => {
                 });
         }
 
-        
+
         if (UserDetails.BrokerName.toUpperCase() === "5PAISA") {
             console.log("5PAISA", UserDetails);
 
@@ -94,7 +94,7 @@ const loginWithApi = async (UserDetails) => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: Config.base_url+'5paisa/'+UserDetails.Username,
+                url: Config.base_url+'5PaisaBroker/'+UserDetails.Username,
                 headers: {}
             };
 
