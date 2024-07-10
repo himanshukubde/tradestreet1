@@ -218,6 +218,8 @@ const AddClient = () => {
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
+
+            
             if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
 
                 return SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")

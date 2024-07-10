@@ -241,6 +241,7 @@ const AddClient = () => {
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
+            
             if (values.Striketype == "Depth_of_Strike" && (values.DepthofStrike < 0 || values.DepthofStrike > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")

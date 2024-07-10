@@ -43,8 +43,8 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    const [serviceEndDate, setServiceEndDate] = useState('')
     
+    const [serviceEndDate, setServiceEndDate] = useState('')
 
     const formik = useFormik({
  
@@ -212,6 +212,7 @@ const AddClient = () => {
                 PEDeepHigher: 0.0,
             }   
              
+            
            
             await AddScript(req)
                 .then((response) => {

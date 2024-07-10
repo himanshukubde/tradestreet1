@@ -212,6 +212,7 @@ const AddClient = () => {
                 PEDeepHigher: 0.0,
             }   
              
+            
            
             await AddScript(req)
                 .then((response) => {
