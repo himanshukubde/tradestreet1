@@ -396,14 +396,15 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "radio" ? (
                         <>
-                          <label
+                        <div className={`col-lg-${field.col_size}`}>
+                          {/* <label
                             className={`col-lg-${field.label_size} col-form-label fw-bold text-decoration-underline`}
                             htmlFor={field.parent_label}
                           >
                             {field.parent_label}
-                          </label>
+                          </label> */}
 
-                          <div className="d-flex mb-4">
+                          <div className={`d-flex mb-4 col-lg-${field.col_size}`}>
                             <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
                               <input
                                 type={field.type}
@@ -475,19 +476,16 @@ const DynamicForm = ({
                               </label>
                             </div>
                           </div>
+
+                        </div>
                         </>
                       ) : field.type === "radio1" ? (
                         <>
-                          <label
-                            className={`col-lg-${field.label_size} col-form-label fw-bold text-decoration-underline`}
-                            htmlFor={field.parent_label}
-                          >
-                            {field.parent_label}
-                          </label>
+                         
 
-                          <div className="d-flex mb-4">
+                          <div className={`d-flex  col-lg-${field.col_size}`}>
                             {field.title && field.title.map((item) => (
-                              <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`} key={item.title}>
+                              <div className={`form-check custom-checkbox d-flex align-items-center col-lg-3`} key={item.title}>
                                 <input
                                   type="radio"
                                   name={field.name} // Ensure the name is consistent for all options

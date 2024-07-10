@@ -123,7 +123,7 @@ const AddClient = () => {
             if (!values.Striketype) {
                 errors.Striketype = "Please select a strike type.";
             }
-            if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy" )) {
+            if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy")) {
                 errors.Unique_ID = "Please select Unique ID.";
             }
             if (!values.PEDeepLower && values.PEDeepLower == 0) {
@@ -181,7 +181,7 @@ const AddClient = () => {
             }
             // console.log(errors)
 
-        
+
 
             return errors;
         },
@@ -266,7 +266,7 @@ const AddClient = () => {
                 }
             }
 
-        
+
             try {
                 const response = await AddAdminScript(req);
                 if (response.Status) {
@@ -292,10 +292,6 @@ const AddClient = () => {
             } catch (err) {
                 console.log("Error in adding new Script", err);
             }
-
-
-
-
         }
     });
 
@@ -344,7 +340,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 4,
             disable: false,
         },
         {
@@ -352,7 +348,7 @@ const AddClient = () => {
             label: "Strategy",
             type: "radio1",
             title: formik.values.Measurment_Type == "Straddle/Strangle" ?
-                [ { title: "Long Strangle", value: "LongStrangle" }, { title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }] :
+                [{ title: "Long Strangle", value: "LongStrangle" }, { title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }] :
 
                 formik.values.Measurment_Type == "Butterfly/Condor" ?
                     [{ title: "Long Iron Butterfly", value: "LongIronButterfly" }, { title: "Short Iron Butterfly", value: "ShortIronButterfly" }, { title: "Long Iron Condor", value: "LongIronCondor" }, { title: "Short Iron Condor", value: "ShortIronCondor" }] :
@@ -367,12 +363,12 @@ const AddClient = () => {
                                 [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "Ratio Put Spread" }] :
 
                                 formik.values.Measurment_Type == "Shifting/FourLeg" ?
-                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "Short Four Leg Strategy", value: "ShortFourLegStretegy" }, { title: "Long Four Leg Strategy", value: "LongFourLegStretegy" }] :
+                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
                                     ""
 
             ,
             label_size: 12,
-            col_size: 3,
+            col_size: 8,
             disable: false,
             hiding: false,
         },
@@ -475,26 +471,25 @@ const AddClient = () => {
             name: "ETPattern",
             label: "Risk Handle",
             type: "select",
-            options:  formik.values.Strategy=="CoveredPut" || formik.values.Strategy=="CoveredCall"  || formik.values.Strategy=="ShortCollar" || formik.values.Strategy=="LongCollar" ?  
-            [
-               
-                { label: "Future", value: "Future" },
-                { label: "Leg vice", value: "Leg vice" },
+            options: formik.values.Strategy == "CoveredPut" || formik.values.Strategy == "CoveredCall" || formik.values.Strategy == "ShortCollar" || formik.values.Strategy == "LongCollar" ?
+                [
 
-            ] :
-            [
-                { label: "Premium Addition", value: "Premium Addition" },
-                { label: "Future", value: "Future" },
-                { label: "Leg vice", value: "Leg vice" },
+                    { label: "Future", value: "Future" },
+                    { label: "Leg vice", value: "Leg vice" },
 
-            ],
+                ] :
+                [
+                    { label: "Premium Addition", value: "Premium Addition" },
+                    { label: "Future", value: "Future" },
+                    { label: "Leg vice", value: "Leg vice" },
+
+                ],
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
             hiding: false,
             label_size: 12,
             col_size: 4,
             disable: false,
         },
-         
         {
             name: "Quantity",
             label: "Lot",
@@ -553,9 +548,7 @@ const AddClient = () => {
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
             col_size: 4,
             disable: false,
-
         },
-      
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -594,7 +587,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-           {
+        {
             name: "TStype",
             label: "Measurment Type",
             type: "cp",
@@ -604,7 +597,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "CEDepthLower",
             label: "CE Main Lower",
@@ -685,7 +677,6 @@ const AddClient = () => {
             col_size: 3,
             disable: false,
         },
-        
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -704,8 +695,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
-
     ];
 
 
@@ -744,8 +733,6 @@ const AddClient = () => {
 
 
 
-
-
     useEffect(() => {
 
         if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
@@ -759,11 +746,7 @@ const AddClient = () => {
 
 
     }, [formik.values.Strategy, formik.values.Striketype])
-
-
-
-
-
+ 
     return (
         <>
             <AddForm

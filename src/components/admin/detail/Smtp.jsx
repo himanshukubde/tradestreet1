@@ -119,7 +119,6 @@ const Smtp = () => {
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary me-1 mt-2">
                                     Update
                                 </button>
-                               
                             </div>
                         </div>
                     </div>

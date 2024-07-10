@@ -356,7 +356,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 4,
             disable: false,
         },
         {
@@ -384,7 +384,7 @@ const AddClient = () => {
 
             ,
             label_size: 12,
-            col_size: 3,
+            col_size:  8,
             disable: false,
             hiding: false,
         },
