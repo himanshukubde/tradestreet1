@@ -26,6 +26,8 @@ const AddClient = () => {
 
     }
 
+
+    // console.log(getExpiry)
     const formik = useFormik({
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
@@ -177,7 +179,7 @@ const AddClient = () => {
                 }
 
             }
-            console.log(errors)
+            // console.log(errors)
 
         
 
@@ -211,7 +213,7 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 FixedSM: "",
                 TType: "",
-                expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
+                expirydata1: getExpiry && getExpiry.data[0],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
                 DepthofStrike: values.DepthofStrike,
@@ -264,7 +266,7 @@ const AddClient = () => {
                 }
             }
 
-            console.log("CPPPP")
+        
             try {
                 const response = await AddAdminScript(req);
                 if (response.Status) {
@@ -713,6 +715,7 @@ const AddClient = () => {
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }
+        console.log("data : ", data)
         await GET_EXPIRY_DATE(data)
             .then((response) => {
                 if (response.Status) {
@@ -737,7 +740,7 @@ const AddClient = () => {
     useEffect(() => {
         getExpriyData()
 
-    }, [formik.values.Expirytype])
+    }, [formik.values.Symbol])
 
 
 
