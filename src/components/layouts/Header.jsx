@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UpdateBrokerKey from "./Update_Broker_Key";
+import Loginwihapi from "./log_with_api";
+
 import { TradingStatus, ConnectBroker } from "../Common API/User";
 import Swal from 'sweetalert2';
 
@@ -16,6 +18,8 @@ const Header = () => {
     const [getModal, setModal] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [getTradingStatus, setTradingStatus] = useState(false);
+    const [getBrokerName, setBrokerName] = useState("");
+
 
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
@@ -26,12 +30,15 @@ const Header = () => {
             AccToken: "",
             usrid: "",
             sid: "",
-            jwt_Token: ""
+            jwt_Token: "",
+            BrokerName: getBrokerName,
         };
 
 
-        console.log(requestData)
-        return 
+        Loginwihapi(requestData )
+
+
+        return
         try {
             const response = await ConnectBroker(requestData);
 
@@ -80,9 +87,7 @@ const Header = () => {
 
 
 
-    const handleOpenModal = () => {
-        setIsModalVisible(true);
-    };
+
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
@@ -179,8 +184,11 @@ const Header = () => {
         const requestData = { userName: Username };
         const response = await TradingStatus(requestData);
 
-        if (response.Status) {
-            setTradingStatus(true)
+        if (response) {
+            setBrokerName(response.Brokername)
+            if (response.Status) {
+                setTradingStatus(true)
+            }
         }
     };
 
@@ -273,21 +281,6 @@ const Header = () => {
                                             </a>
                                         </div>
                                     </li>
-                                    {/* <li className="nav-item">
-                                        <a href='#' className="rtl-switch-toogle">
-                                            <span className="form-check form-switch">
-                                                <input
-                                                    className="form-check-input rtl-switch"
-                                                    type="checkbox"
-                                                    role="switch"
-                                                    id="rtl-switch"
-                                                    checked={getTradingStatus}
-                                                    onChange={handleToggle}
-                                                />
-                                                <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
-                                            </span>
-                                        </a>
-                                    </li> */}
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
@@ -509,7 +502,7 @@ const Header = () => {
                         </nav>
                     ) : (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
-                          
+
                             <button
                                 className="navbar-toggler"
                                 type="button"
@@ -540,7 +533,7 @@ const Header = () => {
                                         <button
                                             type="button"
                                             className="btn btn-primary"
-                                            onClick={(e) => handleOpenModal()}
+                                            onClick={(e) => setIsModalVisible(true)}
                                         >
                                             Set API Key
                                         </button>
@@ -558,12 +551,14 @@ const Header = () => {
                                                     role="switch"
                                                     id="rtl-switch"
                                                     checked={getTradingStatus}
-                                                    onChange={handleToggle}
+                                                    onChange={(e) => handleToggle(e)}
                                                 />
                                                 <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
                                             </span>
                                         </a>
                                     </li>
+
+
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
