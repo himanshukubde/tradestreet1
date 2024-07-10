@@ -115,8 +115,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         },
         {
             name: "api_key",
-            label: formik.values.BrokerName === "Angel" ? "App Api Key" : formik.values.BrokerName === "Aliceblue" ? "App Api Key" : formik.values.BrokerName === "ICICI" ? "App Api Key" : formik.values.BrokerName === "Upstox" ? "App Api Key" : formik.values.BrokerName === "5Paisa" ? "USER_ID" : "Username",
-            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue" || values.BrokerName === "ICICI" || values.BrokerName === "Upstox"  || values.BrokerName === "5Paisa",
+            label: formik.values.BrokerName === "Angel" ? "App Api Key" : formik.values.BrokerName === "Aliceblue" ? "App Api Key" : formik.values.BrokerName === "ICICI" ? "App Api Key" : formik.values.BrokerName === "Upstox" ? "App Api Key" : formik.values.BrokerName === "5Paisa" ? "USER_ID" : formik.values.BrokerName === "MasterTrust" ? "App ID" : "Username",
+            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue" || values.BrokerName === "ICICI" || values.BrokerName === "Upstox"  || values.BrokerName === "5Paisa" || values.BrokerName === "MasterTrust",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -125,8 +125,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "Password",
             type: 'text',
-            label: formik.values.BrokerName === "Upstox" ? "Redirect Url" : formik.values.BrokerName === "5Paisa" ? "APP SOURCE" : "Mobile No.",
-            showWhen: (values) => values.BrokerName === "Upstox" || values.BrokerName === "5Paisa",
+            label: formik.values.BrokerName === "Upstox" ? "Redirect Url" : formik.values.BrokerName === "5Paisa" ? "APP SOURCE" : formik.values.BrokerName === "MasterTrust" ? "Client Secret" : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "Upstox" || values.BrokerName === "5Paisa" || values.BrokerName === "MasterTrust",
             disable: false,
             label_size: 12,
             col_size: 6,
@@ -152,8 +152,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "DOB",
             type: "text",
-            label: formik.values.BrokerName === "ICICI" ? "Secret Key" : formik.values.BrokerName === "Upstox" ? "Secret Key" : formik.values.BrokerName === "5Paisa" ? "PASSWORD" : "Mobile No.",
-            showWhen: (values) => values.BrokerName === "ICICI" || values.BrokerName === "Upstox" || values.BrokerName === "5Paisa",
+            label: formik.values.BrokerName === "ICICI" ? "Secret Key" : formik.values.BrokerName === "Upstox" ? "Secret Key" : formik.values.BrokerName === "5Paisa" ? "PASSWORD" : formik.values.BrokerName === "MasterTrust" ? "Redirect Uri" : "Mobile No.",
+            showWhen: (values) => values.BrokerName === "ICICI" || values.BrokerName === "Upstox" || values.BrokerName === "5Paisa" || values.BrokerName === "MasterTrust",
             label_size: 12,
             col_size: 6,
             disable: false,

@@ -38,51 +38,7 @@ const Header = () => {
         Loginwihapi(requestData )
 
 
-        return
-        try {
-            const response = await ConnectBroker(requestData);
-
-            if (response.Status) {
-                setTradingStatus(newStatus);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Trading On successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    timer: 1000
-                }).then(() => {
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                });
-            } else {
-                setTradingStatus(!newStatus);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Trading Off successfully.',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    timer: 1000
-                }).then(() => {
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                });
-            }
-        } catch (error) {
-            setTradingStatus(!newStatus);
-            Swal.fire({
-                title: 'Error!',
-                text: 'Something went wrong!',
-                icon: 'error',
-                confirmButtonText: 'OK',
-                timer: 1000
-            }).then(() => {
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            });
-        }
+      
     };
 
 
