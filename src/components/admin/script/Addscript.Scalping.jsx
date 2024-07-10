@@ -52,11 +52,11 @@ const AddClient = () => {
       Slvalue: 1,
       TStype: "Point",
       Quantity: 1,
-      LowerRange: 1,
-      HigherRange: 1,
-      HoldExit: "",
-      EntryPrice: 1,
-      EntryRange: 1,
+      LowerRange: 0,
+      HigherRange: 0,
+      HoldExit: "Hold",
+      EntryPrice: 0,
+      EntryRange: 0,
       EntryTime: "09:15:00",
       ExitTime: "15:25:00",
       ExitDay: "",
@@ -199,27 +199,30 @@ const AddClient = () => {
       }
       if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
 
-        SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
-
-      }
-      else if (values.set_Range == true && Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0) {
-        SweentAlertFun("Higher Price should be greater than Lower Price")
-
-      }
-      else if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
-
-
-        SweentAlertFun( Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ?  "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
+       return SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
 
       }
-      else if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
 
-        SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
+      console.log(values.set_Range)
+      if (values.set_Range == true && ( Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
+      return  SweentAlertFun("Higher Price should be greater than Lower Price")
+
+      }
+       if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
+
+
+        return SweentAlertFun( Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ?  "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
+
+
+      }
+      if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
+
+      return  SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
 
       }
 
-      else {
+    
         await AddAdminScript(req)
           .then((response) => {
             if (response.Status) {
@@ -249,7 +252,7 @@ const AddClient = () => {
           })
       }
 
-    },
+  
   });
 
   useEffect(() => {
@@ -257,8 +260,8 @@ const AddClient = () => {
     formik.setFieldValue('Exchange', "NFO")
     formik.setFieldValue("TType", "BUY")
     formik.setFieldValue("ExitDay", "Intraday")
-    formik.setFieldValue("EntryPrice", 1)
-    formik.setFieldValue("EntryRange", 1)
+    formik.setFieldValue("EntryPrice", 0)
+    formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX") 
     formik.setFieldValue("HoldExit", "Hold") 
 
@@ -447,26 +450,7 @@ const AddClient = () => {
       hiding: false,
       disable: false,
     },
-    {
-      name: "LowerRange",
-      label: "Lower Price",
-      type: "text5",
-      showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
-      label_size: 12,
-      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "HigherRange",
-      label: "Higher Price",
-      type: "text5",
-      showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
-      label_size: 12,
-      col_size: formik.values.Strategy == "Fixed Price" ? 3 : 4,
-      disable: false,
-      hiding: false,
-    },
+    
     {
       name: "Targetvalue",
       label: formik.values.Strategy=="Fixed Price" ? "Target Price" : "Target",
@@ -495,6 +479,26 @@ const AddClient = () => {
       col_size: 12,
       hiding: false,
       disable: false,
+    },
+    {
+      name: "LowerRange",
+      label: "Lower Price",
+      type: "text5",
+      showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
+      label_size: 12,
+      col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
+      disable: false,
+      hiding: false,
+    },
+    {
+      name: "HigherRange",
+      label: "Higher Price",
+      type: "text5",
+      showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
+      label_size: 12,
+      col_size: formik.values.Strategy == "Fixed Price" ? 3 : 4,
+      disable: false,
+      hiding: false,
     },
    
     {
@@ -681,13 +685,13 @@ const AddClient = () => {
   useEffect(() => {
 
     if (formik.values.set_Range == false) {
-      formik.setFieldValue('LowerRange', "1")
-      formik.setFieldValue('HigherRange', "1")
-      formik.setFieldValue('HoldExit', "")
+      formik.setFieldValue('LowerRange', 0)
+      formik.setFieldValue('HigherRange', 0)
+      
     }
     if (formik.values.Set_First_Trade_Range) {
-      formik.setFieldValue('EntryPrice', "1")
-      formik.setFieldValue('EntryRange', "1")
+      formik.setFieldValue('EntryPrice', 0)
+      formik.setFieldValue('EntryRange', 0)
 
     }
     if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
@@ -700,8 +704,6 @@ const AddClient = () => {
       formik.setFieldValue('expirydata1', "")
       formik.setFieldValue('Strike', "")
       formik.setFieldValue('Optiontype', "")
-
-
     }
 
   }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])

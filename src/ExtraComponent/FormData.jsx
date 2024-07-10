@@ -366,7 +366,7 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "checkbox" ? (
                         <>
-                          {console.log("check_box_true", field)}
+                           
                           <div className={`col-lg-${field.col_size}`}>
                             <div className="row d-flex justify-content-start">
                               <div className='mb-4'>

@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange , ExpriyEndDate } from '../../Common API/Admin'
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange, ExpriyEndDate } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
 
 
@@ -46,8 +46,6 @@ const AddClient = () => {
 
     }
 
-
-
     const formik = useFormik({
 
         initialValues: {
@@ -65,11 +63,11 @@ const AddClient = () => {
             Slvalue: 1,
             TStype: "",
             Quantity: 1,
-            LowerRange: 1,
-            HigherRange: 1,
+            LowerRange: 0,
+            HigherRange: 0,
             HoldExit: "",
-            EntryPrice: 1,
-            EntryRange: 1,
+            EntryPrice: 0,
+            EntryRange: 0,
             EntryTime: "09:15:00",
             ExitTime: "15:25:00",
             ExitDay: "",
@@ -94,9 +92,7 @@ const AddClient = () => {
             Set_First_Trade_Range: "",
             TradeCount: 3,
             TradeExecution: "Paper Trade",
-            
         },
-
         validate: (values) => {
             let errors = {};
             const maxTime = "15:29:59";
@@ -127,7 +123,7 @@ const AddClient = () => {
                 errors.TType = "Please select a transaction type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Please enter the quantity.";
+                errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
             }
             if (!values.ExitTime) {
                 errors.ExitTime = "Please select an exit time.";
@@ -142,29 +138,29 @@ const AddClient = () => {
             if (!values.ExitDay) {
                 errors.ExitDay = "Please select an exit day.";
             }
-            if (!values.EntryPrice && values.Set_First_Trade_Range === "Yes") {
+            if (!values.EntryPrice && values.Set_First_Trade_Range) {
                 errors.EntryPrice = "Please enter the lowest price.";
             }
-            if (!values.EntryRange && values.Set_First_Trade_Range === "Yes") {
+            if (!values.EntryRange && values.Set_First_Trade_Range) {
                 errors.EntryRange = "Please enter the highest price.";
             }
             if (!values.Targetvalue) {
-                errors.Targetvalue = "Please enter a target value.";
+                errors.Targetvalue = values.Strategy == "Fixed Price" ? "Please enter a target Price." : "Please enter a target value.";
             }
-            if (!values.LowerRange && (values.set_Range === "Yes" || values.Strategy === "Fixed Price")) {
+            if (!values.LowerRange && (values.set_Range || values.Strategy === "Fixed Price")) {
                 errors.LowerRange = "Please enter the lower price.";
             }
-            if (!values.HigherRange && (values.set_Range === "Yes" || values.Strategy === "Fixed Price")) {
+            if (!values.HigherRange && (values.set_Range || values.Strategy === "Fixed Price")) {
                 errors.HigherRange = "Please enter the higher price.";
             }
             if (!values.Group && values.Strategy === "Fixed Price") {
                 errors.Group = "Please select a unique ID.";
             }
-            if (!values.HoldExit && values.set_Range === "Yes") {
+            if (!values.HoldExit && values.set_Range) {
                 errors.HoldExit = "Please select whether to hold or exit.";
             }
             if (!values.Slvalue) {
-                errors.Slvalue = "Please select a stop loss value.";
+                errors.Slvalue = values.Strategy == "Fixed Price" ? "Please enter stop loss Price." : "Please select a stop loss value.";
             }
 
             return errors;
@@ -182,7 +178,7 @@ const AddClient = () => {
                 Optiontype: values.Optiontype,
                 Strike: values.Strike,
                 expirydata1: values.expirydata1,
-                TType: values.TType==0 ? "" :  values.TType,
+                TType: values.TType == 0 ? "" : values.TType,
                 EntryPrice: values.EntryPrice,
                 EntryRange: values.EntryRange,
                 TStype: values.TStype,
@@ -197,9 +193,8 @@ const AddClient = () => {
                 ETPattern: "",
                 Timeframe: "",
                 Quantity: values.Quantity,
-                serendate:serviceEndDate && serviceEndDate,
+                serendate: serviceEndDate,
                 FixedSM: "Single",
-                serendate: "",
                 Expirytype: "",
                 Striketype: "",
                 DepthofStrike: 0,
@@ -216,27 +211,26 @@ const AddClient = () => {
                 TradeCount: 3,
                 TradeExecution: "Paper Trade"
             }
-            if (values.Set_First_Trade_Range == "Yes" && (values.EntryPrice >= values.EntryRange || values.EntryRange == 0 || values.EntryPrice == 0)) {
+            if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
+
                 return SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
 
             }
-            if (values.set_Range == "Yes" && values.LowerRange >= values.HigherRange || values.LowerRange == 0 || values.HigherRange == 0) {
+            if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
                 return SweentAlertFun("Higher Price should be greater than Lower Price")
 
             }
-            if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (values.Targetvalue <= values.HigherRange || values.Slvalue >= values.LowerRange)) {
+            if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
 
-                return SweentAlertFun(values.Targetvalue <= values.HigherRange ? "Target should be Greater than Higher Range " : "Stoploss should be Smaller than Lower Range")
-
-            }
-            if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (values.Targetvalue >= values.LowerRange || values.Slvalue <= values.HigherRange)) {
-                return SweentAlertFun(values.Targetvalue >= values.LowerRange ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
+                return SweentAlertFun(Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ? "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
 
             }
+            if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
 
-            console.log("req :" , req)
+                return SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
+            }
 
-            
+
             await AddScript(req)
                 .then((response) => {
                     if (response.Status) {
@@ -276,13 +270,13 @@ const AddClient = () => {
         formik.setFieldValue('expirydata1', location.state.data.ExpiryDate)
         formik.setFieldValue('TType', location.state.data.TType)
         formik.setFieldValue('Lotsize', location.state.data.Lotsize)
-        formik.setFieldValue('Set_First_Trade_Range', location.state.data.EntryPrice == 0 || location.state.data.EntryRange == 0 ? "No" : "Yes")
+        formik.setFieldValue('Set_First_Trade_Range', location.state.data.EntryPrice == 0 || location.state.data.EntryRange == 0 ? false : true)
         formik.setFieldValue('EntryPrice', location.state.data.EntryPrice)
         formik.setFieldValue('EntryRange', location.state.data.EntryRange)
         formik.setFieldValue('TStype', location.state.data.TStype)
         formik.setFieldValue('Targetvalue', location.state.data['Booking Point'])
         formik.setFieldValue('Slvalue', location.state.data['Re-entry Point'])
-        formik.setFieldValue('set_Range', location.state.data.LowerRange == 0 || location.state.data.HigherRange == 0 ? "No" : "Yes")
+        formik.setFieldValue('set_Range', location.state.data.LowerRange == 0 || location.state.data.HigherRange == 0 ? false : true)
         formik.setFieldValue('LowerRange', location.state.data.LowerRange)
         formik.setFieldValue('HigherRange', location.state.data.HigherRange)
         formik.setFieldValue('HoldExit', location.state.data.HoldExit)
@@ -290,6 +284,7 @@ const AddClient = () => {
         formik.setFieldValue('EntryTime', location.state.data.EntryTime)
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
     }, [])
+
 
     const fields = [
         {
@@ -423,7 +418,7 @@ const AddClient = () => {
         },
         {
             name: "Quantity",
-            label: "Lot",
+            label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
             type: "text5",
             label_size: 12,
             col_size: 6,
@@ -433,11 +428,8 @@ const AddClient = () => {
         {
             name: "Set_First_Trade_Range",
             label: "Set First Trade Range",
-            type: "select",
-            options: [
-                { label: "Yes", value: "Yes" },
-                { label: "No", value: "No" },
-            ],
+            type: "checkbox",
+
             showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
             label_size: 12,
             col_size: 12,
@@ -448,7 +440,7 @@ const AddClient = () => {
             name: "EntryPrice",
             label: "First Trade Lower Price",
             type: "text5",
-            showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+            showWhen: (values) => formik.values.Set_First_Trade_Range,
             col_size: 6,
             disable: false,
             hiding: false,
@@ -457,7 +449,7 @@ const AddClient = () => {
             name: "EntryRange",
             label: "First Trade Higher Price",
             type: "text5",
-            showWhen: (values) => values.Set_First_Trade_Range == "Yes",
+            showWhen: (values) => formik.values.Set_First_Trade_Range,
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -477,9 +469,10 @@ const AddClient = () => {
             hiding: false,
             disable: false,
         },
+
         {
             name: "Targetvalue",
-            label: "Target Value",
+            label: formik.values.Strategy == "Fixed Price" ? "Target Price" : "Target",
             type: "text5",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
@@ -488,7 +481,7 @@ const AddClient = () => {
         },
         {
             name: "Slvalue",
-            label: "StopLoss Value",
+            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Stoploss",
             type: "text5",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
@@ -497,12 +490,9 @@ const AddClient = () => {
         },
         {
             name: "set_Range",
-            label: "Set Range",
-            type: "select",
-            options: [
-                { label: "Yes", value: "Yes" },
-                { label: "No", value: "No" },
-            ],
+            label: "Trade Range",
+            type: "checkbox",
+
             showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
             label_size: 12,
             col_size: 12,
@@ -513,7 +503,7 @@ const AddClient = () => {
             name: "LowerRange",
             label: "Lower Price",
             type: "text5",
-            showWhen: (values) => values.set_Range == "Yes" || values.Strategy == "Fixed Price",
+            showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
             disable: false,
@@ -523,12 +513,13 @@ const AddClient = () => {
             name: "HigherRange",
             label: "Higher Price",
             type: "text5",
-            showWhen: (values) => values.set_Range == "Yes" || values.Strategy == "Fixed Price",
+            showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 3 : 4,
             disable: false,
             hiding: false,
         },
+
         {
             name: "HoldExit",
             label: "Hold/Exit",
@@ -537,7 +528,7 @@ const AddClient = () => {
                 { label: "Hold", value: "Hold" },
                 { label: "Exit", value: "Exit" },
             ],
-            showWhen: (values) => values.set_Range == "Yes",
+            showWhen: (values) => values.set_Range == true,
             label_size: 12,
             col_size: 4,
             disable: false,
@@ -598,13 +589,12 @@ const AddClient = () => {
         },
     ];
 
-
-
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
                 if (response.stutus) {
+                    console.log("res", response)
                     setServiceEndDate(response.ExpiryDate)
                 }
                 else {
@@ -737,15 +727,14 @@ const AddClient = () => {
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
 
-
     useEffect(() => {
 
-        if (formik.values.set_Range == "No") {
+        if (formik.values.set_Range == false) {
             formik.setFieldValue('LowerRange', "1")
             formik.setFieldValue('HigherRange', "1")
             formik.setFieldValue('HoldExit', "")
         }
-        if (formik.values.Set_First_Trade_Range == "No") {
+        if (formik.values.Set_First_Trade_Range) {
             formik.setFieldValue('EntryPrice', "1")
             formik.setFieldValue('EntryRange', "1")
 
