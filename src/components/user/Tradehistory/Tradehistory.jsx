@@ -62,7 +62,7 @@ const Tradehistory = () => {
 
       // set Defult Date 
       const currentDate = new Date();
-      currentDate.setDate(currentDate.getDate()-7);
+      currentDate.setDate(currentDate.getDate()-1);
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const day = String(currentDate.getDate()).padStart(2, '0');
