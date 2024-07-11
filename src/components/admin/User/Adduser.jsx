@@ -63,7 +63,11 @@ const Adduser = () => {
         getBrokerName()
     }, [])
 
-
+    const Name_regex = (name) => {
+        const nameRegex = /^[a-zA-Z]+$/;
+        return nameRegex.test(name);
+    };
+    
 
     const GetAllGroupDetails = async () => {
         try {
@@ -122,6 +126,9 @@ const Adduser = () => {
             if (!values.UserName) {
                 errors.UserName = "Enter User Name"
             }
+            else if(!Name_regex(values.UserName)){
+                errors.UserName = "Enter Valid Username"
+            }
 
             if (!values.Email) {
                 errors.Email = "Enter Email ID";
@@ -167,14 +174,12 @@ const Adduser = () => {
                 BrokerName: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
                 Group: selectedOptions && selectedOptions
             }
-
-
             await CreateAccount(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "User Created!",
-                            text: "New User Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -186,7 +191,7 @@ const Adduser = () => {
                     else {
                         Swal.fire({
                             title: "Error!",
-                            text: "Error in User create..!",
+                            text: response.massage,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -240,7 +245,7 @@ const Adduser = () => {
         {
             name: "PhoneNo",
             label: "Mobile Number",
-            type: "text",
+            type: "text3",
             label_size: 12,
             hiding: false,
             col_size: 6,
@@ -282,7 +287,7 @@ const Adduser = () => {
         },
         {
             name: "From_Date",
-            label: "Service Start Date",
+            label: "Service StartDate",
             type: "date",
             label_size: 12,
             hiding: false,
@@ -291,7 +296,7 @@ const Adduser = () => {
         },
         {
             name: "To_Date",
-            label: "Service End Date",
+            label: "Service EndDate",
             type: "date",
             label_size: 12,
             hiding: false,

@@ -16,6 +16,7 @@ const Pannel = () => {
     const [getActivity, setActivity] = useState('')
     const [getMsg, setMsg] = useState('')
 
+    console.log("getMsg", getMsg)
 
     // set Defult Date 
     const currentDate = new Date();
@@ -28,8 +29,7 @@ const Pannel = () => {
 
     // from date
     const DefultToDate = new Date();
-
-    DefultToDate.setDate(DefultToDate.getDate()+1);
+    DefultToDate.setDate(DefultToDate.getDate() + 1);
     const year1 = DefultToDate.getFullYear();
     const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
     const day1 = String(DefultToDate.getDate()).padStart(2, '0');
@@ -49,10 +49,15 @@ const Pannel = () => {
     };
 
     const handleMessageView = (tableMeta) => {
+
+
         setShowModal(!showModal)
         const selectedRowIndex = tableMeta.rowIndex;
         const selectedRow = getPanleData.data[selectedRowIndex];
         setMsg(selectedRow.Message)
+
+        console.log("sneh",selectedRow)
+
 
     }
 
@@ -94,6 +99,9 @@ const Pannel = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
+
+                    // console.log()
+
                     return <Eye onClick={(e) => handleMessageView(tableMeta)} />
                 }
             }
@@ -108,7 +116,7 @@ const Pannel = () => {
         },
     ];
 
- 
+
 
 
     const GetAllPanleData = async () => {
@@ -117,7 +125,7 @@ const Pannel = () => {
             From_date: fromDate == '' ? formattedDate : convertDateFormat(fromDate),
             To_date: ToDate == '' ? Defult_To_Date : convertDateFormat(ToDate)
         }
-  
+
 
         await Get_Panle_Logs(data)
             .then((response) => {
@@ -143,6 +151,10 @@ const Pannel = () => {
                         }
                         else return item
                     })
+                    console.log("getPanleData :", filterData)
+                    console.log("getActivity :", getActivity)
+
+
                     setPanleData({
                         loading: false,
                         data: filterData
@@ -162,6 +174,7 @@ const Pannel = () => {
     useEffect(() => {
         GetAllPanleData()
     }, [ToDate, fromDate, getActivity])
+
 
 
     return (
@@ -213,35 +226,37 @@ const Pannel = () => {
                 </div >
             </div>
 
-            {showModal && <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
-                <div className="modal-dialog modal-dialog-centered modal-md">
-                    <div className="modal-content">
-                        <div className="modal-header border-0 pb-0">
-                            <div className="form-header modal-header-title text-start mb-0">
-                                <h4 className="mb-0">Message</h4>
-                            </div>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                onClick={() => setShowModal(!showModal)}
-                            >
-                            </button>
-                        </div>
-                        <form action="#">
-                            <div className="modal-body">
-                                <div className="row">
-                                    <p>{getMsg}</p>
-
+            {showModal && (
+                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
+                        <div className="modal-content">
+                            <div className="modal-header border-0 pb-0">
+                                <div className="form-header modal-header-title text-start mb-0">
+                                    <h4 className="mb-0">Message</h4>
                                 </div>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(!showModal)}
+                                >
+                                </button>
                             </div>
-
-                        </form>
+                            <form action="#">
+                                <div className="modal-body">
+                                    <div className="row">
+                                        {
+                                            getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div >
-            }
+            )}
+
         </>
     )
 }

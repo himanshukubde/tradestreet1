@@ -769,6 +769,7 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
                 const isChecked = Boolean(value);
+               
                 return (
                     <Checkbox
                         checked={isChecked}

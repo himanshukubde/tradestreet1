@@ -81,6 +81,8 @@ const Clientservice = () => {
         fetchGroupDetails();
     }, []);
 
+
+    console.log("clientService.data[selectedIndex].BrokerName :", showModal && clientService.data[selectedIndex].BrokerName)
     const formik = useFormik({
         initialValues: {
             User: "",
@@ -153,10 +155,10 @@ const Clientservice = () => {
     const fields = [
         {
             name: 'Select_Product_Type',
-            label: 'Select Product Type',
+            label: 'Product Type',
             type: 'select1',
             options: [
-                { label: 'Add New Services', value: 'Add New Services' },
+                { label: 'Add New Service', value: 'Add New Services' },
                 { label: 'Extend Service Count', value: 'Extend Service Count' },
             ],
             showWhen: () => showModal && clientService.data[selectedIndex].BrokerName !== 'Demo',
@@ -165,7 +167,7 @@ const Clientservice = () => {
         },
         {
             name: 'Select_Broker',
-            label: 'Select Broker',
+            label: 'Broker',
             type: 'select1',
             options: brokers.data.map(item => ({
                 label: item.BrokerName,
@@ -176,7 +178,7 @@ const Clientservice = () => {
         },
         {
             name: 'Select_Day',
-            label: 'Select Day',
+            label: 'Day',
             type: 'select1',
             options: [
                 { value: 'todays', label: 'Two Days' },
@@ -210,6 +212,16 @@ const Clientservice = () => {
             col_size: 6,
         },
     ];
+
+
+    useEffect(()=>{
+
+        formik.setFieldValue('Select_Product_Type', "Add New Services")
+        formik.setFieldValue('Select_Broker', showModal && clientService.data[selectedIndex].BrokerName)
+        formik.setFieldValue('Service_Count', 0)
+
+
+    },[showModal])
 
     const Service_Count = async () => {
         if (showModal && clientService.data[selectedIndex].Username) {
@@ -321,7 +333,7 @@ const Clientservice = () => {
                 sort: true,
                 customBodyRender: (value, tableMeta) => (
                     
-                    <span>{Array.isArray(value) ? value.join(', ') : value ? "-" : value || '-'}</span>
+                    <span>{Array.isArray(value) ? value.join(' , ') : value ? "-" : value || '-'}</span>
                 ),
             }
         },

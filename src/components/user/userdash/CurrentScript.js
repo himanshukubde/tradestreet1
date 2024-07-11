@@ -12,7 +12,6 @@ const Coptyscript = ({ data, selectedType }) => {
 
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false)
-    const [selectGroup, setSelectGroup] = useState('');
     const [getAllService, setAllservice] = useState({
         loading: true,
         ScalpingData: [],
@@ -22,6 +21,7 @@ const Coptyscript = ({ data, selectedType }) => {
         Marketwise: [],
         PremiumRotation: []
     });
+
 
 
     const handleDelete = async (rowData) => {
@@ -36,7 +36,7 @@ const Coptyscript = ({ data, selectedType }) => {
                     ETPattern: "",
                     Timeframe: "",
                     TType: "",
-                    Group: getAllService.OptionData[index].GroupN,
+                    Group: getAllService.ScalpingData[index].GroupN,
                     TradePattern: "",
                     TSymbol: "",
                     PatternName: ""
@@ -75,16 +75,17 @@ const Coptyscript = ({ data, selectedType }) => {
         await DeleteUserScript(req)
             .then((response) => {
                 if (response.Status) {
-                    setRefresh(!refresh)
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",
                         icon: "success",
                         timer: 1500,
-                        timerProgressBar: true
+                        timerProgressBar: true,
+                        didClose: () => {
+                            setRefresh(!refresh);
+                        }
                     });
-                }
-                else {
+                } else {
                     Swal.fire({
                         title: "Error !",
                         text: "Error in script delete",
@@ -93,6 +94,7 @@ const Coptyscript = ({ data, selectedType }) => {
                         timerProgressBar: true
                     });
                 }
+                
             })
             .catch((err) => {
                 console.log("Error in delete script", err)
@@ -101,9 +103,19 @@ const Coptyscript = ({ data, selectedType }) => {
 
     const HandleContinueDiscontinue = async (rowData) => {
         const index = rowData.rowIndex
-        const trading = getAllService.ScalpingData[index].Trading
-        if (trading) {
+        let trading;
 
+        if (data == 'Scalping') {
+            trading = getAllService.ScalpingData[index].Trading
+        }
+        else if (data == 'Pattern') {
+            trading = getAllService.PatternData[index].Trading
+        }
+        else {
+            trading = getAllService.OptionData[index].Trading
+        }
+
+        if (trading) {
             Swal.fire({
                 title: "Do you want to Discontinue",
                 text: "You won't be able to revert this!",
@@ -124,7 +136,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                 ETPattern: "",
                                 Timeframe: "",
                                 TType: "",
-                                Group: getAllService.OptionData[index].GroupN,
+                                Group: getAllService.ScalpingData[index].GroupN,
                                 TradePattern: "",
                                 TSymbol: "",
                                 PatternName: ""
@@ -163,21 +175,21 @@ const Coptyscript = ({ data, selectedType }) => {
                     await Discontinue(req)
                         .then((response) => {
                             if (response.Status) {
-                                setRefresh(!refresh)
                                 Swal.fire({
                                     title: "Success",
                                     text: response.massage,
                                     icon: "success",
-                                    timer: 1500,
+                                    timer: 2000,
                                     timerProgressBar: true
                                 });
+                                setRefresh(!refresh)
                             }
                             else {
                                 Swal.fire({
                                     title: "Error !",
-                                    text:response.massage,
+                                    text: response.massage,
                                     icon: "error",
-                                    timer: 1500,
+                                    timer: 2000,
                                     timerProgressBar: true
                                 });
                             }
@@ -192,7 +204,7 @@ const Coptyscript = ({ data, selectedType }) => {
             {
 
                 Swal.fire({
-                    title: "Do you want to Continue", 
+                    title: "Do you want to Continue",
                     text: "You won't be able to revert this!",
                     icon: "info",
                     showCancelButton: true,
@@ -211,7 +223,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                     ETPattern: "",
                                     Timeframe: "",
                                     TType: "",
-                                    Group: getAllService.OptionData[index].GroupN,
+                                    Group: getAllService.ScalpingData[index].GroupN,
                                     TradePattern: "",
                                     TSymbol: "",
                                     PatternName: ""
@@ -231,7 +243,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                     }
                                     : data == 'Pattern' ?
                                         {
-    
+
                                             MainStrategy: data,
                                             Strategy: getAllService.PatternData[index].TradePattern,
                                             Symbol: getAllService.PatternData[index].Symbol,
@@ -243,10 +255,10 @@ const Coptyscript = ({ data, selectedType }) => {
                                             TSymbol: "",
                                             TradePattern: "",
                                             PatternName: ""
-    
+
                                         } : ''
-    
-    
+
+
                         await Continue(req)
                             .then((response) => {
                                 if (response.Status) {
