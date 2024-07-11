@@ -1039,7 +1039,7 @@ const Pannel = () => {
                         <div className="iq-card-body">
                             <div>
                                 <div className='row'>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Username</label>
                                         <select
                                             className="form-select my-2"
@@ -1055,7 +1055,7 @@ const Pannel = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Strategy</label>
 
                                         <select className="form-select my-2" required=""

@@ -21,6 +21,7 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
 
+    console.log("selectedOptions :", selectedOptions)
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -392,6 +393,12 @@ const Clientservice = () => {
     const fromDate = new Date();
     const form_Date = fromDate.toISOString().split('T')[0];
 
+
+ 
+    useEffect(()=>{
+        if(showModal)
+        setSelectedOptions(showModal && clientService.data[selectedIndex].Group)
+    },[showModal])
     return (
         <>
             <div className='row'>

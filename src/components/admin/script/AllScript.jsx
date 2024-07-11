@@ -378,7 +378,7 @@ const Addscript = () => {
         },
         {
             name: "Lot Size",
-            label: "Lot Size",
+            label: "Quantity",
             options: {
                 filter: true,
                 sort: true,

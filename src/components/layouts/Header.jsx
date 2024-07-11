@@ -251,7 +251,7 @@ const Header = () => {
                                             <i className="ri-notification-3-fill" />
                                             <span className="bg-danger dots" />
                                         </a>
-                                        <div className="iq-sub-dropdown">
+                                        {/* <div className="iq-sub-dropdown">
                                             <div className="iq-card shadow-none m-0">
                                                 <div className="iq-card-body p-0 ">
                                                     <div className="bg-primary p-3">
@@ -336,7 +336,7 @@ const Header = () => {
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </li>
                                     <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
                                         <a
@@ -347,7 +347,7 @@ const Header = () => {
                                             <i className="ri-mail-open-fill" />
                                             <span className="bg-primary count-mail" />
                                         </a>
-                                        <div className="iq-sub-dropdown">
+                                        {/* <div className="iq-sub-dropdown">
                                             <div className="iq-card shadow-none m-0">
                                                 <div className="iq-card-body p-0 ">
                                                     <div className="bg-primary p-3">
@@ -412,7 +412,7 @@ const Header = () => {
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </li>
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
@@ -529,92 +529,21 @@ const Header = () => {
                                             <i className="ri-notification-3-fill" />
                                             <span className="bg-danger dots" />
                                         </a>
-                                        <div className="iq-sub-dropdown">
+                                        {/* <div className="iq-sub-dropdown">
                                             <div className="iq-card shadow-none m-0">
                                                 <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3">
-                                                        <h5 className="mb-0 text-white d-flex justify-content-between">
+                                                    <div className="bg-primary p-3"> */}
+                                                        {/* <h5 className="mb-0 text-white d-flex justify-content-between">
                                                             All Notifications
                                                             <small className="badge  badge-dark float-end pt-1">
                                                                 4
                                                             </small>
-                                                        </h5>
-                                                    </div>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/01.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Emma Watson Bini</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    Just Now
-                                                                </small>
-                                                                <p className="mb-0">95 MB</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/02.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">New customer is join</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    5 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/03.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Two customer is left</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    2 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/04.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">New Mail from Fenny</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    3 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
+                                                        </h5> */}
+                                                    {/* </div>
+                                                      
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </li>
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
