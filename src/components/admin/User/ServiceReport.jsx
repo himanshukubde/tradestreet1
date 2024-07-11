@@ -1191,11 +1191,11 @@ const Userlog = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error group data fetch")
         }
     }
 

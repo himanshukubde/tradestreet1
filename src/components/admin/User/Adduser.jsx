@@ -94,11 +94,11 @@ const Adduser = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error in data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error group data fetch")
         }
     }
 

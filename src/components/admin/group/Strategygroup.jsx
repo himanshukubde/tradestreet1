@@ -93,10 +93,10 @@ const Strategygroup = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err);
+                    console.log("Error Group data fetch error", err);
                 });
         } catch {
-            console.log("Group data fetch error");
+            console.log("Error Group data fetch error");
         }
     };
 

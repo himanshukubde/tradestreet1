@@ -19,7 +19,7 @@ const AddClient = () => {
     const [serviceEndDate, setServiceEndDate] = useState('')
 
 
-    console.log("serviceEndDate :", serviceEndDate)
+    
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",

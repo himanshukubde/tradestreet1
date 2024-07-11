@@ -27,7 +27,7 @@ const AddClient = () => {
     }
 
 
-    // console.log(getExpiry)
+ 
     const formik = useFormik({
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
@@ -704,7 +704,7 @@ const AddClient = () => {
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }
-        console.log("data : ", data)
+    
         await GET_EXPIRY_DATE(data)
             .then((response) => {
                 if (response.Status) {
@@ -742,6 +742,21 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
+        if(formik.values.Strategy!='ShortFourLegStretegy' || formik.values.Strategy!='LongFourLegStretegy'){
+            formik.setFieldValue('Unique_ID', '')
+            formik.setFieldValue('CEDepthLower', 0)
+            formik.setFieldValue('CEDepthHigher', 0)
+            formik.setFieldValue('PEDepthLower', 0)
+            formik.setFieldValue('PEDepthHigher', 0)
+            formik.setFieldValue('CEDeepLower', 0)
+            formik.setFieldValue('CEDeepHigher', 0)
+            formik.setFieldValue('PEDeepLower', 0)
+            formik.setFieldValue('PEDeepHigher', 0)
+           
+        }
+        // (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor"
+        // if()
+        
 
 
 

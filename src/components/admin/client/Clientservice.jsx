@@ -21,7 +21,7 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
 
-    console.log("selectedOptions :", selectedOptions)
+     
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -83,7 +83,7 @@ const Clientservice = () => {
     }, []);
 
 
-    console.log("clientService.data[selectedIndex].BrokerName :", showModal && clientService.data[selectedIndex].BrokerName)
+    
     const formik = useFormik({
         initialValues: {
             User: "",

@@ -18,7 +18,6 @@ const Pannel = () => {
     const [gettaskStatus, setAllTaskStatus] = useState([])
     const [clientService, setClientService] = useState({ loading: true, data: [] });
 
-
     const AllTaskStatus = async () => {
         await GetAllTaskStatus()
             .then((response) => {
@@ -1057,7 +1056,6 @@ const Pannel = () => {
                                     </div>
                                     <div className="form-group col-lg-4">
                                         <label>Strategy</label>
-
                                         <select className="form-select my-2" required=""
                                             onChange={(e) => setScript(e.target.value)}
                                             value={getScript}>
@@ -1066,7 +1064,6 @@ const Pannel = () => {
                                             <option value="Option Strategy">Option Strategy</option>
                                             <option value="Pattern">Pattern</option>
                                         </select>
-
                                     </div>
                                     <div className="form-group col-md-4">
                                         <label htmlFor="email">Task Status</label>
@@ -1074,11 +1071,9 @@ const Pannel = () => {
                                             onChange={(e) => setActivity(e.target.value)}
                                             value={getActivity}>
                                             <option value="">Select Task Status</option>
-
                                             {gettaskStatus && gettaskStatus.map((item) => {
                                                 return <option value={item}>{item}</option>
                                             })}
-
                                         </select>
                                     </div>
                                 </div>
@@ -1094,8 +1089,6 @@ const Pannel = () => {
                     </div >
                 </div >
             </div>
-
-
         </>
     )
 }

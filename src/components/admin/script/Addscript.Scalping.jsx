@@ -87,47 +87,47 @@ const AddClient = () => {
       const minTime = "09:15:00";
   
       if (!values.Strategy) {
-          errors.Strategy = "Please Select A Strategy Type.";
+          errors.Strategy = "Please Select Strategy Type.";
       }
       if (!values.Exchange) {
-          errors.Exchange = "Please Select An Exchange Type.";
+          errors.Exchange = "Please Select Exchange Type.";
       }
       if (!values.Instrument && values.Exchange !== 'NSE') {
-          errors.Instrument = "Please Select An Instrument Type.";
+          errors.Instrument = "Please Select Instrument Type.";
       }
       if (!values.Symbol) {
-          errors.Symbol = "Please Select A Symbol Type.";
+          errors.Symbol = "Please Select Symbol Type.";
       }
       if (!values.Optiontype && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
-          errors.Optiontype = "Please Select An Option Type.";
+          errors.Optiontype = "Please Select Option Type.";
       }
       if (!values.Strike && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
-          errors.Strike = "Please Select A Strike Price.";
+          errors.Strike = "Please Select Strike Price.";
       }
       if (!values.expirydata1 && values.Exchange !== 'NSE') {
           errors.expirydata1 = "Select Expiry Date.";
       }
       if (!values.TType) {
-          errors.TType = "Please Select A Transaction Type.";
+          errors.TType = "Please Select Transaction Type.";
       }
       if (!values.Quantity) {
           errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value." : "Please Enter Quantity Value.";
       }
       if (!values.ExitTime) {
-          errors.ExitTime = "Please Select An Exit Time.";
+          errors.ExitTime = "Please Select Exit Time.";
       } else if (values.ExitTime > maxTime) {
-          errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
+          errors.ExitTime = "Exit Time Must be Before 15:29:59.";
       }
       if (!values.TStype) {
           errors.TStype = "Please Select Measurement Type.";
       }
       if (!values.EntryTime) {
-          errors.EntryTime = "Please Select An Entry Time.";
+          errors.EntryTime = "Please Select Entry Time.";
       } else if (values.EntryTime < minTime) {
-          errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+          errors.EntryTime = "Entry Time Must be After 09:15:00.";
       }
       if (!values.ExitDay) {
-          errors.ExitDay = "Please Select An Exit Day.";
+          errors.ExitDay = "Please Select Exit Day.";
       }
       if (!values.EntryPrice && values.Set_First_Trade_Range) {
           errors.EntryPrice = "Please Enter The Lowest Price.";
@@ -206,8 +206,7 @@ const AddClient = () => {
 
 
       }
-
-      console.log(values.set_Range)
+ 
       if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
         return SweentAlertFun("Higher Price should be greater than Lower Price")
 

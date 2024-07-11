@@ -757,7 +757,7 @@ const AddClient = () => {
         await ExpriyEndDate(data)
             .then((response) => {
                 if (response.stutus) {
-                    console.log("res", response)
+                    
                     setServiceEndDate(response.ExpiryDate)
                 }
                 else {

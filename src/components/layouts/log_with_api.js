@@ -3,14 +3,12 @@ import Swal from 'sweetalert2';
 import * as Config from "../../Utils/Config";
 
 const loginWithApi = async (UserDetails) => {
-    console.log("Broker - ", UserDetails.BrokerName);
-    console.log("Base Url - ", Config.base_url);
-
+    
 
     if (UserDetails) {
 
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
-            console.log("ALICE", UserDetails);
+            
 
             var data = {
                 Username: UserDetails.Username,
@@ -81,7 +79,7 @@ const loginWithApi = async (UserDetails) => {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error", error);
                 });
 
 
@@ -89,7 +87,7 @@ const loginWithApi = async (UserDetails) => {
 
 
         if (UserDetails.BrokerName.toUpperCase() === "ICICI") {
-            console.log("ICICI", UserDetails);
+           
 
 
             let config = {
@@ -101,20 +99,20 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response)
+                    
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error" , error);
                 });
         }
 
 
         if (UserDetails.BrokerName.toUpperCase() === "UPSTOX") {
-            console.log("UpstoxBroker", UserDetails);
+           
 
 
             let config = {
@@ -126,20 +124,20 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response)
+                   
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error" , error);
                 });
         }
 
 
         if (UserDetails.BrokerName.toUpperCase() === "5PAISA") {
-            console.log("5PAISA", UserDetails);
+            
 
 
             let config = {
@@ -151,20 +149,20 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response)
+                     
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error" , error);
                 });
         }
 
 
         if (UserDetails.BrokerName.toUpperCase() === "MASTERTRUST") {
-            console.log("MASTERTRUST", UserDetails);
+            
 
 
             let config = {
@@ -176,20 +174,20 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response)
+                    
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error" , error);
                 });
         }
 
 
         if (UserDetails.BrokerName.toUpperCase() === "FYERS") {
-            console.log("FYERS", UserDetails);
+            
 
 
             let config = {
@@ -201,20 +199,20 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response)
+                    
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Url;
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log("Error" , error);
                 });
         }
 
 
         if (UserDetails.BrokerName.toUpperCase() === "DHAN".toUpperCase()) {
-            console.log("DHAN", UserDetails);
+            
 
             var data = {
                 Username: UserDetails.Username,

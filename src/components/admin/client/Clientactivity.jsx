@@ -61,11 +61,11 @@ const Clientactivity = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error in Group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error in Group data fetch")
         }
     }
 
@@ -76,7 +76,7 @@ const Clientactivity = () => {
 
     const data = new Date()
 
-    console.log(data + 3)
+   
 
     const getClientTetails = async () => {
         const data = { User: selectUserName, From_date: FromDate == "" ? formattedDate : FromDate, To_date: ToDate == "" ? Defult_To_Date : ToDate }
@@ -145,8 +145,8 @@ const Clientactivity = () => {
             }
         },
         {
-            name: "CreditUse",
-            label: "CreditUse",
+            name: "Credit Use",
+            label: "Credit Use",
             options: {
                 filter: true,
                 sort: true,
@@ -178,15 +178,15 @@ const Clientactivity = () => {
         },
         {
             name: "RemainingAmmount",
-            label: "RemainingAmmount",
+            label: "Remaining Ammount",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "Remaining Amount",
-            label: "Remaining Amount",
+            name: "TotalCreditUse",
+            label: "Total Credit Use",
             options: {
                 filter: true,
                 sort: true,

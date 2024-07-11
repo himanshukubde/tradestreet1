@@ -619,11 +619,11 @@ const Addscript = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error Group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error Group data fetch")
         }
     }
     useEffect(() => {
@@ -703,8 +703,7 @@ const Addscript = () => {
 
     }, [getGroupData]);
 
-
-    // console.log("selectGroup :" ,selectGroup)
+ 
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);

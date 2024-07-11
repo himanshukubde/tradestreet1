@@ -624,7 +624,7 @@ const AddClient = () => {
         },
     ];
 
-    console.log("serviceEndDate :", serviceEndDate)
+ 
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }

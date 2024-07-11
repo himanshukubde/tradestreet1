@@ -16,8 +16,7 @@ const Pannel = () => {
     const [getActivity, setActivity] = useState('')
     const [getMsg, setMsg] = useState('')
 
-    console.log("getMsg", getMsg)
-
+    
     // set Defult Date 
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate());
@@ -56,7 +55,7 @@ const Pannel = () => {
         const selectedRow = getPanleData.data[selectedRowIndex];
         setMsg(selectedRow.Message)
 
-        console.log("sneh",selectedRow)
+        
 
 
     }
@@ -100,7 +99,7 @@ const Pannel = () => {
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-                    // console.log()
+                    
 
                     return <Eye onClick={(e) => handleMessageView(tableMeta)} />
                 }
@@ -151,9 +150,7 @@ const Pannel = () => {
                         }
                         else return item
                     })
-                    console.log("getPanleData :", filterData)
-                    console.log("getActivity :", getActivity)
-
+                    
 
                     setPanleData({
                         loading: false,

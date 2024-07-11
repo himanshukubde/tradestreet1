@@ -39,7 +39,7 @@ const Smtp = () => {
                 });
             }
         }).catch((error) => {
-            console.log("server error");
+            console.log("Error in server Side");
         });
     };
 
