@@ -188,6 +188,30 @@ const loginWithApi = async (UserDetails) => {
         }
 
 
+        if (UserDetails.BrokerName.toUpperCase() === "FYERS") {
+            console.log("FYERS", UserDetails);
+
+
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: Config.base_url + 'FayersBroker/' + UserDetails.Username,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log("response", response)
+                    if (response.data.Status == true) {
+
+                        window.location.href = response.data.Url;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
 
 
     }
