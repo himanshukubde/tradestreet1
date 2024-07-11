@@ -213,37 +213,63 @@ const loginWithApi = async (UserDetails) => {
         }
 
 
+        if (UserDetails.BrokerName.toUpperCase() === "DHAN".toUpperCase()) {
+            console.log("DHAN", UserDetails);
+
+            var data = {
+                Username: UserDetails.Username,
+                session: "",
+                AccToken: "",
+                usrid: "",
+                sid: "",
+                jwt_Token: "",
+            }
+
+            try {
+                const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+
+                if (response.data.Status) { // Assuming the status is in response.data.Status
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Trading On successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 1000
+                    }).then(() => {
+                        setTimeout(() => {
+                            // window.location.reload();
+                        }, 1000);
+                    });
+                } else {
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Trading Off successfully.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        timer: 1000
+                    }).then(() => {
+                        setTimeout(() => {
+                            // window.location.reload();
+
+                        }, 1000);
+                    });
+                }
+            } catch (err) {
+                console.error("Error in ConnectBroker request", err);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            }
+        }
 
     }
 
 
-    // else if (broker_id === "15" || broker_id === 15) {
-    //     window.location.href = "https://kite.zerodha.com/connect/login?v=3&api_key=" + UserDetails.api_key;
-    //     // alert("broker-15")
-    // }
-
-    // else if (broker_id === "20" || broker_id === 20) {
-
-    //     axios({
-    //         url: `${Config.base_url}dhan`,
-    //         method: "post",
-    //         data: {
-    //             Email: UserDetails.Email,
-    //         },
-    //     }).then((res) => {
-
-    //         if (res.data.status == true) {
-
-    //             toast.success(res.data.msg)
-    //             setTimeout(() => {
-    //                 window.location.reload();
-    //             }, 1500);
-    //         } else {
-    //             toast.error(res.data.msg)
-    //         }
-
-    //     });
-
-    // }
+   
 };
 export default loginWithApi;
