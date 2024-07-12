@@ -155,13 +155,15 @@ const Adduser = () => {
                 cpassword: values.Confirm_Password,
                 email: values.Email,
                 mobile_no: values.PhoneNo,
-                ltype: values.Select_License_Type == '11' ? "2 Day Demo" : values.Select_License_Type == '21' ? "1 Week Demo" : values.Select_License_Type == '12' ? "2 Day Live" : values.Select_License_Type == '22' ? "1 Month Live" : '',
+                ltype: values.Select_License_Type == '11' ? "Two Days" : values.Select_License_Type == '21' ? "One Week" : values.Select_License_Type == '12' ? "Two Days" : values.Select_License_Type == '22' ? "One Month" : '',
                 scount: values.Select_License == '1' ? 2 : Number(values.Service_Count),
                 ssdate: values.From_Date,
                 sedate: values.To_Date,
-                bname: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
+                bname: values.Select_License == '1' ? "Demo" : values.Select_Broker,
                 group: selectedOptions && selectedOptions
             }
+            console.log("req", req)
+            return
             await CreateAccount(req)
                 .then((response) => {
                     if (response.Status) {
