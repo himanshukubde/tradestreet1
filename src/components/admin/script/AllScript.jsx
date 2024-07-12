@@ -626,6 +626,7 @@ const Addscript = () => {
             console.log("Error Group data fetch")
         }
     }
+    
     useEffect(() => {
         GetAllGroupDetails()
     }, [])

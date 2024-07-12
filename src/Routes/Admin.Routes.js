@@ -10,7 +10,7 @@ import Tradehistory from '../components/admin/trade/Tradehistory';
 import Allscript from '../components/admin/script/AllScript';
 import Brokercredential from '../components/admin/broker/Brokercredential';
 import Clientactivity from '../components/admin/User/Clientactivity';
-import Clientreport from '../components/admin/User/ServiceReport';
+import Clientreport from '../components/admin/User/Clientreport';
 import Smtp from '../components/admin/detail/Smtp';
 import UserLogs from '../components/admin/User/UserLogs';
 import Strategygroup from '../components/admin/group/Strategygroup';

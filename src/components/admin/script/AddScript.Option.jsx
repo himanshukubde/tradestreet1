@@ -27,7 +27,7 @@ const AddClient = () => {
     }
 
 
- 
+
     const formik = useFormik({
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
@@ -127,31 +127,31 @@ const AddClient = () => {
             if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy")) {
                 errors.Unique_ID = "Please Select Unique ID.";
             }
-            if (!values.PEDeepLower && values.PEDeepLower == 0) {
+            if (!values.PEDeepLower && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower Cannot Be Zero." : "Please Enter PE Hedge Lower.";
             }
-            if (!values.PEDeepHigher) {
+            if (!values.PEDeepHigher && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
             }
-            if (!values.CEDepthLower) {
+            if (!values.CEDepthLower && values.CEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDepthLower = values.CEDepthLower == 0 ? "CE Main Lower Cannot Be Zero." : "Please Enter CE Main Lower.";
             }
-            if (!values.CEDepthHigher) {
+            if (!values.CEDepthHigher && values.CEDepthHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDepthHigher = values.CEDepthHigher == 0 ? "CE Main Higher Cannot Be Zero." : "Please Enter CE Main Higher.";
             }
-            if (!values.PEDepthLower) {
+            if (!values.PEDepthLower && values.PEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDepthLower = values.PEDepthLower == 0 ? "PE Main Lower Cannot Be Zero." : "Please Enter PE Main Lower.";
             }
-            if (!values.CEDeepLower) {
+            if (!values.CEDeepLower && values.CEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDeepLower = values.CEDeepLower == 0 ? "CE Hedge Lower Cannot Be Zero." : "Please Enter CE Hedge Lower.";
             }
-            if (!values.CEDeepHigher) {
+            if (!values.CEDeepHigher && values.CEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDeepHigher = values.CEDeepHigher == 0 ? "CE Hedge Higher Cannot Be Zero." : "Please Enter CE Hedge Higher.";
             }
-            if (!values.PEDeepHigher) {
+            if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
             }
-        
+
             if (values.Striketype == "Depth_of_Strike" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
                 if (values.DepthofStrike > 5 || values.DepthofStrike < -5 || values.DepthofStrike == 0) {
                     errors.DepthofStrike = values.DepthofStrike == 0 ? "Depth of Strike Cannot Be Zero." : "Enter Depth of Strike Value Between -5 to 5.";
@@ -182,11 +182,12 @@ const AddClient = () => {
                     errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
                 }
             }
+            console.log("errors", errors)
             return errors;
         },
-        
 
-   
+
+
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -704,7 +705,7 @@ const AddClient = () => {
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }
-    
+
         await GET_EXPIRY_DATE(data)
             .then((response) => {
                 if (response.Status) {
@@ -742,7 +743,7 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
-        if(formik.values.Strategy!='ShortFourLegStretegy' || formik.values.Strategy!='LongFourLegStretegy'){
+        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
             formik.setFieldValue('Unique_ID', '')
             formik.setFieldValue('CEDepthLower', 0)
             formik.setFieldValue('CEDepthHigher', 0)
@@ -752,16 +753,16 @@ const AddClient = () => {
             formik.setFieldValue('CEDeepHigher', 0)
             formik.setFieldValue('PEDeepLower', 0)
             formik.setFieldValue('PEDeepHigher', 0)
-           
+
         }
         // (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor"
         // if()
-        
+
 
 
 
     }, [formik.values.Strategy, formik.values.Striketype])
- 
+
     return (
         <>
             <AddForm
