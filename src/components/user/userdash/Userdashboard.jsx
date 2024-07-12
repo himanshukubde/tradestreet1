@@ -431,10 +431,10 @@ const Userdashboard = () => {
     ];
     return (
         <div className="container-fluid">
-            <div className="row">
+            <div className="row p-0">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body">
+                        <div className="iq-card-body" style={{padding:"3px"}}>
                             <ul className="nav nav-tabs justify-content-center" id="myTab-2" role="tablist">
                                 <li className="nav-item" role="presentation">
                                     <a
@@ -470,7 +470,9 @@ const Userdashboard = () => {
                             <div className='row'>
                                 {activeTab1 === 'CurrentPosition' && (
                                     <div className='d-flex'>
-                                        <div className="form-group col-md-6 ms-2">
+                                        <div className="form-group col-md-6 ">
+                                            <div className='px-3'>
+
                                             <label>Type</label>
                                             <select className="form-select" required=""
                                                 onChange={(e) => { setActiveTab(e.target.value) }}
@@ -479,9 +481,11 @@ const Userdashboard = () => {
                                                 <option value="copyScript">Copy Script</option>
                                                 <option value="group">Group Script</option>
                                             </select>
+                                            </div>
                                         </div>
 
-                                        <div className="form-group col-md-3 ms-2">
+                                        <div className="form-group col-md-3 ">
+                                        <div className='px-3'>
                                             <label>Strategy Type</label>
                                             <select className="form-select" required=""
                                                 onChange={(e) => { setSubTab(e.target.value) }}
@@ -490,10 +494,12 @@ const Userdashboard = () => {
                                                 <option value="Option Strategy">Option Strategy</option>
                                                 <option value="Pattern">Pattern Script</option>
                                             </select>
+                                            </div>
                                         </div>
 
                                         {activeTab == "group" && (
-                                            <div className="form-group col-md-3 ms-2">
+                                            <div className="form-group col-md-3  ">
+                                                 <div className='px-3'>
                                                 <label>Group Name</label>
                                                 <select className="form-select" required=""
                                                     onChange={(e) => { setGroup(e.target.value) }}
@@ -505,6 +511,7 @@ const Userdashboard = () => {
                                                         })
                                                     }
                                                 </select>
+                                                </div>
                                             </div>
                                         )}
                                     </div>

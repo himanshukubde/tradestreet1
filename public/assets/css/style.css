@@ -5151,3 +5151,7 @@ body.sidebar-main .iq-sidebar {
         width: 90%; /* Adjust width for smaller screens */
     }
 }
+ 
+.iq-card .iq-card-header{
+  padding: 1px 6px !important;
+}

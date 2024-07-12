@@ -345,7 +345,7 @@ const Coptyscript = ({ data, selectedType }) => {
             <div className="row">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body">
+                        <div className="iq-card-body" style={{padding:'3px'}}>
                             <div className="tab-content" id="myTabContent-3">
 
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
@@ -359,7 +359,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                                     <button className='btn btn-primary' onClick={() => AddScript(data)}>Add Script</button>
                                                 </div>
                                             </div>
-                                            <div className="iq-card-body">
+                                            <div className="iq-card-body " style={{padding:'3px'}}>
                                                 <div className="table-responsive">
 
                                                     {getAllService.loading ? <Loader /> :
