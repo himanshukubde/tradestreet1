@@ -62,7 +62,8 @@ const Adduser = () => {
             await GetGroupNames()
                 .then((response) => {
                     if (response.Status) {
-                        const arr = response.StrGroupdf.map(item => ({
+                        console.log("response :", response)
+                        const arr = response.Data.map(item => ({
                             label: item.GroupName,
                             key: item.GroupName
                         }));
@@ -71,7 +72,7 @@ const Adduser = () => {
 
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Data
                         })
                     }
                     else {
@@ -162,8 +163,7 @@ const Adduser = () => {
                 bname: values.Select_License == '1' ? "Demo" : values.Select_Broker,
                 group: selectedOptions && selectedOptions
             }
-            console.log("req", req)
-            return
+             
             await CreateAccount(req)
                 .then((response) => {
                     if (response.Status) {
@@ -432,6 +432,7 @@ const Adduser = () => {
     }
 
 
+    console.log("getGroupData :", getGroupData)
     return (
         <>
             {getGroupData.loading ? <Loader /> :

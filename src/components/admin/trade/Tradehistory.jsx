@@ -1208,7 +1208,6 @@ const Tradehistory = () => {
 
 
     useEffect(() => {
-        setSelectGroup('komal')
         setStrategyType('Scalping')
     }, []);
 
@@ -1304,6 +1303,7 @@ const Tradehistory = () => {
                                             onChange={(e) => setSelectGroup(e.target.value)}
                                             value={selectGroup}
                                         >
+                                            <option value="">Select Username</option>
                                             {getGroupData.data && getGroupData.data.map((item) => {
                                                 return <>
                                                     <option value={item.Username}>{item.Username}</option>

@@ -196,9 +196,7 @@ const Clientactivity = () => {
     ];
 
 
-    useEffect(() => {
-        setSelectUserName('komal')
-    }, []);
+    
 
 
     return (
@@ -223,6 +221,8 @@ const Clientactivity = () => {
                                                     onChange={(e) => setSelectUserName(e.target.value)}
                                                     value={selectUserName}
                                                 >
+                                                            <option value="">Select Username</option>
+
                                                     {getUserName.data && getUserName.data.map((item) => {
                                                         return <>
                                                             <option value={item.Username}>{item.Username}</option>

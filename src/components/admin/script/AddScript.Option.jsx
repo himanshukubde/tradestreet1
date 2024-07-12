@@ -20,7 +20,7 @@ const AddClient = () => {
             title: "Error",
             text: text,
             icon: "error",
-            timer: 1500,
+            timer: 5000,
             timerProgressBar: true
         });
 
@@ -217,51 +217,54 @@ const AddClient = () => {
                 expirydata1: getExpiry && getExpiry.data[0],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
-                DepthofStrike: values.DepthofStrike,
-                DeepStrike: values.DeepStrike,
+                DepthofStrike:Number(values.DepthofStrike),
+                DeepStrike: Number(values.DeepStrike),
                 Group: values.Unique_ID,
-                CEDepthLower: values.CEDepthLower,
-                CEDepthHigher: values.CEDepthHigher,
-                PEDepthLower: values.PEDepthLower,
-                PEDepthHigher: values.PEDepthHigher,
-                CEDeepLower: values.CEDeepLower,
-                CEDeepHigher: values.CEDeepHigher,
-                PEDeepLower: values.PEDeepLower,
-                PEDeepHigher: values.PEDeepHigher
+                CEDepthLower: Number(values.CEDepthLower),
+                CEDepthHigher: Number(values.CEDepthHigher),
+                PEDepthLower: Number(values.PEDepthLower),
+                PEDepthHigher: Number(values.PEDepthHigher),
+                CEDeepLower: Number(values.CEDeepLower),
+                CEDeepHigher: Number(values.CEDeepHigher),
+                PEDeepLower: Number(values.PEDeepLower),
+                PEDeepHigher: Number(values.PEDeepHigher)
             }
 
-            if (values.Striketype == "Depth_of_Strike" && (values.DepthofStrike < 0 || values.DepthofStrike > 10)) {
+
+
+            if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
 
-            if (values.Striketype == "Premium_Range" && (values.Lower_Range >= values.Higher_Range)) {
+            if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
                 return SweentAlertFun("Higher Range should be Greater than Lower Range")
             }
 
             else if (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') {
-                if (values.CEDepthHigher <= values.CEDepthLower) {
+                if (req.CEDepthHigher <= req.CEDepthLower) {
 
                     return SweentAlertFun("Enter CE Main Higher Greater Than CE Main Lower")
                 }
-                else if (values.PEDepthLower >= values.PEDepthHigher) {
+                else if (req.PEDepthLower >= req.PEDepthHigher) {
 
                     return SweentAlertFun("Enter PE Main Higher Greater Than PE Main Lower")
                 }
-                else if (values.CEDeepLower >= values.CEDeepHigher) {
+                else if (req.CEDeepLower >= req.CEDeepHigher) {
 
                     return SweentAlertFun("Enter CE Hedge Higher Greater Than CE Hedge Lower")
                 }
-                else if (values.PEDeepLower >= values.PEDeepHigher) {
+                else if (req.PEDeepLower >= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Higher Greater Than PE Hedge Lower")
                 }
-                else if (values.CEDepthLower <= values.CEDeepLower || values.CEDepthLower <= values.CEDeepHigher) {
 
+                else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
+ 
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
-                else if (values.PEDepthLower <= values.PEDeepLower || values.PEDepthLower <= values.PEDeepHigher) {
+                else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
@@ -618,26 +621,7 @@ const AddClient = () => {
             col_size: 3,
             disable: false,
         },
-        {
-            name: "PEDepthLower",
-            label: "PE Main Lower",
-            type: "text3",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "PEDepthHigher",
-            label: "PE Main Higher",
-            type: "text3",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
+
         {
             name: "CEDeepLower",
             label: "CE Hedge Lower",
@@ -654,6 +638,26 @@ const AddClient = () => {
             type: "text3",
             hiding: false,
             showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDepthLower",
+            label: "PE Main Lower",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDepthHigher",
+            label: "PE Main Higher",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
             label_size: 12,
             col_size: 3,
             disable: false,

@@ -47,12 +47,6 @@ const AdminRoute = () => {
             <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
            
-            
-
-            
-
-
-
           </Routes>
           {/* <Footer /> */}
         </div>
