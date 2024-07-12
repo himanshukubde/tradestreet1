@@ -83,7 +83,7 @@ const Strategygroup = () => {
                     if (response.Status) {
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Data
                         });
                     } else {
                         setGroupData({

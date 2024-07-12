@@ -27,7 +27,7 @@ export const GetAdminDashboard = async (data) => {
 
 export const Add_Group = async (data) => {
     try {
-        const res = await axios.post(`${Config.base_url}AdminStrategiesGroup`, data)
+        const res = await axios.post(`${Config.base_url}adminstrategiesgroup`, data)
         return res?.data
     }
     catch (err) {
@@ -38,7 +38,7 @@ export const Add_Group = async (data) => {
 
 export const GetGroupNames = async () => {
     try {
-        const res = await axios.get(`${Config.base_url}AdminGroupTable`)
+        const res = await axios.get(`${Config.base_url}admingrouptable`)
         return res?.data
     }
     catch (err) {

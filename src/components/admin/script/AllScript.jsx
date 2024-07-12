@@ -608,7 +608,7 @@ const Addscript = () => {
                     if (response.Status) {
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Data
                         })
                     }
                     else {
@@ -639,7 +639,7 @@ const Addscript = () => {
 
                     setAllservice({
                         loading: false,
-                        data: response.GroupScrdf
+                        data: response.Data
                     })
 
                 }
