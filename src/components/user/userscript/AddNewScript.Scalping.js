@@ -281,6 +281,7 @@ const AddClient = () => {
         formik.setFieldValue("EntryRange", 0)
         formik.setFieldValue("Instrument", "FUTIDX") 
         formik.setFieldValue("HoldExit", "Hold") 
+        formik.setFieldValue('Trade_Count', 1)
     
       }, [])
    

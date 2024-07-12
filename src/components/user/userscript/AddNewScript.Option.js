@@ -72,7 +72,7 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            Trade_Count: 2,
+            Trade_Count: 1,
             Unique_ID: ""
         },
 
@@ -333,6 +333,9 @@ const AddClient = () => {
             formik.setFieldValue('TStype', "Point")
             formik.setFieldValue('Shifting_Point', 100)
             formik.setFieldValue('Shifting_Value', 1)
+            formik.setFieldValue('Trade_Count', 1)
+
+
      
     }, [])
 
