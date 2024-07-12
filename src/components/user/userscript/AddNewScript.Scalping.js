@@ -101,6 +101,9 @@ const AddClient = () => {
             if (!values.Strategy) {
                 errors.Strategy = "Please select a strategy type.";
             }
+            if (!values.TStype && values.Strategy != "Fixed Price") {
+                errors.TStype = "Please select Measurement";
+            }
             if (!values.Exchange) {
                 errors.Exchange = "Please select an exchange type.";
             }

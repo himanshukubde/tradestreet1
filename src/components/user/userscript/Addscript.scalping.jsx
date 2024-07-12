@@ -8,16 +8,12 @@ import { AddScript } from '../../Common API/User'
 
 
 
+
 const AddClient = () => {
-
     const userName = localStorage.getItem('name')
-
     const navigate = useNavigate()
     const location = useLocation()
-
     const [getAllExchange, setAllExchange] = useState([])
-
-
     const [getSymbolData, setSymbolData] = useState({
         loading: true,
         data: []
@@ -27,13 +23,13 @@ const AddClient = () => {
         loading: true,
         data: []
     })
+
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []
     })
 
     const [serviceEndDate, setServiceEndDate] = useState('')
-
 
     const SweentAlertFun = (text) => {
         Swal.fire({
@@ -43,7 +39,6 @@ const AddClient = () => {
             timer: 1500,
             timerProgressBar: true
         });
-
     }
 
     const formik = useFormik({
@@ -100,6 +95,9 @@ const AddClient = () => {
 
             if (!values.Strategy) {
                 errors.Strategy = "Please select a strategy type.";
+            }
+            if (!values.TStype && values.Strategy != "Fixed Price") {
+                errors.TStype = "Please select Measurement";
             }
             if (!values.Exchange) {
                 errors.Exchange = "Please select an exchange type.";
