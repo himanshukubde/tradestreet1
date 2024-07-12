@@ -11,19 +11,6 @@ import Loader from '../../../ExtraComponent/Loader';
 
 const Adduser = () => {
     const navigate = useNavigate()
-    const [formData, setFormData] = useState({
-        fname: '',
-        email: '',
-        mobno: '',
-        pass: '',
-        rpass: '',
-        broker: 'ICICI',
-        serviceCount: '1',
-        selectDay: 'Two Days',
-        selectGroup: 'Test',
-
-        enableTwoFactor: false,
-    });
     const [getBroker, setBroker] = useState({
         loading: true,
         data: []
@@ -163,17 +150,17 @@ const Adduser = () => {
         },
         onSubmit: async (values) => {
             const req = {
-                SignuserName: values.UserName,
-                Signpassword: values.Password,
-                ConfirmPassword: values.Confirm_Password,
-                SignEmail: values.Email,
+                username: values.UserName,
+                password: values.Password,
+                cpassword: values.Confirm_Password,
+                email: values.Email,
                 mobile_no: values.PhoneNo,
-                Day: values.Select_License_Type == '11' ? "2 Day Demo" : values.Select_License_Type == '21' ? "1 Week Demo" : values.Select_License_Type == '12' ? "2 Day Live" : values.Select_License_Type == '22' ? "1 Month Live" : '',
-                ser: values.Select_License == '1' ? 2 : Number(values.Service_Count),
-                SSDate: values.From_Date,
-                SEDate: values.To_Date,
-                BrokerName: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
-                Group: selectedOptions && selectedOptions
+                ltype: values.Select_License_Type == '11' ? "2 Day Demo" : values.Select_License_Type == '21' ? "1 Week Demo" : values.Select_License_Type == '12' ? "2 Day Live" : values.Select_License_Type == '22' ? "1 Month Live" : '',
+                scount: values.Select_License == '1' ? 2 : Number(values.Service_Count),
+                ssdate: values.From_Date,
+                sedate: values.To_Date,
+                bname: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
+                group: selectedOptions && selectedOptions
             }
             await CreateAccount(req)
                 .then((response) => {
@@ -304,20 +291,20 @@ const Adduser = () => {
             col_size: 3,
             disable: true,
         },
-        // {
-        //     name: "Select_Broker",
-        //     label: "Select Broker",
-        //     type: "select1",
-        //     options: getBroker.data && getBroker.data.map((item) => ({
-        //         label: item.BrokerName,
-        //         value: item.BrokerName
-        //     })),
-        //     showWhen: (values) => formik.values.Select_License == '2',
-        //     label_size: 12,
-        //     hiding: false,
-        //     col_size: 3,
-        //     disable: false,
-        // },
+        {
+            name: "Select_Broker",
+            label: "Select Broker",
+            type: "select1",
+            options: getBroker.data && getBroker.data.map((item) => ({
+                label: item.BrokerName,
+                value: item.BrokerName
+            })),
+            showWhen: (values) => formik.values.Select_License == '2',
+            label_size: 12,
+            hiding: false,
+            col_size: 3,
+            disable: false,
+        },
         {
             name: "Service_Count",
             label: "Service Count",
@@ -336,7 +323,7 @@ const Adduser = () => {
         },
 
     ];
- 
+
 
     //Select Date form date and end date
     const currentDate = new Date();
@@ -442,7 +429,7 @@ const Adduser = () => {
 
     }
 
- 
+
     return (
         <>
             {getGroupData.loading ? <Loader /> :

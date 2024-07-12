@@ -3,7 +3,7 @@ import * as Config from "../../Utils/Config";
 
 export const CreateAccount = async (data) => {
     try {
-        const res = await axios.post(`${Config.base_url}AdminSignup`, data)
+        const res = await axios.post(`${Config.base_url}addclient`, data)
         
         return res?.data
     }
@@ -15,7 +15,7 @@ export const CreateAccount = async (data) => {
 
 export const GetAdminDashboard = async (data) => {
     try {
-        const res = await axios.get(`${Config.base_url}AdminDashboard`)
+        const res = await axios.get(`${Config.base_url}admindashboard`)
 
         return res?.data
     }
@@ -80,7 +80,7 @@ export const AdminAddBrokerCredential = async (data) => {
 
 export const GetAllGroupService = async (data) => {
     try {
-        const res = await axios.post(`${Config.base_url}Groupstrategies`, data)
+        const res = await axios.post(`${Config.base_url}groupstrategies`, data)
         return res?.data
     }
     catch (err) {
