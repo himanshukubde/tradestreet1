@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GetAdminDashboard } from '../../Common API/Admin'
+import Loader from '../../../ExtraComponent/Loader';
 
 const Dashboards = () => {
 
@@ -22,14 +23,10 @@ const Dashboards = () => {
         activeserviceCount1: 0,
         activeserviceCount2: 0,
         activeserviceCount5: 0,
-
-
-
     });
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    const fetchData = async () => {
+
+    const GetAdminDashboardData = async () => {
         await GetAdminDashboard()
             .then((response) => {
                 const result = response;
@@ -55,7 +52,7 @@ const Dashboards = () => {
                         activeserviceCount2: result['Active  Service Count 2'],
                         activeserviceCount5: result['Active  Service Count 5'],
                     })
-                    setLoading(false);
+
                 }
                 else {
                     setData({
@@ -78,32 +75,25 @@ const Dashboards = () => {
                         activeserviceCount2: 0,
                         activeserviceCount5: 0,
                     })
-                    setLoading(false);
+
                 }
 
             })
             .catch((err) => {
                 console.log("Error in fatching the Dashboard Details", err)
-                setError(err.message);
+
             })
 
     };
 
     useEffect(() => {
-        fetchData();
+        GetAdminDashboardData();
     }, []);
 
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
     return (
         <div>
+            {/* <Loader /> */}
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-12">

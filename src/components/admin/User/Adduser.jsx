@@ -6,6 +6,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../ExtraComponent/Loader';
 
 
 const Adduser = () => {
@@ -20,7 +21,7 @@ const Adduser = () => {
         serviceCount: '1',
         selectDay: 'Two Days',
         selectGroup: 'Test',
-      
+
         enableTwoFactor: false,
     });
     const [getBroker, setBroker] = useState({
@@ -39,8 +40,8 @@ const Adduser = () => {
         await Get_Broker_Name()
             .then((response) => {
                 if (response.Status) {
-                    const filterOutBroker = response.Brokernamelist.filter((item)=>{
-                        return item.BrokerName!='Demo'
+                    const filterOutBroker = response.Brokernamelist.filter((item) => {
+                        return item.BrokerName != 'Demo'
                     })
                     setBroker({
                         loading: false,
@@ -67,7 +68,7 @@ const Adduser = () => {
         const nameRegex = /^[a-zA-Z]+$/;
         return nameRegex.test(name);
     };
-    
+
 
     const GetAllGroupDetails = async () => {
         try {
@@ -126,7 +127,7 @@ const Adduser = () => {
             if (!values.UserName) {
                 errors.UserName = "Enter User Name"
             }
-            else if(!Name_regex(values.UserName)){
+            else if (!Name_regex(values.UserName)) {
                 errors.UserName = "Enter Valid Username"
             }
 
@@ -153,7 +154,7 @@ const Adduser = () => {
             if (!values.Select_License_Type) {
                 errors.Select_License_Type = "Enter Select License Type"
             }
-          
+
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service Count"
             }
@@ -303,20 +304,20 @@ const Adduser = () => {
             col_size: 3,
             disable: true,
         },
-        {
-            name: "Select_Broker",
-            label: "Select Broker",
-            type: "select1",
-            options: getBroker.data && getBroker.data.map((item) => ({
-                label: item.BrokerName,
-                value: item.BrokerName
-            })),
-            showWhen: (values) => formik.values.Select_License == '2',
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: false,
-        },
+        // {
+        //     name: "Select_Broker",
+        //     label: "Select Broker",
+        //     type: "select1",
+        //     options: getBroker.data && getBroker.data.map((item) => ({
+        //         label: item.BrokerName,
+        //         value: item.BrokerName
+        //     })),
+        //     showWhen: (values) => formik.values.Select_License == '2',
+        //     label_size: 12,
+        //     hiding: false,
+        //     col_size: 3,
+        //     disable: false,
+        // },
         {
             name: "Service_Count",
             label: "Service Count",
@@ -335,14 +336,11 @@ const Adduser = () => {
         },
 
     ];
-
-
-
-
+ 
 
     //Select Date form date and end date
     const currentDate = new Date();
-    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ?  TwoDays(new Date()) : formik.values.Select_License_Type === '21' ?   WeekDays(new Date()) : formik.values.Select_License_Type === '22' ? 30 : 0;
+    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ? TwoDays(new Date()) : formik.values.Select_License_Type === '21' ? WeekDays(new Date()) : formik.values.Select_License_Type === '22' ? 30 : 0;
     currentDate.setDate(currentDate.getDate() + daysToSubtract);
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -395,87 +393,83 @@ const Adduser = () => {
     function TwoDays(startDate) {
         let daysToAdd = 0;
         const currentDay = startDate.getDay();
-  
+
         if (currentDay === 6) { // Saturday
-            daysToAdd = 4; 
+            daysToAdd = 4;
         } else if (currentDay === 0) { // Sunday
-            daysToAdd = 3; 
+            daysToAdd = 3;
         } else if (currentDay === 1) { // Monday
-            daysToAdd = 3; 
+            daysToAdd = 3;
         } else if (currentDay === 2) { // Tuesday
-            daysToAdd = 3; 
+            daysToAdd = 3;
         } else if (currentDay === 3) { // Wednesday
-            daysToAdd = 3; 
+            daysToAdd = 3;
         } else if (currentDay === 4) { // Thursday
-            daysToAdd = 5; 
+            daysToAdd = 5;
         } else if (currentDay === 5) { // Friday
-            daysToAdd = 5; 
+            daysToAdd = 5;
         } else {
-            daysToAdd = 3; 
+            daysToAdd = 3;
         }
 
         return daysToAdd
     }
 
 
-    
+
     function WeekDays(startDate) {
         let daysToAdd = 0;
         const currentDay = startDate.getDay();
-  
+
         if (currentDay === 6) { // Saturday
-            daysToAdd = 9; 
+            daysToAdd = 9;
         } else if (currentDay === 0) { // Sunday
-            daysToAdd = 8; 
+            daysToAdd = 8;
         } else if (currentDay === 1) { // Monday
-            daysToAdd = 7; 
+            daysToAdd = 7;
         } else if (currentDay === 2) { // Tuesday
-            daysToAdd = 7; 
+            daysToAdd = 7;
         } else if (currentDay === 3) { // Wednesday
-            daysToAdd = 7; 
+            daysToAdd = 7;
         } else if (currentDay === 4) { // Thursday
-            daysToAdd = 7; 
+            daysToAdd = 7;
         } else if (currentDay === 5) { // Friday
-            daysToAdd = 7; 
+            daysToAdd = 7;
         } else {
-            daysToAdd = 7; 
+            daysToAdd = 7;
         }
         return daysToAdd
-   
+
     }
-    
+
  
-
-    
-    
-
-
     return (
         <>
-            {optionsArray.length > 0 && (
-                <AddForm
-                    fields={fields.filter(
-                        (field) => !field.showWhen || field.showWhen(formik.values)
-                    )}
-                    page_title="Create Account"
-                    btn_name="Add"
-                    btn_name1="Cancel"
-                    formik={formik}
-                    btn_name1_route={"/admin/clientservice"}
-                    additional_field={
-                        <div className='col-lg-6 mt-2' >
-                            <h6>Select Group</h6>
-                            <DropdownMultiselect
-                                options={optionsArray}
-                                name="groupName"
-                                handleOnChange={(selected) => {
-                                    setSelectedOptions(selected)
-                                }}
-                            />
-                        </div>
-                    }
-                />
-            )}
+            {getGroupData.loading ? <Loader /> :
+                (
+                    <AddForm
+                        fields={fields.filter(
+                            (field) => !field.showWhen || field.showWhen(formik.values)
+                        )}
+                        page_title="Create Account"
+                        btn_name="Add"
+                        btn_name1="Cancel"
+                        formik={formik}
+                        btn_name1_route={"/admin/clientservice"}
+                        additional_field={
+                            <div className='col-lg-6 mt-2' >
+                                <h6>Select Group</h6>
+                                <DropdownMultiselect
+                                    options={optionsArray}
+                                    name="groupName"
+                                    handleOnChange={(selected) => {
+                                        setSelectedOptions(selected)
+                                    }}
+                                />
+                            </div>
+                        }
+                    />
+                )}
         </>
     );
 };
