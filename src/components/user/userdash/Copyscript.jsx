@@ -11,7 +11,7 @@ const Coptyscript = ({ data, selectedType }) => {
 
 
     const navigate = useNavigate();
-    const [refresh , setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('');
     const [getAllService, setAllservice] = useState({
         loading: true,
@@ -44,7 +44,7 @@ const Coptyscript = ({ data, selectedType }) => {
         navigate('/user/addscript/pattern', { state: { data } });
     }
 
- 
+
     const GetAllUserScriptDetails = async () => {
         const data = { userName: userName };
 
@@ -80,20 +80,20 @@ const Coptyscript = ({ data, selectedType }) => {
 
     useEffect(() => {
         GetAllUserScriptDetails();
-    }, [selectedType , refresh]);
+    }, [selectedType, refresh]);
 
     return (
         <div className="container-fluid">
             <div className="row">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body">
+                        <div className="iq-card-body " style={{ padding: '3px' }}>
                             <div className="tab-content" id="myTabContent-3">
 
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
                                     {data && (
                                         <>
-                                            <div className="iq-card-body">
+                                            <div className="iq-card-body " style={{ padding: '3px' }}>
                                                 <div className="table-responsive">
 
                                                     {getAllService.loading ? <Loader /> :

@@ -140,16 +140,18 @@ const DynamicForm = ({
                                 readOnly={field.disable}
                                 id={field.name}
                                 name={field.name}
-                                {...formik.getFieldProps(field.name)}
+                                value={formik.values[field.name] || ""}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                               />
-                              {formik.touched[field.name] &&
-                                formik.errors[field.name] ? (
+                              {formik.touched[field.name] && formik.errors[field.name] ? (
                                 <div style={{ color: "red" }}>
                                   {formik.errors[field.name]}
                                 </div>
                               ) : null}
                             </div>
                           </div>
+
                         </>
                       ) : field.type === "text2" ? (
                         <>
@@ -366,7 +368,7 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "checkbox" ? (
                         <>
-                           
+
                           <div className={`col-lg-${field.col_size}`}>
                             <div className="row d-flex justify-content-start">
                               <div className='mb-4'>
@@ -396,92 +398,92 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "radio" ? (
                         <>
-                        <div className={`col-lg-${field.col_size}`}>
-                          {/* <label
+                          <div className={`col-lg-${field.col_size}`}>
+                            {/* <label
                             className={`col-lg-${field.label_size} col-form-label fw-bold text-decoration-underline`}
                             htmlFor={field.parent_label}
                           >
                             {field.parent_label}
                           </label> */}
 
-                          <div className={`d-flex mb-4 col-lg-${field.col_size}`}>
-                            <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
-                              <input
-                                type={field.type}
-                                name={field.name}
-                                value={field.value1}
-                                className="form-check-input"
-                                id={field.title1}
-                                {...formik.getFieldProps(field.name)}
-                              />
-                              <label
-                                className={`col-lg-${field.label_size} col-form-label mx-2`}
-                                htmlFor={field.title1}
+                            <div className={`d-flex mb-4 col-lg-${field.col_size}`}>
+                              <div className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}>
+                                <input
+                                  type={field.type}
+                                  name={field.name}
+                                  value={field.value1}
+                                  className="form-check-input"
+                                  id={field.title1}
+                                  {...formik.getFieldProps(field.name)}
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label mx-2`}
+                                  htmlFor={field.title1}
+                                >
+                                  {field.title1}
+                                </label>
+                              </div>
+                              <div
+                                className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
                               >
-                                {field.title1}
-                              </label>
-                            </div>
-                            <div
-                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
-                            >
-                              <input
-                                type={field.type}
-                                name={field.name}
-                                value={field.value2}
-                                className="form-check-input"
-                                id={field.title2}
-                                {...formik.getFieldProps(field.name)}
-                              />
-                              <label
-                                className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.title2}
+                                <input
+                                  type={field.type}
+                                  name={field.name}
+                                  value={field.value2}
+                                  className="form-check-input"
+                                  id={field.title2}
+                                  {...formik.getFieldProps(field.name)}
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label  mx-2`}
+                                  htmlFor={field.title2}
+                                >
+                                  {field.title2}
+                                </label>
+                              </div>
+                              <div
+                                className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
                               >
-                                {field.title2}
-                              </label>
-                            </div>
-                            <div
-                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center`}
-                            >
-                              <input
-                                type={field.type}
-                                name={field.name}
-                                value={field.value3}
-                                className="form-check-input"
-                                id={field.title3}
-                                {...formik.getFieldProps(field.name)}
-                              />
-                              <label
-                                className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.title3}
+                                <input
+                                  type={field.type}
+                                  name={field.name}
+                                  value={field.value3}
+                                  className="form-check-input"
+                                  id={field.title3}
+                                  {...formik.getFieldProps(field.name)}
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label  mx-2`}
+                                  htmlFor={field.title3}
+                                >
+                                  {field.title3}
+                                </label>
+                              </div>
+                              <div
+                                className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center `}
                               >
-                                {field.title3}
-                              </label>
+                                <input
+                                  type={field.type}
+                                  name={field.name}
+                                  value={field.value4}
+                                  className="form-check-input"
+                                  id={field.title4}
+                                  {...formik.getFieldProps(field.name)}
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label  mx-2`}
+                                  htmlFor={field.title4}
+                                >
+                                  {field.title4}
+                                </label>
+                              </div>
                             </div>
-                            <div
-                              className={`col-lg-${field.col_size} form-check custom-checkbox d-flex align-items-center `}
-                            >
-                              <input
-                                type={field.type}
-                                name={field.name}
-                                value={field.value4}
-                                className="form-check-input"
-                                id={field.title4}
-                                {...formik.getFieldProps(field.name)}
-                              />
-                              <label
-                                className={`col-lg-${field.label_size} col-form-label  mx-2`}
-                                htmlFor={field.title4}
-                              >
-                                {field.title4}
-                              </label>
-                            </div>
-                          </div>
 
-                        </div>
+                          </div>
                         </>
                       ) : field.type === "radio1" ? (
                         <>
-                         
+
 
                           <div className={`d-flex  col-lg-${field.col_size}`}>
                             {field.title && field.title.map((item) => (
