@@ -23,8 +23,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         Marketwise: [],
         PremiumRotation: []
     });
-
-    console.log("getAllService :", getAllService)
+ 
     const handleAddScript1 = (data1) => {
         if (data2.status == false) {
             Swal.fire({

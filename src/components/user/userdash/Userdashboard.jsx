@@ -554,14 +554,14 @@ const Userdashboard = () => {
                                         {activeTab === 'group' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} Status ={serviceStatus && serviceStatus}/>}
+                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus}/>}
                                                 </div>
                                             </div>
                                         )}
                                         {activeTab === 'currentScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} Status ={serviceStatus && serviceStatus}/>}
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus}/>}
                                                 </div>
                                             </div>
                                         )}

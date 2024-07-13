@@ -6,7 +6,7 @@ import Loader from '../../../ExtraComponent/Loader';
 import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
 
-const Coptyscript = ({ data, selectedType }) => {
+const Coptyscript = ({ data, selectedType, data2 }) => {
     const userName = localStorage.getItem('name')
 
 
@@ -94,7 +94,7 @@ const Coptyscript = ({ data, selectedType }) => {
                         timerProgressBar: true
                     });
                 }
-                
+
             })
             .catch((err) => {
                 console.log("Error in delete script", err)
@@ -294,13 +294,27 @@ const Coptyscript = ({ data, selectedType }) => {
     }
 
     const AddScript = (data) => {
-        if (data === "Option Strategy") {
-            navigate('/user/newscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
-        } else if (data === "Pattern") {
-            navigate('/user/newscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
-        } else {
-            navigate('/user/newscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+        if (data2.status == false) {
+            Swal.fire({
+                title: "Error",
+                text: data2.msg,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+            });
+
         }
+        else {
+
+            if (data === "Option Strategy") {
+                navigate('/user/newscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
+            } else if (data === "Pattern") {
+                navigate('/user/newscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
+            } else {
+                navigate('/user/newscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+            }
+        }
+
     }
 
     const GetAllUserScriptDetails = async () => {
@@ -345,7 +359,7 @@ const Coptyscript = ({ data, selectedType }) => {
             <div className="row">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body" style={{padding:'3px'}}>
+                        <div className="iq-card-body" style={{ padding: '3px' }}>
                             <div className="tab-content" id="myTabContent-3">
 
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
@@ -359,7 +373,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                                     <button className='btn btn-primary' onClick={() => AddScript(data)}>Add Script</button>
                                                 </div>
                                             </div>
-                                            <div className="iq-card-body " style={{padding:'3px'}}>
+                                            <div className="iq-card-body " style={{ padding: '3px' }}>
                                                 <div className="table-responsive">
 
                                                     {getAllService.loading ? <Loader /> :
