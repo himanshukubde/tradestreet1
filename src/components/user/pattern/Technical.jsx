@@ -482,7 +482,7 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
-                                            <option value="">Please Select Specific Pattern</option>
+                                            <option value="">Please Select Specific Script</option>
 
                                             {selectedPatternType === "Candlestick Patterns"
                                                 ? allSymbols && allSymbols.map((item) => (
@@ -503,23 +503,23 @@ const LastPattern = () => {
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
-                                    {getCandlestickTable.loading ? <Loader /> : (
+                                    {/* {getCandlestickTable.loading ? <Loader /> : ( */}
                                     <FullDataTable
                                         columns={columns1}
                                         data={getCandlestickTable && getCandlestickTable.data2}
                                         checkBox={false}
                                     />
-                                    )}
+                                    {/* )} */}
                                 </>
                                 : <>
-                                    {ChartPatternTableData.loading ? <Loader /> : (
+                                    {/* {ChartPatternTableData.loading ? <Loader /> : ( */}
                                     <FullDataTable
                                         columns={columns}
                                         data={ChartPatternTableData && ChartPatternTableData.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
                                     />
-                                     )} 
+                                     {/* )}  */}
                                 </>
                             }
                         </div>

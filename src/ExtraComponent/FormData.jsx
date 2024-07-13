@@ -140,6 +140,7 @@ const DynamicForm = ({
                                 readOnly={field.disable}
                                 id={field.name}
                                 name={field.name}
+                                defaultValue={""}
                                 value={formik.values[field.name] || ""}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -529,6 +530,7 @@ const DynamicForm = ({
                                       ? "text"
                                       : field.type
                                   }
+                                  defaultValue={""}
                                   placeholder={`Enter ${field.label}`}
                                   {...formik.getFieldProps(field.name)}
                                   className={` form-control`}
