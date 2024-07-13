@@ -6,10 +6,11 @@ import Loader from '../../../ExtraComponent/Loader';
 import { getColumns, getColumns1, getColumns2 } from './Columns';
 import Swal from 'sweetalert2';
 
-const Coptyscript = ({ data, selectedType }) => {
+const Coptyscript = ({ data, selectedType, data2 }) => {
     const userName = localStorage.getItem('name')
 
 
+   
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('');
@@ -23,25 +24,66 @@ const Coptyscript = ({ data, selectedType }) => {
         PremiumRotation: []
     });
 
+    console.log("getAllService :", getAllService)
     const handleAddScript1 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.ScalpingData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", ...selectedRow };
-        navigate('/user/addscript/scalping', { state: { data } });
+        if (data2.status == false) {
+            Swal.fire({
+                title: "Error",
+                text: data2.msg,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+            });
+        }
+        else {
+
+            const selectedRowIndex = data1.rowIndex;
+            const selectedRow = getAllService.ScalpingData[selectedRowIndex];
+            const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", ...selectedRow };
+            navigate('/user/addscript/scalping', { state: { data } });
+        }
+
+
     }
 
     const handleAddScript2 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.OptionData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
-        navigate('/user/addscript/option', { state: { data } });
+        if (data2.status == false) {
+            Swal.fire({
+                title: "Error",
+                text:  data2.msg,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+            });
+
+        }
+        else {
+
+            const selectedRowIndex = data1.rowIndex;
+            const selectedRow = getAllService.OptionData[selectedRowIndex];
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
+            navigate('/user/addscript/option', { state: { data } });
+        }
     }
 
     const handleAddScript3 = (data1) => {
-        const selectedRowIndex = data1.rowIndex;
-        const selectedRow = getAllService.PatternData[selectedRowIndex];
-        const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
-        navigate('/user/addscript/pattern', { state: { data } });
+        if (data2.status == false) {
+            Swal.fire({
+                title: "Error",
+                text:  data2.msg,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+            });
+
+        }
+        else {
+
+            const selectedRowIndex = data1.rowIndex;
+            const selectedRow = getAllService.PatternData[selectedRowIndex];
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
+            navigate('/user/addscript/pattern', { state: { data } });
+        }
     }
 
 
