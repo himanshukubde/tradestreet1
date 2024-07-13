@@ -53,14 +53,7 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
-    // {
-    //     name: "Token",
-    //     label: "Token",
-    //     options: {
-    //         filter: true,
-    //         sort: true,
-    //     }
-    // },
+    
     {
         name: "TType",
         label: "Trade Type",

@@ -47,7 +47,7 @@ const Clientservice = () => {
             const response = await GetClientService();
             if (response.Status) {
 
-                setClientService({ loading: false, data: response.Profile });
+                setClientService({ loading: false, data: response.Data });
             } else {
                 setClientService({ loading: false, data: [] });
             }
