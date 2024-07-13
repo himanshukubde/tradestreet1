@@ -32,3 +32,14 @@ export const PasswordChange=async(data)=>{
     }
 
 }
+
+export const RegistorUser=async(data)=>{
+    try{
+        const res =  await axios.post(`${Config.base_url}Signup`, data)
+        return res?.data
+    }
+    catch(err){
+        return err
+    }
+
+}

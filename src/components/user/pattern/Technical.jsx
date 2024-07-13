@@ -300,7 +300,7 @@ const LastPattern = () => {
         .then((response) => {
             
             if (response.Status) {
-                    setAllSymbols(response.Symbol);
+                    setAllSymbols(response.Data);
                 } else {
                     setAllSymbols([]);
                 }

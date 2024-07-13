@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {Link} from 'react-router-dom'
 import { LoginPage , ForgotPassword } from '../Common API/Common'
 
 const Login = () => {
@@ -330,7 +331,7 @@ const Login = () => {
                                 </div>
                                 <div className="sign-info">
                                     <span className="dark-color d-inline-block line-height-2">
-                                        Don't have an account? <a href="sign-up.html">Sign up</a>
+                                        Don't have an account? <Link to={'/register'}>Sign up</Link>
                                     </span>
                                     <ul className="iq-social-media">
                                         <li>
