@@ -791,7 +791,7 @@ const AddClient = () => {
             .then((response) => {
                 if (response.stutus) {
                     
-                    setServiceEndDate(response.ExpiryDate)
+                    setServiceEndDate(response.Data[0].ExpiryDate)
                 }
                 else {
                     setServiceEndDate('')

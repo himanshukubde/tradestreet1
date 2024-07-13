@@ -166,30 +166,9 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Instrument Type",
-        label: "Instrument Type",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+   
+    
+     
 
 ];
 
@@ -933,29 +912,24 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
         }
     },
     {
-        name: "Expirytype",
-        label: "Expirytype",
+        name: "SSDate",
+        label: "SSDate",
         options: {
             filter: true,
             sort: true,
         }
     },
     {
-        name: "Instrument Type",
-        label: "Instrument Type",
+        name: "SEDate",
+        label: "SEDate",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
+    
+    
 ];
 
 export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
