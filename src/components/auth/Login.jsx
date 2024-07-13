@@ -322,17 +322,8 @@ const Login = () => {
                                         title="password Visiblity"
                                     ></i>
                                 </div>
-                                <div className="d-flex w-100 justify-content-between  align-items-center mt-3 w-100">
-                                    <div className="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                        <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="customCheck1"
-                                        />
-                                        <label className="custom-control-label" htmlFor="customCheck1">
-                                            Remember Me
-                                        </label>
-                                    </div>
+                                <div className="d-flex w-100 justify-content-end  align-items-center mt-3 w-100">
+                                    
                                     <button type="submit" className="btn btn-primary float-end" onClick={handleLogin}>
                                         Sign in
                                     </button>

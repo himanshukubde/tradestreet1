@@ -419,19 +419,12 @@ const LastPattern = () => {
         fetchPatternNames();
     }, []);
 
-
-console.log("ChartPatternTableData.loading :", ChartPatternTableData.loading)
-console.log("patternNames.loading :", patternNames.loading)
-
-
-
-
-
+  
     return (
         <div className="container-fluid">
             <div className="row">
                 <div className="col-sm-12">
-                    <div className="iq-card">
+                    <div className="iq-card" >
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
                                 <h4 className="card-title">Technical Pattern</h4>
@@ -510,23 +503,23 @@ console.log("patternNames.loading :", patternNames.loading)
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
-                                    {/* {getCandlestickTable.loading ? <Loader /> : ( */}
+                                    {getCandlestickTable.loading ? <Loader /> : (
                                     <FullDataTable
                                         columns={columns1}
                                         data={getCandlestickTable && getCandlestickTable.data2}
                                         checkBox={false}
                                     />
-                                    {/* // )} */}
+                                    )}
                                 </>
                                 : <>
-                                    {/* {ChartPatternTableData.loading ? <Loader /> : ( */}
+                                    {ChartPatternTableData.loading ? <Loader /> : (
                                     <FullDataTable
                                         columns={columns}
                                         data={ChartPatternTableData && ChartPatternTableData.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
                                     />
-                                    {/* )} */}
+                                     )} 
                                 </>
                             }
                         </div>

@@ -255,14 +255,13 @@ const Editprofile = () => {
                     <div>
                         <div className="form-group">
                             <label htmlFor="cpass">Current Password:</label>
-                            <a className="float-end" href="#">
-                                Forgot Password
-                            </a>
+                            
                             <div className="input-container">
                                 <input
                                     type={showPass1 ? 'text' : 'password'}
                                     className="form-control my-2"
                                     id="cpass"
+                                    placeholder='Enter current password'
                                     onChange={(e) => setCurrPass(e.target.value)}
                                     value={currPass}
                                 />
@@ -278,6 +277,7 @@ const Editprofile = () => {
                                     type={showPass2 ? 'text' : 'password'}
                                     className="form-control my-2"
                                     id="npass"
+                                     placeholder='Enter new password'
                                     onChange={(e) => setNewPass(e.target.value)}
                                     value={newPass}
                                 />
@@ -293,6 +293,7 @@ const Editprofile = () => {
                                     type={showPass3 ? 'text' : 'password'}
                                     className="form-control my-2"
                                     id="vpass"
+                                     placeholder='Enter verify password'
                                     onChange={(e) => setVerifyPass(e.target.value)}
                                     value={verifyPass}
                                 />
