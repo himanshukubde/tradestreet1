@@ -1,12 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { PasswordChange } from '../../Common API/Common'
+import { Eye, EyeOff } from 'lucide-react'
 
 const Editprofile = () => {
-  return (
-    <div>
-          <div className="col-lg-12">
-              <div className="iq-edit-list-data">
-                  <div className="tab-content">
-                      <div className="tab-pane fade" id="personal-information" role="tabpanel">
+    const userName = localStorage.getItem('name')
+    const [currPass, setCurrPass] = useState('')
+    const [newPass, setNewPass] = useState('')
+    const [verifyPass, setVerifyPass] = useState('')
+    const [showPass1, setShowPass1] = useState(false)
+    const [showPass2, setShowPass2] = useState(false)
+    const [showPass3, setShowPass3] = useState(false)
+
+
+
+
+
+
+    const handleSubmit = async () => {
+        const data = { User: userName, new_password: newPass, old_password: currPass, confirm_password: verifyPass }
+
+        await PasswordChange(data)
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Success",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the response", err)
+            })
+
+    }
+
+
+
+
+
+    return (
+        <div>
+            <div className="col-lg-12">
+                <div className="iq-edit-list-data">
+                    <div className="tab-content">
+                        {/* <div className="tab-pane d-flex" id="personal-information" role="tabpanel">
                           <div className="iq-card">
                               <div className="iq-card-header d-flex justify-content-between">
                                   <div className="iq-header-title">
@@ -191,57 +243,75 @@ const Editprofile = () => {
                                   </form>
                               </div>
                           </div>
-                      </div>
-                      <div className="tab-pane fade active show" id="chang-pwd" role="tabpanel">
-                          <div className="iq-card">
-                              <div className="iq-card-header d-flex justify-content-between">
-                                  <div className="iq-header-title">
-                                      <h4 className="card-title">Change Password</h4>
-                                  </div>
-                              </div>
-                              <div className="iq-card-body">
-                                  <form>
-                                      <div className="form-group">
-                                          <label htmlFor="cpass">Current Password:</label>
-                                          <a href="javascripe:void();" className="float-end">
-                                              Forgot Password
-                                          </a>
-                                          <input
-                                              type="Password"
-                                              className="form-control my-2"
-                                              id="cpass"
-                                              defaultValue=""
-                                          />
-                                      </div>
-                                      <div className="form-group">
-                                          <label htmlFor="npass">New Password:</label>
-                                          <input
-                                              type="Password"
-                                              className="form-control my-2"
-                                              id="npass"
-                                              defaultValue=""
-                                          />
-                                      </div>
-                                      <div className="form-group">
-                                          <label htmlFor="vpass">Verify Password:</label>
-                                          <input
-                                              type="Password"
-                                              className="form-control my-2"
-                                              id="vpass"
-                                              defaultValue=""
-                                          />
-                                      </div>
-                                      <button type="submit" className="btn btn-primary me-2">
-                                          Submit
-                                      </button>
-                                      <button type="reset" className="btn iq-bg-danger">
-                                          cancel
-                                      </button>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="tab-pane fade" id="emailandsms" role="tabpanel">
+                      </div> */}
+                        <div className="tab-pane fade active show" id="chang-pwd" role="tabpanel">
+            <div className="iq-card">
+                <div className="iq-card-header d-flex justify-content-between">
+                    <div className="iq-header-title">
+                        <h4 className="card-title">Change Password</h4>
+                    </div>
+                </div>
+                <div className="iq-card-body">
+                    <div>
+                        <div className="form-group">
+                            <label htmlFor="cpass">Current Password:</label>
+                            <a className="float-end" href="#">
+                                Forgot Password
+                            </a>
+                            <div className="input-container">
+                                <input
+                                    type={showPass1 ? 'text' : 'password'}
+                                    className="form-control my-2"
+                                    id="cpass"
+                                    onChange={(e) => setCurrPass(e.target.value)}
+                                    value={currPass}
+                                />
+                                <div className="input-span" onClick={() => setShowPass1(!showPass1)}>
+                                    {showPass1 ? <EyeOff /> : <Eye />}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="npass">New Password:</label>
+                            <div className="input-container">
+                                <input
+                                    type={showPass2 ? 'text' : 'password'}
+                                    className="form-control my-2"
+                                    id="npass"
+                                    onChange={(e) => setNewPass(e.target.value)}
+                                    value={newPass}
+                                />
+                                <div className="input-span" onClick={() => setShowPass2(!showPass2)}>
+                                    {showPass2 ? <EyeOff /> : <Eye />}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="vpass">Verify Password:</label>
+                            <div className="input-container">
+                                <input
+                                    type={showPass3 ? 'text' : 'password'}
+                                    className="form-control my-2"
+                                    id="vpass"
+                                    onChange={(e) => setVerifyPass(e.target.value)}
+                                    value={verifyPass}
+                                />
+                                <div className="input-span" onClick={() => setShowPass3(!showPass3)}>
+                                    {showPass3 ? <EyeOff /> : <Eye />}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary me-2" onClick={handleSubmit}>
+                            Submit
+                        </button>
+                        <Link to={'/user/dashboard'} className="btn iq-bg-danger">
+                            Cancel
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        {/* <div className="tab-pane fade" id="emailandsms" role="tabpanel">
                           <div className="iq-card">
                               <div className="iq-card-header d-flex justify-content-between">
                                   <div className="iq-header-title">
@@ -386,8 +456,8 @@ const Editprofile = () => {
                                   </form>
                               </div>
                           </div>
-                      </div>
-                      <div className="tab-pane fade" id="manage-contact" role="tabpanel">
+                      </div> */}
+                        {/* <div className="tab-pane fade" id="manage-contact" role="tabpanel">
                           <div className="iq-card">
                               <div className="iq-card-header d-flex justify-content-between">
                                   <div className="iq-header-title">
@@ -432,13 +502,13 @@ const Editprofile = () => {
                                   </form>
                               </div>
                           </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                      </div> */}
+                    </div>
+                </div>
+            </div>
 
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Editprofile

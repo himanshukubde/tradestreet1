@@ -3,7 +3,7 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../Common API/Admin
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../Common API/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
- 
+
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
 
@@ -282,6 +282,7 @@ const LastPattern = () => {
     const fetchAvailableScripts = async () => {
         await AvailableScript()
             .then((response) => {
+            
                 if (response.Status) {
                     setAvailableScripts(response.Symbol);
                 } else {
@@ -296,8 +297,9 @@ const LastPattern = () => {
     const fetchAllSymbols = async () => {
         const data = { Username };
         await GetSymbolIp(data)
-            .then((response) => {
-                if (response.Status) {
+        .then((response) => {
+            
+            if (response.Status) {
                     setAllSymbols(response.Symbol);
                 } else {
                     setAllSymbols([]);
@@ -418,9 +420,12 @@ const LastPattern = () => {
     }, []);
 
 
+console.log("ChartPatternTableData.loading :", ChartPatternTableData.loading)
+console.log("patternNames.loading :", patternNames.loading)
 
 
-  
+
+
 
     return (
         <div className="container-fluid">
@@ -505,34 +510,37 @@ const LastPattern = () => {
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
-                                    {patternNames.loading ? <Loader /> : (
-                                        <FullDataTable
-                                            columns={columns1}
-                                            data={getCandlestickTable && getCandlestickTable.data2}
-                                            checkBox={false}
-                                        />
-                                    )}
+                                    {/* {getCandlestickTable.loading ? <Loader /> : ( */}
+                                    <FullDataTable
+                                        columns={columns1}
+                                        data={getCandlestickTable && getCandlestickTable.data2}
+                                        checkBox={false}
+                                    />
+                                    {/* // )} */}
                                 </>
                                 : <>
-                                    {ChartPatternTableData.loading ? <Loader /> : (
-                                        <FullDataTable
-                                            columns={columns}
-                                            data={ChartPatternTableData && ChartPatternTableData.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={true}
-                                        />
-                                    )}
+                                    {/* {ChartPatternTableData.loading ? <Loader /> : ( */}
+                                    <FullDataTable
+                                        columns={columns}
+                                        data={ChartPatternTableData && ChartPatternTableData.data}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={true}
+                                    />
+                                    {/* )} */}
                                 </>
                             }
                         </div>
 
                         <div className="row">
 
-                            <div className="m-3">
-                                <div className='shadow p-3 mb-5 bg-white rounded'>
-                                    <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} />
+                            <div className="">
+                                {
+                                    getCandlestickTable.loading == false || ChartPatternTableData.loading==false ? <div className='shadow p-3  bg-white rounded m-4'>
+                                        <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} />
+                                    </div>
+                                        : ""
+                                }
 
-                                </div>
 
 
                             </div>

@@ -5155,3 +5155,23 @@ body.sidebar-main .iq-sidebar {
 .iq-card .iq-card-header{
   padding: 1px 6px !important;
 }
+ 
+.input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.input-container input {
+  width: 100%;
+  padding-right: 40px; /* Adjust based on the span width */
+}
+
+.input-container .input-span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa; /* Adjust color as needed */
+}

@@ -69,7 +69,6 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
             });
         }
         else {
-
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.data[selectedRowIndex];
             const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
