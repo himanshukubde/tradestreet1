@@ -19,7 +19,7 @@ const Header = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [getTradingStatus, setTradingStatus] = useState(false);
     const [getBrokerName, setBrokerName] = useState("");
-
+    
 
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
@@ -35,13 +35,11 @@ const Header = () => {
         };
 
 
-        Loginwihapi(requestData )
+        Loginwihapi(requestData)
 
 
-      
+
     };
-
-
 
 
 
@@ -484,37 +482,35 @@ const Header = () => {
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                    <li className="nav-item">
-
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={(e) => setIsModalVisible(true)}
-                                        >
-                                            Set API Key
-                                        </button>
-
-
-
-                                    </li>
-
-                                    <li className="nav-item">
-                                        <a href='#' className="rtl-switch-toogle">
-                                            <span className="form-check form-switch">
-                                                <input
-                                                    className="form-check-input rtl-switch"
-                                                    type="checkbox"
-                                                    role="switch"
-                                                    id="rtl-switch"
-                                                    checked={getTradingStatus}
-                                                    onChange={(e) => handleToggle(e)}
-                                                />
-                                                <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
-                                            </span>
-                                        </a>
-                                    </li>
-
-
+                                    {
+                                        getBrokerName && getBrokerName == "Demo" ? "" :
+                                            <>
+                                                <li className="nav-item">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary"
+                                                        onClick={(e) => setIsModalVisible(true)}
+                                                    >
+                                                        Set API Key
+                                                    </button>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href='#' className="rtl-switch-toogle">
+                                                        <span className="form-check form-switch">
+                                                            <input
+                                                                className="form-check-input rtl-switch"
+                                                                type="checkbox"
+                                                                role="switch"
+                                                                id="rtl-switch"
+                                                                checked={getTradingStatus}
+                                                                onChange={(e) => handleToggle(e)}
+                                                            />
+                                                            <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </>
+                                    }
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
@@ -533,13 +529,13 @@ const Header = () => {
                                             <div className="iq-card shadow-none m-0">
                                                 <div className="iq-card-body p-0 ">
                                                     <div className="bg-primary p-3"> */}
-                                                        {/* <h5 className="mb-0 text-white d-flex justify-content-between">
+                                        {/* <h5 className="mb-0 text-white d-flex justify-content-between">
                                                             All Notifications
                                                             <small className="badge  badge-dark float-end pt-1">
                                                                 4
                                                             </small>
                                                         </h5> */}
-                                                    {/* </div>
+                                        {/* </div>
                                                       
                                                 </div>
                                             </div>

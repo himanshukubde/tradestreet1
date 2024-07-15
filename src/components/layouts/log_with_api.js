@@ -22,8 +22,9 @@ const loginWithApi = async (UserDetails) => {
             try {
                 const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
 
+                console.log("response.data :" , response.data)
                 if (response.data.Status) { // Assuming the status is in response.data.Status
-
+return 
                     Swal.fire({
                         title: 'Success!',
                         text: 'Trading On successfully.',
