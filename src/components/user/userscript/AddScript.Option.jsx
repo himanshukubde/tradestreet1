@@ -783,13 +783,13 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-
+    console.log("serviceEndDate :option", serviceEndDate)
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
-                if (response.stutus) {
+                if (response.Status) {
                     
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }

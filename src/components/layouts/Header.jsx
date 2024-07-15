@@ -584,8 +584,7 @@ const Header = () => {
                                                                 <i className="ri-profile-line" />
                                                             </div>
                                                             <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Edit Profile</h6>
-                                                                <p className="mb-0 font-size-12">Modify your personal details.</p>
+                                                                <h6 className="mb-0 ">Change Password</h6>
                                                             </div>
                                                         </div>
                                                     </Link>

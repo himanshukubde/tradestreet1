@@ -143,17 +143,18 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
+   
     {
-        name: "ExitTime",
-        label: "ExitTime",
+        name: "EntryTime",
+        label: "EntryTime",
         options: {
             filter: true,
             sort: true,
         }
     },
     {
-        name: "EntryTime",
-        label: "EntryTime",
+        name: "ExitTime",
+        label: "ExitTime",
         options: {
             filter: true,
             sort: true,
@@ -889,14 +890,6 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
         }
     },
     {
-        name: "ExitTime",
-        label: "ExitTime",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
         name: "EntryTime",
         label: "EntryTime",
         options: {
@@ -904,6 +897,15 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
+    {
+        name: "ExitTime",
+        label: "ExitTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+   
     {
         name: "SSDate",
         label: "SSDate",

@@ -31,6 +31,8 @@ const AddClient = () => {
 
     const [serviceEndDate, setServiceEndDate] = useState('')
 
+
+    console.log("serviceEndDate :", serviceEndDate)
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -628,7 +630,7 @@ const AddClient = () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
-                if (response.stutus) {
+                if (response.Status) {
                     
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }
@@ -656,7 +658,6 @@ const AddClient = () => {
                             loading: false,
                             data: response.Symbol
                         })
-
                     }
                     else {
                         setSymbolData({

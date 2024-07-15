@@ -62,7 +62,6 @@ const Adduser = () => {
             await GetGroupNames()
                 .then((response) => {
                     if (response.Status) {
-                        console.log("response :", response)
                         const arr = response.Data.map(item => ({
                             label: item.GroupName,
                             key: item.GroupName

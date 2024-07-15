@@ -752,12 +752,13 @@ const AddClient = () => {
     }, [])
 
 
+    console.log("serviceEndDate :", serviceEndDate)
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
-                if (response.stutus) {
+                if (response.Status) {
                     
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }

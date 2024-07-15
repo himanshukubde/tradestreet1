@@ -13,7 +13,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
     const fetchData = async () => {
         const requestData = { userName };
         const response = await GetBrokerData(requestData);
-        console.log("response :", response.BrokerDetail)
+        
         if (response && response.BrokerDetail && response.BrokerDetail[0]) {
             setUserDetails({ loading: false, data: response.BrokerDetail[0] });
         } else {
@@ -78,7 +78,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         }
     });
 
-    console.log("formik.values.BrokerName.toUpperCase() :", formik.values.BrokerName)
+   
 
     useEffect(() => {
         if (userDetails.data) {
