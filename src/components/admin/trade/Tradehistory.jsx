@@ -79,6 +79,9 @@ const Tradehistory = () => {
 
     // Date Formetor
     const convertDateFormat = (date) => {
+        if (date == '') {
+            return ''
+        }
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');

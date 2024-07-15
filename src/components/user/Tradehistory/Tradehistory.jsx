@@ -53,12 +53,7 @@ const Tradehistory = () => {
         data1: []
     })
 
-
-
-
     const Username = localStorage.getItem('name')
-
-
 
       // set Defult Date 
       const currentDate = new Date();
@@ -71,16 +66,18 @@ const Tradehistory = () => {
   
       // from date
       const DefultToDate = new Date();
-  
       DefultToDate.setDate(DefultToDate.getDate());
       const year1 = DefultToDate.getFullYear();
       const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
       const day1 = String(DefultToDate.getDate()).padStart(2, '0');
       const Defult_To_Date = `${year1}.${month1}.${day1}`;
 
-
+      
     // Date Formetor
     const convertDateFormat = (date) => {
+        if (date == '') {
+            return ''
+        }
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
