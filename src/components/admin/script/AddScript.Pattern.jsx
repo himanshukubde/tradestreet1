@@ -244,7 +244,6 @@ const AddClient = () => {
         formik.setFieldValue('ExitDay',  "Intraday" )
         formik.setFieldValue('TType',  "BUY" )
         formik.setFieldValue('HoldExit',  "Without Trend" )
-        
 
     }, [])
 

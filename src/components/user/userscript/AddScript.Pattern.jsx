@@ -113,29 +113,23 @@ const AddClient = () => {
             if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
                 errors.Strike = "Enter Strike Price.";
             }
-            if (!values.Trade_Count) {
-                errors.Trade_Count = "Please enter the Trade Count.";
-            }
-            if (!values.Trade_Execution) {
-                errors.Trade_Execution = "Please Select Trade Execution.";
-            }
             if (!values.expirydata1 && values.Exchange=="NFO") {
                 errors.expirydata1 = "Enter Expiry Date.";
             }
             if (!values.Strategy) {
-                errors.Strategy = "Please Enter Strategy Type.";
+                errors.Strategy = "Please Select Pattern Type.";
             }
             if (!values.Timeframe) {
                 errors.Timeframe = "Please Enter Timeframe Type.";
             }
             if (!values.ETPattern) {
-                errors.ETPattern = "Please Enter Pattern Type.";
+                errors.ETPattern = "Please Select Pattern Name.";
             }
             if (!values.HoldExit) {
-                errors.HoldExit = "Please Enter Hold/Exit Type.";
+                errors.HoldExit = "Please Select Previous Trend.";
             }
             if (!values.TStype) {
-                errors.TStype = "Please Enter TS Type.";
+                errors.TStype = "Please Enter Measurement Type.";
             }
             if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
                 errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
@@ -163,9 +157,9 @@ const AddClient = () => {
                 errors.EntryTime = "Entry Time Must Be After 09:15:00.";
             }
         
-        
             return errors;
         },
+        
         
         onSubmit: async (values) => {
             const req = {
@@ -781,19 +775,7 @@ const AddClient = () => {
 
 
 
-
     useEffect(() => {
-
-        if (formik.values.set_Range == "No") {
-            formik.setFieldValue('LowerRange', "1")
-            formik.setFieldValue('HigherRange', "1")
-            formik.setFieldValue('HoldExit', "")
-        }
-        if (formik.values.Set_First_Trade_Range == "No") {
-            formik.setFieldValue('EntryPrice', "1")
-            formik.setFieldValue('EntryRange', "1")
-
-        }
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")
@@ -803,8 +785,7 @@ const AddClient = () => {
 
         }
 
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
-
+    }, [formik.values.Instrument, formik.values.Exchange])
 
     return (
         <>

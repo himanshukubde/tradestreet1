@@ -312,7 +312,7 @@ const AddClient = () => {
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
-        formik.setFieldValue('DeepStrike', 2)
+        formik.setFieldValue('DeepStrike', 1)
         formik.setFieldValue('Lower_Range', 0)
         formik.setFieldValue('Higher_Range', 0)
         formik.setFieldValue('EntryTime', "09:15:00")
@@ -320,8 +320,6 @@ const AddClient = () => {
         formik.setFieldValue('TStype', "Point")
         formik.setFieldValue('Shifting_Point', 100)
         formik.setFieldValue('Shifting_Value', 1)
-
-
     }, [])
 
     useEffect(() => {
@@ -759,9 +757,7 @@ const AddClient = () => {
             formik.setFieldValue('PEDeepHigher', 0)
 
         }
-        // (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor"
-        // if()
-
+        
 
 
 

@@ -79,133 +79,121 @@ const AddClient = () => {
             Measurment_Type : ""
         },
 
-
-
         validate: (values) => {
             let errors = {};
             const maxTime = "15:29:59";
             const minTime = "09:15:00";
             if (!values.Strategy) {
-                errors.Strategy = "Please select a strategy type.";
+                errors.Strategy = "Please Select a Strategy Type.";
             }
-
-             
             if (!values.Measurment_Type) {
                 errors.Measurment_Type = "Please select Option type.";
             }
             if (!values.ETPattern) {
-                errors.ETPattern = "Please select  ETPattern type.";
+                errors.ETPattern = "Please Select Risk Handle Type.";
             }
             if (!values.Symbol) {
-                errors.Symbol = "Please select  symbol type.";
+                errors.Symbol = "Please Select a Symbol Type.";
             }
             if (!values.Targetvalue) {
-                errors.Targetvalue = "Please enter target value.";
+                errors.Targetvalue = "Please Enter a Target Value.";
             }
             if (!values.Slvalue) {
-                errors.Slvalue = "Please enter a stop loss value.";
+                errors.Slvalue = "Please Enter a Stop Loss Value.";
             }
             if (!values.TStype) {
-                errors.TStype = "Please select a TStype.";
+                errors.TStype = "Please Select a Measurement Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Please enter the Lot.";  
-            }
-            if (!values.Trade_Count) {
-                errors.Trade_Count = "Please enter the Trade Count.";
-            }
-            if (!values.Trade_Execution) {
-                errors.Trade_Execution = "Please Select Trade Execution.";
+                errors.Quantity = "Please Enter the Lot Value.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Please select an exit time.";
-            }
-            else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit time must be before 15:29:59.";
+                errors.ExitTime = "Please Select an Exit Time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
             }
             if (!values.EntryTime) {
-                errors.EntryTime = "Please select an entry time.";
-            }
-            else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry time must be after 09:15:00.";
+                errors.EntryTime = "Please Select an Entry Time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
             }
             if (!values.ExitDay) {
-                errors.ExitDay = "Please select an exit day.";
+                errors.ExitDay = "Please Select an Exit Day.";
             }
             if (!values.Expirytype) {
-                errors.Expirytype = "Please select an expiry type.";
+                errors.Expirytype = "Please Select an Expiry Type.";
             }
             if (!values.Lower_Range && values.Striketype === 'Premium_Range') {
-                errors.Lower_Range = "Please enter the lower range.";
+                errors.Lower_Range = "Please Enter the Lower Range.";
             }
             if (!values.Higher_Range && values.Striketype === 'Premium_Range') {
-                errors.Higher_Range = "Please enter the higher range.";
+                errors.Higher_Range = "Please Enter the Higher Range.";
             }
             if (!values.Striketype) {
-                errors.Striketype = "Please select a strike type.";
+                errors.Striketype = "Please Select a Strike Type.";
             }
             if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy")) {
-                errors.Unique_ID = "Please select Unique ID.";
+                errors.Unique_ID = "Please Select Unique ID.";
             }
-            if (!values.PEDeepLower && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDeepLower == 0) {
-                errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower can not be Zero" : "Please Enter PE Hedge Lower.";
+            if (!values.PEDeepLower && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower Cannot Be Zero." : "Please Enter PE Hedge Lower.";
             }
-            if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher can not be Zero" : "Please Enter PE Hedge Higher.";
+            if (!values.PEDeepHigher && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
             }
             if (!values.CEDepthLower && values.CEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.CEDepthLower = values.CEDepthLower == 0 ? "CE Main Lower can not be Zero" : "Please Enter CE Main Lower";
+                errors.CEDepthLower = values.CEDepthLower == 0 ? "CE Main Lower Cannot Be Zero." : "Please Enter CE Main Lower.";
             }
             if (!values.CEDepthHigher && values.CEDepthHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.CEDepthHigher = values.CEDepthHigher == 0 ? "CE Main Higher can not be Zero" : "Please Enter CE Main Higher";
+                errors.CEDepthHigher = values.CEDepthHigher == 0 ? "CE Main Higher Cannot Be Zero." : "Please Enter CE Main Higher.";
             }
             if (!values.PEDepthLower && values.PEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.PEDepthLower = values.PEDepthLower == 0 ? "PE Main Lower can not be Zero" : "Please Enter PE Main Lower";
+                errors.PEDepthLower = values.PEDepthLower == 0 ? "PE Main Lower Cannot Be Zero." : "Please Enter PE Main Lower.";
             }
             if (!values.CEDeepLower && values.CEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.CEDeepLower = values.CEDeepLower == 0 ? "CE Hedge Lower can not be Zero" : "Please Enter CE Hedge Lower";
+                errors.CEDeepLower = values.CEDeepLower == 0 ? "CE Hedge Lower Cannot Be Zero." : "Please Enter CE Hedge Lower.";
             }
             if (!values.CEDeepHigher && values.CEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.CEDeepHigher = values.CEDeepHigher == 0 ? "CE Hedge Higher can not be Zero" : "Please Enter CE Hedge Higher";
+                errors.CEDeepHigher = values.CEDeepHigher == 0 ? "CE Hedge Higher Cannot Be Zero." : "Please Enter CE Hedge Higher.";
             }
             if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
-                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher can not be Zero" : "Please Enter PE Hedge Higher";
+                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
             }
 
             if (values.Striketype == "Depth_of_Strike" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
-                if (values.DepthofStrike > 5 || values.DepthofStrike < -5 || values.DepthofStrike == 0)
-                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Depth of Strike cannot be Zero" : "Enter Depth of Strike value between -5 to 5";
+                if (values.DepthofStrike > 5 || values.DepthofStrike < -5 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Depth of Strike Cannot Be Zero." : "Enter Depth of Strike Value Between -5 to 5.";
+                }
             }
             if (values.Striketype == "Straddle_Width" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
-                if (values.DepthofStrike > 250 || values.DepthofStrike < -250 || values.DepthofStrike == 0)
-                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Straddle Width cannot be Zero" : "Enter Straddle Width between -250 to 250";
+                if (values.DepthofStrike > 250 || values.DepthofStrike < -250 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Straddle Width Cannot Be Zero." : "Enter Straddle Width Between -250 to 250.";
+                }
             }
             if (values.Striketype == "Per_ATM" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
-                if (values.DepthofStrike > 2.5 || values.DepthofStrike < -2.5 || values.DepthofStrike == 0)
-                    errors.DepthofStrike = values.DepthofStrike == 0 ? "% of ATM cannot be Zero" : "Please Enter % of ATM value between -2.5 to 2.5";
+                if (values.DepthofStrike > 2.5 || values.DepthofStrike < -2.5 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "% of ATM Cannot Be Zero." : "Please Enter % of ATM Value Between -2.5 to 2.5.";
+                }
             }
             if ((values.Measurment_Type == "Ladder/Coverd" && values.Measurment_Type != "Shifting/FourLeg" && (values.Strategy == 'BullCallLadder' || values.Strategy == "BullPutLadder")) || values.Strategy == "LongIronCondor" || values.Strategy == "ShortIronCondor") {
                 if (values.DeepStrike > 10 || values.DeepStrike < -10 || values.DeepStrike == 0 || values.DeepStrike == 1 || values.DeepStrike == -1) {
-                    errors.DeepStrike = values.DeepStrike == 0 ? "Deep Strike cannot be Zero" : values.DeepStrike == 1 ? "Deep Strike cannot be 1" : values.DeepStrike == -1 ? "Deep Strike cannot be -1" : "Enter Deep Strike Between -10 to 10"
+                    errors.DeepStrike = values.DeepStrike == 0 ? "Deep Strike Cannot Be Zero." : values.DeepStrike == 1 ? "Deep Strike Cannot Be 1." : values.DeepStrike == -1 ? "Deep Strike Cannot Be -1." : "Enter Deep Strike Between -10 to 10.";
                 }
             }
             if (values.Measurment_Type == "Shifting/FourLeg" && (values.Strategy == 'ShortShifting' || values.Strategy == 'LongShifting')) {
                 if (values.Shifting_Point > 1000 || values.Shifting_Point < 100) {
-                    errors.Shifting_Point = "Please Enter in range 100-1000"
+                    errors.Shifting_Point = "Please Enter in Range 100-1000.";
                 }
             }
             if (values.Measurment_Type == "Shifting/FourLeg" && values.Strategy != 'ShortFourLegStretegy' && values.Strategy != 'LongFourLegStretegy') {
                 if (values.Shifting_Value > 5 || values.Shifting_Value < 1) {
-                    errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5"
+                    errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
                 }
-
             }
-
-           
-            
-
+            console.log("errors", errors)
             return errors;
         },
+
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -236,54 +224,55 @@ const AddClient = () => {
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
-                DepthofStrike: values.DepthofStrike,
-                DeepStrike: values.DeepStrike,
-                Group: "",
-                CEDepthLower: values.CEDepthLower,
-                CEDepthHigher: values.CEDepthHigher,
-                PEDepthLower: values.PEDepthLower,
-                PEDepthHigher: values.PEDepthHigher,
-                CEDeepLower: values.CEDeepLower,
-                CEDeepHigher: values.CEDeepHigher,
-                PEDeepLower: values.PEDeepLower,
-                PEDeepHigher: values.PEDeepHigher,
+                DepthofStrike:Number(values.DepthofStrike),
+                DeepStrike: Number(values.DeepStrike),
+                Group: values.Unique_ID,
+                CEDepthLower: Number(values.CEDepthLower),
+                CEDepthHigher: Number(values.CEDepthHigher),
+                PEDepthLower: Number(values.PEDepthLower),
+                PEDepthHigher: Number(values.PEDepthHigher),
+                CEDeepLower: Number(values.CEDeepLower),
+                CEDeepHigher: Number(values.CEDeepHigher),
+                PEDeepLower: Number(values.PEDeepLower),
+                PEDeepHigher: Number(values.PEDeepHigher),
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
 
             
-            if (values.Striketype == "Depth_of_Strike" && (values.DepthofStrike < 0 || values.DepthofStrike > 10)) {
+            if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
 
-            if (values.Striketype == "Premium_Range" && (values.Lower_Range >= values.Higher_Range)) {
+            if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
                 return SweentAlertFun("Higher Range should be Greater than Lower Range")
             }
 
             else if (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') {
-                if (values.CEDepthHigher <= values.CEDepthLower) {
+                if (req.CEDepthHigher <= req.CEDepthLower) {
 
                     return SweentAlertFun("Enter CE Main Higher Greater Than CE Main Lower")
                 }
-                else if (values.PEDepthLower >= values.PEDepthHigher) {
+                else if (req.PEDepthLower >= req.PEDepthHigher) {
 
                     return SweentAlertFun("Enter PE Main Higher Greater Than PE Main Lower")
                 }
-                else if (values.CEDeepLower >= values.CEDeepHigher) {
+                else if (req.CEDeepLower >= req.CEDeepHigher) {
 
                     return SweentAlertFun("Enter CE Hedge Higher Greater Than CE Hedge Lower")
                 }
-                else if (values.PEDeepLower >= values.PEDeepHigher) {
+                else if (req.PEDeepLower >= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Higher Greater Than PE Hedge Lower")
                 }
-                else if (values.CEDepthLower <= values.CEDeepLower || values.CEDepthLower <= values.CEDeepHigher) {
 
+                else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
+ 
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
-                else if (values.PEDepthLower <= values.PEDeepLower || values.PEDepthLower <= values.PEDeepHigher) {
+                else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
@@ -783,7 +772,7 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-    console.log("serviceEndDate :option", serviceEndDate)
+    
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
@@ -816,6 +805,18 @@ const AddClient = () => {
         if (formik.values.Striketype != "Premium_Range") {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
+        }
+        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
+            formik.setFieldValue('Unique_ID', '')
+            formik.setFieldValue('CEDepthLower', 0)
+            formik.setFieldValue('CEDepthHigher', 0)
+            formik.setFieldValue('PEDepthLower', 0)
+            formik.setFieldValue('PEDepthHigher', 0)
+            formik.setFieldValue('CEDeepLower', 0)
+            formik.setFieldValue('CEDeepHigher', 0)
+            formik.setFieldValue('PEDeepLower', 0)
+            formik.setFieldValue('PEDeepHigher', 0)
+
         }
 
 

@@ -227,53 +227,56 @@ const AddClient = () => {
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
-                DepthofStrike: values.DepthofStrike,
-                DeepStrike: values.DeepStrike,
-                Group: "",
-                CEDepthLower: values.CEDepthLower,
-                CEDepthHigher: values.CEDepthHigher,
-                PEDepthLower: values.PEDepthLower,
-                PEDepthHigher: values.PEDepthHigher,
-                CEDeepLower: values.CEDeepLower,
-                CEDeepHigher: values.CEDeepHigher,
-                PEDeepLower: values.PEDeepLower,
-                PEDeepHigher: values.PEDeepHigher,
+                DepthofStrike:Number(values.DepthofStrike),
+                DeepStrike: Number(values.DeepStrike),
+                Group: values.Unique_ID,
+                CEDepthLower: Number(values.CEDepthLower),
+                CEDepthHigher: Number(values.CEDepthHigher),
+                PEDepthLower: Number(values.PEDepthLower),
+                PEDepthHigher: Number(values.PEDepthHigher),
+                CEDeepLower: Number(values.CEDeepLower),
+                CEDeepHigher: Number(values.CEDeepHigher),
+                PEDeepLower: Number(values.PEDeepLower),
+                PEDeepHigher: Number(values.PEDeepHigher),
+                
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
             
-            if (values.Striketype == "Depth_of_Strike" && (values.DepthofStrike < 0 || values.DepthofStrike > 10)) {
+           
+            if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
 
-            if (values.Striketype == "Premium_Range" && (values.Lower_Range >= values.Higher_Range)) {
+            if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
                 return SweentAlertFun("Higher Range should be Greater than Lower Range")
             }
 
             else if (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') {
-                if (values.CEDepthHigher <= values.CEDepthLower) {
+                if (req.CEDepthHigher <= req.CEDepthLower) {
 
                     return SweentAlertFun("Enter CE Main Higher Greater Than CE Main Lower")
                 }
-                else if (values.PEDepthLower >= values.PEDepthHigher) {
+                else if (req.PEDepthLower >= req.PEDepthHigher) {
 
                     return SweentAlertFun("Enter PE Main Higher Greater Than PE Main Lower")
                 }
-                else if (values.CEDeepLower >= values.CEDeepHigher) {
+                else if (req.CEDeepLower >= req.CEDeepHigher) {
 
                     return SweentAlertFun("Enter CE Hedge Higher Greater Than CE Hedge Lower")
                 }
-                else if (values.PEDeepLower >= values.PEDeepHigher) {
+                else if (req.PEDeepLower >= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Higher Greater Than PE Hedge Lower")
                 }
-                else if (values.CEDepthLower <= values.CEDeepLower || values.CEDepthLower <= values.CEDeepHigher) {
 
+                else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
+ 
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
-                else if (values.PEDepthLower <= values.PEDeepLower || values.PEDepthLower <= values.PEDeepHigher) {
+                else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
 
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
@@ -325,7 +328,7 @@ const AddClient = () => {
             formik.setFieldValue('ExitDay', "Intraday")
             formik.setFieldValue('Striketype', "Depth_of_Strike")
             formik.setFieldValue('DepthofStrike', 1)
-            formik.setFieldValue('DeepStrike', 2)
+            formik.setFieldValue('DeepStrike', 1)
             formik.setFieldValue('Lower_Range', 0)
             formik.setFieldValue('Higher_Range', 0)
             formik.setFieldValue('EntryTime', "09:15:00")
@@ -334,10 +337,9 @@ const AddClient = () => {
             formik.setFieldValue('Shifting_Point', 100)
             formik.setFieldValue('Shifting_Value', 1)
             formik.setFieldValue('Trade_Count', 1)
-
-
-     
     }, [])
+
+  
 
 
 
@@ -772,7 +774,7 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-    console.log("serviceEndDate :new Option", serviceEndDate)
+    
     
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
@@ -808,7 +810,18 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
+        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
+            formik.setFieldValue('Unique_ID', '')
+            formik.setFieldValue('CEDepthLower', 0)
+            formik.setFieldValue('CEDepthHigher', 0)
+            formik.setFieldValue('PEDepthLower', 0)
+            formik.setFieldValue('PEDepthHigher', 0)
+            formik.setFieldValue('CEDeepLower', 0)
+            formik.setFieldValue('CEDeepHigher', 0)
+            formik.setFieldValue('PEDeepLower', 0)
+            formik.setFieldValue('PEDeepHigher', 0)
 
+        }
 
 
     }, [formik.values.Strategy, formik.values.Striketype])
