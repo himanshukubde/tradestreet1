@@ -202,8 +202,8 @@ const Pannel = () => {
                                             value={getActivity}>
                                             <option value="">All Activity</option>
                                             <option value={1}>Login</option>
-                                            <option value={2}>BrokerUpdate</option>
-                                            <option value={3}>AddScript</option>
+                                            <option value={2}>Broker Update</option>
+                                            <option value={3}>Add Script</option>
                                             <option value={4}>Continue Script</option>
                                             <option value={5}>Square Script</option>
 

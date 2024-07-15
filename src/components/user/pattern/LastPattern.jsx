@@ -119,7 +119,7 @@ const LastPattern = () => {
         },
         {
             name: "start_pattern",
-            label: "start_pattern",
+            label: "start pattern",
             options: {
                 filter: true,
                 sort: true,
@@ -127,7 +127,7 @@ const LastPattern = () => {
         },
         {
             name: "End_pattern",
-            label: "End_pattern",
+            label: "End pattern",
             options: {
                 filter: true,
                 sort: true,
