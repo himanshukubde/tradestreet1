@@ -177,7 +177,7 @@ const AddClient = () => {
         Slvalue: values.Slvalue,
         LowerRange: values.LowerRange,
         HigherRange: values.HigherRange,
-        HoldExit: values.HoldExit,
+        HoldExit: values.set_Range ? values.HoldExit : "Hold",
         ExitDay: values.ExitDay,
         EntryTime: values.EntryTime,
         ExitTime: values.ExitTime,

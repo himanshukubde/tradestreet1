@@ -169,7 +169,7 @@ export const getColumns = (handleAddScript1) => [
 export const getColumns1 = (handleAddScript2) => [
     {
         name: "S.No",
-        label: "S.No",
+        label: "S.No cp",
         options: {
             filter: true,
             sort: true,
@@ -317,7 +317,7 @@ export const getColumns1 = (handleAddScript2) => [
     },
     {
         name: "Lot Size",
-        label: "Lot Size",
+        label: "Quantity",
         options: {
             filter: true,
             sort: true,
@@ -459,22 +459,7 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    {
-        name: "GroupN",
-        label: "GroupN",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "FixedSM",
-        label: "FixedSM",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TaskStatus",
         label: "TaskStatus",
@@ -496,7 +481,7 @@ export const getColumns1 = (handleAddScript2) => [
 export const getColumns2 = (handleAddScript3) => [
     {
         name: "S.No",
-        label: "S.No",
+        label: "S.No cp",
         options: {
             filter: true,
             sort: true,
@@ -506,8 +491,6 @@ export const getColumns2 = (handleAddScript3) => [
             }
         },
     },
-
-
     {
         name: "coptScript",
         label: "Copy Script",
@@ -577,7 +560,7 @@ export const getColumns2 = (handleAddScript3) => [
     },
     {
         name: "Lotsize",
-        label: "Lotsize",
+        label: "Quantity",
         options: {
             filter: true,
             sort: true,
@@ -671,7 +654,14 @@ export const getColumns2 = (handleAddScript3) => [
             sort: true,
         }
     },
-  
+    {
+        name: "Expiry Date",
+        label: "Expiry Date",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
     {
         name: "ExitDay",
         label: "ExitDay",
@@ -699,6 +689,14 @@ export const getColumns2 = (handleAddScript3) => [
     {
         name: "Trend",
         label: "Trend",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "TradeCount",
         options: {
             filter: true,
             sort: true,
@@ -975,7 +973,7 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
     },
     {
         name: "STG",
-        label: "STG",
+        label: "Strategy",
         options: {
             filter: true,
             sort: true,
@@ -1021,14 +1019,7 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    {
-        name: "TimeFrame",
-        label: "Main Signal",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -1111,7 +1102,7 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
     },
     {
         name: "Lot Size",
-        label: "Lot Size",
+        label: "Quantity",
         options: {
             filter: true,
             sort: true,
@@ -1253,22 +1244,7 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    {
-        name: "GroupN",
-        label: "GroupN",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "FixedSM",
-        label: "FixedSM",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TaskStatus",
         label: "TaskStatus",

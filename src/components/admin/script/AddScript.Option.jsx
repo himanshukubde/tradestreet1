@@ -736,32 +736,51 @@ const AddClient = () => {
 
 
 
-    useEffect(() => {
+   
+        useEffect(() => {
 
-        if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
-            formik.setFieldValue('Striketype', "Depth_of_Strike")
-        }
-        if (formik.values.Striketype != "Premium_Range") {
-            formik.setFieldValue('Higher_Range', 1)
-            formik.setFieldValue('Lower_Range', 1)
-        }
-        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
-            formik.setFieldValue('Unique_ID', '')
-            formik.setFieldValue('CEDepthLower', 0)
-            formik.setFieldValue('CEDepthHigher', 0)
-            formik.setFieldValue('PEDepthLower', 0)
-            formik.setFieldValue('PEDepthHigher', 0)
-            formik.setFieldValue('CEDeepLower', 0)
-            formik.setFieldValue('CEDeepHigher', 0)
-            formik.setFieldValue('PEDeepLower', 0)
-            formik.setFieldValue('PEDeepHigher', 0)
-
-        }
-        
-
-
-
-    }, [formik.values.Strategy, formik.values.Striketype])
+            if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
+                formik.setFieldValue('Striketype', "Depth_of_Strike")
+            }
+            if (formik.values.Striketype != "Premium_Range") {
+                formik.setFieldValue('Higher_Range', 1)
+                formik.setFieldValue('Lower_Range', 1)
+            }
+    
+            if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
+    
+                formik.setFieldValue('DeepStrike', 0)
+            }
+    
+            if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
+    
+                formik.setFieldValue('Shifting_Value', 1)
+    
+            }
+    
+            if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
+                formik.setFieldValue('TStype', "Point")
+                formik.setFieldValue('Targetvalue', 0)
+                formik.setFieldValue('Slvalue', 0)
+            }
+            if (formik.values.Measurment_Type == "Shifting/FourLeg") {
+                formik.setFieldValue('ETPattern', "Premium Addition")
+            }
+    
+    
+            if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
+                formik.setFieldValue('Unique_ID', '')
+                formik.setFieldValue('CEDepthLower', 0)
+                formik.setFieldValue('CEDepthHigher', 0)
+                formik.setFieldValue('PEDepthLower', 0)
+                formik.setFieldValue('PEDepthHigher', 0)
+                formik.setFieldValue('CEDeepLower', 0)
+                formik.setFieldValue('CEDeepHigher', 0)
+                formik.setFieldValue('PEDeepLower', 0)
+                formik.setFieldValue('PEDeepHigher', 0)
+            }
+    
+        }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
     return (
         <>

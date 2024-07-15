@@ -6,9 +6,6 @@ import Swal from 'sweetalert2';
 import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange, ExpriyEndDate } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
 
-
-
-
 const AddClient = () => {
     const userName = localStorage.getItem('name')
     const navigate = useNavigate()
@@ -186,7 +183,7 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 LowerRange: values.LowerRange,
                 HigherRange: values.HigherRange,
-                HoldExit: values.HoldExit,
+                HoldExit: values.set_Range ? values.HoldExit : "Hold",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
@@ -215,16 +212,19 @@ const AddClient = () => {
             if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
                 return SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
             }
-
+            
             if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
                 return SweentAlertFun("Higher Price should be greater than Lower Price")
             }
+
             if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
                 return SweentAlertFun(Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ? "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
             }
+
             if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
                 return SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
             }
+
             await AddScript(req)
                 .then((response) => {
                     if (response.Status) {

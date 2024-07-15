@@ -34,7 +34,7 @@ const AddClient = () => {
 
     const [serviceEndDate, setServiceEndDate] = useState('')
 
-console.log("serviceEndDate :", serviceEndDate)
+    console.log("serviceEndDate :", serviceEndDate)
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -61,7 +61,7 @@ console.log("serviceEndDate :", serviceEndDate)
             Optiontype: "",
             Targetvalue: 1,
             Slvalue: 1,
-            TStype: "",
+            TStype: "Point",
             Quantity: 1,
             LowerRange: 0,
             HigherRange: 0,
@@ -97,7 +97,7 @@ console.log("serviceEndDate :", serviceEndDate)
             let errors = {};
             const maxTime = "15:29:59";
             const minTime = "09:15:00";
-        
+
             if (!values.Strategy) {
                 errors.Strategy = "Please Select Strategy Type.";
             }
@@ -165,7 +165,7 @@ console.log("serviceEndDate :", serviceEndDate)
             if (!values.Slvalue) {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
-        
+
             return errors;
         },
 
@@ -184,12 +184,12 @@ console.log("serviceEndDate :", serviceEndDate)
                 TType: values.TType == 0 ? "" : values.TType,
                 EntryPrice: values.EntryPrice,
                 EntryRange: values.EntryRange,
-                TStype: values.TStype,
+                TStype: values.Strategy == "Fixed Price" ? "" : values.TStype,
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 LowerRange: values.LowerRange,
                 HigherRange: values.HigherRange,
-                HoldExit: values.HoldExit,
+                HoldExit: values.set_Range ? values.HoldExit : "Hold",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
@@ -216,28 +216,25 @@ console.log("serviceEndDate :", serviceEndDate)
             }
 
             if (values.Set_First_Trade_Range == true && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
-
                 return SweentAlertFun("First Trade Higher Price should be greater than First Trade Lower Price")
-        
-        
-              }
-         
-              if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
+            }
+
+            if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
                 return SweentAlertFun("Higher Price should be greater than Lower Price")
-        
-              }
-              if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
-        
-        
+
+            }
+            if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
+
+
                 return SweentAlertFun(Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ? "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
-        
-        
-              }
-              if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
-        
+
+
+            }
+            if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
+
                 return SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
-        
-              }
+
+            }
 
             await AddScript(req)
                 .then((response) => {
@@ -270,20 +267,20 @@ console.log("serviceEndDate :", serviceEndDate)
         },
     });
 
-    
-      useEffect(() => {
+
+    useEffect(() => {
         formik.setFieldValue('Strategy', "Multi Directional")
         formik.setFieldValue('Exchange', "NFO")
         formik.setFieldValue("TType", "BUY")
         formik.setFieldValue("ExitDay", "Intraday")
         formik.setFieldValue("EntryPrice", 0)
         formik.setFieldValue("EntryRange", 0)
-        formik.setFieldValue("Instrument", "FUTIDX") 
-        formik.setFieldValue("HoldExit", "Hold") 
+        formik.setFieldValue("Instrument", "FUTIDX")
+        formik.setFieldValue("HoldExit", "Hold")
         formik.setFieldValue('Trade_Count', 1)
-    
-      }, [])
-   
+
+    }, [])
+
 
 
     const fields = [
@@ -561,16 +558,16 @@ console.log("serviceEndDate :", serviceEndDate)
             label: "Trade Execution",
             type: "select",
             options: [
-              { label: "Paper Trade", value: "Paper Trade" },
-              { label: "Live Trade", value: "Live Trade" },
+                { label: "Paper Trade", value: "Paper Trade" },
+                { label: "Live Trade", value: "Live Trade" },
             ],
-           
+
             label_size: 12,
             col_size: 4,
             disable: false,
             hiding: false,
-          },
-          {
+        },
+        {
             name: "Trade_Count",
             label: "Trade Count",
             type: "text5",
@@ -578,7 +575,7 @@ console.log("serviceEndDate :", serviceEndDate)
             col_size: 4,
             disable: false,
             hiding: false,
-          },
+        },
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -612,15 +609,15 @@ console.log("serviceEndDate :", serviceEndDate)
         },
     ];
 
-    console.log("serviceEndDate :", serviceEndDate)
+
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
-                
+
                 if (response.Status) {
-                   
+
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }
                 else {
@@ -692,7 +689,6 @@ console.log("serviceEndDate :", serviceEndDate)
         getStrikePrice()
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
-
     const get_Exchange = async () => {
 
         await GetExchange()
@@ -712,9 +708,6 @@ console.log("serviceEndDate :", serviceEndDate)
     useEffect(() => {
         get_Exchange()
     }, [])
-
-
-
 
     const getExpiry = async () => {
         if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Exchange != 'NSE') {
@@ -756,28 +749,28 @@ console.log("serviceEndDate :", serviceEndDate)
     useEffect(() => {
 
         if (formik.values.set_Range == false) {
-          formik.setFieldValue('LowerRange', 0)
-          formik.setFieldValue('HigherRange', 0)
-          
+            formik.setFieldValue('LowerRange', 0)
+            formik.setFieldValue('HigherRange', 0)
+
         }
         if (formik.values.Set_First_Trade_Range) {
-          formik.setFieldValue('EntryPrice', 0)
-          formik.setFieldValue('EntryRange', 0)
-    
+            formik.setFieldValue('EntryPrice', 0)
+            formik.setFieldValue('EntryRange', 0)
+
         }
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-          formik.setFieldValue('Optiontype', "")
-          formik.setFieldValue('Strike', "")
+            formik.setFieldValue('Optiontype', "")
+            formik.setFieldValue('Strike', "")
         }
         if (formik.values.Exchange == "NSE") {
-          formik.setFieldValue('Instrument', "")
-          formik.setFieldValue('Symbol', "")
-          formik.setFieldValue('expirydata1', "")
-          formik.setFieldValue('Strike', "")
-          formik.setFieldValue('Optiontype', "")
+            formik.setFieldValue('Instrument', "")
+            formik.setFieldValue('Symbol', "")
+            formik.setFieldValue('expirydata1', "")
+            formik.setFieldValue('Strike', "")
+            formik.setFieldValue('Optiontype', "")
         }
-    
-      }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+
+    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
     return (

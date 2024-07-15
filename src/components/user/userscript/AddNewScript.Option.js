@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { GET_EXPIRY_DATE , ExpriyEndDate } from '../../Common API/Admin'
+import { GET_EXPIRY_DATE, ExpriyEndDate } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
 
 
@@ -73,7 +73,10 @@ const AddClient = () => {
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
             Trade_Count: 1,
-            Unique_ID: ""
+            Unique_ID: "",
+            Shifting_Point: 1,
+            Shifting_Value: 1
+
         },
 
 
@@ -101,7 +104,7 @@ const AddClient = () => {
                 errors.TStype = "Please select a TStype.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Please enter the Lot.";  
+                errors.Quantity = "Please enter the Lot.";
             }
             if (!values.Trade_Count) {
                 errors.Trade_Count = "Please enter the Trade Count.";
@@ -193,7 +196,7 @@ const AddClient = () => {
 
             }
 
-           
+
 
             return errors;
         },
@@ -227,7 +230,7 @@ const AddClient = () => {
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
                 Striketype: values.Striketype,
-                DepthofStrike:Number(values.DepthofStrike),
+                DepthofStrike: Number(values.DepthofStrike),
                 DeepStrike: Number(values.DeepStrike),
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
@@ -238,12 +241,12 @@ const AddClient = () => {
                 CEDeepHigher: Number(values.CEDeepHigher),
                 PEDeepLower: Number(values.PEDeepLower),
                 PEDeepHigher: Number(values.PEDeepHigher),
-                
+
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
-            
-           
+
+
             if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
@@ -273,7 +276,7 @@ const AddClient = () => {
                 }
 
                 else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
- 
+
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
                 else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
@@ -313,35 +316,29 @@ const AddClient = () => {
         },
     });
 
-
-     
-        useEffect(() => {
-            formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
-            formik.setFieldValue('Strategy', "ShortStrangle")
-            formik.setFieldValue('Symbol', "BANKNIFTY")
-            formik.setFieldValue('Expirytype', "Weekly")
-            formik.setFieldValue('ETPattern', "Premium Addition")
-            formik.setFieldValue('TStype', "Percentage")
-            formik.setFieldValue('Targetvalue', 1.00)
-            formik.setFieldValue('Slvalue', 1.00)
-            formik.setFieldValue('Quantity', 1)
-            formik.setFieldValue('ExitDay', "Intraday")
-            formik.setFieldValue('Striketype', "Depth_of_Strike")
-            formik.setFieldValue('DepthofStrike', 1)
-            formik.setFieldValue('DeepStrike', 1)
-            formik.setFieldValue('Lower_Range', 0)
-            formik.setFieldValue('Higher_Range', 0)
-            formik.setFieldValue('EntryTime', "09:15:00")
-            formik.setFieldValue('ExitTime', "15:25:00")
-            formik.setFieldValue('TStype', "Point")
-            formik.setFieldValue('Shifting_Point', 100)
-            formik.setFieldValue('Shifting_Value', 1)
-            formik.setFieldValue('Trade_Count', 1)
+    useEffect(() => {
+        formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
+        formik.setFieldValue('Strategy', "ShortStrangle")
+        formik.setFieldValue('Symbol', "BANKNIFTY")
+        formik.setFieldValue('Expirytype', "Weekly")
+        formik.setFieldValue('ETPattern', "Premium Addition")
+        formik.setFieldValue('TStype', "Percentage")
+        formik.setFieldValue('Targetvalue', 1.00)
+        formik.setFieldValue('Slvalue', 1.00)
+        formik.setFieldValue('Quantity', 1)
+        formik.setFieldValue('ExitDay', "Intraday")
+        formik.setFieldValue('Striketype', "Depth_of_Strike")
+        formik.setFieldValue('DepthofStrike', 1)
+        formik.setFieldValue('DeepStrike', 0)
+        formik.setFieldValue('Lower_Range', 0)
+        formik.setFieldValue('Higher_Range', 0)
+        formik.setFieldValue('EntryTime', "09:15:00")
+        formik.setFieldValue('ExitTime', "15:25:00")
+        formik.setFieldValue('TStype', "Point")
+        formik.setFieldValue('Shifting_Point', 100)
+        formik.setFieldValue('Shifting_Value', 1)
+        formik.setFieldValue('Trade_Count', 1)
     }, [])
-
-  
-
-
 
     const fields = [
         {
@@ -387,7 +384,7 @@ const AddClient = () => {
 
             ,
             label_size: 12,
-            col_size:  8,
+            col_size: 8,
             disable: false,
             hiding: false,
         },
@@ -509,7 +506,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "Quantity",
             label: "Lot",
@@ -575,16 +571,16 @@ const AddClient = () => {
             label: "Trade Execution",
             type: "select",
             options: [
-              { label: "Paper Trade", value: "Paper Trade" },
-              { label: "Live Trade", value: "Live Trade" },
+                { label: "Paper Trade", value: "Paper Trade" },
+                { label: "Live Trade", value: "Live Trade" },
             ],
-           
+
             label_size: 12,
             col_size: 4,
             disable: false,
             hiding: false,
-          },
-          {
+        },
+        {
             name: "Trade_Count",
             label: "Trade Count",
             type: "text5",
@@ -592,8 +588,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
             hiding: false,
-          },
-
+        },
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -642,7 +637,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "CEDepthLower",
             label: "CE Main Lower",
@@ -774,15 +768,15 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-    
-    
+
+
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
-        .then((response) => {
-            console.log("serviceEndDate :new CP" , response)
-            if (response.Status) {
-                    
+            .then((response) => {
+
+                if (response.Status) {
+
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }
                 else {
@@ -810,6 +804,28 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
+
+        if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
+
+            formik.setFieldValue('DeepStrike', 0)
+        }
+
+        if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
+
+            formik.setFieldValue('Shifting_Value', 1)
+
+        }
+
+        if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
+            formik.setFieldValue('TStype', "Point")
+            formik.setFieldValue('Targetvalue', 0)
+            formik.setFieldValue('Slvalue', 0)
+        }
+        if (formik.values.Measurment_Type == "Shifting/FourLeg") {
+            formik.setFieldValue('ETPattern', "Premium Addition")
+        }
+
+
         if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
             formik.setFieldValue('Unique_ID', '')
             formik.setFieldValue('CEDepthLower', 0)
@@ -824,7 +840,7 @@ const AddClient = () => {
         }
 
 
-    }, [formik.values.Strategy, formik.values.Striketype])
+    }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
 
     return (
