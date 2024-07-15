@@ -1,4 +1,5 @@
 import React from 'react'
+import DiscriptionData from './DiscriptionData'
 
 const Discription = () => {
     return (
@@ -61,9 +62,10 @@ const Discription = () => {
                             role="tabpanel"
                             aria-labelledby="pills-home-tab-fill"
                         >
-                            <p>
-                                Scalping is a web application that functions as an intermediary platform between investors and the stock market. Its primary purpose is to facilitate the buying and selling of stocks for investors. The term Scalping refers to a trading strategy in which traders buy and sell stocks quickly, seeking to make small profits on each trade. Scalping offers various convenient features for investors to buy and sell stocks.
-                            </p>
+                            <DiscriptionData Type={'Scalping'}/>
+                             
+                             
+
                         </div>
                         <div
                             className="tab-pane fade"
@@ -71,9 +73,7 @@ const Discription = () => {
                             role="tabpanel"
                             aria-labelledby="pills-profile-tab-fill"
                         >
-                            <p>
-                                Unlock the potential of options trading with the revolutionary Option Strategy Application. Designed to simplify and automate the execution of option strategies, our application empowers traders with convenience and efficiency.Automated Option Strategies: Say goodbye to manual execution and let our application handle it for you. With 20 pre-built option strategies at your fingertips, you can easily select and execute the strategies that align with your trading goals and risk appetite.
-                            </p>
+                             <DiscriptionData Type={'Option'}/>
                         </div>
                         <div
                             className="tab-pane fade"
@@ -81,9 +81,7 @@ const Discription = () => {
                             role="tabpanel"
                             aria-labelledby="pills-contact-tab-fill"
                         >
-                            <p>
-                                The Candlestick Pattern Application is a powerful tool designed for market research and trading analysis through the observation of chart and candlestick patterns. This application employs historical price data to identify various candlestick patterns, such as doji, hammer, engulfing, and more, within different timeframes.The applications main objective is to assist traders and researchers in gaining insights into market trends, potential reversals, and momentum shifts. It automatically detects and highlights candlestick patterns on price charts, enabling users to quickly spot key formations that often signify significant price movements.
-                            </p>
+                             <DiscriptionData Type={'Pattern'}/>
                         </div>
                     </div>
                 </div>

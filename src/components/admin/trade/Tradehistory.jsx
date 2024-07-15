@@ -95,7 +95,7 @@ const Tradehistory = () => {
                     if (response.Status) {
                         setGroupData({
                             loading: false,
-                            data: response.Profile
+                            data: response.Data
                         })
                     }
                     else {
