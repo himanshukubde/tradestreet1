@@ -13,6 +13,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
     const fetchData = async () => {
         const requestData = { userName };
         const response = await GetBrokerData(requestData);
+        console.log("response :", response.BrokerDetail)
         if (response && response.BrokerDetail && response.BrokerDetail[0]) {
             setUserDetails({ loading: false, data: response.BrokerDetail[0] });
         } else {
@@ -77,6 +78,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         }
     });
 
+    console.log("formik.values.BrokerName :", formik.values.BrokerName)
+
     useEffect(() => {
         if (userDetails.data) {
             formik.setValues({
@@ -95,18 +98,11 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
 
 
     const fields = [
-        // {
-        //     name: "BrokerName",
-        //     label: "Broker Name",
-        //     type: "text",
-        //     label_size: 12,
-        //     col_size: 6,
-        //     disable: true,
-        // },
+       
         {
             name: "username",
-            label: formik.values.BrokerName === "Aliceblue" ? "Username " : formik.values.BrokerName === "5Paisa" ? "App Name " : "Username",
-            showWhen: (values) => values.BrokerName === "Aliceblue" || values.BrokerName === "5Paisa",
+            label: formik.values.BrokerName.toUpperCase() === "Aliceblue".toUpperCase() ? "Username " : formik.values.BrokerName === "5Paisa" ? "App Name " : "Username",
+            showWhen: (values) => values.BrokerName.toUpperCase() === "Aliceblue".toUpperCase() || values.BrokerName === "5Paisa",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -114,8 +110,8 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         },
         {
             name: "api_key",
-            label: formik.values.BrokerName === "Angel" ? "App Api Key" : formik.values.BrokerName === "Aliceblue" ? "App Api Key" : formik.values.BrokerName === "ICICI" ? "App Api Key" : formik.values.BrokerName === "Upstox" ? "App Api Key" : formik.values.BrokerName === "5Paisa" ? "USER_ID" : formik.values.BrokerName === "MasterTrust" ? "App ID" : formik.values.BrokerName === "Fyers" ? "App Client ID" : formik.values.BrokerName === "DHAN" ? "Access Token" : "Username",
-            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName === "Aliceblue" || values.BrokerName === "ICICI" || values.BrokerName === "Upstox"  || values.BrokerName === "5Paisa" || values.BrokerName === "MasterTrust" || values.BrokerName === "Fyers" || values.BrokerName === "DHAN",
+            label: formik.values.BrokerName === "Angel" ? "App Api Key" : formik.values.BrokerName.toUpperCase() === "Aliceblue".toUpperCase() ? "App Api Key" : formik.values.BrokerName === "ICICI" ? "App Api Key" : formik.values.BrokerName === "Upstox" ? "App Api Key" : formik.values.BrokerName === "5Paisa" ? "USER_ID" : formik.values.BrokerName === "MasterTrust" ? "App ID" : formik.values.BrokerName === "Fyers" ? "App Client ID" : formik.values.BrokerName === "DHAN" ? "Access Token" : "Username",
+            showWhen: (values) => values.BrokerName === "Angel" || values.BrokerName.toUpperCase() === "Aliceblue".toUpperCase() || values.BrokerName === "ICICI" || values.BrokerName === "Upstox"  || values.BrokerName === "5Paisa" || values.BrokerName === "MasterTrust" || values.BrokerName === "Fyers" || values.BrokerName === "DHAN",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -133,7 +129,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
         {
             name: "mobileno",
             type: "text",
-            label: formik.values.BrokerName === "Aliceblue" ? "Mobile No." :  formik.values.BrokerName === "5Paisa" ? "USER KEY" : "Mobile No.",
+            label: formik.values.BrokerName.toUpperCase() === "Aliceblue".toUpperCase() ? "Mobile No." :  formik.values.BrokerName === "5Paisa" ? "USER KEY" : "Mobile No.",
             showWhen: (values) => values.BrokerName === "Zerodha" || values.BrokerName === "5Paisa",
             label_size: 12,
             col_size: 6,
