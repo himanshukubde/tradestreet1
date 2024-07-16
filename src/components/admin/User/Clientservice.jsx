@@ -87,7 +87,7 @@ const Clientservice = () => {
     const formik = useFormik({
         initialValues: {
             User: "",
-            ser: "",
+            Service_Count: "",
             Broker: "",
             Day: "",
             SSDate: "",
@@ -114,7 +114,7 @@ const Clientservice = () => {
         onSubmit: async (values) => {
             const req = {
                 User: showModal ? clientService.data[selectedIndex].Username : '',
-                ser: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
+                ServiceCount: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
                 Broker: values.Select_Broker,
                 Day: showModal && clientService.data[selectedIndex].BrokerName === 'Demo' ? values.Select_Day : '',
                 SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && clientService.data[selectedIndex].BrokerName !== "Demo" ? getDate : form_Date,

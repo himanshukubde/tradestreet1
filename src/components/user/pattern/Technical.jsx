@@ -295,7 +295,7 @@ const LastPattern = () => {
     };
 
     const fetchAllSymbols = async () => {
-        const data = { Username };
+        const data = { Username : Username , Strategy : selectedPatternType && selectedPatternType=="Candlestick Patterns" ? "CandlestickPattern" : "ChartingPatterns" };
         await GetSymbolIp(data)
         .then((response) => {
             
@@ -313,7 +313,7 @@ const LastPattern = () => {
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
-    }, []);
+    }, [selectedPatternType]);
 
     const fetchPatternTimeFrames = async () => {
         await Get_Pattern_Time_Frame()

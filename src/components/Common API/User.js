@@ -189,7 +189,7 @@ export const AvailableScript = async (data) => {
 
 export const GetSymbolIp = async (data) => {
     try {
-        const res = await axios.get(`${Config.base_url}SymbolP/${data.Username}`)
+        const res = await axios.post(`${Config.base_url}SymbolP`, data)
         return res?.data
     }
     catch (err) {
