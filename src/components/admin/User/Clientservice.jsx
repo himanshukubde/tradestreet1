@@ -65,12 +65,12 @@ const Clientservice = () => {
             try {
                 const response = await GetGroupNames();
                 if (response.Status) {
-                    const options = response.StrGroupdf.map(item => ({
+                    const options = response.Data.map(item => ({
                         label: item.GroupName,
                         key: item.GroupName,
                     }));
                     setOptionsArray(options);
-                    setGroupData({ loading: false, data: response.StrGroupdf });
+                    setGroupData({ loading: false, data: response.Data });
                 } else {
                     setGroupData({ loading: false, data: [] });
                 }
