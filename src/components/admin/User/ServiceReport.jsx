@@ -945,8 +945,6 @@ const Userlog = () => {
 
     ];
 
-
-
     const columns5 = [
         {
             name: "S.No",
@@ -1325,15 +1323,11 @@ const Userlog = () => {
                                         data={getUserData.data}
                                         checkBox={false}
                                     />
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </>
-
             }
         </>
     )

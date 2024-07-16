@@ -3,6 +3,7 @@ import { GetClientService, GetClientLogs } from '../../Common API/Admin'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
+import {ClientActivityPage} from './UserAllColumn'
 
 const Clientactivity = () => {
     const [ToDate, setToDate] = useState('');
@@ -50,7 +51,7 @@ const Clientactivity = () => {
                     if (response.Status) {
                         setUserName({
                             loading: false,
-                            data: response.Profile
+                            data: response.Data
                         })
                     }
                     else {
@@ -73,10 +74,7 @@ const Clientactivity = () => {
         GetAllUserDetails()
     }, [])
 
-
-    const data = new Date()
-
-   
+ 
 
     const getClientTetails = async () => {
         const data = { User: selectUserName, From_date: FromDate == "" ? formattedDate : FromDate, To_date: ToDate == "" ? Defult_To_Date : ToDate }
@@ -105,99 +103,7 @@ const Clientactivity = () => {
         getClientTetails()
     }, [selectUserName, ToDate, FromDate])
 
-
-
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceCount",
-            label: "ServiceCount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Broker",
-            label: "Broker",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Credit Use",
-            label: "Credit Use",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceEndDate",
-            label: "ServiceEndDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceStartDate",
-            label: "ServiceStartDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LicanseStartDate",
-            label: "LicanseStartDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "RemainingAmmount",
-            label: "Remaining Ammount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TotalCreditUse",
-            label: "Total Credit Use",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-
-    ];
-
-
-    
-
+ 
 
     return (
         <div>
@@ -245,7 +151,7 @@ const Clientactivity = () => {
                                     </form>
                                     <div className="modal-body">
                                         <FullDataTable
-                                            columns={columns}
+                                            columns={ClientActivityPage()}
                                             data={getClientActivityDetails.data}
                                             checkBox={false}
                                         />

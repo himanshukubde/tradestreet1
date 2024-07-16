@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
 import Swal from 'sweetalert2';
+import {ClientServiceColumn} from './UserAllColumn'
 
 const Clientservice = () => {
     const [clientService, setClientService] = useState({ loading: true, data: [] });
@@ -106,15 +107,12 @@ const Clientservice = () => {
             if (showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day) {
                 errors.Select_Day = "Select Days"
             }
-
-
             return errors;
-
         },
         onSubmit: async (values) => {
             const req = {
                 User: showModal ? clientService.data[selectedIndex].Username : '',
-                ServiceCount: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
+                ser : values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
                 Broker: values.Select_Broker,
                 Day: showModal && clientService.data[selectedIndex].BrokerName === 'Demo' ? values.Select_Day : '',
                 SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && clientService.data[selectedIndex].BrokerName !== "Demo" ? getDate : form_Date,
@@ -125,10 +123,11 @@ const Clientservice = () => {
             try {
                 const response = await EditClientPanle(req);
                 if (response.Status) {
+                  
                     setRefresh(!refresh)
                     Swal.fire({
                         title: "Updated",
-                        text: response.message,
+                        text: response.massage,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
@@ -141,7 +140,7 @@ const Clientservice = () => {
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text: response.message,
+                        text: response.massage,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -216,12 +215,9 @@ const Clientservice = () => {
 
 
     useEffect(()=>{
-
         formik.setFieldValue('Select_Product_Type', "Add New Services")
         formik.setFieldValue('Select_Broker', showModal && clientService.data[selectedIndex].BrokerName)
         formik.setFieldValue('Service_Count', 0)
-
-
     },[showModal])
 
     const Service_Count = async () => {
