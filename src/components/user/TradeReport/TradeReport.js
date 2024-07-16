@@ -6,6 +6,7 @@ import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
+import { getColumns3, getColumns2, getColumns1, getColumns, getColumns4, getColumns5 } from './ReportColumn'
 
 const TradeReport = () => {
     const [selectStrategyType, setStrategyType] = useState('')
@@ -16,30 +17,32 @@ const TradeReport = () => {
     const [showTable, setShowTable] = useState(false)
 
     const [getAllTradeData, setAllTradeData] = useState({
-        loading: true, 
-        data:[],
+        loading: true,
+        data1: [],
+        data2: []
     })
+
 
     const Username = localStorage.getItem('name')
 
 
-      // set Defult Date 
-      const currentDate = new Date();
-      currentDate.setDate(currentDate.getDate());
-      const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
-      const formattedDate = `${year}.${month}.${day}`;
-  
-  
-      // from date
-      const DefultToDate = new Date();
-  
-      DefultToDate.setDate(DefultToDate.getDate()+1);
-      const year1 = DefultToDate.getFullYear();
-      const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
-      const day1 = String(DefultToDate.getDate()).padStart(2, '0');
-      const Defult_To_Date = `${year1}.${month1}.${day1}`;
+    // set Defult Date 
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate());
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}.${month}.${day}`;
+
+
+    // from date
+    const DefultToDate = new Date();
+
+    DefultToDate.setDate(DefultToDate.getDate() + 1);
+    const year1 = DefultToDate.getFullYear();
+    const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+    const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+    const Defult_To_Date = `${year1}.${month1}.${day1}`;
 
 
     // Date Formetor
@@ -85,830 +88,12 @@ const TradeReport = () => {
     }, [selectStrategyType])
 
 
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "ScalpType",
-            label: "ScalpType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Exchange",
-            label: "Exchange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Token",
-            label: "Token",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TType",
-            label: "TType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Quantity",
-            label: "Quantity",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExpiryDate",
-            label: "ExpiryDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeExecution",
-            label: "TradeExecution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitDay",
-            label: "ExitDay",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "EntryTime",
-            label: "EntryTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expirytype",
-            label: "Expirytype",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SEDate",
-            label: "SEDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TaskStatus",
-            label: "TaskStatus",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TaskTime",
-            label: "TaskTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeCount",
-            label: "TradeCount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
-    const columns1 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
 
-                    const rowIndex = tableMeta.rowIndex;
-
-                    return rowIndex + 1;
-
-                }
-            },
-        },
-        {
-            name: "STG",
-            label: "Strategy Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Targettype",
-            label: "Risk Handle",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Instrument Type",
-            label: "Instrument Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expirydate",
-            label: "Expiry Date",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Token",
-            label: "Token",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "IName",
-            label: "IName",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expirytype",
-            label: "Expirytype",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "strategytype",
-            label: "Measurment Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target value",
-            label: "Target value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL value",
-            label: "SL value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeExecution",
-            label: "TradeExecution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lot Size",
-            label: "LotSize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Product Type",
-            label: "Product Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Entry Time",
-            label: "Entry Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Exit Time",
-            label: "Exit Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "DeepStrike",
-            label: "DeepStrike",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "DepthofStrike",
-            label: "DepthofStrike",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SEDate",
-            label: "SEDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "StrikeType",
-            label: "StrikeType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LowerRange",
-            label: "LowerRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "HigherRange",
-            label: "HigherRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthLower",
-            label: "CEDepth Lower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthHigher",
-            label: "CEDepth Higher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthLower",
-            label: "PEDepthLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthHigher",
-            label: "PEDepthHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepLower",
-            label: "CEDeep Lower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepHigher",
-            label: "CEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepHigher",
-            label: "PEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepLower",
-            label: "PEDeepLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "FixedSM",
-            label: "FixedSM",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeCount",
-            label: "TradeCount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
-    const columns2 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-
-                    const rowIndex = tableMeta.rowIndex;
-
-                    return rowIndex + 1;
-
-                }
-            },
-        },
-        {
-            name: "TradePattern",
-            label: "TradePattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Exchange",
-            label: "Exchange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Token",
-            label: "Token",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TType",
-            label: "TType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TStype",
-            label: "TStype",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target value",
-            label: "Target value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL value",
-            label: "SL value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Quantity",
-            label: "Quantity",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expiry Date",
-            label: "Expiry Date",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeExecution",
-            label: "TradeExecution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitDay",
-            label: "ExitDay",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "EntryTime",
-            label: "EntryTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TimeFrame",
-            label: "TimeFrame",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SEDate",
-            label: "SEDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trend",
-            label: "Trend",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeCount",
-            label: "TradeCount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-
-    ];
-    const columns3 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-
-                    const rowIndex = tableMeta.rowIndex;
-
-                    return rowIndex + 1;
-
-                }
-            },
-        },
-        {
-            name: "ETime",
-            label: "ETime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "EPrice",
-            label: "EPrice",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },  
-        {
-            name: "ExitPrice",
-            label: "ExitPrice",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "MainSymbol",
-            label: "MainSymbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "STG",
-            label: "STG",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LotSize",
-            label: "LotSize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trade",
-            label: "Trade",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target",
-            label: "Target",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL",
-            label: "SL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Option Type",
-            label: "Option Type",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Strike price",
-            label: "Strike price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Token",
-            label: "Token",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Spot Price",
-            label: "Spot Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Hashing",
-            label: "Hashing",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeType",
-            label: "TradeType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        
-    ];
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
 
- 
+
 
     const handleSubmit = async () => {
         const data = {
@@ -918,8 +103,8 @@ const TradeReport = () => {
             Username: Username,
             ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
-            From_date: convertDateFormat(FromDate=='' ? formattedDate : FromDate),
-            To_date: convertDateFormat(ToDate=='' ? Defult_To_Date : ToDate),
+            From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
+            To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
@@ -931,7 +116,8 @@ const TradeReport = () => {
                 if (response.Status) {
                     setAllTradeData({
                         loading: false,
-                        data: response.CloseData,
+                        data1: response.CloseData,
+                        data2: response.OpenData
                     })
                     setShowTable(true)
                 }
@@ -944,7 +130,8 @@ const TradeReport = () => {
                     });
                     setAllTradeData({
                         loading: false,
-                        data: [],
+                        data1: [],
+                        data2: []
                     })
 
                 }
@@ -952,12 +139,15 @@ const TradeReport = () => {
             .catch((err) => {
                 console.log("Error in finding the All TradeData", err)
             })
-
-
     }
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
+
+
+    useEffect(() => {
+        setShowTable(false)
+    }, [selectStrategyType, FromDate, ToDate, selectedRowData])
 
 
     return (
@@ -987,12 +177,12 @@ const TradeReport = () => {
                                     </div>
                                     <div className="form-group col-lg-3 ">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-lg-3">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate=='' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -1000,9 +190,9 @@ const TradeReport = () => {
                             {
                                 <div className="modal-body">
                                     <GridExample
-                                        columns={selectStrategyType === "Scalping" ? columns :
-                                            selectStrategyType === "Option Strategy" ? columns1 :
-                                                selectStrategyType === "Pattern" ? columns2 : columns
+                                        columns={selectStrategyType === "Scalping" ? getColumns() :
+                                            selectStrategyType === "Option Strategy" ? getColumns1() :
+                                                selectStrategyType === "Pattern" ? getColumns2() : getColumns()
                                         }
                                         data={tradeReport.data}
                                         onRowSelect={handleRowSelect}
@@ -1014,15 +204,28 @@ const TradeReport = () => {
 
                             {
                                 showTable && <>
+                                    <h4 className='mt-4 mb-2'>Open Trade</h4>
+                                    <GridExample
+                                        columns={selectStrategyType === "Scalping" ? getColumns3() :
+                                            selectStrategyType === "Option Strategy" ? getColumns4() :
+                                                selectStrategyType === "Pattern" ? getColumns5() : getColumns3()
+                                        }
+                                        data={getAllTradeData.data2}
+                                        onRowSelect={handleRowSelect}
+                                        checkBox={false}
+                                    />
                                     <div className='mt-3'>
+                                        <h4 className='mt-3 mb-2'>Close Trade</h4>
                                         <GridExample
-                                            columns={columns3}
-                                            data={getAllTradeData.data}
+                                            columns={selectStrategyType === "Scalping" ? getColumns3() :
+                                                selectStrategyType === "Option Strategy" ? getColumns4() :
+                                                    selectStrategyType === "Pattern" ? getColumns5() : getColumns3()
+                                            }
+                                            data={getAllTradeData.data1}
                                             onRowSelect={handleRowSelect}
                                             checkBox={false}
                                         />
                                     </div>
-
                                 </>
                             }
                         </div>
