@@ -13,7 +13,7 @@ const Userdashboard = () => {
     const [refresh, setRefresh] = useState(false)
     const [getGroup, setGroup] = useState('')
     const [serviceStatus, setServiceStatus] = useState({
-        status : false,
+        status: false,
         msg: ''
     })
     const [getGroupName, setGroupName] = useState({
@@ -53,14 +53,14 @@ const Userdashboard = () => {
     }, [activeTab])
 
 
-    
+
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
                 setServiceStatus({
-                    status : response.Status,
-                    msg : response.massage
+                    status: response.Status,
+                    msg: response.massage
                 })
             })
             .catch((err) => {
@@ -453,7 +453,7 @@ const Userdashboard = () => {
 
     ];
 
- 
+
     return (
         <div className="container-fluid">
             <div className="row p-0">
@@ -494,7 +494,7 @@ const Userdashboard = () => {
                             <div className='row'>
                                 {activeTab1 === 'CurrentPosition' && (
                                     <div className='d-flex'>
-                                        <div className="form-group col-md-6 ">
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
                                             <div className='px-3'>
 
                                                 <label>Type</label>
@@ -507,8 +507,7 @@ const Userdashboard = () => {
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div className="form-group col-md-3 ">
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
                                             <div className='px-3'>
                                                 <label>Strategy Type</label>
                                                 <select className="form-select" required=""
@@ -522,7 +521,7 @@ const Userdashboard = () => {
                                         </div>
 
                                         {activeTab == "group" && (
-                                            <div className="form-group col-md-3  ">
+                                            <div className={`form-group col-md-4`}>
                                                 <div className='px-3'>
                                                     <label>Group Name</label>
                                                     <select className="form-select" required=""
@@ -548,7 +547,7 @@ const Userdashboard = () => {
                                         {activeTab === 'copyScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <Coptyscript data={subTab} selectedType={activeTab}  data2={serviceStatus && serviceStatus} />}
+                                                    {subTab && <Coptyscript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
@@ -556,14 +555,14 @@ const Userdashboard = () => {
                                         {activeTab === 'group' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus}/>}
+                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
                                         {activeTab === 'currentScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus}/>}
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
