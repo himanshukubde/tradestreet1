@@ -121,7 +121,7 @@ const Login = () => {
         }
     };
 
-    console.log("emailError :", emailError)
+ 
 
     return (
         <section className="sign-in-page">
