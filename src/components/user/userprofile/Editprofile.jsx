@@ -20,37 +20,38 @@ const Editprofile = () => {
 
     const handleSubmit = async () => {
 
-        if (getVeryfyError == '' || getNewError == '' || getCurrentPassError == '')
-            return
+        if (getVeryfyError == '' && getNewError == '' && getCurrentPassError == ''){
+            
+            const data = { User: userName, new_password: newPass, old_password: currPass, confirm_password: verifyPass }
+    
+            await PasswordChange(data)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Success",
+                            text: response.message,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error !",
+                            text: response.message,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+    
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in finding the response", err)
+                })
 
-
-        const data = { User: userName, new_password: newPass, old_password: currPass, confirm_password: verifyPass }
-
-        await PasswordChange(data)
-            .then((response) => {
-                if (response.Status) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-                }
-                else {
-                    Swal.fire({
-                        title: "Error !",
-                        text: response.message,
-                        icon: "error",
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-
-                }
-            })
-            .catch((err) => {
-                console.log("Error in finding the response", err)
-            })
+        }
+        
 
     }
 

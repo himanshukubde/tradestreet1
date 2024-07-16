@@ -19,7 +19,7 @@ const Header = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [getTradingStatus, setTradingStatus] = useState(false);
     const [getBrokerName, setBrokerName] = useState("");
-    
+
 
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
@@ -483,7 +483,16 @@ const Header = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     {
-                                        getBrokerName && getBrokerName == "Demo" ? "" :
+                                        getBrokerName && getBrokerName == "Demo" ?
+                                            <li className="nav-item">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary"
+                                                    
+                                                >
+                                                    Demo Account
+                                                </button>
+                                            </li> :
                                             <>
                                                 <li className="nav-item">
                                                     <button

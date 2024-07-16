@@ -86,14 +86,7 @@ const LastPattern = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trend",
-            label: "Trend",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
     ];
 
     const columns1 = [
