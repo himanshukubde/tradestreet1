@@ -270,6 +270,9 @@ const AddClient = () => {
 
   }, [])
 
+
+  // Fixed Target
+
   const fields = [
     {
       name: "Strategy",
@@ -456,7 +459,7 @@ const AddClient = () => {
 
     {
       name: "Targetvalue",
-      label: formik.values.Strategy == "Fixed Price" ? "Target Price" : "Target",
+      label: formik.values.Strategy == "Fixed Price" ? "Target Price" :  formik.values.Strategy ==  "One Directional" ? "Fixed Target" : "Target",
       type: "text5",
       label_size: 12,
       col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,

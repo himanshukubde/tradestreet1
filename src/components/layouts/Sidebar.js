@@ -193,16 +193,16 @@ const Sidebar = () => {
                                             <span>Last Patterns</span>
                                         </Link>
                                     </li>
-                                    <li className={activeItem === 'tradehistory' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradehistory')}>
-                                        <Link to="tradehistory" className="iq-waves-effect">
-                                            <i className="la la-palette" />
-                                            <span>Trade History</span>
-                                        </Link>
-                                    </li>
                                     <li className={activeItem === 'tradereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradereport')}>
                                         <Link to="tradereport" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Trade Report</span>
+                                        </Link>
+                                    </li>
+                                    <li className={activeItem === 'tradehistory' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradehistory')}>
+                                        <Link to="tradehistory" className="iq-waves-effect">
+                                            <i className="la la-palette" />
+                                            <span>Trade History</span>
                                         </Link>
                                     </li>
                                     <li className={activeItem === 'traderesponse' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'traderesponse')}>

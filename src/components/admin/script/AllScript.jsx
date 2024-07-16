@@ -667,7 +667,6 @@ const Addscript = () => {
             navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
                 selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
         }
-
     }
 
     useEffect(() => {
