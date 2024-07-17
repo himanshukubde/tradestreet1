@@ -5,7 +5,7 @@ export const LoginPage=async(data)=>{
     try{
 
        
-        const res =  await axios.post(`${Config.base_url}Login`, data)
+        const res =  await axios.post(`${Config.base_url}login`, data)
         return res?.data
     }
     catch(err){
