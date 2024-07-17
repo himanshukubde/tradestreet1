@@ -28,7 +28,7 @@ const Adduser = () => {
             .then((response) => {
                 if (response.Status) {
                     const filterOutBroker = response.Brokernamelist.filter((item) => {
-                        return item.BrokerName != 'Demo'
+                        return item.BrokerName != 'DEMO'
                     })
                     setBroker({
                         loading: false,
