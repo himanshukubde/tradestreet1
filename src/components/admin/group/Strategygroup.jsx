@@ -2,28 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { Add_Group, GetGroupNames } from '../../Common API/Admin';
 import GridExample from '../../../ExtraComponent/CommanDataTable'
-
+import AddForm from '../../../ExtraComponent/FormData'
+import { useFormik } from 'formik';
 
 const Strategygroup = () => {
     const [getGroupData, setGroupData] = useState({
         loading: true,
         data: []
-    })
-    const [showModal, setShowModal] = useState(false)
-    const [GroupName, setGroupName] = useState('')
-    const [FundReuirement, setFundReuirement] = useState('')
-    const [Risk, setRisk] = useState('')
-    const [TimeOrigin, setTimeOrigin] = useState('')
-    const [ProductType, setProductType] = useState('')
-    const [Message, setMessage] = useState('')
-    const [error, setError] = useState({
-        Message: '',
-        ProductType: '',
-        TimeOrigin: '',
-        Risk: '',
-        FundReuirement: '',
-        GroupName: ''
-    })
+    });
+    const [showModal, setShowModal] = useState(false);
+    const [refresh , setRefresh] = useState(false)
 
     const columns = [
         {
@@ -48,7 +36,7 @@ const Strategygroup = () => {
         },
         {
             name: "Fund_Requierment",
-            label: "Fund Requierment",
+            label: "Fund Requirement",
             options: {
                 filter: true,
                 sort: true,
@@ -86,20 +74,80 @@ const Strategygroup = () => {
                 sort: true,
             }
         },
-
     ];
 
-    const handleSubmit = async () => {
-        if (error.Message != '' || error.ProductType != '' || error.TimeOrigin != '' || error.Risk != '' || error.FundReuirement != '' || error.GroupName != '') {
-            return
+    const GetAllGroupDetails = async () => {
+        try {
+            await GetGroupNames()
+                .then((response) => {
+                    if (response.Status) {
+                        setGroupData({
+                            loading: false,
+                            data: response.Data
+                        });
+                    } else {
+                        setGroupData({
+                            loading: false,
+                            data: []
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error Group data fetch error", err);
+                });
+        } catch {
+            console.log("Error Group data fetch error");
         }
-        else {
+    };
 
-            const data = { GroupName: GroupName, FundReuirement: FundReuirement, Risk: Risk, TimeOrigin: TimeOrigin, ProductType: ProductType, Message: Message };
+    useEffect(() => {
+        GetAllGroupDetails();
+    }, [refresh]);
 
+    const formik = useFormik({
+        initialValues: {
+            Message: "",
+            ProductType: "",
+            TimeOrigin: "",
+            Risk: "",
+            FundReuirement: "",
+            GroupName: "",
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.Message) {
+                errors.Message = 'Please Enter Message';
+            }
+            if (!values.ProductType) {
+                errors.ProductType = 'Please Select Product Type';
+            }
+            if (!values.TimeOrigin) {
+                errors.TimeOrigin = 'Please Enter Time Origin';
+            }
+            if (!values.Risk) {
+                errors.Risk = 'Please Enter Risk';
+            }
+            if (!values.FundReuirement) {
+                errors.FundReuirement = 'Please Enter Fund Requirement';
+            }
+            if (!values.GroupName) {
+                errors.GroupName = 'Please Enter Group Name';
+            }
+            return errors;
+        },
+        onSubmit: async (values) => {
+            const data = {
+                GroupName: values.GroupName,
+                FundReuirement: values.FundReuirement,
+                Risk: values.Risk.toString(),
+                TimeOrigin: values.TimeOrigin,
+                ProductType: values.ProductType,
+                Message: values.Message
+            };
             await Add_Group(data)
                 .then((response) => {
                     if (response.Status) {
+                        setRefresh(!refresh)
                         Swal.fire({
                             title: 'Created successfully!',
                             text: 'Group created successfully!',
@@ -108,13 +156,13 @@ const Strategygroup = () => {
                             timerProgressBar: true
                         });
                         setTimeout(() => {
-                            setShowModal(false)
-                        }, 1500)
-
+                            setShowModal(false);
+                            formik.resetForm();
+                        }, 1500);
                     } else {
                         Swal.fire({
                             title: 'Error',
-                            text: 'Group name already exit',
+                            text: 'Group name already exists',
                             icon: 'error',
                             timer: 1500,
                             timerProgressBar: true
@@ -131,55 +179,68 @@ const Strategygroup = () => {
                         timerProgressBar: true
                     });
                 });
-        }
+        },
+    });
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        formik.resetForm();
     };
 
-    const GetAllGroupDetails = async () => {
-        try {
-            await GetGroupNames()
-                .then((response) => {
-                    if (response.Status) {
-                        setGroupData({
-                            loading: false,
-                            data: response.StrGroupdf
-                        })
-                    }
-                    else {
-                        setGroupData({
-                            loading: false,
-                            data: []
-                        })
-                    }
-                })
-                .catch((err) => {
-                    console.log("Group data fetch error", err)
-                })
-        }
-        catch {
-            console.log("Group data fetch error")
-        }
-    }
-
-    useEffect(() => {
-        GetAllGroupDetails()
-    }, [])
-
-
-
-    useEffect(() => {
-        const newErrors = {
-            Message: Message ? '' : 'Please Enter Message',
-            ProductType: ProductType ? '' : 'Please Select Product Type',
-            TimeOrigin: TimeOrigin ? '' : 'Please Enter Time Origin',
-            Risk: Risk ? '' : 'Please Enter Risk',
-            FundReuirement: FundReuirement ? '' : 'Please Enter Fund Requirement',
-            GroupName: GroupName ? '' : 'Please Enter Group Name',
-        };
-        setError(newErrors);
-    }, [Message, ProductType, TimeOrigin, Risk, FundReuirement, GroupName]);
-
-
-    console.log(error.Message)
+    const fields = [
+        {
+            name: 'GroupName',
+            label: 'Group Name',
+            type: 'text',
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'FundReuirement',
+            label: 'Fund Requirement',
+            type: 'text3',
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'Risk',
+            label: 'Risk in %',
+            type: 'text4',
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'TimeOrigin',
+            label: 'Time Origin',
+            type: 'select',
+            options: [
+                { label: 'Weekly', value: 'Weekly' },
+                { label: 'Monthly', value: 'Monthly' },
+                { label: 'Half Yearly', value: 'Half_Yearly' },
+                { label: 'Yearly', value: 'Yearly' },
+            ],
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'ProductType',
+            label: 'Product Type',
+            type: 'select',
+            options: [
+                { label: 'Intraday', value: 'Intraday' },
+                { label: 'Delivery', value: 'Delivery' },
+            ],
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'Message',
+            label: 'Message',
+            type: 'msgbox',
+            label_size: 12,
+            col_size: 6,
+        },
+    ];
 
     return (
         <div>
@@ -196,7 +257,7 @@ const Strategygroup = () => {
                                     className="btn btn-primary"
                                     onClick={() => setShowModal(true)}
                                 >
-                                    Add Group
+                                    Add New Group
                                 </button>
                             </div>
                         </div>
@@ -220,140 +281,25 @@ const Strategygroup = () => {
                         <div className="modal-content" style={{ width: '40rem' }}>
                             <div className="modal-header border-0 pb-0">
                                 <div className="form-header modal-header-title text-start mb-0">
-                                    <h4 className="mb-0">Add Group</h4>
+                                    <h4 className="mb-0">Add New Group</h4>
                                 </div>
                                 <button
                                     type="button"
                                     className="btn-close"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
-                                    onClick={() => setShowModal(false)}
+                                    onClick={handleCloseModal}
                                 ></button>
                             </div>
                             <hr />
-                            <div className="container-fluid mt-3">
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="group-name">Group Name</label>
-                                            <input
-                                                type="text"
-                                                className="form-control my-2 uniform-bg"
-                                                id="group-name"
-                                                placeholder="Enter group name"
-                                                onChange={(e) => setGroupName(e.target.value)}
-                                                value={GroupName}
-                                            />
-                                            {error.GroupName && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.GroupName}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="fund-requirement">Fund Requirement</label>
-                                            <input
-                                                type="text"
-                                                className="form-control my-2 uniform-bg"
-                                                id="fund-requirement"
-                                                placeholder="Enter Fund Requirement"
-                                                onChange={(e) => setFundReuirement(e.target.value)}
-                                                value={FundReuirement}
-                                            />
-                                            {error.FundReuirement && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.FundReuirement}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="risk">Risk</label>
-                                            <input
-                                                type="text"
-                                                className="form-control my-2 uniform-bg"
-                                                id="risk"
-                                                placeholder="Enter risk"
-                                                onChange={(e) => setRisk(e.target.value)}
-                                                value={Risk}
-                                            />
-                                            {error.Risk && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.Risk}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="time-origin">Time Origin</label>
-                                            <input
-                                                type="text"
-                                                className="form-control my-2 uniform-bg"
-                                                id="time-origin"
-                                                placeholder="Enter Time Origin"
-                                                onChange={(e) => setTimeOrigin(e.target.value)}
-                                                value={TimeOrigin}
-                                            />
-                                            {error.TimeOrigin && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.TimeOrigin}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="product-type">Select Product Type</label>
-                                            <select
-                                                className="form-control my-2 uniform-bg"
-                                                id="product-type"
-                                                onChange={(e) => setProductType(e.target.value)}
-                                                value={ProductType}
-                                            >
-                                                <option value="">Select Product Type</option>
-                                                <option value="Intraday">Intraday</option>
-                                                <option value="Delivery">Delivery</option>
-                                            </select>
-                                            {error.ProductType && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.ProductType}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="message">Message</label>
-                                            <textarea
-                                                className="form-control my-2 uniform-bg"
-                                                id="message"
-                                                style={{ width: '100%' }}
-                                                rows="4"
-                                                onChange={(e) => setMessage(e.target.value)}
-                                                value={Message}
-                                            ></textarea>
-                                            {error.Message && (
-                                                <div style={{ color: 'red' }}>
-                                                    {error.Message}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr />
-                            <div className='d-flex justify-content-end me-3 mb-3'>
-                                <button className='btn btn-primary' onClick={handleSubmit}>Submit</button>
-                            </div>
+                            <AddForm
+                                fields={fields.filter(
+                                    field => !field.showWhen || field.showWhen(formik.values)
+                                )}
+                                btn_name='Add Group'
+                                formik={formik}
+                                btn_name1_route='/admin/clientservice'
+                            />
                         </div>
                     </div>
                 </div>

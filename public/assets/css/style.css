@@ -5120,6 +5120,15 @@ body.sidebar-main .iq-sidebar {
   text-align: center !important;
 }
 
+ 
+.ag-chart-wrapper canvas , .ag-chart-wrapper .ag-charts-focus__wrapper{
+    height: 500px !important;
+    overflow-y: hidden;
+}
+
+.css-nfmglb-MuiTableCell-root{
+  padding:2px !important;
+}
 .MuiInputBase-root{
   margin-bottom: 14px;
 }
@@ -5127,3 +5136,44 @@ body.sidebar-main .iq-sidebar {
 .MuiTablePagination-actions{
   margin-bottom: 14px;
 }
+
+ 
+.custom-width-modal {
+    width: 600px;
+    height: 600px;
+    max-width: 100%;
+    max-height: 100%;
+
+}
+
+@media (max-width: 768px) {
+    .custom-width-modal {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+}
+ 
+.iq-card .iq-card-header{
+  padding: 1px 6px !important;
+}
+ 
+.input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.input-container input {
+  width: 100%;
+  padding-right: 40px; /* Adjust based on the span width */
+}
+
+.input-container .input-span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa; /* Adjust color as needed */
+}
+
+ 

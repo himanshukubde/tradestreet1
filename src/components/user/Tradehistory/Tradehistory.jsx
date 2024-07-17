@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetClientService, get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
+import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 const Tradehistory = () => {
 
     const [selectStrategyType, setStrategyType] = useState('')
-    const [selectStrategyName, setStrategyName] = useState('')
     const [tradeHistory, setTradeHistory] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
     const [ToDate, setToDate] = useState('');
@@ -31,8 +30,6 @@ const Tradehistory = () => {
         data: [],
         data2: []
     })
-
-
 
     const [getEquityCurveDetails, setEquityCurveDetails] = useState({
         loading: true,
@@ -56,13 +53,31 @@ const Tradehistory = () => {
         data1: []
     })
 
-
-
-
     const Username = localStorage.getItem('name')
 
+      // set Defult Date 
+      const currentDate = new Date();
+      currentDate.setDate(currentDate.getDate());
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      const formattedDate = `${year}.${month}.${day}`;
+  
+  
+      // from date
+      const DefultToDate = new Date();
+      DefultToDate.setDate(DefultToDate.getDate()+1);
+      const year1 = DefultToDate.getFullYear();
+      const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+      const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+      const Defult_To_Date = `${year1}.${month1}.${day1}`;
+
+      
     // Date Formetor
     const convertDateFormat = (date) => {
+        if (date == '') {
+            return ''
+        }
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -71,14 +86,8 @@ const Tradehistory = () => {
     };
 
 
-
-
-
-
-
     const GetTradeHistory = async () => {
         const data = { Data: selectStrategyType, Username: Username }
-
         //GET TRADEHISTORY
         await get_User_Data(data)
             .then((response) => {
@@ -587,9 +596,6 @@ const Tradehistory = () => {
         },
     ];
 
-
-
-
     const columns2 = [
         {
             name: "S.No",
@@ -774,8 +780,6 @@ const Tradehistory = () => {
 
     ];
 
-
-
     const columns3 = [
         {
             name: "S.No",
@@ -945,7 +949,6 @@ const Tradehistory = () => {
 
     ];
 
-
     const columns6 = [
         {
             name: "S.No",
@@ -1000,8 +1003,8 @@ const Tradehistory = () => {
             Username: Username,
             ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
-            From_date: convertDateFormat(FromDate),
-            To_date: convertDateFormat(ToDate),
+            From_date: convertDateFormat(FromDate=='' ? formattedDate : FromDate),
+            To_date: convertDateFormat(ToDate=='' ? Defult_To_Date : ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
@@ -1280,12 +1283,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-lg-3 ">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-lg-3">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate=='' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -1385,18 +1388,19 @@ const Tradehistory = () => {
                                                                 className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
                                                                 role="tablist"
                                                             >
-                                                                <li className="col-md-4 p-0">
+                                                                <li className="col-md-6 p-0">
                                                                     <a
                                                                         className="nav-link active"
                                                                         data-bs-toggle="pill"
                                                                         href="#personal-information"
                                                                         aria-selected="true"
                                                                         role="tab"
+                                                                        style={{height:"52px"}}
                                                                     >
                                                                         Consistent Profit-Making
                                                                     </a>
                                                                 </li>
-                                                                <li className="col-md-4 p-0">
+                                                                <li className="col-md-6 p-0">
                                                                     <a
                                                                         className="nav-link"
                                                                         data-bs-toggle="pill"
@@ -1404,6 +1408,7 @@ const Tradehistory = () => {
                                                                         aria-selected="false"
                                                                         tabIndex={-1}
                                                                         role="tab"
+                                                                        style={{height:"52px"}}
                                                                     >
                                                                         Consistent Loss Making
 

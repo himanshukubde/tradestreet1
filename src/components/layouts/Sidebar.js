@@ -121,7 +121,7 @@ const Sidebar = () => {
                                     <li className={activeItem === 'clientservice' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'clientservice')}>
                                         <Link to="/admin/clientservice" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
-                                            <span>All Clients</span>
+                                            <span>Client Service</span>
                                         </Link>
                                     </li>
                                     <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
@@ -130,15 +130,16 @@ const Sidebar = () => {
                                             <span>Broker Credential</span>
                                         </Link>
                                     </li>
-                                    <li className={activeItem === 'userlog' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlog')}>
-                                        <Link to="/admin/userlog" className="iq-waves-effect">
-                                            <i className="la la-cog" />
-                                            <span>User Script Details</span>
+                                     
+                                    <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
+                                        <Link to="/admin/userlogs" className="iq-waves-effect">
+                                            <i className="la la-envelope-open" />
+                                            <span>User Panel Log</span>
                                         </Link>
                                     </li>
                                     <li className={activeItem === 'servicereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'servicereport')}>
-                                        <Link to="/admin/servicereport" className="iq-waves-effect">
-                                            <i className="la la-envelope-open" />
+                                        <Link to="/admin/servicerepor" className="iq-waves-effect">
+                                            <i className="la la-cog" />
                                             <span>Service Report</span>
                                         </Link>
                                     </li>
@@ -179,9 +180,9 @@ const Sidebar = () => {
                                     <li>
 
                                     </li>
-                                    <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
+                                    <li className={activeItem === 'technical/pattern' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'technical/pattern')}>
 
-                                        <Link to="brokercredential" className="iq-waves-effect">
+                                        <Link to="technical/pattern" className="iq-waves-effect">
                                             <i className="lab la-joget" />
                                             <span>Technical Patterns</span>
                                         </Link>
@@ -192,16 +193,16 @@ const Sidebar = () => {
                                             <span>Last Patterns</span>
                                         </Link>
                                     </li>
-                                    <li className={activeItem === 'tradehistory' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradehistory')}>
-                                        <Link to="tradehistory" className="iq-waves-effect">
-                                            <i className="la la-palette" />
-                                            <span>Trade History</span>
-                                        </Link>
-                                    </li>
                                     <li className={activeItem === 'tradereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradereport')}>
                                         <Link to="tradereport" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
                                             <span>Trade Report</span>
+                                        </Link>
+                                    </li>
+                                    <li className={activeItem === 'tradehistory' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradehistory')}>
+                                        <Link to="tradehistory" className="iq-waves-effect">
+                                            <i className="la la-palette" />
+                                            <span>Trade History</span>
                                         </Link>
                                     </li>
                                     <li className={activeItem === 'traderesponse' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'traderesponse')}>

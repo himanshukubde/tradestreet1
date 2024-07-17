@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Get_Pattern_Name, Get_Pattern_Charting } from '../../Common API/Admin'
-import { Get_Last_Pattern_All_Data } from '../../Common API/User'
+import { Get_Pattern_Name2, Get_Pattern_Charting } from '../../Common API/Admin'
+import { Get_Last_Pattern_Data, AvailableScript, LastPatternCandleData } from '../../Common API/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
+import "ag-charts-enterprise";
+import AgChartsReact from "./CandlePattern";
 
 const LastPattern = () => {
+    const [showCandle, setShowCandle] = useState(false)
     const [getLastPatternData, setLastPatternData] = useState({
         loading: true,
         data: []
     })
 
+    const [getCandleData, setCandleData] = useState({
+        loading: true,
+        data: []
+    })
+    const [getPatternType, setPatternType] = useState('')
     const [selectPattern, setSelectPattern] = useState('')
     const [getChartPattern, setChartPattern] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
 
+
     const getLastPattern = async () => {
-        const data = { Pattern: selectPattern }
-        await Get_Last_Pattern_All_Data(data)
+        const data = { Pattern1: selectPattern, PatternName: getPatternType }
+        await Get_Last_Pattern_Data(data)
             .then((response) => {
                 if (response.Status) {
                     setLastPatternData({
@@ -35,6 +44,10 @@ const LastPattern = () => {
                 console.log("Error in finding the last Pattern details", err)
             })
     }
+
+    useEffect(() => {
+        getLastPattern()
+    }, [getPatternType, selectPattern])
 
     const columns = [
         {
@@ -73,14 +86,7 @@ const LastPattern = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trend",
-            label: "Trend",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
     ];
 
     const columns1 = [
@@ -106,7 +112,7 @@ const LastPattern = () => {
         },
         {
             name: "start_pattern",
-            label: "start_pattern",
+            label: "start pattern",
             options: {
                 filter: true,
                 sort: true,
@@ -114,7 +120,7 @@ const LastPattern = () => {
         },
         {
             name: "End_pattern",
-            label: "End_pattern",
+            label: "End pattern",
             options: {
                 filter: true,
                 sort: true,
@@ -131,38 +137,29 @@ const LastPattern = () => {
     ];
 
     const GetPatternCharting = async () => {
-        try {
-            let response;
-            if (selectPattern === "Candlestick Patterns") {
-                response = await Get_Pattern_Name();
-            } else {
-                response = await Get_Pattern_Charting();
-            }
+        const data = { selectPattern: selectPattern == "Candlestick Patterns" ? "CandleStick" : "Charting" }
+        await Get_Pattern_Name2(data)
+            .then((response) => {
+                if (response.Status) {
+                    setChartPattern({
+                        loading: false,
+                        data: response.PatternName
+                    });
+                } else {
+                    setChartPattern({
+                        loading: false,
+                        data: []
+                    });
+                }
+            })
+            .catch((err) => {
+                console.error('Error fetching pattern data:', err);
+            })
 
-            if (response.Status) {
-                setChartPattern({
-                    loading: false,
-                    data: response.PatternName
-                });
-            } else {
-                setChartPattern({
-                    loading: false,
-                    data: []
-                });
-            }
-        } catch (error) {
-            // Handle any errors that occur during the fetch
-            console.error('Error fetching pattern data:', error);
-            setChartPattern({
-                loading: false,
-                data: []
-            });
-        }
     };
 
     useEffect(() => {
         GetPatternCharting()
-        getLastPattern()
     }, [selectPattern])
 
     useEffect(() => {
@@ -172,6 +169,51 @@ const LastPattern = () => {
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
+
+
+    const HandleSubmit = async () => {
+        setShowCandle(true)
+        const data = { CartName: selectedRowData && selectedRowData.Symbol }
+        await LastPatternCandleData(data)
+            .then((response) => {
+                if (response.Status) {
+                    setCandleData({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setCandleData({
+                        loading: false,
+                        data: []
+                    })
+                }
+
+            })
+            .catch((err) => {
+                console.log("Error in finding the candle data", err)
+            })
+    }
+
+    useEffect(() => {
+        setShowCandle(false)
+    }, [selectedRowData])
+
+
+
+    useEffect(()=>{
+        if( getChartPattern && getChartPattern.data.length>0){
+            setPatternType(getChartPattern.data[0])
+        }
+    },[])
+
+
+    useEffect(() => {
+        setSelectPattern('Candlestick Patterns')
+    }, [])
+
+
+
 
     return (
         <div>
@@ -192,6 +234,7 @@ const LastPattern = () => {
                                             <label>Select Pattern</label>
                                             <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectPattern(e.target.value)}
                                                 value={selectPattern}>
+                                                <option value="">Please Select Patterns</option>
                                                 <option value="Candlestick Patterns">Candlestick Patterns</option>
                                                 <option value="Charting Patterns">Charting Patterns</option>
                                             </select>
@@ -200,7 +243,11 @@ const LastPattern = () => {
                                     <div className='col-md-6'>
                                         <div className="form-group">
                                             <label>Select Specific Pattern</label>
-                                            <select className="form-control form-control-lg mt-2">
+                                            <select className="form-control form-control-lg mt-2"
+                                                onChange={(e) => setPatternType(e.target.value)}
+                                                value={getPatternType}
+                                            >
+                                                <option value="">Please Select Specific Pattern</option>
                                                 {
                                                     getChartPattern && getChartPattern.data.map((item) => (
                                                         <option value={item}>{item}</option>
@@ -222,6 +269,20 @@ const LastPattern = () => {
                                     }
 
                                 </div>
+
+                                {selectPattern == "Charting Patterns" ? <div className='mt-3'>
+                                    <button className='btn btn-primary' onClick={HandleSubmit}>Submit</button>
+                                </div> : ""
+                                }
+
+                                {
+                                    showCandle && <div className="row">
+                                        <div className='shadow p-3 mb-5 mt-3 bg-white rounded'>
+                                            <AgChartsReact ChartData={getCandleData && getCandleData.data} />
+                                        </div>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                     </div>

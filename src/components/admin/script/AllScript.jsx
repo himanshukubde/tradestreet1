@@ -5,29 +5,25 @@ import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader'
 import { Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const Addscript = () => {
     const navigate = useNavigate()
-
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    })
-
     const [refresh, setRefresh] = useState(false)
-
     const [selectGroup, setSelectGroup] = useState('')
     const [selectStrategyType, setStrategyType] = useState('')
+    const [GroupError, setGroupError] = useState('')
+    const [stgError, setStgError] = useState('')
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [getAllService, setAllservice] = useState({
         loading: true,
         data: []
     })
-
-    const [GroupError, setGroupError] = useState('')
-    const [stgError, setStgError] = useState('')
-
-
-
+    const [getGroupData, setGroupData] = useState({
+        loading: true,
+        data: []
+    })
 
 
     const handleDelete = async (rowData) => {
@@ -38,8 +34,8 @@ const Addscript = () => {
             Strategy: selectStrategyType == 'Option Strategy' ? getAllService.data[index].STG : selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : getAllService.data[index].ScalpType,
             Symbol: selectStrategyType == 'Option Strategy' ? getAllService.data[index].MainSymbol : selectStrategyType == 'Pattern' ? getAllService.data[index].Symbol : getAllService.data[index].Symbol,
             ETPattern: selectStrategyType == 'Option Strategy' ? getAllService.data[index].Targettype : selectStrategyType == 'Pattern' ? getAllService.data[index].Pattern : "",
-            Timeframe: selectStrategyType == 'Pattern' ? getAllService.data[index]['Time frame'] : '',
-            TType: '',
+            Timeframe: selectStrategyType == 'Pattern' ? getAllService.data[index].TimeFrame : '',
+            TType: selectStrategyType == 'Pattern' ? getAllService.data[index].TType : "",
             Group: selectStrategyType == 'Pattern' ? '' : getAllService.data[index].GroupN,
             Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
         }
@@ -50,7 +46,6 @@ const Addscript = () => {
             .then((response) => {
                 if (response.Status) {
                     setRefresh(!refresh)
-
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",
@@ -100,7 +95,7 @@ const Addscript = () => {
         },
         {
             name: "ScalpType",
-            label: "ScalpType",
+            label: "Scalp Type",
             options: {
                 filter: true,
                 sort: true,
@@ -148,7 +143,7 @@ const Addscript = () => {
         },
         {
             name: "Booking Point",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -156,7 +151,7 @@ const Addscript = () => {
         },
         {
             name: "Re-entry Point",
-            label: "Re-entry Point",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
@@ -170,33 +165,19 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
         {
             name: "ExpiryDate",
-            label: "ExpiryDate",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "TradeExecution",
-            label: "TradeExecution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+       
         {
             name: "LowerRange",
-            label: "LowerRange",
+            label: "Lower Range",
             options: {
                 filter: true,
                 sort: true,
@@ -204,7 +185,7 @@ const Addscript = () => {
         },
         {
             name: "HigherRange",
-            label: "HigherRange",
+            label: "Higher Range",
             options: {
                 filter: true,
                 sort: true,
@@ -212,7 +193,23 @@ const Addscript = () => {
         },
         {
             name: "HoldExit",
-            label: "HoldExit",
+            label: "Hold/Exit",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryPrice",
+            label: "First Trade Lower Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "EntryRange",
+            label: "First Trade Higher Price",
             options: {
                 filter: true,
                 sort: true,
@@ -220,15 +217,7 @@ const Addscript = () => {
         },
         {
             name: "ExitDay",
-            label: "ExitDay",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ExitTime",
-            label: "ExitTime",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -236,20 +225,21 @@ const Addscript = () => {
         },
         {
             name: "EntryTime",
-            label: "EntryTime",
+            label: "Entry  Time",
             options: {
                 filter: true,
                 sort: true,
             }
         },
         {
-            name: "Expirytype",
-            label: "Expirytype",
+            name: "ExitTime",
+            label: "Exit  Time",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -258,16 +248,6 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-
-
 
     ];
 
@@ -298,7 +278,7 @@ const Addscript = () => {
         },
         {
             name: "STG",
-            label: "STG",
+            label: "Option Type",
             options: {
                 filter: true,
                 sort: true,
@@ -312,38 +292,17 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
+
         {
             name: "Targettype",
-            label: "Targettype",
+            label: "Risk Handle",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "TimeFrame",
-            label: "Main Signal",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
         {
             name: "Instrument Type",
             label: "Instrument Type",
@@ -354,7 +313,7 @@ const Addscript = () => {
         },
         {
             name: "Expirydate",
-            label: "Expirydate",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
@@ -376,17 +335,10 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "IName",
-            label: "IName",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
         {
             name: "Expirytype",
-            label: "Expirytype",
+            label: "Expiry Type",
             options: {
                 filter: true,
                 sort: true,
@@ -394,7 +346,7 @@ const Addscript = () => {
         },
         {
             name: "strategytype",
-            label: "strategytype",
+            label: "Measurement Type",
             options: {
                 filter: true,
                 sort: true,
@@ -402,7 +354,7 @@ const Addscript = () => {
         },
         {
             name: "Target value",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -410,7 +362,7 @@ const Addscript = () => {
         },
         {
             name: "SL value",
-            label: "SL value",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
@@ -418,7 +370,7 @@ const Addscript = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
@@ -426,7 +378,7 @@ const Addscript = () => {
         },
         {
             name: "Lot Size",
-            label: "Lot Size",
+            label: "Quantity",
             options: {
                 filter: true,
                 sort: true,
@@ -434,7 +386,7 @@ const Addscript = () => {
         },
         {
             name: "Product Type",
-            label: "Product Type",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -457,136 +409,8 @@ const Addscript = () => {
             }
         },
         {
-            name: "DepthofStrike",
-            label: "DepthofStrike",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Spread",
-            label: "Spread",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SSDate",
-            label: "SSDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "StrikeType",
-            label: "StrikeType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LowerRange",
-            label: "LowerRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "HigherRange",
-            label: "HigherRange",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthLower",
-            label: "CEDepthLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDepthHigher",
-            label: "CEDepthHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthLower",
-            label: "PEDepthLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDepthHigher",
-            label: "PEDepthHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepLower",
-            label: "CEDeepLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CEDeepHigher",
-            label: "CEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepLower",
-            label: "PEDeepLower",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PEDeepHigher",
-            label: "PEDeepHigher",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "FixedSM",
-            label: "FixedSM",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TaskStatus",
-            label: "TaskStatus",
+            label: "Strike Type",
             options: {
                 filter: true,
                 sort: true,
@@ -600,8 +424,6 @@ const Addscript = () => {
                 sort: true,
             }
         },
-
-
     ];
 
 
@@ -630,13 +452,22 @@ const Addscript = () => {
             }
         },
         {
-            name: "Username",
-            label: "Username",
+            name: "TradePattern",
+            label: "Pattern Name",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+        {
+            name: "Pattern",
+            label: "Pattern Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
         {
             name: "Exchange",
             label: "Exchange",
@@ -662,56 +493,17 @@ const Addscript = () => {
             }
         },
         {
-            name: "Expirydate",
-            label: "Expirydate",
+            name: "Expiry Date",
+            label: "Expiry Date",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Instrument Name",
-            label: "Instrument Name",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Expirytype",
-            label: "Expirytype",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Lotsize",
-            label: "Lotsize",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradePattern",
-            label: "TradePattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
         {
             name: "TType",
-            label: "TType",
+            label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
@@ -727,15 +519,7 @@ const Addscript = () => {
         },
         {
             name: "TimeFrame",
-            label: "TimeFrame",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SL value",
-            label: "SL value",
+            label: "Time Frame",
             options: {
                 filter: true,
                 sort: true,
@@ -743,15 +527,7 @@ const Addscript = () => {
         },
         {
             name: "Target value",
-            label: "Target value",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Target value",
-            label: "Target value",
+            label: "Target",
             options: {
                 filter: true,
                 sort: true,
@@ -759,15 +535,18 @@ const Addscript = () => {
         },
         {
             name: "SL value",
-            label: "SL value",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
             }
         },
+
+
+
         {
             name: "TStype",
-            label: "TStype",
+            label: "Measurement Type",
             options: {
                 filter: true,
                 sort: true,
@@ -775,23 +554,16 @@ const Addscript = () => {
         },
         {
             name: "TradeExecution",
-            label: "TradeExecution",
+            label: "Trade Execution",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Trading",
-            label: "Trading",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+
         {
             name: "ExitDay",
-            label: "ExitDay",
+            label: "Exit Day",
             options: {
                 filter: true,
                 sort: true,
@@ -799,7 +571,7 @@ const Addscript = () => {
         },
         {
             name: "EntryTime",
-            label: "EntryTime",
+            label: "Entry Time",
             options: {
                 filter: true,
                 sort: true,
@@ -821,17 +593,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-        {
-            name: "Action",
-            label: "Action",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Trash2 onClick={() => handleDelete(tableMeta)} />
-                }
-            }
-        },
+
 
     ];
 
@@ -842,11 +604,11 @@ const Addscript = () => {
         try {
             await GetGroupNames()
                 .then((response) => {
-                    console.log("CPP :", response)
+
                     if (response.Status) {
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Data
                         })
                     }
                     else {
@@ -857,13 +619,14 @@ const Addscript = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error Group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error Group data fetch")
         }
     }
+    
     useEffect(() => {
         GetAllGroupDetails()
     }, [])
@@ -877,7 +640,7 @@ const Addscript = () => {
 
                     setAllservice({
                         loading: false,
-                        data: response.GroupScrdf
+                        data: response.Data
                     })
 
                 }
@@ -898,43 +661,49 @@ const Addscript = () => {
 
 
     const handleAddScript = () => {
+        setFormSubmitted(true);
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
         if (selectGroup != '' && selectStrategyType != '') {
             navigate(selectStrategyType == "Scalping" ? '/admin/addscript/scalping' :
                 selectStrategyType == "Option Strategy" ? '/admin/addscript/option' : '/admin/addscript/pattern', { state: { data } });
         }
-
     }
-
-
-
 
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
-    useEffect(() => {
-        if (selectGroup == '') {
-            setGroupError("Select Group Name")
-        }
-        else {
-            setGroupError("")
-        }
-        if (selectStrategyType == '') {
-            setStgError("Select Stragey Type")
-        }
-        else {
-            setStgError("")
-        }
-    }, [selectGroup, selectStrategyType,])
-
-
 
     useEffect(() => {
-        if (getGroupData && getGroupData.data.length > 0) {
-            setSelectGroup(getGroupData.data[0].GroupName)
+        if (formSubmitted) {
+            if (selectGroup == '') {
+                setGroupError("Select Group Name")
+            } else {
+                setGroupError("")
+            }
+            if (selectStrategyType == '') {
+                setStgError("Select Strategy Type")
+            } else {
+                setStgError("")
+            }
         }
-    }, [])
+    }, [selectGroup, selectStrategyType, formSubmitted])
 
+
+
+
+
+
+    useEffect(() => {
+
+        if (!getGroupData.loading && getGroupData.data.length > 0) {
+
+            setSelectGroup(getGroupData && getGroupData.data[0].GroupName)
+
+        }
+
+    }, [getGroupData]);
+
+ 
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
@@ -1000,10 +769,8 @@ const Addscript = () => {
                                     </div>
                                 </div>
                             </form>
-                            {/* <div className='d-flex justify-content-end'>
-                                <button className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
-                            </div> */}
-                            <div className="iq-card-body px-2">
+
+                            <div className="iq-card-body">
                                 {getAllService.loading ? <Loader /> :
                                     <FullDataTable
                                         columns={selectStrategyType == "Scalping" ? columns : selectStrategyType == "Option Strategy" ? columns1 : selectStrategyType == "Pattern" ? columns2 : columns}

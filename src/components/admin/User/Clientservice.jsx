@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
 import Swal from 'sweetalert2';
+import {ClientServiceColumn} from './UserAllColumn'
 
 const Clientservice = () => {
     const [clientService, setClientService] = useState({ loading: true, data: [] });
@@ -19,6 +20,9 @@ const Clientservice = () => {
     const [getServiceCount, setServiceCount] = useState([]);
     const [getExtendDate, setExtendDate] = useState([]);
     const [getDate, setExDate] = useState('');
+    const [refresh, setRefresh] = useState(false)
+
+     
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -38,34 +42,36 @@ const Clientservice = () => {
         fetchBrokerName();
     }, []);
 
-    useEffect(() => {
-        const fetchClientService = async () => {
-            try {
-                const response = await GetClientService();
-                if (response.Status) {
-                    setClientService({ loading: false, data: response.Profile });
-                } else {
-                    setClientService({ loading: false, data: [] });
-                }
-            } catch (error) {
-                console.log('Error in fetching client services', error);
-            }
-        };
 
+    const fetchClientService = async () => {
+        try {
+            const response = await GetClientService();
+            if (response.Status) {
+
+                setClientService({ loading: false, data: response.Data });
+            } else {
+                setClientService({ loading: false, data: [] });
+            }
+        } catch (error) {
+            console.log('Error in fetching client services', error);
+        }
+    };
+
+    useEffect(() => {
         fetchClientService();
-    }, []);
+    }, [refresh]);
 
     useEffect(() => {
         const fetchGroupDetails = async () => {
             try {
                 const response = await GetGroupNames();
                 if (response.Status) {
-                    const options = response.StrGroupdf.map(item => ({
+                    const options = response.Data.map(item => ({
                         label: item.GroupName,
                         key: item.GroupName,
                     }));
                     setOptionsArray(options);
-                    setGroupData({ loading: false, data: response.StrGroupdf });
+                    setGroupData({ loading: false, data: response.Data });
                 } else {
                     setGroupData({ loading: false, data: [] });
                 }
@@ -78,13 +84,11 @@ const Clientservice = () => {
     }, []);
 
 
-
-   
-   
+    
     const formik = useFormik({
         initialValues: {
             User: "",
-            ser: "",
+            Service_Count: "",
             Broker: "",
             Day: "",
             SSDate: "",
@@ -94,24 +98,21 @@ const Clientservice = () => {
         },
         validate: values => {
             const errors = {};
-            if(showModal && clientService.data[selectedIndex].BrokerName != "Demo" && !values.Select_Product_Type){
-                errors.Select_Product_Type="Select Edit Type"
+            if (showModal && clientService.data[selectedIndex].BrokerName != "Demo" && !values.Select_Product_Type) {
+                errors.Select_Product_Type = "Select Edit Type"
             }
-            if(!values.Select_Broker){
+            if (!values.Select_Broker) {
                 errors.Select_Broker = "Select Broker Type"
             }
-            if(showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day){
-                errors.Select_Day="Select Days"
+            if (showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day) {
+                errors.Select_Day = "Select Days"
             }
-             
-            
             return errors;
-
         },
         onSubmit: async (values) => {
             const req = {
                 User: showModal ? clientService.data[selectedIndex].Username : '',
-                ser: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
+                ser : values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
                 Broker: values.Select_Broker,
                 Day: showModal && clientService.data[selectedIndex].BrokerName === 'Demo' ? values.Select_Day : '',
                 SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && clientService.data[selectedIndex].BrokerName !== "Demo" ? getDate : form_Date,
@@ -122,22 +123,24 @@ const Clientservice = () => {
             try {
                 const response = await EditClientPanle(req);
                 if (response.Status) {
+                  
+                    setRefresh(!refresh)
                     Swal.fire({
                         title: "Updated",
-                        text: response.message,
+                        text: response.massage,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
                     });
                     setTimeout(() => {
                         setShowModal(false);
-                        formik.resetForm();  
-                        setSelectedOptions([]);  
+                        formik.resetForm();
+                        setSelectedOptions([]);
                     }, 1500);
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text: response.message,
+                        text: response.massage,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -152,10 +155,10 @@ const Clientservice = () => {
     const fields = [
         {
             name: 'Select_Product_Type',
-            label: 'Select Product Type',
+            label: 'Product Type',
             type: 'select1',
             options: [
-                { label: 'Add New Services', value: 'Add New Services' },
+                { label: 'Add New Service', value: 'Add New Services' },
                 { label: 'Extend Service Count', value: 'Extend Service Count' },
             ],
             showWhen: () => showModal && clientService.data[selectedIndex].BrokerName !== 'Demo',
@@ -164,7 +167,7 @@ const Clientservice = () => {
         },
         {
             name: 'Select_Broker',
-            label: 'Select Broker',
+            label: 'Broker',
             type: 'select1',
             options: brokers.data.map(item => ({
                 label: item.BrokerName,
@@ -175,7 +178,7 @@ const Clientservice = () => {
         },
         {
             name: 'Select_Day',
-            label: 'Select Day',
+            label: 'Day',
             type: 'select1',
             options: [
                 { value: 'todays', label: 'Two Days' },
@@ -209,6 +212,13 @@ const Clientservice = () => {
             col_size: 6,
         },
     ];
+
+
+    useEffect(()=>{
+        formik.setFieldValue('Select_Product_Type', "Add New Services")
+        formik.setFieldValue('Select_Broker', showModal && clientService.data[selectedIndex].BrokerName)
+        formik.setFieldValue('Service_Count', 0)
+    },[showModal])
 
     const Service_Count = async () => {
         if (showModal && clientService.data[selectedIndex].Username) {
@@ -270,23 +280,100 @@ const Clientservice = () => {
                     <SquarePen
                         onClick={() => {
                             setShowModal(true);
-                            
                             setSelectedIndex(tableMeta.rowIndex);
                         }}
                     />
                 ),
             },
         },
-        { name: 'Username', label: 'Username', options: { filter: true, sort: true } },
-        { name: 'Mobile_No', label: 'Mobile_No', options: { filter: true, sort: true } },
-        { name: 'BrokerName', label: 'BrokerName', options: { filter: true, sort: true } },
-        { name: 'EmailId', label: 'EmailId', options: { filter: true, sort: true } },
-        { name: 'Group', label: 'Group', options: { filter: true, sort: true } },
-        { name: 'ServiceStartDate', label: 'ServiceStartDate', options: { filter: true, sort: true } },
-        { name: 'CreateDate', label: 'CreateDate', options: { filter: true, sort: true } },
-        { name: 'ServiceEndDate', label: 'ServiceEndDate', options: { filter: true, sort: true } },
-        { name: 'Total Service Count', label: 'Total Service Count', options: { filter: true, sort: true } },
+        { 
+            name: 'Username', 
+            label: 'Username', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'Mobile_No', 
+            label: 'Mobile Number', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'BrokerName', 
+            label: 'Broker Name', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'EmailId', 
+            label: 'Email ID', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        {
+            name: 'Group',
+            label: 'Group',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta) => (
+                    
+                    <span>{Array.isArray(value) ? value.join(' , ') : value ? "-" : value || '-'}</span>
+                ),
+            }
+        },
+        { 
+            name: 'CreateDate', 
+            label: 'Account Create Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'ServiceStartDate', 
+            label: 'Service Start Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'ServiceEndDate', 
+            label: 'Service End Date', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
+        { 
+            name: 'Total Service Count', 
+            label: 'Total Service Count', 
+            options: { 
+                filter: true, 
+                sort: true, 
+                customBodyRender: (value) => value || '-' 
+            } 
+        },
     ];
+    
+  
+    
 
     const currentDate = new Date();
     currentDate.setDate(
@@ -303,10 +390,11 @@ const Clientservice = () => {
     const form_Date = fromDate.toISOString().split('T')[0];
 
 
-
-    console.log("optionsArray :" , optionsArray)
-
  
+    useEffect(()=>{
+        if(showModal)
+        setSelectedOptions(showModal && clientService.data[selectedIndex].Group)
+    },[showModal])
     return (
         <>
             <div className='row'>
@@ -317,7 +405,7 @@ const Clientservice = () => {
                                 <h4 className='card-title'>Client Service</h4>
                             </div>
                             <Link to='/admin/adduser' className='btn btn-primary rounded'>
-                                Add Client
+                                Add New Client
                             </Link>
                         </div>
                         <div className='iq-card-body'>
@@ -342,8 +430,8 @@ const Clientservice = () => {
                                     aria-label='Close'
                                     onClick={() => {
                                         setShowModal(false);
-                                        formik.resetForm();  
-                                        setSelectedOptions([]);  
+                                        formik.resetForm();
+                                        setSelectedOptions([]);
                                     }}
                                 ></button>
                             </div>
@@ -394,7 +482,7 @@ const Clientservice = () => {
                                                     options={optionsArray}
                                                     name='groupName'
                                                     handleOnChange={(selected) => setSelectedOptions(selected)}
-                                                    selected={ showModal ? clientService.data[selectedIndex].Group :''} 
+                                                    selected={showModal ? clientService.data[selectedIndex].Group : ''}
                                                 />
                                             </div>
                                         </div>

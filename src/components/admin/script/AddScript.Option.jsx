@@ -15,8 +15,20 @@ const AddClient = () => {
     })
 
 
-    const formik = useFormik({
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+            title: "Error",
+            text: text,
+            icon: "error",
+            timer: 5000,
+            timerProgressBar: true
+        });
 
+    }
+
+
+
+    const formik = useFormik({
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
             Username: location.state.data.selectGroup,
@@ -40,68 +52,142 @@ const AddClient = () => {
             EntryTime: "",
             ExitTime: "",
             ExitDay: "",
-            TradeExecution: "Paper Trade",
             FixedSM: "",
             TType: "",
-            serendate: "2023-10-25",
-            expirydata1: "2024-06-27",
+            expirydata1: "",
             Expirytype: "",
             Striketype: "",
             DepthofStrike: "",
             DeepStrike: "",
             Group: "",
-            CEDepthLower: 0.0,
-            CEDepthHigher: 0.0,
-            PEDepthLower: 0.0,
-            PEDepthHigher: 0.0,
-            CEDeepLower: 0.0,
-            CEDeepHigher: 0.0,
-            PEDeepLower: 0.0,
-            PEDeepHigher: 0.0,
-            TradeCount: 2
+            CEDepthLower: 1,
+            CEDepthHigher: 1,
+            PEDepthLower: 1,
+            PEDepthHigher: 1,
+            CEDeepLower: 1,
+            CEDeepHigher: 1,
+            PEDeepLower: 1,
+            PEDeepHigher: 1,
+            Unique_ID: ""
         },
 
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
             if (!values.Strategy) {
-                errors.Strategy = "Select Strategy type"
+                errors.Strategy = "Please Select a Strategy Type.";
+            }
+            if (!values.Measurment_Type) {
+                errors.Measurment_Type = "Please select Option type.";
             }
             if (!values.ETPattern) {
-                errors.ETPattern = "Select ETPattern type"
+                errors.ETPattern = "Please Select Risk Handle Type.";
             }
             if (!values.Symbol) {
-                errors.Symbol = "Select Symbol type"
+                errors.Symbol = "Please Select a Symbol Type.";
             }
             if (!values.Targetvalue) {
-                errors.Targetvalue = "Select Targetvalue type"
+                errors.Targetvalue = "Please Enter a Target Value.";
             }
             if (!values.Slvalue) {
-                errors.Slvalue = "Select Slvalue type"
+                errors.Slvalue = "Please Enter a Stop Loss Value.";
             }
             if (!values.TStype) {
-                errors.TStype = "Select TStype type"
+                errors.TStype = "Please Select a Measurement Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Select Quantity type"
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Select EntryTime type"
+                errors.Quantity = "Please Enter the Lot Value.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Select ExitTime type"
+                errors.ExitTime = "Please Select an Exit Time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
+            }
+            if (!values.EntryTime) {
+                errors.EntryTime = "Please Select an Entry Time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
             }
             if (!values.ExitDay) {
-                errors.ExitDay = "Select ExitDay type"
+                errors.ExitDay = "Please Select an Exit Day.";
             }
             if (!values.Expirytype) {
-                errors.Expirytype = "Select Expirytype type"
+                errors.Expirytype = "Please Select an Expiry Type.";
+            }
+            if (!values.Lower_Range && values.Striketype === 'Premium_Range') {
+                errors.Lower_Range = "Please Enter the Lower Range.";
+            }
+            if (!values.Higher_Range && values.Striketype === 'Premium_Range') {
+                errors.Higher_Range = "Please Enter the Higher Range.";
             }
             if (!values.Striketype) {
-                errors.Striketype = "Select Striketype type"
+                errors.Striketype = "Please Select a Strike Type.";
             }
-             
+            if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy")) {
+                errors.Unique_ID = "Please Select Unique ID.";
+            }
+            if (!values.PEDeepLower && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower Cannot Be Zero." : "Please Enter PE Hedge Lower.";
+            }
+            if (!values.PEDeepHigher && values.PEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
+            }
+            if (!values.CEDepthLower && values.CEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.CEDepthLower = values.CEDepthLower == 0 ? "CE Main Lower Cannot Be Zero." : "Please Enter CE Main Lower.";
+            }
+            if (!values.CEDepthHigher && values.CEDepthHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.CEDepthHigher = values.CEDepthHigher == 0 ? "CE Main Higher Cannot Be Zero." : "Please Enter CE Main Higher.";
+            }
+            if (!values.PEDepthLower && values.PEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDepthLower = values.PEDepthLower == 0 ? "PE Main Lower Cannot Be Zero." : "Please Enter PE Main Lower.";
+            }
+            if (!values.CEDeepLower && values.CEDeepLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.CEDeepLower = values.CEDeepLower == 0 ? "CE Hedge Lower Cannot Be Zero." : "Please Enter CE Hedge Lower.";
+            }
+            if (!values.CEDeepHigher && values.CEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.CEDeepHigher = values.CEDeepHigher == 0 ? "CE Hedge Higher Cannot Be Zero." : "Please Enter CE Hedge Higher.";
+            }
+            if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
+                errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
+            }
+
+            if (values.Striketype == "Depth_of_Strike" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
+                if (values.DepthofStrike > 5 || values.DepthofStrike < -5 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Depth of Strike Cannot Be Zero." : "Enter Depth of Strike Value Between -5 to 5.";
+                }
+            }
+            if (values.Striketype == "Straddle_Width" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
+                if (values.DepthofStrike > 250 || values.DepthofStrike < -250 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "Straddle Width Cannot Be Zero." : "Enter Straddle Width Between -250 to 250.";
+                }
+            }
+            if (values.Striketype == "Per_ATM" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
+                if (values.DepthofStrike > 2.5 || values.DepthofStrike < -2.5 || values.DepthofStrike == 0) {
+                    errors.DepthofStrike = values.DepthofStrike == 0 ? "% of ATM Cannot Be Zero." : "Please Enter % of ATM Value Between -2.5 to 2.5.";
+                }
+            }
+            if ((values.Measurment_Type == "Ladder/Coverd" && values.Measurment_Type != "Shifting/FourLeg" && (values.Strategy == 'BullCallLadder' || values.Strategy == "BullPutLadder")) || values.Strategy == "LongIronCondor" || values.Strategy == "ShortIronCondor") {
+                if (values.DeepStrike > 10 || values.DeepStrike < -10 || values.DeepStrike == 0 || values.DeepStrike == 1 || values.DeepStrike == -1) {
+                    errors.DeepStrike = values.DeepStrike == 0 ? "Deep Strike Cannot Be Zero." : values.DeepStrike == 1 ? "Deep Strike Cannot Be 1." : values.DeepStrike == -1 ? "Deep Strike Cannot Be -1." : "Enter Deep Strike Between -10 to 10.";
+                }
+            }
+            if (values.Measurment_Type == "Shifting/FourLeg" && (values.Strategy == 'ShortShifting' || values.Strategy == 'LongShifting')) {
+                if (values.Shifting_Point > 1000 || values.Shifting_Point < 100) {
+                    errors.Shifting_Point = "Please Enter in Range 100-1000.";
+                }
+            }
+            if (values.Measurment_Type == "Shifting/FourLeg" && values.Strategy != 'ShortFourLegStretegy' && values.Strategy != 'LongFourLegStretegy') {
+                if (values.Shifting_Value > 5 || values.Shifting_Value < 1) {
+                    errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
+                }
+            }
+            console.log("errors", errors)
             return errors;
         },
+
+
+
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -128,55 +214,91 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 FixedSM: "",
                 TType: "",
-                serendate: "2023-10-25",
-                expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
+                expirydata1: getExpiry && getExpiry.data[0],
                 Expirytype: values.Expirytype,
-                Striketype: values.Striketype,
-                DepthofStrike: values.DepthofStrike,
-                DeepStrike: values.DeepStrike,
-                Group: "",
-                CEDepthLower: values.CEDepthLower,
-                CEDepthHigher: values.CEDepthHigher,
-                PEDepthLower: values.PEDepthLower,
-                PEDepthHigher: values.PEDepthHigher,
-                CEDeepLower: values.CEDeepLower,
-                CEDeepHigher: values.CEDeepHigher,
-                PEDeepLower: values.PEDeepLower,
-                PEDeepHigher: values.PEDeepHigher,
-                
+                Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
+                DepthofStrike:Number(values.DepthofStrike),
+                DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ?  Number(values.DeepStrike) : 0,
+                Group: values.Unique_ID,
+                CEDepthLower: Number(values.CEDepthLower),
+                CEDepthHigher: Number(values.CEDepthHigher),
+                PEDepthLower: Number(values.PEDepthLower),
+                PEDepthHigher: Number(values.PEDepthHigher),
+                CEDeepLower: Number(values.CEDeepLower),
+                CEDeepHigher: Number(values.CEDeepHigher),
+                PEDeepLower: Number(values.PEDeepLower),
+                PEDeepHigher: Number(values.PEDeepHigher)
             }
-            // console.log(req)
-            // return 
-            await AddAdminScript(req)
-                .then((response) => {
-                    if (response.Status) {
-                        Swal.fire({
-                            title: "Script Added !",
-                            text: response.massage,
-                            icon: "success",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
-                        setTimeout(() => {
-                            navigate('/admin/allscript')
-                        }, 1500)
-                    }
-                    else {
-                        Swal.fire({
-                            title: "Error !",
-                            text: response.massage,
-                            icon: "error",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
 
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error in added new Script", err)
-                })
-        },
+
+
+            if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
+
+                return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
+            }
+
+            if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
+
+                return SweentAlertFun("Higher Range should be Greater than Lower Range")
+            }
+
+            else if (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') {
+                if (req.CEDepthHigher <= req.CEDepthLower) {
+
+                    return SweentAlertFun("Enter CE Main Higher Greater Than CE Main Lower")
+                }
+                else if (req.PEDepthLower >= req.PEDepthHigher) {
+
+                    return SweentAlertFun("Enter PE Main Higher Greater Than PE Main Lower")
+                }
+                else if (req.CEDeepLower >= req.CEDeepHigher) {
+
+                    return SweentAlertFun("Enter CE Hedge Higher Greater Than CE Hedge Lower")
+                }
+                else if (req.PEDeepLower >= req.PEDeepHigher) {
+
+                    return SweentAlertFun("Enter PE Hedge Higher Greater Than PE Hedge Lower")
+                }
+
+                else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
+ 
+                    return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
+                }
+                else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
+
+                    return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
+                }
+            }
+
+
+            try {
+                const response = await AddAdminScript(req);
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Script Added !",
+                        text: response.massage,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    setTimeout(() => {
+                        navigate('/admin/allscript')
+                    }, 1500)
+                } else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.massage,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            } catch (err) {
+                console.log("Error in adding new Script", err);
+            }
+        }
     });
+
     useEffect(() => {
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
         formik.setFieldValue('Strategy', "ShortStrangle")
@@ -188,21 +310,26 @@ const AddClient = () => {
         formik.setFieldValue('Slvalue', 1.00)
         formik.setFieldValue('Quantity', 1)
         formik.setFieldValue('ExitDay', "Intraday")
-        formik.setFieldValue('Striketype', "Depth_of_Strike")
+        formik.setFieldValue('Striketype',  "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
-        formik.setFieldValue('DeepStrike', 1)
+        formik.setFieldValue('DeepStrike', 2)
         formik.setFieldValue('Lower_Range', 0)
         formik.setFieldValue('Higher_Range', 0)
+        formik.setFieldValue('EntryTime', "09:15:00")
+        formik.setFieldValue('ExitTime', "15:25:00")
+        formik.setFieldValue('TStype', "Point")
+        formik.setFieldValue('Shifting_Point', 100)
+        formik.setFieldValue('Shifting_Value', 1)
     }, [])
 
     useEffect(() => {
-        formik.setFieldValue('Strategy', formik.values.Measurment_Type == "Straddle/Strangle" ? "ShortStrangle" : formik.values.Measurment_Type == "Butterfly/Condor" ? "LongIronButterfly" : formik.values.Measurment_Type == "Spread" ? "BearCallSpread" : formik.values.Measurment_Type == "Ladder/Coverd" ? "BullCallLadder" : formik.values.Measurment_Type == "Collar/Ratio" ? "LongCollar" : formik.values.Measurment_Type == "Shifting/FourLeg" ? "ShortShifting" : "")
+        formik.setFieldValue('Strategy', formik.values.Measurment_Type == "Straddle/Strangle" ? "LongStrangle" : formik.values.Measurment_Type == "Butterfly/Condor" ? "LongIronButterfly" : formik.values.Measurment_Type == "Spread" ? "BearCallSpread" : formik.values.Measurment_Type == "Ladder/Coverd" ? "BullCallLadder" : formik.values.Measurment_Type == "Collar/Ratio" ? "LongCollar" : formik.values.Measurment_Type == "Shifting/FourLeg" ? "ShortShifting" : "")
     }, [formik.values.Measurment_Type])
 
     const fields = [
         {
             name: "Measurment_Type",
-            label: "Measurment Type",
+            label: "Option Type",
             type: "select",
             options: [
                 { label: "Straddle/Strangle", value: "Straddle/Strangle" },
@@ -215,7 +342,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 4,
             disable: false,
         },
         {
@@ -223,27 +350,27 @@ const AddClient = () => {
             label: "Strategy",
             type: "radio1",
             title: formik.values.Measurment_Type == "Straddle/Strangle" ?
-                [{ title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Strangle", value: "LongStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }] :
+                [{ title: "Long Strangle", value: "LongStrangle" }, { title: "Short Strangle", value: "ShortStrangle" }, { title: "Long Straddle", value: "LongStraddle" }, { title: "Short Straddle", value: "ShortStraddle" }] :
 
                 formik.values.Measurment_Type == "Butterfly/Condor" ?
                     [{ title: "Long Iron Butterfly", value: "LongIronButterfly" }, { title: "Short Iron Butterfly", value: "ShortIronButterfly" }, { title: "Long Iron Condor", value: "LongIronCondor" }, { title: "Short Iron Condor", value: "ShortIronCondor" }] :
 
                     formik.values.Measurment_Type == "Spread" ?
-                        [{ title: "Bear CallSpread", value: "BearCallSpread" }, { title: "Bear PutSpread", value: "BearPutSpread" }, { title: "Bull CallSpread", value: "BullCallSpread" }, { title: "Bull PutSpread", value: "BullPutSpread" }] :
+                        [{ title: "Bear Call Spread", value: "BearCallSpread" }, { title: "Bear Put Spread", value: "BearPutSpread" }, { title: "Bull Call Spread", value: "BullCallSpread" }, { title: "Bull Put Spread", value: "BullPutSpread" }] :
 
                         formik.values.Measurment_Type == "Ladder/Coverd" ?
-                            [{ title: "Bull CallLadder", value: "BullCallLadder" }, { title: "Bull PutLadder", value: "BullPutLadder" }, { title: "Covered Call", value: "CoveredCall" }, { title: "Covered Put", value: "CoveredPut" }] :
+                            [{ title: "Bull Call Ladder", value: "BullCallLadder" }, { title: "Bull Put Ladder", value: "BullPutLadder" }, { title: "Covered Call", value: "CoveredCall" }, { title: "Covered Put", value: "CoveredPut" }] :
 
                             formik.values.Measurment_Type == "Collar/Ratio" ?
-                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio CallSpread", value: "RatioCallSpread" }, { title: "RatioPutSpread", value: "Ratio PutSpread" }] :
+                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "Ratio Put Spread" }] :
 
                                 formik.values.Measurment_Type == "Shifting/FourLeg" ?
-                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLeg Stretegy", value: "ShortFourLegStretegy" }, { title: "LongFourLeg Stretegy", value: "LongFourLegStretegy" }] :
+                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
                                     ""
 
             ,
             label_size: 12,
-            col_size: 3,
+            col_size: 8,
             disable: false,
             hiding: false,
         },
@@ -276,15 +403,89 @@ const AddClient = () => {
             disable: false,
         },
         {
+            name: "Striketype",
+            label: "Strike Type",
+            type: "select",
+            options: [
+                { label: "Depth of Strike", value: "Depth_of_Strike" },
+                { label: "Straddle Width", value: "Straddle_Width" },
+                { label: "Premium Range", value: "Premium_Range" },
+                { label: "% of ATM", value: "Per_ATM" },
+            ],
+            showWhen: (value) => value.Strategy != "ShortStraddle" && value.Strategy != "LongStraddle" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'ShortStraddle' && value.Strategy != 'LongStraddle',
+
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "DepthofStrike",
+            label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "% of ATM" : "Depth of Strike",
+            type: formik.values.Striketype == "Per_ATM" || formik.values.Striketype == "Straddle_Width" || formik.values.Striketype == "Depth_of_Strike" ? "number" : "text4",
+            hiding: false,
+            showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Lower_Range",
+            label: "Lower Range",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Higher_Range",
+            label: "Higher Range",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "DeepStrike",
+            label: "Deep Strike",
+            type: "number",
+            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor",
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Shifting_Value",
+            label: "Number of Shifts",
+            type: "number",
+            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
             name: "ETPattern",
             label: "Risk Handle",
             type: "select",
-            options: [
-                { label: "Premium Addition", value: "Premium Addition" },
-                { label: "Future", value: "Future" },
-                { label: "Leg vice", value: "Leg vice" },
+            options: formik.values.Strategy == "CoveredPut" || formik.values.Strategy == "CoveredCall" || formik.values.Strategy == "ShortCollar" || formik.values.Strategy == "LongCollar" ?
+                [
 
-            ],
+                    { label: "Future", value: "Future" },
+                    { label: "Leg vice", value: "Leg vice" },
+
+                ] :
+                [
+                    { label: "Premium Addition", value: "Premium Addition" },
+                    { label: "Future", value: "Future" },
+                    { label: "Leg vice", value: "Leg vice" },
+
+                ],
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
             hiding: false,
             label_size: 12,
@@ -292,24 +493,26 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "TStype",
-            label: "Measurment Type",
-            type: "cp",
+            name: "Quantity",
+            label: "Lot",
+            type: "number",
             hiding: false,
             label_size: 12,
-            showWhen: (value) =>(value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
             col_size: 4,
             disable: false,
         },
         {
             name: "TStype",
-            label: "Measurment Type",
+            label: "Measurement Type",
             type: "select",
-            options: [
-                { label: "Percentage", value: "Percentage" },
-                { label: "Point", value: "Point" },
-
-            ],
+            options: formik.values.ETPattern == "Premium Addition" ?
+                [
+                    { label: "Point", value: "Point" },
+                ] :
+                [
+                    { label: "Point", value: "Point" },
+                    { label: "Percentage", value: "Percentage" },
+                ],
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -340,34 +543,14 @@ const AddClient = () => {
         },
         {
             name: "Shifting_Point",
-            label: "Shifting Pointe",
+            label: "Shifting Point",
             type: "number",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
-            col_size: 12,
-            disable: false,
-
-        },
-        {
-            name: "Quantity",
-            label: "Lot Size",
-            type: "number",
-            hiding: false,
-            label_size: 12,
-            col_size: 12,
+            col_size: 4,
             disable: false,
         },
-        // {
-        //     name: "TStype",
-        //     label: "Measurment Type",
-        //     type: "cp",
-        //     hiding: false,
-        //     label_size: 12,
-        //     showWhen: (value) =>value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" &&  (value.Strategy=='ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
-        //     col_size: 6,
-        //     disable: false,
-        // },
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -379,6 +562,122 @@ const AddClient = () => {
             hiding: false,
             label_size: 12,
             col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Unique_ID",
+            label: "Unique ID",
+            type: "select1",
+            options: [
+                { label: "A", value: "A" },
+                { label: "B", value: "B" },
+                { label: "C", value: "C" },
+                { label: "D", value: "D" },
+                { label: "E", value: "E" },
+                { label: "F", value: "F" },
+                { label: "G", value: "G" },
+                { label: "H", value: "H" },
+                { label: "I", value: "I" },
+                { label: "J", value: "J" },
+
+            ],
+
+            showWhen: (value) => value.Strategy == "LongFourLegStretegy" || value.Strategy == "ShortFourLegStretegy",
+
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "TStype",
+            label: "Measurment Type",
+            type: "cp",
+            hiding: false,
+            label_size: 12,
+            showWhen: (value) => (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "CEDepthLower",
+            label: "CE Main Lower",
+            type: "text3",
+            hiding: false,
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "CEDepthHigher",
+            label: "CE Main Higher",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+
+        {
+            name: "CEDeepLower",
+            label: "CE Hedge Lower",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "CEDeepHigher",
+            label: "CE Hedge Higher",
+            type: "text3",
+            hiding: false,
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDepthLower",
+            label: "PE Main Lower",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDepthHigher",
+            label: "PE Main Higher",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDeepLower",
+            label: "PE Hedge Lower",
+            type: "text3",
+            hiding: false,
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "PEDeepHigher",
+            label: "PE Hedge Higher",
+            type: "number",
+            hiding: false,
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            label_size: 12,
+            col_size: 3,
             disable: false,
         },
         {
@@ -399,180 +698,8 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-        {
-            name: "CEDepthLower",
-            label: "CEDepthLower",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "CEDepthHigher",
-            label: "CEDepthHigher",
-            type: "number",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "PEDepthLower",
-            label: "PEDepthLower",
-            type: "number",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        }, {
-            name: "PEDepthHigher",
-            label: "PEDepthHigher",
-            type: "number",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "CEDeepLower",
-            label: "CEDeepLower",
-            type: "number",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "CEDeepHigher",
-            label: "CEDeepHigher",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "PEDeepLower",
-            label: "PEDeepLower",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "PEDeepHigher",
-            label: "PEDeepHigher",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Unique_ID",
-            label: "Unique ID",
-            type: "select",
-            options: [
-                { label: "A", value: "A" },
-                { label: "B", value: "B" },
-                { label: "C", value: "C" },
-                { label: "D", value: "D" },
-                { label: "E", value: "E" },
-                { label: "F", value: "F" },
-                { label: "G", value: "G" },
-                { label: "H", value: "H" },
-                { label: "I", value: "I" },
-                { label: "J", value: "J" },
-
-            ],
-
-            showWhen: (value) => value.Strategy == "LongFourLegStretegy" || value.Strategy == "ShortFourLegStretegy",
-
-            hiding: false,
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
-
-        {
-            name: "Striketype",
-            label: "Strike Type",
-            type: "select",
-            options: [
-                { label: "Depth of Strike", value: "Depth_of_Strike" },
-                { label: "Straddle Width", value: "Straddle_Width" },
-                { label: "Premium Range", value: "Premium_Range" },
-                { label: "Per ATM", value: "Per_ATM" },
-            ],
-            showWhen: (value) => value.Strategy != "ShortStraddle" && value.Strategy != "LongStraddle" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'ShortStraddle' && value.Strategy != 'LongStraddle',
-
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "DepthofStrike",
-            label: formik.values.Striketype == "Depth_of_Strike" ? "Depth of Strike" : formik.values.Striketype == "Straddle_Width" ? "Percentage" : formik.values.Striketype == "Premium_Range" ? "Premium Range" : formik.values.Striketype == "Per_ATM" ? "Per ATM" : "Depth of Strike",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => formik.values.Striketype != "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg" && value.Strategy != 'LongStraddle' && value.Strategy != 'ShortStraddle',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        
-        {
-            name: "Lower_Range",
-            label: "Lower Range",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Higher_Range",
-            label: "Higher Range",
-            type: "number",
-            hiding: false,
-            showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "DeepStrike",
-            label: "Deep Strike",
-            type: "number",
-            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" ||  value.Strategy == "ShortIronCondor",
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Shifting_Value",
-            label: "Shifting Value",
-            type: "number",
-            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 12,
-            disable: false,
-        },
     ];
+
 
 
 
@@ -580,6 +707,7 @@ const AddClient = () => {
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }
+
         await GET_EXPIRY_DATE(data)
             .then((response) => {
                 if (response.Status) {
@@ -604,37 +732,61 @@ const AddClient = () => {
     useEffect(() => {
         getExpriyData()
 
-    }, [formik.values.Expirytype])
+    }, [formik.values.Symbol])
 
 
 
+   
+        useEffect(() => {
 
-
-    useEffect(() => {
-
-        if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
-            formik.setFieldValue('Striketype', "Depth_of_Strike")
-        }
-        if (formik.values.Striketype != "Premium_Range") {
-            formik.setFieldValue('Higher_Range', 1)
-            formik.setFieldValue('Lower_Range', 1)
-        }
-        // if(formik.values.Striketype=="LongStraddle" || formik.values.Striketype=="ShortStraddle"){
-        //     formik.setFieldValue('Striketype', "")
-        // }
-
-
-    }, [formik.values.Strategy , formik.values.Striketype])
-
-
-
-
+            if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
+                formik.setFieldValue('Striketype', "Depth_of_Strike")
+            }
+            if (formik.values.Striketype != "Premium_Range") {
+                formik.setFieldValue('Higher_Range', 1)
+                formik.setFieldValue('Lower_Range', 1)
+            }
+    
+            if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
+    
+                formik.setFieldValue('DeepStrike', 2)
+            }
+    
+            if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
+    
+                formik.setFieldValue('Shifting_Value', 1)
+    
+            }
+    
+            if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
+                formik.setFieldValue('TStype', "Point")
+                formik.setFieldValue('Targetvalue', 0)
+                formik.setFieldValue('Slvalue', 0)
+            }
+            if (formik.values.Measurment_Type == "Shifting/FourLeg") {
+                formik.setFieldValue('ETPattern', "Premium Addition")
+            }
+    
+    
+            if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
+                formik.setFieldValue('Unique_ID', '')
+                formik.setFieldValue('CEDepthLower', 0)
+                formik.setFieldValue('CEDepthHigher', 0)
+                formik.setFieldValue('PEDepthLower', 0)
+                formik.setFieldValue('PEDepthHigher', 0)
+                formik.setFieldValue('CEDeepLower', 0)
+                formik.setFieldValue('CEDeepHigher', 0)
+                formik.setFieldValue('PEDeepLower', 0)
+                formik.setFieldValue('PEDeepHigher', 0)
+            }
+    
+        }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
     return (
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
-                page_title="Add Script option"
+                page_title="Add Script - Option Strategy"
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

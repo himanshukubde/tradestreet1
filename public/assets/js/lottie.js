@@ -2029,10 +2029,7 @@ var FontManager = (function(){
         var index = char.charCodeAt(0);
         if(!fontData.cache[index + 1]) {
             var tHelper = fontData.helper;
-            //Canvas version
-            //fontData.cache[index] = tHelper.measureText(char).width / 100;
-            //SVG version
-            //console.log(tHelper.getBBox().width)
+     
             if (char === ' ') {
                 tHelper.textContent = '|' + char + '|';
                 var doubleSize = tHelper.getComputedTextLength();
@@ -6085,8 +6082,7 @@ SVGRenderer.prototype.renderFrame = function(num){
     }else{
         this.renderedFrame = num;
     }
-    // console.log('-------');
-    // console.log('FRAME ',num);
+   
     this.globalData.frameNum = num;
     this.globalData.frameId += 1;
     this.globalData.projectInterface.currentFrame = num;
@@ -6408,8 +6404,6 @@ CanvasRenderer.prototype.renderFrame = function(num, forceRender){
     this.globalData._mdf = !this.renderConfig.clearCanvas || forceRender;
     this.globalData.projectInterface.currentFrame = num;
 
-     // console.log('--------');
-     // console.log('NEW: ',num);
     var i, len = this.layers.length;
     if(!this.completeLayers){
         this.checkLayers(num);

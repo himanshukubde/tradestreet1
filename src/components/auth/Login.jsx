@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { LoginPage } from '../Common API/Common'
+import {Link} from 'react-router-dom'
+import { LoginPage , ForgotPassword } from '../Common API/Common'
 
 const Login = () => {
     const [Username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [changeType, setChangeType] = useState("password");
     const [visiablity, setVisiablity] = useState("");
+    const [showModal , setShowModal] = useState(false)
+    const [forgotPassEmail , setForgotPassEmail] = useState('')
+    const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
+    
 
     const handleLogin = async (e) => {
         const data = { Username: Username, password: password }
@@ -19,7 +24,6 @@ const Login = () => {
                     localStorage.setItem("Role", response.Role)
                     localStorage.setItem("name", Username)
 
-                    console.log(response)
                     Swal.fire({
                         title: "Login!",
                         text: "User Login  successfully!",
@@ -61,6 +65,64 @@ const Login = () => {
             setChangeType("password");
         }
     };
+
+
+ 
+     
+ 
+
+    const handleForgotPass = async() => {
+        if(!emailError){
+           const data = {Email: forgotPassEmail}
+          await ForgotPassword(data)
+          .then((response)=>{
+            if(response.Status){
+                Swal.fire({
+                    title: "Success",
+                    text:  response.Data,
+                    icon: "success",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+                setShowModal(false)
+            }
+            else{
+                Swal.fire({
+                    title: "Error",
+                    text:  response.Data,
+                    icon: "error",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+
+            }
+          })
+          .catch((err)=>{
+            console.log("Error in sending the mail", err)
+          })
+
+        }   
+    };
+
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    };
+
+    const handleEmailChange = (e) => {
+        const email = e.target.value;
+        setForgotPassEmail(email);
+        if (!email) {
+            setEmailError('Email cannot be empty');
+        } else if (!validateEmail(email)) {
+            setEmailError('Please enter a valid email address');
+        } else {
+            setEmailError('');
+        }
+    };
+
+ 
+
     return (
         <section className="sign-in-page">
             <div className="container sign-in-page-bg mt-5 mb-md-5 mb-0 p-0">
@@ -235,10 +297,10 @@ const Login = () => {
                                 </div>
                                 <div className="d-flex justify-content-between my-2">
                                     <label htmlFor="exampleInputPassword1">Password</label>
-                                    <a href="pages-recoverpw.html" className="float-end">
+                                    <a className="float-end border-none"  onClick={(e)=>setShowModal(!showModal)}>
                                         Forgot password?
                                     </a>
-                                </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                </div>
                                 <div className='position-relative'>
                                     <input
                                         type={changeType}
@@ -261,24 +323,15 @@ const Login = () => {
                                         title="password Visiblity"
                                     ></i>
                                 </div>
-                                <div className="d-flex w-100 justify-content-between  align-items-center mt-3 w-100">
-                                    <div className="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                        <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="customCheck1"
-                                        />
-                                        <label className="custom-control-label" htmlFor="customCheck1">
-                                            Remember Me
-                                        </label>
-                                    </div>
+                                <div className="d-flex w-100 justify-content-end  align-items-center mt-3 w-100">
+                                    
                                     <button type="submit" className="btn btn-primary float-end" onClick={handleLogin}>
                                         Sign in
                                     </button>
                                 </div>
                                 <div className="sign-info">
                                     <span className="dark-color d-inline-block line-height-2">
-                                        Don't have an account? <a href="sign-up.html">Sign up</a>
+                                        Don't have an account? <Link to={'/register'}>Sign up</Link>
                                     </span>
                                     <ul className="iq-social-media">
                                         <li>
@@ -303,7 +356,64 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+
+
+           { showModal && (
+            <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                <div className="modal-dialog modal-dialog-centered modal-md">
+                    <div className="modal-content" style={{width:"600px"}}>
+                        <div className="modal-header border-0 pb-0">
+                            <div className="form-header modal-header-title text-start mb-0">
+                                <h4 className="mb-0">Forgot Password</h4>
+                            </div>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => setShowModal(!showModal)}
+                            />
+                        </div>
+                        <div>
+                            <div className="modal-body">
+                                <div className="row">
+                                    <div className="col-lg-12 col-sm-12">
+                                        <div className="input-block mb-3">
+                                            <label>Email</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Email"
+                                                onChange={handleEmailChange}
+                                                value={forgotPassEmail}
+                                            />
+                                            {emailError && (
+                                                <div className="error-message" style={{color: 'red'}}>
+                                                    {emailError}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="submit"
+                                    data-bs-dismiss="modal"
+                                    className="btn btn-primary paid-continue-btn"
+                                    onClick={handleForgotPass}
+                                >
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
         </section>
+    
     );
 };
 

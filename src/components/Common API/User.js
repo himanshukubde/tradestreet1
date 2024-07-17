@@ -1,9 +1,9 @@
 import axios from "axios"
 import * as Config from "../../Utils/Config";
 
-export const Get_Last_Pattern_All_Data = async (data) => {
+export const Get_Last_Pattern_Data = async (data) => {
     try {
-        const res = await axios.post(`${Config.base_url}LastPattern`, data)
+        const res = await axios.post(`${Config.base_url}CCLPattern`, data)
 
         return res?.data
     }
@@ -127,7 +127,6 @@ export const Discontinue = async (data) => {
     }
 }
 
-
 export const OpenPosition = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}DashboardOpen/${data.userName}`)
@@ -138,6 +137,107 @@ export const OpenPosition = async (data) => {
     }
 }
 
-
+export const GetBrokerData = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Brokername/${data.userName}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
  
+export const UpdateBrokerData = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}Broker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const TradingStatus = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}TradingStatus/${data.userName}`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const ConnectBroker = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ConnectBroker`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AvailableScript = async (data) => {
+    try {
+        const res = await axios.get(`${Config.base_url}Script/AvailableScript`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetSymbolIp = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}SymbolP`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const ChartPatternAPI = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ChartPattern`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Candlestick_Pattern = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}CandlestickPattern`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const LastPatternCandleData = async (data) => {
+    try {
+        
+        const res = await axios.get(`${Config.base_url}DailyData/${data.CartName}`)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const SortPattern = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}CCLPattern`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+
 

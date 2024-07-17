@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
 import CurrentScript from './CurrentScript'
 import { GetAllUserGroup, OpenPosition } from '../../Common API/User'
+import { ExpriyEndDate } from '../../Common API/Admin'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-
 const Userdashboard = () => {
     const userName = localStorage.getItem('name')
-    const [selectStrategyType, setStrategyType] = useState('')
     const [activeTab1, setActiveTab1] = useState('CurrentPosition')
-    const [activeTab, setActiveTab] = useState('copyScript')
+    const [activeTab, setActiveTab] = useState('currentScript')
     const [subTab, setSubTab] = useState('Scalping')
     const [refresh, setRefresh] = useState(false)
     const [getGroup, setGroup] = useState('')
+    const [serviceStatus, setServiceStatus] = useState({
+        status: false,
+        msg: ''
+    })
     const [getGroupName, setGroupName] = useState({
         loading: true,
         data: []
@@ -24,11 +26,6 @@ const Userdashboard = () => {
         Option: [],
         Pattern: []
     })
-
-
-
-
-
     const getUserAllGroup = async () => {
         const data = { User: userName }
         await GetAllUserGroup(data)
@@ -45,8 +42,6 @@ const Userdashboard = () => {
                         loading: false,
                         data: []
                     })
-
-
                 }
             })
             .catch((err) => {
@@ -58,12 +53,31 @@ const Userdashboard = () => {
     }, [activeTab])
 
 
+
+    const GetExpriyEndDate = async () => {
+        const data = { Username: userName }
+        await ExpriyEndDate(data)
+            .then((response) => {
+                setServiceStatus({
+                    status: response.Status,
+                    msg: response.massage
+                })
+            })
+            .catch((err) => {
+                console.log("Error in finding the Service end date", err)
+            })
+    }
+
+    useEffect(() => {
+        GetExpriyEndDate()
+    }, [])
+
     const GetOpenPosition = async () => {
         const data = { userName: userName }
         await OpenPosition(data)
             .then((response) => {
                 if (response.Status) {
-                    console.log(response)
+
                     setPositionData({
                         loading: false,
                         Scalping: response.Scalping,
@@ -84,15 +98,9 @@ const Userdashboard = () => {
                 console.log("Error in finding the open postion data", err)
             })
     }
-
     useEffect(() => {
         GetOpenPosition()
     }, [])
-
-
-
-
-
 
     const columns1 = [
         {
@@ -135,6 +143,22 @@ const Userdashboard = () => {
         {
             name: "EPrice",
             label: "Entry Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeExecution",
+            label: "Trade Execution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "TradeCount",
+            label: "Trade Count",
             options: {
                 filter: true,
                 sort: true,
@@ -386,7 +410,6 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-
         {
             name: "Quantity",
             label: "Quantity",
@@ -430,12 +453,13 @@ const Userdashboard = () => {
 
     ];
 
+
     return (
         <div className="container-fluid">
-            <div className="row">
+            <div className="row p-0">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body">
+                        <div className="iq-card-body" style={{ padding: "3px" }}>
                             <ul className="nav nav-tabs justify-content-center" id="myTab-2" role="tablist">
                                 <li className="nav-item" role="presentation">
                                     <a
@@ -467,51 +491,55 @@ const Userdashboard = () => {
                                 </li>
                             </ul>
 
-
                             <div className='row'>
                                 {activeTab1 === 'CurrentPosition' && (
                                     <div className='d-flex'>
-                                        <div className="form-group col-md-6 ms-2">
-                                            <label>Type</label>
-                                            <select className="form-select" required=""
-                                                onChange={(e) => { setActiveTab(e.target.value) }}
-                                                value={activeTab}>
-                                                <option value="currentScript">Current Script</option>
-                                                <option value="copyScript">Copy Script</option>
-                                                <option value="group">Group Script</option>
-                                            </select>
-                                        </div>
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
+                                            <div className='px-3'>
 
-                                        <div className="form-group col-md-3 ms-2">
-                                            <label>Strategy Type</label>
-                                            <select className="form-select" required=""
-                                                onChange={(e) => { setSubTab(e.target.value) }}
-                                                value={subTab}>
-                                                <option value="Scalping">Scalping</option>
-                                                <option value="Option Strategy">Option Strategy</option>
-                                                <option value="Pattern">Pattern Script</option>
-                                            </select>
+                                                <label>Type</label>
+                                                <select className="form-select" required=""
+                                                    onChange={(e) => { setActiveTab(e.target.value) }}
+                                                    value={activeTab}>
+                                                    <option value="currentScript">Current Script</option>
+                                                    <option value="copyScript">Copy Script</option>
+                                                    <option value="group">Group Script</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
+                                            <div className='px-3'>
+                                                <label>Strategy Type</label>
+                                                <select className="form-select" required=""
+                                                    onChange={(e) => { setSubTab(e.target.value) }}
+                                                    value={subTab}>
+                                                    <option value="Scalping">Scalping</option>
+                                                    <option value="Option Strategy">Option Strategy</option>
+                                                    <option value="Pattern">Pattern Script</option>
+                                                </select>
+                                            </div>
                                         </div>
 
                                         {activeTab == "group" && (
-                                            <div className="form-group col-md-3 ms-2">
-                                                <label>Group Name</label>
-                                                <select className="form-select" required=""
-                                                    onChange={(e) => { setGroup(e.target.value) }}
-                                                    value={getGroup}>
-                                                    <option value=''>Select Group Name</option>
-                                                    {
-                                                        getGroupName && getGroupName.data.map((item) => {
-                                                            return <option value={item}>{item}</option>
-                                                        })
-                                                    }
-                                                </select>
+                                            <div className={`form-group col-md-4`}>
+                                                <div className='px-3'>
+                                                    <label>Group Name</label>
+                                                    <select className="form-select" required=""
+                                                        onChange={(e) => { setGroup(e.target.value) }}
+                                                        value={getGroup}>
+                                                        <option value=''>Select Group Name</option>
+                                                        {
+                                                            getGroupName && getGroupName.data.map((item) => {
+                                                                return <option value={item}>{item}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
                                 )}
                             </div>
-
 
                             <div className="tab-content">
                                 {activeTab1 === 'CurrentPosition' && (
@@ -519,7 +547,7 @@ const Userdashboard = () => {
                                         {activeTab === 'copyScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <Coptyscript data={subTab} selectedType={activeTab} />}
+                                                    {subTab && <Coptyscript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
@@ -527,14 +555,14 @@ const Userdashboard = () => {
                                         {activeTab === 'group' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} />}
+                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
                                         {activeTab === 'currentScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} />}
+                                                    {subTab && <CurrentScript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
                                         )}
@@ -545,7 +573,6 @@ const Userdashboard = () => {
                             <div className="tab-content">
                                 {activeTab1 === 'OpenPosition' && (
                                     <>
-                                        {console.log(getPositionData)}
                                         <div className='mt-4'>
                                             <h4>Scalping</h4>
                                             <FullDataTable

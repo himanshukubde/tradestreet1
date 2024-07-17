@@ -945,8 +945,6 @@ const Userlog = () => {
 
     ];
 
-
-
     const columns5 = [
         {
             name: "S.No",
@@ -1191,11 +1189,11 @@ const Userlog = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error group data fetch")
         }
     }
 
@@ -1241,7 +1239,7 @@ const Userlog = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">User Script Details</h4>
+                                <h4 className="card-title">Service Report</h4>
                             </div>
                         </div>
                         <div className="iq-card-body">
@@ -1325,15 +1323,11 @@ const Userlog = () => {
                                         data={getUserData.data}
                                         checkBox={false}
                                     />
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </>
-
             }
         </>
     )

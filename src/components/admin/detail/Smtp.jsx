@@ -39,7 +39,7 @@ const Smtp = () => {
                 });
             }
         }).catch((error) => {
-            console.log("server error");
+            console.log("Error in server Side");
         });
     };
 
@@ -119,7 +119,6 @@ const Smtp = () => {
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary me-1 mt-2">
                                     Update
                                 </button>
-                               
                             </div>
                         </div>
                     </div>

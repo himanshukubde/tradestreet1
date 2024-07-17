@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { GetClientService , GetClientLogs } from '../../Common API/Admin'
+import { GetClientService, GetClientLogs } from '../../Common API/Admin'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
+import {ClientActivityPage} from './UserAllColumn'
 
 const Clientactivity = () => {
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
- 
+
     const [getClientActivityDetails, setClientActivityDetails] = useState({
         loading: true,
         data: []
@@ -19,11 +20,28 @@ const Clientactivity = () => {
     const [selectUserName, setSelectUserName] = useState('')
 
 
-     
-   
 
 
 
+    // set Defult Date 
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 7);
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+
+
+    // from date
+    const DefultToDate = new Date();
+
+    DefultToDate.setDate(DefultToDate.getDate());
+    const year1 = DefultToDate.getFullYear();
+    const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+    const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+    const Defult_To_Date = `${year1}-${month1}-${day1}`;
+ 
 
     const GetAllUserDetails = async () => {
         try {
@@ -33,7 +51,7 @@ const Clientactivity = () => {
                     if (response.Status) {
                         setUserName({
                             loading: false,
-                            data: response.Profile
+                            data: response.Data
                         })
                     }
                     else {
@@ -44,11 +62,11 @@ const Clientactivity = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error in Group data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error in Group data fetch")
         }
     }
 
@@ -56,137 +74,36 @@ const Clientactivity = () => {
         GetAllUserDetails()
     }, [])
 
-
-
+ 
 
     const getClientTetails = async () => {
-        const data = {User : selectUserName  , From_date : FromDate , To_date  :ToDate}
+        const data = { User: selectUserName, From_date: FromDate == "" ? formattedDate : FromDate, To_date: ToDate == "" ? Defult_To_Date : ToDate }
         await GetClientLogs(data)
-        .then((response)=>{
-            if(response.Status){
-                setClientActivityDetails({
-                    loading:false,
-                    data : response.Data
-                })
-            }
-            else{
-                setClientActivityDetails({
-                    loading:false,
-                    data : []
-                })
-            }
-        })
-        .catch((err)=>{
-            console.log("Error In finding the client details", err)
-        })
+            .then((response) => {
+                if (response.Status) {
+                    setClientActivityDetails({
+                        loading: false,
+                        data: response.Data
+                    })
+                }
+                else {
+                    setClientActivityDetails({
+                        loading: false,
+                        data: []
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log("Error In finding the client details", err)
+            })
     }
 
 
-    useEffect(()=>{
-        getClientTetails()
-    },[selectUserName , ToDate , FromDate])
-
-     
-
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceCount",
-            label: "ServiceCount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Broker",
-            label: "Broker",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CreditUse",
-            label: "CreditUse",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceEndDate",
-            label: "ServiceEndDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "ServiceStartDate",
-            label: "ServiceStartDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "LicanseStartDate",
-            label: "LicanseStartDate",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "RemainingAmmount",
-            label: "RemainingAmmount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Remaining Amount",
-            label: "Remaining Amount",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-         
-    ];
-
-
-    // useEffect(() => {
-    //     if (getGroupData.data && getGroupData.data.length > 0) {
-    //         setSelectGroup(getGroupData.data[0].GroupName);
-    //     }
-    // }, [getGroupData]);
-
     useEffect(() => {
-        setSelectUserName('komal')
-    }, []);
+        getClientTetails()
+    }, [selectUserName, ToDate, FromDate])
 
+ 
 
     return (
         <div>
@@ -210,6 +127,8 @@ const Clientactivity = () => {
                                                     onChange={(e) => setSelectUserName(e.target.value)}
                                                     value={selectUserName}
                                                 >
+                                                            <option value="">Select Username</option>
+
                                                     {getUserName.data && getUserName.data.map((item) => {
                                                         return <>
                                                             <option value={item.Username}>{item.Username}</option>
@@ -219,12 +138,12 @@ const Clientactivity = () => {
                                             </div>
                                             <div className="form-group col-lg-3 ">
                                                 <label>Select form Date</label>
-                                                <DatePicker className="form-select" selected={FromDate} onChange={(date) => setFromDate(date)} />
+                                                <DatePicker className="form-select" selected={FromDate=="" ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                             </div>
                                             <div className="form-group col-lg-3">
                                                 <label>Select To Date</label>
-                                                <DatePicker className="form-select" selected={ToDate} onChange={(date) => setToDate(date)} />
+                                                <DatePicker className="form-select" selected={ToDate=="" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                             </div>
                                         </div>
@@ -232,7 +151,7 @@ const Clientactivity = () => {
                                     </form>
                                     <div className="modal-body">
                                         <FullDataTable
-                                            columns={columns}
+                                            columns={ClientActivityPage()}
                                             data={getClientActivityDetails.data}
                                             checkBox={false}
                                         />

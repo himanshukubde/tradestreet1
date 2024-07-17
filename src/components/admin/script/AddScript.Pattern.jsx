@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { AddAdminScript, GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name } from '../../Common API/Admin'
+import { AddAdminScript, GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name, GetExchange } from '../../Common API/Admin'
 
 const AddClient = () => {
 
@@ -14,6 +14,8 @@ const AddClient = () => {
         data: []
     })
 
+    const [getAllExchange, setAllExchange] = useState([])
+    
     const [getStricke, setStricke] = useState({
         loading: true,
         data: []
@@ -25,7 +27,7 @@ const AddClient = () => {
     })
 
 
-    console.log("getTimeFrame :", getTimeFrame)
+   
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []
@@ -40,12 +42,8 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    const [refresh, setRefresh] = useState(false)
+ 
 
-
-
-
-console.log("Cpp", location.state.data.selectGroup)
 
     const formik = useFormik({
 
@@ -72,7 +70,6 @@ console.log("Cpp", location.state.data.selectGroup)
             EntryTime: "",
             ExitTime: "",
             ExitDay: "",
-            TradeExecution: "Paper Trade",
             FixedSM: "",
             TType: "",
             serendate: "2023-10-25",
@@ -90,71 +87,78 @@ console.log("Cpp", location.state.data.selectGroup)
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            TradeCount: 3
+             
 
         },
 
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
+        
             if (!values.Exchange) {
-                errors.Exchange = "Select Exchange type"
+                errors.Exchange = "Please Select Exchange Type.";
             }
-            if (!values.Instrument) {
-                errors.Instrument = "Enter Instrument Type"
+            if (!values.Instrument && values.Exchange=="NFO") {
+                errors.Instrument = "Please Enter Instrument Type.";
             }
             if (!values.Symbol) {
-                errors.Symbol = "Enter Symbol Type"
+                errors.Symbol = "Please Enter Symbol Type.";
             }
-            if (!values.Optiontype) {
-                errors.Optiontype = "Enter Option Type"
+            if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+                errors.Optiontype = "Enter Option Type.";
             }
-            if (!values.Strike) {
-                errors.Strike = "Enter Strike Price"
+            if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+                errors.Strike = "Enter Strike Price.";
             }
-            if (!values.expirydata1) {
-                errors.expirydata1 = "Enter expirydata Type"
+            if (!values.expirydata1 && values.Exchange=="NFO") {
+                errors.expirydata1 = "Enter Expiry Date.";
             }
-            
             if (!values.Strategy) {
-                errors.Strategy = "Enter Strategy Type"
+                errors.Strategy = "Please Select Pattern Type.";
             }
             if (!values.Timeframe) {
-                errors.Timeframe = "Enter Timeframe Type"
+                errors.Timeframe = "Please Enter Timeframe Type.";
             }
             if (!values.ETPattern) {
-                errors.ETPattern = "Enter ETPattern Type"
+                errors.ETPattern = "Please Select Pattern Name.";
             }
             if (!values.HoldExit) {
-                errors.HoldExit = "Enter HoldExit Type"
+                errors.HoldExit = "Please Select Previous Trend.";
             }
             if (!values.TStype) {
-                errors.TStype = "Enter TStype Type"
+                errors.TStype = "Please Enter Measurement Type.";
             }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Enter Slvalue Type"
+            if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
+                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
             }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Enter Targetvalue Type"
+            if (!values.Targetvalue || values.Targetvalue==0 || Number(values.Targetvalue)<0) {
+                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" : Number(values.Targetvalue)<0 ? "Target can not be Negative"  : "Please Enter Target Value.";
             }
-
             if (!values.TType) {
-                errors.TType = "Enter TType Type"
+                errors.TType = "Please Enter Transaction Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = "Enter Quantity Type"
+                errors.Quantity = formik.values.Exchange =="NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
             }
             if (!values.ExitDay) {
-                errors.ExitDay = "Enter ExitDay Type"
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Enter EntryTime Type"
+                errors.ExitDay = "Please Select Exit Day.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Enter ExitTime Type"
+                errors.ExitTime = "Please Select An Exit Time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
             }
-
+            if (!values.EntryTime) {
+                errors.EntryTime = "Please Select An Entry Time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            }
+        
             return errors;
         },
+        
+        
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -166,7 +170,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 Symbol: values.Symbol,
                 Instrument: values.Instrument,
                 Strike: values.Strike,
-                Optiontype: values.Optiontype,
+                Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ?   values.Optiontype : "",
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
@@ -179,11 +183,9 @@ console.log("Cpp", location.state.data.selectGroup)
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                
                 FixedSM: "",
                 TType: values.TType,
-                serendate: "2023-10-25",
-                expirydata1: values.expirydata1,
+                expirydata1: values.Exchange=="NSE" ? "-" :  values.expirydata1,
                 Expirytype: "",
                 Striketype: "",
                 DepthofStrike: 0,
@@ -198,7 +200,6 @@ console.log("Cpp", location.state.data.selectGroup)
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
             }
-            console.log("CPP :", req)
 
             await AddAdminScript(req)
                 .then((response) => {
@@ -227,8 +228,6 @@ console.log("Cpp", location.state.data.selectGroup)
                 .catch((err) => {
                     console.log("Error in added new Script", err)
                 })
-
-
         },
     });
 
@@ -236,10 +235,41 @@ console.log("Cpp", location.state.data.selectGroup)
     useEffect(() => {
         formik.setFieldValue('Strategy', "CandlestickPattern")
         formik.setFieldValue('Exchange', "NFO")
-        formik.setFieldValue('Instrument', "OPTIDX")
+        formik.setFieldValue('Instrument', "FUTIDX")
+        formik.setFieldValue('Timeframe', "1M")
+        formik.setFieldValue('EntryTime', "09:15:00")
+        formik.setFieldValue('ExitTime', "15:25:00")
+        formik.setFieldValue('Optiontype',  "CE" )
+        formik.setFieldValue('TStype',  "Point" )
+        formik.setFieldValue('ExitDay',  "Intraday" )
+        formik.setFieldValue('TType',  "BUY" )
+        formik.setFieldValue('HoldExit',  "Without Trend" )
+
     }, [])
 
 
+
+
+
+    const get_Exchange = async () => {
+
+        await GetExchange()
+            .then((response) => {
+                if (response.Status) {
+                    setAllExchange(response.Exchange)
+                }
+                else {
+                    setAllExchange([])
+                }
+            })
+            .catch((err) => {
+                console.log("Error to finding the Exchange value", err)
+
+            })
+    }
+    useEffect(() => {
+        get_Exchange()
+    }, [])
 
 
 
@@ -249,16 +279,13 @@ console.log("Cpp", location.state.data.selectGroup)
             name: "Exchange",
             label: "Exchange",
             type: "select",
-            options: [
-                { label: "NFO", value: "NFO" },
-                { label: "NSE", value: "NSE" },
-                { label: "MCX", value: "MCX" },
-                { label: "CDS", value: "CDS" },
-            ],
-
+            options: getAllExchange && getAllExchange.map((item) => ({
+                label: item,
+                value: item,
+            })),
             hiding: false,
             label_size: 12,
-            col_size: 4,
+            col_size: 6,
             disable: false,
         },
         {
@@ -277,9 +304,9 @@ console.log("Cpp", location.state.data.selectGroup)
             type: "select",
             options: formik.values.Exchange == "NFO" ?
                 [
-                    { label: "OPTIDX", value: "OPTIDX" },
                     { label: "FUTIDX", value: "FUTIDX" },
                     { label: "FUTSTK", value: "FUTSTK" },
+                    { label: "OPTIDX", value: "OPTIDX" },
                     { label: "OPTSTK", value: "OPTSTK" },
                 ]
                 : formik.values.Exchange == "MCX" ?
@@ -290,8 +317,8 @@ console.log("Cpp", location.state.data.selectGroup)
                     ]
                     : formik.values.Exchange == "CDS" ?
                         [
-                            { label: "FUTCUR", value: "FUTCUR" },
                             { label: "OPTCUR", value: "OPTCUR" },
+                            { label: "FUTCUR", value: "FUTCUR" },
                         ]
                         :
                         [],
@@ -360,7 +387,7 @@ console.log("Cpp", location.state.data.selectGroup)
 
         {
             name: "Strategy",
-            label: "Option Type",
+            label: "Pattern Type",
             type: "select",
             options: [
                 { label: "Candlestick Pattern", value: "CandlestickPattern" },
@@ -380,7 +407,7 @@ console.log("Cpp", location.state.data.selectGroup)
                 label: item,
                 value: item
             })),
-          
+
             label_size: 12,
             hiding: false,
             col_size: 6,
@@ -388,7 +415,7 @@ console.log("Cpp", location.state.data.selectGroup)
         },
         {
             name: "ETPattern",
-            label: "Select Pattern",
+            label: "Pattern Name",
             type: "select",
             options: formik.values.Strategy == 'ChartingPattern' ? getChartPattern.data && getChartPattern.data.map((item) => ({
                 label: item,
@@ -410,10 +437,10 @@ console.log("Cpp", location.state.data.selectGroup)
             label: "Previous Trend",
             type: "select",
             options: [
+                { label: "Without Trend", value: "Without Trend" },
                 { label: "Uptrend", value: "Uptrend" },
                 { label: "Medium", value: "Medium" },
                 { label: "Downtrend", value: "Downtrend" },
-                { label: "Without Trend", value: "Without Trend" },
             ],
 
             label_size: 12,
@@ -423,7 +450,7 @@ console.log("Cpp", location.state.data.selectGroup)
         },
         {
             name: "TStype",
-            label: "Measurment Type",
+            label: "Measurement Type",
             type: "select",
             options: [
                 { label: "Point", value: "Point" },
@@ -435,11 +462,11 @@ console.log("Cpp", location.state.data.selectGroup)
             col_size: 4,
             disable: false,
         },
+       
         {
-            name: "Slvalue",
-            label: "Stop Loss",
+            name: "Targetvalue",
+            label: "Target",
             type: "number",
-
 
             label_size: 12,
             hiding: false,
@@ -447,9 +474,10 @@ console.log("Cpp", location.state.data.selectGroup)
             disable: false,
         },
         {
-            name: "Targetvalue",
-            label: "Target value",
+            name: "Slvalue",
+            label: "Stoploss",
             type: "number",
+
 
             label_size: 12,
             hiding: false,
@@ -458,7 +486,7 @@ console.log("Cpp", location.state.data.selectGroup)
         },
         {
             name: "TType",
-            label: "Transation Type",
+            label: "Transaction Type",
             type: "select",
             options: [
                 { label: "BUY", value: "BUY" },
@@ -467,28 +495,20 @@ console.log("Cpp", location.state.data.selectGroup)
             ],
             label_size: 12,
             hiding: false,
-            col_size: 3,
+            col_size: 4,
             disable: false,
         },
         {
             name: "Quantity",
-            label: "Quantity",
-            type: "number",
+            label: formik.values.Exchange =="NFO" ? "Lot" : "Quantity",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
-            col_size: 3,
+            col_size: 4,
             disable: false,
         },
-        {
-            name: "Quantity",
-            label: "Quantity",
-            type: "cp",
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: false,
-        },
+        
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -553,7 +573,7 @@ console.log("Cpp", location.state.data.selectGroup)
 
     useEffect(() => {
         getSymbol()
-    }, [formik.values.Instrument, formik.values.Exchange, refresh])
+    }, [formik.values.Instrument, formik.values.Exchange])
 
 
     const getStrikePrice = async () => {
@@ -691,16 +711,8 @@ console.log("Cpp", location.state.data.selectGroup)
 
     useEffect(() => {
 
-        if (formik.values.set_Range == "No") {
-            formik.setFieldValue('LowerRange', "1")
-            formik.setFieldValue('HigherRange', "1")
-            formik.setFieldValue('HoldExit', "")
-        }
-        if (formik.values.Set_First_Trade_Range == "No") {
-            formik.setFieldValue('EntryPrice', "1")
-            formik.setFieldValue('EntryRange', "1")
-
-        }
+        
+       
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")
@@ -710,14 +722,14 @@ console.log("Cpp", location.state.data.selectGroup)
 
         }
 
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+    }, [formik.values.Instrument, formik.values.Exchange])
 
 
     return (
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
-                page_title="Add Script pattern"
+                page_title="Add Script - Pattern Script"
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

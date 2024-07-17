@@ -6,13 +6,12 @@ import Loader from '../../../ExtraComponent/Loader';
 import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
 
-const Coptyscript = ({ data, selectedType }) => {
+const Coptyscript = ({ data, selectedType, data2 }) => {
     const userName = localStorage.getItem('name')
 
 
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false)
-    const [selectGroup, setSelectGroup] = useState('');
     const [getAllService, setAllservice] = useState({
         loading: true,
         ScalpingData: [],
@@ -22,6 +21,7 @@ const Coptyscript = ({ data, selectedType }) => {
         Marketwise: [],
         PremiumRotation: []
     });
+
 
 
     const handleDelete = async (rowData) => {
@@ -36,7 +36,7 @@ const Coptyscript = ({ data, selectedType }) => {
                     ETPattern: "",
                     Timeframe: "",
                     TType: "",
-                    Group: getAllService.OptionData[index].GroupN,
+                    Group: getAllService.ScalpingData[index].GroupN,
                     TradePattern: "",
                     TSymbol: "",
                     PatternName: ""
@@ -75,24 +75,26 @@ const Coptyscript = ({ data, selectedType }) => {
         await DeleteUserScript(req)
             .then((response) => {
                 if (response.Status) {
-                    setRefresh(!refresh)
                     Swal.fire({
                         title: "Deleted",
                         text: "Script Deleted successfully",
                         icon: "success",
                         timer: 1500,
-                        timerProgressBar: true
+                        timerProgressBar: true,
+                        didClose: () => {
+                            setRefresh(!refresh);
+                        }
                     });
-                }
-                else {
+                } else {
                     Swal.fire({
                         title: "Error !",
-                        text: "error in script delete",
+                        text: "Error in script delete",
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
                     });
                 }
+
             })
             .catch((err) => {
                 console.log("Error in delete script", err)
@@ -101,9 +103,19 @@ const Coptyscript = ({ data, selectedType }) => {
 
     const HandleContinueDiscontinue = async (rowData) => {
         const index = rowData.rowIndex
-        const trading = getAllService.ScalpingData[index].Trading
-        if (trading) {
+        let trading;
 
+        if (data == 'Scalping') {
+            trading = getAllService.ScalpingData[index].Trading
+        }
+        else if (data == 'Pattern') {
+            trading = getAllService.PatternData[index].Trading
+        }
+        else {
+            trading = getAllService.OptionData[index].Trading
+        }
+
+        if (trading) {
             Swal.fire({
                 title: "Do you want to Discontinue",
                 text: "You won't be able to revert this!",
@@ -124,7 +136,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                 ETPattern: "",
                                 Timeframe: "",
                                 TType: "",
-                                Group: getAllService.OptionData[index].GroupN,
+                                Group: getAllService.ScalpingData[index].GroupN,
                                 TradePattern: "",
                                 TSymbol: "",
                                 PatternName: ""
@@ -163,21 +175,21 @@ const Coptyscript = ({ data, selectedType }) => {
                     await Discontinue(req)
                         .then((response) => {
                             if (response.Status) {
-                                setRefresh(!refresh)
                                 Swal.fire({
                                     title: "Success",
-                                    text: "Script Discontinued",
+                                    text: response.massage,
                                     icon: "success",
-                                    timer: 1500,
+                                    timer: 2000,
                                     timerProgressBar: true
                                 });
+                                setRefresh(!refresh)
                             }
                             else {
                                 Swal.fire({
                                     title: "Error !",
-                                    text:response.massage,
+                                    text: response.massage,
                                     icon: "error",
-                                    timer: 1500,
+                                    timer: 2000,
                                     timerProgressBar: true
                                 });
                             }
@@ -192,7 +204,7 @@ const Coptyscript = ({ data, selectedType }) => {
             {
 
                 Swal.fire({
-                    title: "Do you want to Continue", 
+                    title: "Do you want to Continue",
                     text: "You won't be able to revert this!",
                     icon: "info",
                     showCancelButton: true,
@@ -211,7 +223,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                     ETPattern: "",
                                     Timeframe: "",
                                     TType: "",
-                                    Group: getAllService.OptionData[index].GroupN,
+                                    Group: getAllService.ScalpingData[index].GroupN,
                                     TradePattern: "",
                                     TSymbol: "",
                                     PatternName: ""
@@ -231,7 +243,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                     }
                                     : data == 'Pattern' ?
                                         {
-    
+
                                             MainStrategy: data,
                                             Strategy: getAllService.PatternData[index].TradePattern,
                                             Symbol: getAllService.PatternData[index].Symbol,
@@ -243,10 +255,10 @@ const Coptyscript = ({ data, selectedType }) => {
                                             TSymbol: "",
                                             TradePattern: "",
                                             PatternName: ""
-    
+
                                         } : ''
-    
-    
+
+
                         await Continue(req)
                             .then((response) => {
                                 if (response.Status) {
@@ -282,13 +294,27 @@ const Coptyscript = ({ data, selectedType }) => {
     }
 
     const AddScript = (data) => {
-        if (data === "Option Strategy") {
-            navigate('/user/newscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
-        } else if (data === "Pattern") {
-            navigate('/user/newscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
-        } else {
-            navigate('/user/newscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+        if (data2.status == false) {
+            Swal.fire({
+                title: "Error",
+                text: data2.msg,
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true
+            });
+
         }
+        else {
+
+            if (data === "Option Strategy") {
+                navigate('/user/newscript/option', { state: { data: { selectStrategyType: 'Option Strategy' } } });
+            } else if (data === "Pattern") {
+                navigate('/user/newscript/pattern', { state: { data: { selectStrategyType: 'Pattern' } } });
+            } else {
+                navigate('/user/newscript/scalping', { state: { data: { selectStrategyType: 'Scalping' } } });
+            }
+        }
+
     }
 
     const GetAllUserScriptDetails = async () => {
@@ -333,7 +359,7 @@ const Coptyscript = ({ data, selectedType }) => {
             <div className="row">
                 <div className="col-sm-12">
                     <div className="iq-card">
-                        <div className="iq-card-body">
+                        <div className="iq-card-body" style={{ padding: '3px' }}>
                             <div className="tab-content" id="myTabContent-3">
 
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
@@ -347,7 +373,7 @@ const Coptyscript = ({ data, selectedType }) => {
                                                     <button className='btn btn-primary' onClick={() => AddScript(data)}>Add Script</button>
                                                 </div>
                                             </div>
-                                            <div className="iq-card-body">
+                                            <div className="iq-card-body " style={{ padding: '3px' }}>
                                                 <div className="table-responsive">
 
                                                     {getAllService.loading ? <Loader /> :

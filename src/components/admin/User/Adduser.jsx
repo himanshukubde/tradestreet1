@@ -6,23 +6,11 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../ExtraComponent/Loader';
 
 
 const Adduser = () => {
     const navigate = useNavigate()
-    const [formData, setFormData] = useState({
-        fname: '',
-        email: '',
-        mobno: '',
-        pass: '',
-        rpass: '',
-        broker: 'ICICI',
-        serviceCount: '1',
-        selectDay: 'Two Days',
-        selectGroup: 'Test',
-      
-        enableTwoFactor: false,
-    });
     const [getBroker, setBroker] = useState({
         loading: true,
         data: []
@@ -39,8 +27,8 @@ const Adduser = () => {
         await Get_Broker_Name()
             .then((response) => {
                 if (response.Status) {
-                    const filterOutBroker = response.Brokernamelist.filter((item)=>{
-                        return item.BrokerName!='Demo'
+                    const filterOutBroker = response.Brokernamelist.filter((item) => {
+                        return item.BrokerName != 'Demo'
                     })
                     setBroker({
                         loading: false,
@@ -63,6 +51,10 @@ const Adduser = () => {
         getBrokerName()
     }, [])
 
+    const Name_regex = (name) => {
+        const nameRegex = /^[a-zA-Z]+$/;
+        return nameRegex.test(name);
+    };
 
 
     const GetAllGroupDetails = async () => {
@@ -70,7 +62,7 @@ const Adduser = () => {
             await GetGroupNames()
                 .then((response) => {
                     if (response.Status) {
-                        const arr = response.StrGroupdf.map(item => ({
+                        const arr = response.Data.map(item => ({
                             label: item.GroupName,
                             key: item.GroupName
                         }));
@@ -79,7 +71,7 @@ const Adduser = () => {
 
                         setGroupData({
                             loading: false,
-                            data: response.StrGroupdf
+                            data: response.Data
                         })
                     }
                     else {
@@ -90,11 +82,11 @@ const Adduser = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log("Group data fetch error", err)
+                    console.log("Error in data fetch", err)
                 })
         }
         catch {
-            console.log("Group data fetch error")
+            console.log("Error group data fetch")
         }
     }
 
@@ -122,6 +114,9 @@ const Adduser = () => {
             if (!values.UserName) {
                 errors.UserName = "Enter User Name"
             }
+            else if (!Name_regex(values.UserName)) {
+                errors.UserName = "Enter Valid Username"
+            }
 
             if (!values.Email) {
                 errors.Email = "Enter Email ID";
@@ -146,7 +141,7 @@ const Adduser = () => {
             if (!values.Select_License_Type) {
                 errors.Select_License_Type = "Enter Select License Type"
             }
-          
+
             if (!values.Service_Count) {
                 errors.Service_Count = "Enter Service Count"
             }
@@ -155,26 +150,25 @@ const Adduser = () => {
         },
         onSubmit: async (values) => {
             const req = {
-                SignuserName: values.UserName,
-                Signpassword: values.Password,
-                ConfirmPassword: values.Confirm_Password,
-                SignEmail: values.Email,
+                username: values.UserName,
+                password: values.Password,
+                cpassword: values.Confirm_Password,
+                email: values.Email,
                 mobile_no: values.PhoneNo,
-                Day: values.Select_License_Type == '11' ? "2 Day Demo" : values.Select_License_Type == '21' ? "1 Week Demo" : values.Select_License_Type == '12' ? "2 Day Live" : values.Select_License_Type == '22' ? "1 Month Live" : '',
-                ser: values.Select_License == '1' ? 2 : Number(values.Service_Count),
-                SSDate: values.From_Date,
-                SEDate: values.To_Date,
-                BrokerName: values.Select_License == '1' ? "Demo Account" : values.Select_Broker,
-                Group: selectedOptions && selectedOptions
+                ltype: values.Select_License_Type == '11' ? "Two Days" : values.Select_License_Type == '21' ? "One Week" : values.Select_License_Type == '12' ? "Two Days" : values.Select_License_Type == '22' ? "One Month" : '',
+                scount: values.Select_License == '1' ? 2 : Number(values.Service_Count),
+                ssdate: values.From_Date,
+                sedate: values.To_Date,
+                bname: values.Select_License == '1' ? "Demo" : values.Select_Broker,
+                group: selectedOptions && selectedOptions
             }
-
-
+             
             await CreateAccount(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "User Created!",
-                            text: "New User Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -186,7 +180,7 @@ const Adduser = () => {
                     else {
                         Swal.fire({
                             title: "Error!",
-                            text: "Error in User create..!",
+                            text: response.massage,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -203,7 +197,7 @@ const Adduser = () => {
     const fields = [
         {
             name: "UserName",
-            label: "User Name",
+            label: "Username",
             type: "text",
             label_size: 12,
             hiding: false,
@@ -239,8 +233,8 @@ const Adduser = () => {
         },
         {
             name: "PhoneNo",
-            label: "Phone Number",
-            type: "text",
+            label: "Mobile Number",
+            type: "text3",
             label_size: 12,
             hiding: false,
             col_size: 6,
@@ -250,7 +244,7 @@ const Adduser = () => {
 
             name: "Select_License",
             name: "Select_License",
-            label: "Select License",
+            label: "Select License Type",
             type: "select1",
             options: [
                 { label: "Demo", value: "1" },
@@ -265,7 +259,7 @@ const Adduser = () => {
         {
 
             name: "Select_License_Type",
-            label: "Select License Type",
+            label: "Select Days",
             type: "select1",
             options: formik.values.Select_License == '1' ? [
                 { label: "2 Days Demo", value: "11" },
@@ -282,7 +276,7 @@ const Adduser = () => {
         },
         {
             name: "From_Date",
-            label: "Service Start Date",
+            label: "Service StartDate",
             type: "date",
             label_size: 12,
             hiding: false,
@@ -291,7 +285,7 @@ const Adduser = () => {
         },
         {
             name: "To_Date",
-            label: "Service End Date",
+            label: "Service EndDate",
             type: "date",
             label_size: 12,
             hiding: false,
@@ -334,7 +328,7 @@ const Adduser = () => {
 
     //Select Date form date and end date
     const currentDate = new Date();
-    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ? 2 : formik.values.Select_License_Type === '21' ? 7 : formik.values.Select_License_Type === '22' ? 30 : 0;
+    const daysToSubtract = formik.values.Select_License_Type === '11' || formik.values.Select_License_Type === '12' ? TwoDays(new Date()) : formik.values.Select_License_Type === '21' ? WeekDays(new Date()) : formik.values.Select_License_Type === '22' ? 30 : 0;
     currentDate.setDate(currentDate.getDate() + daysToSubtract);
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -382,32 +376,89 @@ const Adduser = () => {
             formik.setFieldValue('Select_Broker', "")
         }
     }, [formik.values.Select_License])
+
+
+    function TwoDays(startDate) {
+        let daysToAdd = 0;
+        const currentDay = startDate.getDay();
+
+        if (currentDay === 6) { // Saturday
+            daysToAdd = 4;
+        } else if (currentDay === 0) { // Sunday
+            daysToAdd = 3;
+        } else if (currentDay === 1) { // Monday
+            daysToAdd = 3;
+        } else if (currentDay === 2) { // Tuesday
+            daysToAdd = 3;
+        } else if (currentDay === 3) { // Wednesday
+            daysToAdd = 3;
+        } else if (currentDay === 4) { // Thursday
+            daysToAdd = 5;
+        } else if (currentDay === 5) { // Friday
+            daysToAdd = 5;
+        } else {
+            daysToAdd = 3;
+        }
+
+        return daysToAdd
+    }
+
+
+
+    function WeekDays(startDate) {
+        let daysToAdd = 0;
+        const currentDay = startDate.getDay();
+
+        if (currentDay === 6) { // Saturday
+            daysToAdd = 9;
+        } else if (currentDay === 0) { // Sunday
+            daysToAdd = 8;
+        } else if (currentDay === 1) { // Monday
+            daysToAdd = 7;
+        } else if (currentDay === 2) { // Tuesday
+            daysToAdd = 7;
+        } else if (currentDay === 3) { // Wednesday
+            daysToAdd = 7;
+        } else if (currentDay === 4) { // Thursday
+            daysToAdd = 7;
+        } else if (currentDay === 5) { // Friday
+            daysToAdd = 7;
+        } else {
+            daysToAdd = 7;
+        }
+        return daysToAdd
+
+    }
+
+
+    console.log("getGroupData :", getGroupData)
     return (
         <>
-            {optionsArray.length > 0 && (
-                <AddForm
-                    fields={fields.filter(
-                        (field) => !field.showWhen || field.showWhen(formik.values)
-                    )}
-                    page_title="Create Account"
-                    btn_name="Add"
-                    btn_name1="Cancel"
-                    formik={formik}
-                    btn_name1_route={"/admin/clientservice"}
-                    additional_field={
-                        <div className='col-lg-6 mt-2' >
-                            <h6>Select Group</h6>
-                            <DropdownMultiselect
-                                options={optionsArray}
-                                name="groupName"
-                                handleOnChange={(selected) => {
-                                    setSelectedOptions(selected)
-                                }}
-                            />
-                        </div>
-                    }
-                />
-            )}
+            {getGroupData.loading ? <Loader /> :
+                (
+                    <AddForm
+                        fields={fields.filter(
+                            (field) => !field.showWhen || field.showWhen(formik.values)
+                        )}
+                        page_title="Create Account"
+                        btn_name="Add"
+                        btn_name1="Cancel"
+                        formik={formik}
+                        btn_name1_route={"/admin/clientservice"}
+                        additional_field={
+                            <div className='col-lg-6 mt-2' >
+                                <h6>Select Group</h6>
+                                <DropdownMultiselect
+                                    options={optionsArray}
+                                    name="groupName"
+                                    handleOnChange={(selected) => {
+                                        setSelectedOptions(selected)
+                                    }}
+                                />
+                            </div>
+                        }
+                    />
+                )}
         </>
     );
 };
