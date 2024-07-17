@@ -57,7 +57,7 @@ const loginWithApi = async (UserDetails) => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://193.239.237.95:8000/AngelBroker/' + UserDetails.Username,
+                url: Config.base_url + 'AngelBroker/' + UserDetails.Username,
                 headers: {}
             };
 

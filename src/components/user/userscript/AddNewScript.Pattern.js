@@ -299,6 +299,7 @@ const AddClient = () => {
             label: "Exchange",
             type: "cp",
             hiding: false,
+            showWhen: (values) => values.Exchange == "NFO",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -331,7 +332,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: 3,
+            col_size: 6,
             disable: false,
         },
         {
@@ -345,7 +346,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange == "NSE" ? 12 : 3,
+            col_size: formik.values.Exchange == "NSE" ? 6 : 6,
             disable: false,
         },
         {
@@ -359,7 +360,7 @@ const AddClient = () => {
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
             hiding: false,
-            col_size: 2,
+            col_size: 4,
             disable: false,
         },
         {
@@ -372,7 +373,7 @@ const AddClient = () => {
             })),
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
-            col_size: 2,
+            col_size: 4,
             hiding: false,
             disable: false,
         },
@@ -387,24 +388,22 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: 2,
+            col_size: 4,
             disable: false,
         },
-
         {
-            name: "Strategy",
-            label: "Option Type",
-            type: "select",
-            options: [
-                { label: "Candlestick Pattern", value: "CandlestickPattern" },
-                { label: "Charting Pattern", value: "ChartingPattern" },
-            ],
+            name: "expirydata1",
+            label: "Expiry Date",
+            type: "cp",
 
+            showWhen: (values) => values.Instrument === "FUTSTK" || values.Instrument === "FUTIDX",
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 7,
             disable: false,
         },
+
+
         {
             name: "Timeframe",
             label: "Time Frame",
@@ -416,12 +415,26 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Strategy",
+            label: "Pattern Type",
+            type: "select",
+            options: [
+                { label: "Candlestick Pattern", value: "CandlestickPattern" },
+                { label: "Charting Pattern", value: "ChartingPattern" },
+            ],
+
+            label_size: 12,
+            hiding: false,
+            col_size: 4,
             disable: false,
         },
         {
             name: "ETPattern",
-            label: "Select Pattern",
+            label: "Pattern Name",
             type: "select",
             options: formik.values.Strategy == 'ChartingPattern' ? getChartPattern.data && getChartPattern.data.map((item) => ({
                 label: item,
@@ -435,25 +448,10 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 4,
             disable: false,
         },
-        {
-            name: "HoldExit",
-            label: "Previous Trend",
-            type: "select",
-            options: [
-                { label: "Without Trend", value: "Without Trend" },
-                { label: "Uptrend", value: "Uptrend" },
-                { label: "Medium", value: "Medium" },
-                { label: "Downtrend", value: "Downtrend" },
-            ],
-
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
+         
         {
             name: "TStype",
             label: "Measurement Type",
@@ -468,7 +466,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-       
+
         {
             name: "Targetvalue",
             label: "Target",
@@ -506,7 +504,7 @@ const AddClient = () => {
         },
         {
             name: "Quantity",
-            label: formik.values.Exchange =="NFO" ? "Lot" : "Quantity",
+            label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
             type: "text3",
 
             label_size: 12,
@@ -514,30 +512,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-        {
-            name: "Trade_Execution",
-            label: "Trade Execution",
-            type: "select",
-            options: [
-              { label: "Paper Trade", value: "Paper Trade" },
-              { label: "Live Trade", value: "Live Trade" },
-            ],
-           
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-            hiding: false,
-          },
-          {
-            name: "Trade_Count",
-            label: "Trade Count",
-            type: "text5",
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-            hiding: false,
-          },
-        
+
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -552,13 +527,36 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "Exchange",
-            label: "Exchange",
-            type: "cp",
-            hiding: false,
+            name: "Trade_Execution",
+            label: "Trade Execution",
+            type: "select",
+            options: [
+                { label: "Paper Trade", value: "Paper Trade" },
+                { label: "Live Trade", value: "Live Trade" },
+            ],
+
             label_size: 12,
             col_size: 4,
             disable: false,
+            hiding: false,
+        },
+        {
+            name: "Trade_Count",
+            label: "Trade Count",
+            type: "text5",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "cp",
+            label: "cp",
+            type: "cp",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
         },
         {
             name: "EntryTime",

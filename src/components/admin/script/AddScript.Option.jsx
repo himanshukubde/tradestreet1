@@ -403,6 +403,15 @@ const AddClient = () => {
             disable: false,
         },
         {
+            name: "Quantity",
+            label: "Lot",
+            type: "number",
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
             name: "Striketype",
             label: "Strike Type",
             type: "select",
@@ -492,15 +501,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-        {
-            name: "Quantity",
-            label: "Lot",
-            type: "number",
-            hiding: false,
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-        },
+       
         {
             name: "TStype",
             label: "Measurement Type",

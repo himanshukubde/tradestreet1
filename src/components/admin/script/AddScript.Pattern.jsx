@@ -123,9 +123,7 @@ const AddClient = () => {
             if (!values.ETPattern) {
                 errors.ETPattern = "Please Select Pattern Name.";
             }
-            if (!values.HoldExit) {
-                errors.HoldExit = "Please Select Previous Trend.";
-            }
+             
             if (!values.TStype) {
                 errors.TStype = "Please Enter Measurement Type.";
             }
@@ -177,7 +175,7 @@ const AddClient = () => {
                 Quantity: values.Quantity,
                 LowerRange: 0.0,
                 HigherRange: 0.0,
-                HoldExit: values.HoldExit,
+                HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
                 EntryTime: values.EntryTime,
@@ -243,7 +241,7 @@ const AddClient = () => {
         formik.setFieldValue('TStype',  "Point" )
         formik.setFieldValue('ExitDay',  "Intraday" )
         formik.setFieldValue('TType',  "BUY" )
-        formik.setFieldValue('HoldExit',  "Without Trend" )
+       
 
     }, [])
 
@@ -293,6 +291,7 @@ const AddClient = () => {
             label: "Exchange",
             type: "cp",
             hiding: false,
+            showWhen: (values) => values.Exchange == "NFO",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -325,7 +324,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: 3,
+            col_size: 6,
             disable: false,
         },
         {
@@ -339,7 +338,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange == "NSE" ? 12 : 3,
+            col_size: formik.values.Exchange == "NSE" ? 6 : 6,
             disable: false,
         },
         {
@@ -353,7 +352,7 @@ const AddClient = () => {
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
             hiding: false,
-            col_size: 2,
+            col_size: 4,
             disable: false,
         },
         {
@@ -366,7 +365,7 @@ const AddClient = () => {
             })),
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
-            col_size: 2,
+            col_size: 4,
             hiding: false,
             disable: false,
         },
@@ -381,24 +380,22 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: 2,
+            col_size: 4,
             disable: false,
         },
-
         {
-            name: "Strategy",
-            label: "Pattern Type",
-            type: "select",
-            options: [
-                { label: "Candlestick Pattern", value: "CandlestickPattern" },
-                { label: "Charting Pattern", value: "ChartingPattern" },
-            ],
-
+            name: "expirydata1",
+            label: "Expiry Date",
+            type: "cp",
+           
+            showWhen: (values) => values.Instrument === "FUTSTK" || values.Instrument === "FUTIDX",
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 7,
             disable: false,
         },
+
+       
         {
             name: "Timeframe",
             label: "Time Frame",
@@ -410,7 +407,21 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Strategy",
+            label: "Pattern Type",
+            type: "select",
+            options: [
+                { label: "Candlestick Pattern", value: "CandlestickPattern" },
+                { label: "Charting Pattern", value: "ChartingPattern" },
+            ],
+
+            label_size: 12,
+            hiding: false,
+            col_size: 4,
             disable: false,
         },
         {
@@ -429,25 +440,25 @@ const AddClient = () => {
 
             label_size: 12,
             hiding: false,
-            col_size: 6,
+            col_size: 4,
             disable: false,
         },
-        {
-            name: "HoldExit",
-            label: "Previous Trend",
-            type: "select",
-            options: [
-                { label: "Without Trend", value: "Without Trend" },
-                { label: "Uptrend", value: "Uptrend" },
-                { label: "Medium", value: "Medium" },
-                { label: "Downtrend", value: "Downtrend" },
-            ],
+        // {
+        //     name: "HoldExit",
+        //     label: "Previous Trend",
+        //     type: "select",
+        //     options: [
+        //         { label: "Without Trend", value: "Without Trend" },
+        //         { label: "Uptrend", value: "Uptrend" },
+        //         { label: "Medium", value: "Medium" },
+        //         { label: "Downtrend", value: "Downtrend" },
+        //     ],
 
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
+        //     label_size: 12,
+        //     hiding: false,
+        //     col_size: 6,
+        //     disable: false,
+        // },
         {
             name: "TStype",
             label: "Measurement Type",
