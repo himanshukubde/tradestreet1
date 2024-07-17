@@ -49,7 +49,7 @@ const AddClient = () => {
       Optiontype: "",
       Targetvalue: 1,
       Slvalue: 1,
-      TStype:  "Point",
+      TStype: "Point",
       Quantity: 1,
       LowerRange: 0,
       HigherRange: 0,
@@ -84,78 +84,79 @@ const AddClient = () => {
       let errors = {};
       const maxTime = "15:29:59";
       const minTime = "09:15:00";
-  
+
       if (!values.Strategy) {
-          errors.Strategy = "Please Select Strategy Type.";
+        errors.Strategy = "Please Select Strategy Type.";
       }
       if (!values.Exchange) {
-          errors.Exchange = "Please Select Exchange Type.";
+        errors.Exchange = "Please Select Exchange Type.";
       }
       if (!values.Instrument && values.Exchange !== 'NSE') {
-          errors.Instrument = "Please Select Instrument Type.";
+        errors.Instrument = "Please Select Instrument Type.";
       }
       if (!values.Symbol) {
-          errors.Symbol = "Please Select Symbol Type.";
+        errors.Symbol = "Please Select Symbol Type.";
       }
       if (!values.Optiontype && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
-          errors.Optiontype = "Please Select Option Type.";
+        errors.Optiontype = "Please Select Option Type.";
       }
       if (!values.Strike && (values.Instrument === "OPTSTK" || values.Instrument === "OPTIDX")) {
-          errors.Strike = "Please Select Strike Price.";
+        errors.Strike = "Please Select Strike Price.";
       }
       if (!values.expirydata1 && values.Exchange !== 'NSE') {
-          errors.expirydata1 = "Select Expiry Date.";
+        errors.expirydata1 = "Select Expiry Date.";
       }
       if (!values.TType) {
-          errors.TType = "Please Select Transaction Type.";
+        errors.TType = "Please Select Transaction Type.";
       }
       if (!values.Quantity) {
-          errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value." : "Please Enter Quantity Value.";
+        errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value." : "Please Enter Quantity Value.";
       }
       if (!values.ExitTime) {
-          errors.ExitTime = "Please Select Exit Time.";
+        errors.ExitTime = "Please Select Exit Time.";
       } else if (values.ExitTime > maxTime) {
-          errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+        errors.ExitTime = "Exit Time Must be Before 15:29:59.";
       }
       if (!values.TStype) {
-          errors.TStype = "Please Select Measurement Type.";
+        errors.TStype = "Please Select Measurement Type.";
       }
       if (!values.EntryTime) {
-          errors.EntryTime = "Please Select Entry Time.";
+        errors.EntryTime = "Please Select Entry Time.";
       } else if (values.EntryTime < minTime) {
-          errors.EntryTime = "Entry Time Must be After 09:15:00.";
+        errors.EntryTime = "Entry Time Must be After 09:15:00.";
       }
       if (!values.ExitDay) {
-          errors.ExitDay = "Please Select Exit Day.";
+        errors.ExitDay = "Please Select Exit Day.";
       }
       if (!values.EntryPrice && values.Set_First_Trade_Range) {
-          errors.EntryPrice = "Please Enter The Lowest Price.";
+        errors.EntryPrice = "Please Enter The Lowest Price.";
       }
       if (!values.EntryRange && values.Set_First_Trade_Range) {
-          errors.EntryRange = "Please Enter The Highest Price.";
+        errors.EntryRange = "Please Enter The Highest Price.";
       }
       if (!values.Targetvalue) {
-          errors.Targetvalue = values.Strategy == "Fixed Price" ? "Please Enter A Target Price." : "Please Enter A Target Value.";
+        errors.Targetvalue = values.Strategy == "Fixed Price" ? "Please Enter A Target Price." : "Please Enter A Target Value.";
       }
       if (!values.LowerRange && (values.set_Range || values.Strategy === "Fixed Price")) {
-          errors.LowerRange = "Please Enter The Lower Price.";
+        errors.LowerRange = "Please Enter The Lower Price.";
       }
       if (!values.HigherRange && (values.set_Range || values.Strategy === "Fixed Price")) {
-          errors.HigherRange = "Please Enter The Higher Price.";
+        errors.HigherRange = "Please Enter The Higher Price.";
       }
       if (!values.Group && values.Strategy === "Fixed Price") {
-          errors.Group = "Please Select A Unique ID.";
+        errors.Group = "Please Select A Unique ID.";
       }
       if (!values.HoldExit && values.set_Range) {
-          errors.HoldExit = "Please Select Whether To Hold Or Exit.";
+        errors.HoldExit = "Please Select Whether To Hold Or Exit.";
       }
       if (!values.Slvalue) {
-          errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
+        errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
       }
-  
+
       return errors;
-  },
-  
+    },
+
+
     onSubmit: async (values) => {
       const req = {
         MainStrategy: location.state.data.selectStrategyType,
@@ -170,7 +171,7 @@ const AddClient = () => {
         TType: values.TType,
         EntryPrice: values.EntryPrice,
         EntryRange: values.EntryRange,
-        TStype: values.Strategy=="Fixed Price" ? "" : values.TStype,
+        TStype: values.Strategy == "Fixed Price" ? "" : values.TStype,
         Targetvalue: values.Targetvalue,
         Slvalue: values.Slvalue,
         LowerRange: values.LowerRange,
@@ -204,7 +205,7 @@ const AddClient = () => {
 
 
       }
- 
+
       if (values.set_Range == true && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
         return SweentAlertFun("Higher Price should be greater than Lower Price")
 
@@ -257,6 +258,8 @@ const AddClient = () => {
     formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX")
     formik.setFieldValue("HoldExit", "Hold")
+
+
   }, [])
 
 
@@ -343,7 +346,7 @@ const AddClient = () => {
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       hiding: false,
-      col_size: 2,
+      col_size: 4,
       disable: false,
     },
     {
@@ -356,7 +359,7 @@ const AddClient = () => {
       })),
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
-      col_size: 2,
+      col_size: 4,
       hiding: false,
       disable: false,
     },
@@ -371,29 +374,17 @@ const AddClient = () => {
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
-      col_size: 2,
+      col_size: 4,
       disable: false,
     },
     {
       name: "TType",
-      label: "Transaction Type",
-      type: "select1",
-      options: [
-        { label: "BUY", value: "BUY" },
-        { label: "SELL", value: "SELL" },
-      ],
+      label: "Type",
+      type: "trt",
+      showWhen: (values) => values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK",
       label_size: 12,
       hiding: false,
       col_size: 6,
-      disable: false,
-    },
-    {
-      name: "Quantity",
-      label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
-      type: "text5",
-      label_size: 12,
-      col_size: 6,
-      hiding: false,
       disable: false,
     },
     {
@@ -443,7 +434,7 @@ const AddClient = () => {
 
     {
       name: "Targetvalue",
-      label: formik.values.Strategy == "Fixed Price" ? "Target Price" :  formik.values.Strategy ==  "One Directional" ? "Fixed Target" : "Target",
+      label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
       type: "text5",
       label_size: 12,
       col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
@@ -452,13 +443,36 @@ const AddClient = () => {
     },
     {
       name: "Slvalue",
-      label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Stoploss",
+      label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Rentry Point",
       type: "text5",
       label_size: 12,
       col_size: formik.values.Strategy == "Fixed Price" ? 2 : 4,
       disable: false,
       hiding: false,
     },
+    {
+      name: "TType",
+      label: "Transaction Type",
+      type: "select1",
+      options: [
+        { label: "BUY", value: "BUY" },
+        { label: "SELL", value: "SELL" },
+      ],
+      label_size: 12,
+      hiding: false,
+      col_size: 6,
+      disable: false,
+    },
+    {
+      name: "Quantity",
+      label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
+      type: "text5",
+      label_size: 12,
+      col_size: 6,
+      hiding: false,
+      disable: false,
+    },
+
     {
       name: "set_Range",
       label: "Trade Range",
