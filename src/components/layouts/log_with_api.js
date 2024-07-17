@@ -10,17 +10,8 @@ const loginWithApi = async (UserDetails) => {
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
 
 
-            var data = {
-                Username: UserDetails.Username,
-                session: "",
-                AccToken: "",
-                usrid: "",
-                sid: "",
-                jwt_Token: "",
-            }
-
             try {
-                const response = await axios.post(Config.base_url + 'Aliceblue/' + UserDetails.Username, data);
+                const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username);
 
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
@@ -202,17 +193,10 @@ const loginWithApi = async (UserDetails) => {
 
         if (UserDetails.BrokerName.toUpperCase() === "DHAN".toUpperCase()) {
 
-            var data = {
-                Username: UserDetails.Username,
-                session: "",
-                AccToken: "",
-                usrid: "",
-                sid: "",
-                jwt_Token: "",
-            }
-
+          
             try {
-                const response = await axios.post(`${Config.base_url}Dhan`, data);
+                const response = await axios.get(Config.base_url + 'Dhan/' + UserDetails.Username);
+               
 
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 

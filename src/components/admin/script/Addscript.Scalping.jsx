@@ -212,16 +212,10 @@ const AddClient = () => {
 
       }
       if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
-
-
         return SweentAlertFun(Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ? "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
-
-
       }
       if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
-
         return SweentAlertFun(Number(values.Targetvalue) >= Number(values.LowerRange) ? "Target should be Smaller than Lower Range" : "Stoploss should be Greater than Higher Range")
-
       }
 
 
@@ -266,8 +260,6 @@ const AddClient = () => {
     formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX")
     formik.setFieldValue("HoldExit", "Hold")
-   
-
   }, [])
 
 
@@ -277,16 +269,11 @@ const AddClient = () => {
     {
       name: "Strategy",
       label: "Scalping Type",
-      type: "select",
-      options: [
-        { label: "Multi Directional", value: "Multi Directional" },
-        { label: "Fixed Price", value: "Fixed Price" },
-        { label: "One Directional", value: "One Directional" },
-      ],
-
+      type: "radio1",
+      title :[{ title: "Multi Directional", value: "Multi Directional" }, { title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }] ,
       hiding: false,
       label_size: 12,
-      col_size: 6,
+      col_size: 12,
       disable: false,
     },
     {
