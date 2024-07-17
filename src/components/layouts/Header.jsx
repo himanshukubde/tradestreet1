@@ -191,6 +191,15 @@ const Header = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     <li className="nav-item">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={(e) => setIsModalVisible(true)}
+                                        >
+                                            Set API Key
+                                        </button>
+                                    </li>
+                                    <li className="nav-item">
 
                                         <div className={`iq-sub-dropdown ${activeElement === 'language' ? 'iq-show' : ''}`}>
                                             <a className="iq-sub-card" href="#">
@@ -249,92 +258,7 @@ const Header = () => {
                                             <i className="ri-notification-3-fill" />
                                             <span className="bg-danger dots" />
                                         </a>
-                                        {/* <div className="iq-sub-dropdown">
-                                            <div className="iq-card shadow-none m-0">
-                                                <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3">
-                                                        <h5 className="mb-0 text-white d-flex justify-content-between">
-                                                            All Notifications
-                                                            <small className="badge  badge-dark float-end pt-1">
-                                                                4
-                                                            </small>
-                                                        </h5>
-                                                    </div>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/01.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Emma Watson Bini</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    Just Now
-                                                                </small>
-                                                                <p className="mb-0">95 MB</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/02.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">New customer is join</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    5 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/03.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Two customer is left</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    2 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="/assets/images/user/04.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">New Mail from Fenny</h6>
-                                                                <small className="float-end font-size-12">
-                                                                    3 days ago
-                                                                </small>
-                                                                <p className="mb-0">Jond Bini</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div> */}
+                                       
                                     </li>
                                     <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
                                         <a
@@ -345,73 +269,9 @@ const Header = () => {
                                             <i className="ri-mail-open-fill" />
                                             <span className="bg-primary count-mail" />
                                         </a>
-                                        {/* <div className="iq-sub-dropdown">
-                                            <div className="iq-card shadow-none m-0">
-                                                <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3">
-                                                        <h5 className="mb-0 text-white d-flex justify-content-between">
-                                                            All Messages
-                                                            <small className="badge  badge-dark float-end pt-1">
-                                                                5
-                                                            </small>
-                                                        </h5>
-                                                    </div>
-
-
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="assets/images/user/03.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Why do we use it?</h6>
-                                                                <small className="float-end text-muted">
-                                                                    30 Jun
-                                                                </small>
-                                                                <p className="mb-0">Dolor sit</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="assets/images/user/04.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Variations Passages</h6>
-                                                                <small className="float-end text-muted">12 Sep</small>
-                                                                <p className="mb-0">Lorem Ipsum</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" className="iq-sub-card">
-                                                        <div className="media align-items-center d-flex">
-                                                            <div className="">
-                                                                <img
-                                                                    className="avatar-40 rounded"
-                                                                    src="assets/images/user/05.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div className="media-body ms-3">
-                                                                <h6 className="mb-0 ">Lorem Ipsum generators</h6>
-                                                                <small className="float-end text-muted">5 Dec</small>
-                                                                <p className="mb-0">Lorem Ipsum</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div> */}
+                                     
                                     </li>
+
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
                                         <a href="#"
@@ -420,11 +280,7 @@ const Header = () => {
 
                                             onClick={(e) => handleClick(e, 'profile')}
                                         >
-                                            {/* <img
-                                                src="assets/images/user/1.jpg"
-                                                className="img-fluid rounded-circle me-3"
-                                                alt="user"
-                                            /> */}
+                                          
                                             <div className="caption">
                                                 <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
                                                     Log out
@@ -432,23 +288,7 @@ const Header = () => {
                                                 </button>
                                             </div>
                                         </a>
-                                        {/* <div className="iq-sub-dropdown iq-user-dropdown">
-                                            <div className="iq-card shadow-none m-0">
-                                                <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3">
-                                                        <h5 className="mb-0 text-white line-height">Hello Bini Emma</h5>
-                                                        <span className="text-white font-size-12">online</span>
-                                                    </div>
-                                                   
-                                                    <div className="d-inline-block w-100 text-center p-3">
-                                                        <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
-                                                            Log out
-                                                            <i className="ri-login-box-line ms-2" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
+                                     
                                     </li>
                                 </ul>
                             </div>
@@ -488,7 +328,7 @@ const Header = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary"
-                                                    
+
                                                 >
                                                     Demo Account
                                                 </button>

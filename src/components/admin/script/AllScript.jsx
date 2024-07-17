@@ -174,7 +174,7 @@ const Addscript = () => {
                 sort: true,
             }
         },
-       
+
         {
             name: "LowerRange",
             label: "Lower Range",
@@ -626,7 +626,7 @@ const Addscript = () => {
             console.log("Error Group data fetch")
         }
     }
-    
+
     useEffect(() => {
         GetAllGroupDetails()
     }, [])
@@ -703,7 +703,7 @@ const Addscript = () => {
 
     }, [getGroupData]);
 
- 
+
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
@@ -727,9 +727,11 @@ const Addscript = () => {
                             </div>
                         </div>
                         <div className="iq-card-body">
+
+
                             <form className="was-validated ">
                                 <div className='d-flex'>
-                                    <div className="form-group col-md-5 ms-2">
+                                    <div className="form-group col-md-5">
                                         <label>Group Name</label>
                                         <select className="form-select "
                                             required=""
@@ -750,7 +752,7 @@ const Addscript = () => {
                                             {GroupError}
                                         </div>}
                                     </div>
-                                    <div className="form-group col-md-5 ms-2">
+                                    <div className="form-group col-md-5 ms-3">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => { setAllservice({ loading: true, data: [] }); setStrategyType(e.target.value) }}
@@ -764,26 +766,27 @@ const Addscript = () => {
                                             {stgError}
                                         </div>}
                                     </div>
-                                    <div className='col-md-2 ms-2 mt-4'>
-                                        <button style={{ height: "42px" }} className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
+                                    <div className='col-md-2 ms-3 mt-4'>
+                                        <button style={{ height: "45px" }} className='btn btn-primary' onClick={handleAddScript}>Add Script</button>
                                     </div>
                                 </div>
                             </form>
 
-                            <div className="iq-card-body">
-                                {getAllService.loading ? <Loader /> :
-                                    <FullDataTable
-                                        columns={selectStrategyType == "Scalping" ? columns : selectStrategyType == "Option Strategy" ? columns1 : selectStrategyType == "Pattern" ? columns2 : columns}
-                                        data={getAllService.data}
-                                        checkBox={false}
-                                    />
-                                }
-                            </div>
+
+                            {getAllService.loading ? <Loader /> :
+                                <FullDataTable
+                                    columns={selectStrategyType == "Scalping" ? columns : selectStrategyType == "Option Strategy" ? columns1 : selectStrategyType == "Pattern" ? columns2 : columns}
+                                    data={getAllService.data}
+                                    checkBox={false}
+                                />
+                            }
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
