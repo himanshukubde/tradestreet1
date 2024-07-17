@@ -64,7 +64,6 @@ const loginWithApi = async (UserDetails) => {
             axios.request(config)
                 .then((response) => {
                     if (response.data.Status == true) {
-
                         window.location.href = response.data.Api;
                     }
                 })

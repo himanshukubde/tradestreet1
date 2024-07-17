@@ -25,7 +25,6 @@ const AddClient = () => {
     data: []
   })
 
-
   const SweentAlertFun = (text) => {
     Swal.fire({
       title: "Error",
@@ -157,7 +156,6 @@ const AddClient = () => {
       return errors;
   },
   
-
     onSubmit: async (values) => {
       const req = {
         MainStrategy: location.state.data.selectStrategyType,
@@ -248,7 +246,6 @@ const AddClient = () => {
         })
     }
 
-
   });
 
   useEffect(() => {
@@ -269,7 +266,7 @@ const AddClient = () => {
     {
       name: "Strategy",
       label: "Scalping Type",
-      type: "radio1",
+      type: "radio2",
       title :[{ title: "Multi Directional", value: "Multi Directional" }, { title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }] ,
       hiding: false,
       label_size: 12,
