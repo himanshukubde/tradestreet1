@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UpdateBrokerKey from "./Update_Broker_Key";
 import Loginwihapi from "./log_with_api";
-
-import { TradingStatus, ConnectBroker } from "../Common API/User";
+import * as Config from "../../Utils/Config";
+import axios from "axios";
+import { TradingStatus } from "../Common API/User";
 import Swal from 'sweetalert2';
 
 
@@ -24,21 +25,72 @@ const Header = () => {
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
 
-        const requestData = {
-            Username: Username,
-            session: "",
-            AccToken: "",
-            usrid: "",
-            sid: "",
-            jwt_Token: "",
-            BrokerName: getBrokerName,
-        };
+        if (newStatus == true) {
+            const requestData = {
+                Username: Username,
+                session: "",
+                AccToken: "",
+                usrid: "",
+                sid: "",
+                jwt_Token: "",
+                BrokerName: getBrokerName,
+            };
+            Loginwihapi(requestData)
+        } else {
+            console.log("----Trading Of")
+                var data = {
+                    Username: Username,
+                    session: "",
+                    AccToken: "",
+                    usrid: "",
+                    sid: "",
+                    jwt_Token: "",
+                }
+    
+                try {
+                    const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+    
+                    console.log("response.data :", response.data)
+                    if (response.data.Status) { // Assuming the status is in response.data.Status
+                 
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Trading On successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            timer: 1000
+                        }).then(() => {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        });
+                    } else {
+    
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Trading Off successfully.',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            timer: 1000
+                        }).then(() => {
+                            setTimeout(() => {
+                                window.location.reload();
+    
+                            }, 1000);
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error in ConnectBroker request", err);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error occurred. Please try again later.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
+         
 
-
-        Loginwihapi(requestData)
-
-
-
+        }
     };
 
 

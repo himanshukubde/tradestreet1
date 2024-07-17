@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { GET_EXPIRY_DATE , ExpriyEndDate } from '../../Common API/Admin'
+import { GET_EXPIRY_DATE, ExpriyEndDate } from '../../Common API/Admin'
 import { AddScript } from '../../Common API/User'
 
 
@@ -19,7 +19,7 @@ const AddClient = () => {
     const [serviceEndDate, setServiceEndDate] = useState('')
 
 
-    
+
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -76,7 +76,7 @@ const AddClient = () => {
             PEDeepHigher: 0.0,
             Trade_Count: 2,
             Unique_ID: "",
-            Measurment_Type : ""
+            Measurment_Type: ""
         },
 
         validate: (values) => {
@@ -223,10 +223,10 @@ const AddClient = () => {
                 serendate: serviceEndDate,
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
-                
+
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                DepthofStrike:Number(values.DepthofStrike),
-                DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ?  Number(values.DeepStrike) : 0,
+                DepthofStrike: Number(values.DepthofStrike),
+                DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
                 CEDepthHigher: Number(values.CEDepthHigher),
@@ -240,7 +240,7 @@ const AddClient = () => {
                 TradeExecution: values.Trade_Execution
             }
 
-            
+
             if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
@@ -270,7 +270,7 @@ const AddClient = () => {
                 }
 
                 else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
- 
+
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
                 else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
@@ -341,7 +341,6 @@ const AddClient = () => {
     }, [])
 
 
-
     const fields = [
         {
             name: "Measurment_Type",
@@ -381,12 +380,12 @@ const AddClient = () => {
                                 [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "Ratio Put Spread" }] :
 
                                 formik.values.Measurment_Type == "Shifting/FourLeg" ?
-                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "Short Four Leg Strategy", value: "ShortFourLegStretegy" }, { title: "Long Four Leg Strategy", value: "LongFourLegStretegy" }] :
+                                    [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
                                     ""
 
             ,
             label_size: 12,
-            col_size:  8,
+            col_size: 8,
             disable: false,
             hiding: false,
         },
@@ -413,6 +412,15 @@ const AddClient = () => {
                 { label: "Monthly", value: "Monthly" },
 
             ],
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
+        {
+            name: "Quantity",
+            label: "Lot",
+            type: "number",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -510,15 +518,6 @@ const AddClient = () => {
         },
 
         {
-            name: "Quantity",
-            label: "Lot",
-            type: "number",
-            hiding: false,
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-        },
-        {
             name: "TStype",
             label: "Measurement Type",
             type: "select",
@@ -567,32 +566,7 @@ const AddClient = () => {
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
             col_size: 4,
             disable: false,
-
         },
-        {
-            name: "Trade_Execution",
-            label: "Trade Execution",
-            type: "select",
-            options: [
-              { label: "Paper Trade", value: "Paper Trade" },
-              { label: "Live Trade", value: "Live Trade" },
-            ],
-           
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-            hiding: false,
-          },
-          {
-            name: "Trade_Count",
-            label: "Trade Count",
-            type: "text5",
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-            hiding: false,
-          },
-
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -641,7 +615,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "CEDepthLower",
             label: "CE Main Lower",
@@ -658,6 +631,27 @@ const AddClient = () => {
             type: "text3",
             showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
             hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+
+        {
+            name: "CEDeepLower",
+            label: "CE Hedge Lower",
+            type: "text3",
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
+            hiding: false,
+            label_size: 12,
+            col_size: 3,
+            disable: false,
+        },
+        {
+            name: "CEDeepHigher",
+            label: "CE Hedge Higher",
+            type: "text3",
+            hiding: false,
+            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
             label_size: 12,
             col_size: 3,
             disable: false,
@@ -683,26 +677,6 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "CEDeepLower",
-            label: "CE Hedge Lower",
-            type: "text3",
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            hiding: false,
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "CEDeepHigher",
-            label: "CE Hedge Higher",
-            type: "text3",
-            hiding: false,
-            showWhen: (value) => value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy',
-            label_size: 12,
-            col_size: 3,
-            disable: false,
-        },
-        {
             name: "PEDeepLower",
             label: "PE Hedge Lower",
             type: "text3",
@@ -722,7 +696,30 @@ const AddClient = () => {
             col_size: 3,
             disable: false,
         },
+        {
+            name: "Trade_Execution",
+            label: "Trade Execution",
+            type: "select",
+            options: [
+                { label: "Paper Trade", value: "Paper Trade" },
+                { label: "Live Trade", value: "Live Trade" },
+            ],
 
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "Trade_Count",
+            label: "Trade Count",
+            type: "text5",
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+            hiding: false,
+        },
+         
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -741,9 +738,12 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
-
     ];
+
+
+
+
+
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }
@@ -773,14 +773,14 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-    
+
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
                 if (response.Status) {
-                    
+
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }
                 else {

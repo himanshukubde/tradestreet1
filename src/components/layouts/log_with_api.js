@@ -3,28 +3,18 @@ import Swal from 'sweetalert2';
 import * as Config from "../../Utils/Config";
 
 const loginWithApi = async (UserDetails) => {
-    
+
 
     if (UserDetails) {
 
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
-            
 
-            var data = {
-                Username: UserDetails.Username,
-                session: "",
-                AccToken: "",
-                usrid: "",
-                sid: "",
-                jwt_Token: "",
-            }
 
             try {
-                const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+                const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username);
 
-                console.log("response.data :" , response.data)
                 if (response.data.Status) { // Assuming the status is in response.data.Status
-return 
+
                     Swal.fire({
                         title: 'Success!',
                         text: 'Trading On successfully.',
@@ -62,20 +52,18 @@ return
             }
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "ANGEL") {
 
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://193.239.237.95:8000/AngelBroker/' + UserDetails.Username,
+                url: Config.base_url + 'AngelBroker/' + UserDetails.Username,
                 headers: {}
             };
 
             axios.request(config)
                 .then((response) => {
                     if (response.data.Status == true) {
-
                         window.location.href = response.data.Api;
                     }
                 })
@@ -86,9 +74,8 @@ return
 
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "ICICI") {
-           
+
 
 
             let config = {
@@ -100,20 +87,19 @@ return
 
             axios.request(config)
                 .then((response) => {
-                    
+
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log("Error" , error);
+                    console.log("Error", error);
                 });
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "UPSTOX") {
-           
+
 
 
             let config = {
@@ -125,20 +111,19 @@ return
 
             axios.request(config)
                 .then((response) => {
-                   
+
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log("Error" , error);
+                    console.log("Error", error);
                 });
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "5PAISA") {
-            
+
 
 
             let config = {
@@ -150,21 +135,18 @@ return
 
             axios.request(config)
                 .then((response) => {
-                     
+
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log("Error" , error);
+                    console.log("Error", error);
                 });
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "MASTERTRUST") {
-            
-
 
             let config = {
                 method: 'get',
@@ -175,21 +157,18 @@ return
 
             axios.request(config)
                 .then((response) => {
-                    
+
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Api;
                     }
                 })
                 .catch((error) => {
-                    console.log("Error" , error);
+                    console.log("Error", error);
                 });
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "FYERS") {
-            
-
 
             let config = {
                 method: 'get',
@@ -200,32 +179,23 @@ return
 
             axios.request(config)
                 .then((response) => {
-                    
+
                     if (response.data.Status == true) {
 
                         window.location.href = response.data.Url;
                     }
                 })
                 .catch((error) => {
-                    console.log("Error" , error);
+                    console.log("Error", error);
                 });
         }
 
-
         if (UserDetails.BrokerName.toUpperCase() === "DHAN".toUpperCase()) {
-            
 
-            var data = {
-                Username: UserDetails.Username,
-                session: "",
-                AccToken: "",
-                usrid: "",
-                sid: "",
-                jwt_Token: "",
-            }
-
+          
             try {
-                const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+                const response = await axios.get(Config.base_url + 'Dhan/' + UserDetails.Username);
+               
 
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
@@ -266,9 +236,121 @@ return
             }
         }
 
+        if (UserDetails.BrokerName.toUpperCase() === "ZEBULL") {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: Config.base_url + 'Zebull/' + UserDetails.Username,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log("response", response);
+
+                    let swalOptions = {
+                        confirmButtonText: 'OK',
+                        timer: 2000
+                    };
+
+                    if (response.data.Status) {
+                        swalOptions.title = 'Success!';
+                        swalOptions.text = 'Trading On successfully.';
+                        swalOptions.icon = 'success';
+                    } else {
+                        swalOptions.title = 'Error!';
+                        swalOptions.text = 'Trading Off successfully.';
+                        swalOptions.icon = 'error';
+                    }
+
+                    Swal.fire(swalOptions).then(() => {
+                        window.location.reload();
+                    });
+
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        }
+
+
+        if (UserDetails.BrokerName.toUpperCase() === "MANDOT") {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: Config.base_url + 'Mandot/' + UserDetails.Username,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+
+                    let swalOptions = {
+                        confirmButtonText: 'OK',
+                        timer: 4000
+                    };
+
+                    if (response.data.Status) {
+                        swalOptions.title = 'Success!';
+                        swalOptions.text = 'Trading On successfully.';
+                        swalOptions.icon = 'success';
+                    } else {
+                        swalOptions.title = 'Error!';
+                        swalOptions.text = response.data.massage;
+                        swalOptions.icon = 'error';
+                    }
+
+                    Swal.fire(swalOptions).then(() => {
+                        // window.location.reload();
+                    });
+
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        }
+
+
+        if (UserDetails.BrokerName.toUpperCase() === "INDIRA") {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: Config.base_url + 'Indira/' + UserDetails.Username,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log("response", response.data);
+
+                    let swalOptions = {
+                        confirmButtonText: 'OK',
+                        timer: 4000
+                    };
+
+                    if (response.data.Status) {
+                        swalOptions.title = 'Success!';
+                        swalOptions.text = 'Trading On successfully.';
+                        swalOptions.icon = 'success';
+                    } else {
+                        swalOptions.title = 'Error!';
+                        swalOptions.text = response.data.massage;
+                        swalOptions.icon = 'error';
+                    }
+
+                    Swal.fire(swalOptions).then(() => {
+                        // window.location.reload();
+                    });
+
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                });
+        }
+
     }
 
 
-   
+
 };
 export default loginWithApi;

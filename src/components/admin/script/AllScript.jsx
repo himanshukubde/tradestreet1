@@ -201,7 +201,7 @@ const Addscript = () => {
         },
         {
             name: "EntryPrice",
-            label: "First Trade Lower Price",
+            label: "First Trade Lower Range",
             options: {
                 filter: true,
                 sort: true,
@@ -209,7 +209,7 @@ const Addscript = () => {
         },
         {
             name: "EntryRange",
-            label: "First Trade Higher Price",
+            label: "First Trade Higher Range",
             options: {
                 filter: true,
                 sort: true,

@@ -508,6 +508,32 @@ const DynamicForm = ({
                             ))}
                           </div>
                         </>
+                      ) : field.type === "radio2" ? (
+                        <>
+                          <div className={`d-flex mb-4 col-lg-${field.col_size}`}>
+                            {field.title && field.title.map((item) => (
+                              <div className={`form-check custom-checkbox d-flex align-items-center col-lg-3`} key={item.title}>
+                                <input
+                                  type="radio"
+                                  name={field.name} // Ensure the name is consistent for all options
+                                  value={item.value}
+                                  className="form-check-input"
+                                  id={item.title}
+                                  onChange={formik.handleChange} // Use formik's handleChange to capture the value
+                                  checked={formik.values[field.name] === item.value} // Set the checked attribute based on formik values
+                                />
+                                <label
+                                  className={`col-lg-${field.label_size} col-form-label mx-2`}
+                                  htmlFor={item.title}
+                                >
+                                  {item.title}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+
+
                       ) : field.type === "password" ? (
                         <>
                           <div className={`col-lg-${field.col_size}`}>

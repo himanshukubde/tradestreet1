@@ -85,7 +85,7 @@ export const getColumns = (handleAddScript1) => [
     },
     {
         name: "EntryPrice",
-        label: "First Trade Lower Price",
+        label: "First Trade Lower Range",
         options: {
             filter: true,
             sort: true,
@@ -93,7 +93,7 @@ export const getColumns = (handleAddScript1) => [
     },
     {
         name: "EntryRange",
-        label: "First Trade Higher Price",
+        label: "First Trade Higher Range",
         options: {
             filter: true,
             sort: true,
@@ -709,7 +709,7 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
     },
     {
         name: "EntryPrice",
-        label: "First Trade Lower Price",
+        label: "First Trade Lower Range",
         options: {
             filter: true,
             sort: true,
@@ -717,7 +717,7 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
     },
     {
         name: "EntryRange",
-        label: "First Trade Higher Price",
+        label: "First Trade Higher Range",
         options: {
             filter: true,
             sort: true,
