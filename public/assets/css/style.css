@@ -5239,3 +5239,7 @@ body.sidebar-main .iq-sidebar {
   vertical-align: top;
   width: 100%;
 }
+
+.MuiInputBase-root {
+  margin-top: -15px !important;
+}
