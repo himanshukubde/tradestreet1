@@ -238,6 +238,16 @@ export const SortPattern = async (data) => {
     }
 }
 
+export const get_Trade_Data = async (data) => {
+    try {
+        const res = await axios.post(`${Config.base_url}ScalpingData`, data)
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 
 
 

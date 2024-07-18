@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
-import {get_Trade_Report} from '../../Common API/User'
+import {get_Trade_Data} from '../../Common API/User'
 import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";
@@ -125,9 +125,6 @@ const Tradehistory = () => {
     useEffect(() => {
         GetTradeHistory()
     }, [selectStrategyType])
-
-
-
 
     const columns = [
         {
@@ -991,6 +988,136 @@ const Tradehistory = () => {
 
     ];
 
+ 
+    const columns7 = [
+        {
+            name: "S.No",
+            label: "S.No",
+
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Max Open Trade",
+            label: "EMax Open Trade",
+
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Max Profit",
+            label: "Max Profit",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Max Drawdown",
+            label: "Max Drawdown",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "profit at Max Draw Down",
+            label: "profit at Max Draw Down",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Current Price",
+            label: "Current Price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+
+
+    ];
+
+    const columns8 = [
+        {
+            name: "S.No",
+            label: "S.No",
+
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Current Runing loss",
+            label: "Current Runing loss",
+
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Current open Trade",
+
+            label: "Current open Trade",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Max Price of Trade Execution",
+            label: "Max Price of Trade Execution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Min Price of Trade Execution",
+            label: "Min Price of Trade Execution",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Max Involved fund",
+            label: "Max Involved fund",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Last trade open price",
+            label: "Last trade open price",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        
+
+
+
+    ];
+
 
 
 
@@ -1179,7 +1306,7 @@ const Tradehistory = () => {
 
 
        // Get Trade Report 
-       await get_Trade_Report(data)
+       await get_Trade_Data(data)
 
             .then((response) => {
                 if (response.Status) {
@@ -1215,7 +1342,6 @@ const Tradehistory = () => {
 
 
     useEffect(() => {
-
         setStrategyType('Scalping')
     }, []);
 
@@ -1297,6 +1423,9 @@ const Tradehistory = () => {
 
 
 
+    useEffect(() => {
+        setShowTable(false)
+    }, [selectStrategyType, FromDate, ToDate, selectedRowData])
 
 
     return (
@@ -1350,7 +1479,6 @@ const Tradehistory = () => {
                                 </div>
                             }
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
-
                             {
                                 showTable && <>
                                     <div>
@@ -1382,6 +1510,34 @@ const Tradehistory = () => {
                                             checkBox={false}
                                         />
                                     </div>
+
+
+
+
+                                    {/* cp */}
+ 
+                                    <div className='mt-3'>
+                                        <GridExample
+                                            columns={columns7}
+                                            data={report.data1}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={false}
+                                        />
+                                    </div>
+
+
+                                     
+                                    <div className='mt-3'>
+                                        <GridExample
+                                            columns={columns8}
+                                            data={report.data2}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={false}
+                                        />
+                                    </div>
+
+
+
 
 
                                     {/* PnL Graph show */}
