@@ -163,7 +163,7 @@ const AddClient = () => {
         Username: location.state.data.selectGroup,
         Strategy: values.Strategy,
         Exchange: values.Exchange,
-        Instrument: values.Instrument,
+        Instrument: values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX" ? values.Instrument : "",
         Symbol: values.Symbol,
         Optiontype: values.Optiontype,
         Strike: values.Strike,
@@ -171,12 +171,12 @@ const AddClient = () => {
         TType: values.TType,
         EntryPrice: values.EntryPrice,
         EntryRange: values.EntryRange,
-        TStype: values.Strategy == "Fixed Price" ? "" : values.TStype,
+        TStype: values.Strategy === "Fixed Price" ? "" : values.TStype,
         Targetvalue: values.Targetvalue,
         Slvalue: values.Slvalue,
         LowerRange: values.LowerRange,
         HigherRange: values.HigherRange,
-        HoldExit: values.set_Range && (values.Strategy == "Multi Directional" || values.Strategy == "One Directional") ? values.HoldExit : "Hold",
+        HoldExit: values.set_Range && (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "Hold",
         ExitDay: values.ExitDay,
         EntryTime: values.EntryTime,
         ExitTime: values.ExitTime,
@@ -270,7 +270,7 @@ const AddClient = () => {
       name: "Strategy",
       label: "Scalping Type",
       type: "radio2",
-      title :[{ title: "Multi Directional", value: "Multi Directional" }, { title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }] ,
+      title: [{ title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }, { title: "Multi Directional", value: "Multi Directional" }],
       hiding: false,
       label_size: 12,
       col_size: 12,
@@ -284,25 +284,23 @@ const AddClient = () => {
         label: item,
         value: item,
       })),
-
-
       hiding: false,
       label_size: 12,
-      col_size: 6,
+      col_size: formik.values.Exchange == 'NFO' && (formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX") ? 3 : formik.values.Exchange == 'NFO' && (formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK") ? 4 : formik.values.Exchange == 'NSE' && formik.values.Instrument == 'FUTIDX' ? 6 : 6,
       disable: false,
     },
     {
       name: "Instrument",
       label: "Instrument",
       type: "select",
-      options: formik.values.Exchange == "NFO" ?
+      options: formik.values.Exchange === "NFO" ?
         [
           { label: "FUTIDX", value: "FUTIDX" },
           { label: "FUTSTK", value: "FUTSTK" },
           { label: "OPTIDX", value: "OPTIDX" },
           { label: "OPTSTK", value: "OPTSTK" },
         ]
-        : formik.values.Exchange == "MCX" ?
+        : formik.values.Exchange === "MCX" ?
           [
             { label: "OPTFUT", value: "OPTFUT" },
             { label: "FUTCOM", value: "FUTCOM" },
@@ -318,7 +316,7 @@ const AddClient = () => {
       showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
       hiding: false,
       label_size: 12,
-      col_size: 3,
+      col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
       disable: false,
     },
     {
@@ -332,7 +330,7 @@ const AddClient = () => {
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
-      col_size: formik.values.Exchange == "NSE" ? 6 : 3,
+      col_size: formik.values.Exchange == "NSE" ? 6 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
       disable: false,
     },
     {
@@ -357,7 +355,7 @@ const AddClient = () => {
         label: item,
         value: item
       })),
-      showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ,
+      showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
       col_size: 4,
       hiding: false,
@@ -374,14 +372,14 @@ const AddClient = () => {
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
       hiding: false,
-      col_size: 4,
+      col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : 4,
       disable: false,
     },
     {
       name: "TType",
       label: "Type",
       type: "trt",
-      showWhen: (values) => values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK",
+      showWhen: (values) => (values.Strategy === 'Multi Directional' || values.Strategy === 'One Directional') && (values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK") || values.Strategy != 'Fixed Price',
       label_size: 12,
       hiding: false,
       col_size: 6,
@@ -500,7 +498,7 @@ const AddClient = () => {
       type: "text5",
       showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
       label_size: 12,
-      col_size: formik.values.Strategy == "Fixed Price" ?  4: 4,
+      col_size: formik.values.Strategy == "Fixed Price" ? 4 : 4,
       disable: false,
       hiding: false,
     },
@@ -515,7 +513,7 @@ const AddClient = () => {
       ],
       showWhen: (values) => values.set_Range == true && (values.Strategy == "Multi Directional" || values.Strategy == "One Directional"),
       label_size: 12,
-      col_size: formik.values.set_Range ? 4: 3,
+      col_size: formik.values.set_Range ? 4 : 3,
       disable: false,
       hiding: false,
     },
@@ -698,15 +696,15 @@ const AddClient = () => {
       formik.setFieldValue('EntryPrice', 0)
       formik.setFieldValue('EntryRange', 0)
     }
-     
-     
-    
+
+
+
     if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
       formik.setFieldValue('Optiontype', "")
       formik.setFieldValue('Strike', "")
     }
     if (formik.values.Exchange == "NSE") {
-      formik.setFieldValue('Instrument', "")
+      formik.setFieldValue('Instrument', "FUTIDX")
       formik.setFieldValue('Symbol', "")
       formik.setFieldValue('expirydata1', "")
       formik.setFieldValue('Strike', "")

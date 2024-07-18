@@ -15,7 +15,7 @@ const AddClient = () => {
     })
 
     const [getAllExchange, setAllExchange] = useState([])
-    
+
     const [getStricke, setStricke] = useState({
         loading: true,
         data: []
@@ -27,7 +27,7 @@ const AddClient = () => {
     })
 
 
-   
+
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []
@@ -42,7 +42,7 @@ const AddClient = () => {
         loading: true,
         data: []
     })
- 
+
 
 
     const formik = useFormik({
@@ -87,7 +87,7 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-             
+
 
         },
 
@@ -95,23 +95,23 @@ const AddClient = () => {
             let errors = {};
             const maxTime = "15:29:59";
             const minTime = "09:15:00";
-        
+
             if (!values.Exchange) {
                 errors.Exchange = "Please Select Exchange Type.";
             }
-            if (!values.Instrument && values.Exchange=="NFO") {
+            if (!values.Instrument && values.Exchange == "NFO") {
                 errors.Instrument = "Please Enter Instrument Type.";
             }
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
-            if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+            if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange == "NFO") {
                 errors.Optiontype = "Enter Option Type.";
             }
-            if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+            if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange == "NFO") {
                 errors.Strike = "Enter Strike Price.";
             }
-            if (!values.expirydata1 && values.Exchange=="NFO") {
+            if (!values.expirydata1 && values.Exchange == "NFO") {
                 errors.expirydata1 = "Enter Expiry Date.";
             }
             if (!values.Strategy) {
@@ -123,21 +123,21 @@ const AddClient = () => {
             if (!values.ETPattern) {
                 errors.ETPattern = "Please Select Pattern Name.";
             }
-             
+
             if (!values.TStype) {
                 errors.TStype = "Please Enter Measurement Type.";
             }
-            if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
-                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
+            if (!values.Slvalue || values.Slvalue == 0 || Number(values.Slvalue) < 0) {
+                errors.Slvalue = values.Slvalue == 0 ? "Stoploss can not be Zero" : Number(values.Slvalue) < 0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
             }
-            if (!values.Targetvalue || values.Targetvalue==0 || Number(values.Targetvalue)<0) {
-                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" : Number(values.Targetvalue)<0 ? "Target can not be Negative"  : "Please Enter Target Value.";
+            if (!values.Targetvalue || values.Targetvalue == 0 || Number(values.Targetvalue) < 0) {
+                errors.Targetvalue = values.Targetvalue == 0 ? "Target can not be Zero" : Number(values.Targetvalue) < 0 ? "Target can not be Negative" : "Please Enter Target Value.";
             }
             if (!values.TType) {
                 errors.TType = "Please Enter Transaction Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = formik.values.Exchange =="NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
+                errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
             }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select Exit Day.";
@@ -152,11 +152,11 @@ const AddClient = () => {
             } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must Be After 09:15:00.";
             }
-        
+
             return errors;
         },
-        
-        
+
+
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -168,7 +168,7 @@ const AddClient = () => {
                 Symbol: values.Symbol,
                 Instrument: values.Instrument,
                 Strike: values.Strike,
-                Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ?   values.Optiontype : "",
+                Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Optiontype : "",
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
@@ -183,7 +183,7 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 FixedSM: "",
                 TType: values.TType,
-                expirydata1: values.Exchange=="NSE" ? "-" :  values.expirydata1,
+                expirydata1: values.Exchange == "NSE" ? "-" : values.expirydata1,
                 Expirytype: "",
                 Striketype: "",
                 DepthofStrike: 0,
@@ -237,11 +237,11 @@ const AddClient = () => {
         formik.setFieldValue('Timeframe', "1M")
         formik.setFieldValue('EntryTime', "09:15:00")
         formik.setFieldValue('ExitTime', "15:25:00")
-        formik.setFieldValue('Optiontype',  "CE" )
-        formik.setFieldValue('TStype',  "Point" )
-        formik.setFieldValue('ExitDay',  "Intraday" )
-        formik.setFieldValue('TType',  "BUY" )
-       
+        formik.setFieldValue('Optiontype', "CE")
+        formik.setFieldValue('TStype', "Point")
+        formik.setFieldValue('ExitDay', "Intraday")
+        formik.setFieldValue('TType', "BUY")
+
 
     }, [])
 
@@ -387,7 +387,7 @@ const AddClient = () => {
             name: "expirydata1",
             label: "Expiry Date",
             type: "cp",
-           
+
             showWhen: (values) => values.Instrument === "FUTSTK" || values.Instrument === "FUTIDX",
             label_size: 12,
             hiding: false,
@@ -395,7 +395,7 @@ const AddClient = () => {
             disable: false,
         },
 
-       
+
         {
             name: "Timeframe",
             label: "Time Frame",
@@ -473,7 +473,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-       
+
         {
             name: "Targetvalue",
             label: "Target",
@@ -511,7 +511,7 @@ const AddClient = () => {
         },
         {
             name: "Quantity",
-            label: formik.values.Exchange =="NFO" ? "Lot" : "Quantity",
+            label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
             type: "text3",
 
             label_size: 12,
@@ -519,7 +519,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-        
+
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -722,8 +722,8 @@ const AddClient = () => {
 
     useEffect(() => {
 
-        
-       
+
+
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")

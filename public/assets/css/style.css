@@ -5116,46 +5116,50 @@ body.sidebar-main .iq-sidebar {
       #3f414d 100%) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#089bab', endColorstr='#0db5c8', GradientType=1);
 }
-.MuiTableCell-root{
+
+.MuiTableCell-root {
   text-align: center !important;
 }
 
- 
-.ag-chart-wrapper canvas , .ag-chart-wrapper .ag-charts-focus__wrapper{
-    height: 500px !important;
-    overflow-y: hidden;
+
+.ag-chart-wrapper canvas,
+.ag-chart-wrapper .ag-charts-focus__wrapper {
+  height: 500px !important;
+  overflow-y: hidden;
 }
 
-.css-nfmglb-MuiTableCell-root{
-  padding:2px !important;
+.css-nfmglb-MuiTableCell-root {
+  padding: 2px !important;
 }
-.MuiInputBase-root{
+
+.MuiInputBase-root {
   margin-bottom: 14px;
 }
 
-.MuiTablePagination-actions{
+.MuiTablePagination-actions {
   margin-bottom: 14px;
 }
 
- 
+
 .custom-width-modal {
-    width: 600px;
-    height: 600px;
-    max-width: 100%;
-    max-height: 100%;
+  width: 600px;
+  height: 600px;
+  max-width: 100%;
+  max-height: 100%;
 
 }
 
 @media (max-width: 768px) {
-    .custom-width-modal {
-        width: 90%; /* Adjust width for smaller screens */
-    }
+  .custom-width-modal {
+    width: 90%;
+    /* Adjust width for smaller screens */
+  }
 }
- 
-.iq-card .iq-card-header{
+
+.iq-card .iq-card-header {
   padding: 1px 6px !important;
 }
- 
+
 .input-container {
   position: relative;
   display: inline-block;
@@ -5164,7 +5168,8 @@ body.sidebar-main .iq-sidebar {
 
 .input-container input {
   width: 100%;
-  padding-right: 40px; /* Adjust based on the span width */
+  padding-right: 40px;
+  /* Adjust based on the span width */
 }
 
 .input-container .input-span {
@@ -5173,7 +5178,25 @@ body.sidebar-main .iq-sidebar {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #aaa; /* Adjust color as needed */
+  color: #aaa;
+  /* Adjust color as needed */
 }
 
- 
+.modal-content {
+  margin-left: 12rem !important;
+}
+
+.MuiInputBase-input {
+
+  height: -20px !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 14px !important;
+  color: #a09e9e;
+  border-radius: 10px !important;
+
+}
+
+.MuiInputBase-root {
+  margin: 0 !important;
+}

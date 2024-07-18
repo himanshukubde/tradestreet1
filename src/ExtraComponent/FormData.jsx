@@ -901,7 +901,7 @@ const DynamicForm = ({
 
                                       {...params.inputProps}
                                       aria-describedby="basic-addon1"
-                                      className="form-control py-0"
+                                      className="form-control"
                                       placeholder={`Enter ${field.label}`}
                                       readOnly={field.disable}
                                       id={field.name}
