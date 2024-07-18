@@ -510,7 +510,7 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "radio2" ? (
                         <>
-                          <div className={`d-flex mb-4 col-lg-${field.col_size}`}>
+                          <div className={`d-flex justify-content-center mb-4 col-lg-${field.col_size}`}>
                             {field.title && field.title.map((item) => (
                               <div className={`form-check custom-checkbox d-flex align-items-center col-lg-3`} key={item.title}>
                                 <input
