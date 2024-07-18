@@ -27,7 +27,8 @@ const Tradehistory = () => {
         data1: "",
         data2: "",
         data3: "",
-        data4: ""
+        data4: "",
+        Overall: []
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
@@ -70,7 +71,7 @@ const Tradehistory = () => {
     // from date
     const DefultToDate = new Date();
 
-    DefultToDate.setDate(DefultToDate.getDate()+1);
+    DefultToDate.setDate(DefultToDate.getDate() + 1);
     const year1 = DefultToDate.getFullYear();
     const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
     const day1 = String(DefultToDate.getDate()).padStart(2, '0');
@@ -89,7 +90,7 @@ const Tradehistory = () => {
         return `${year}.${month}.${day}`;
     };
 
- 
+
     const GetAllGroupDetails = async () => {
         try {
             await GetClientService()
@@ -1041,8 +1042,8 @@ const Tradehistory = () => {
             Username: selectGroup,
             ETPattern: selectStrategyType == "Scalping" ? '' : selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.Targettype : selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.Pattern : '',
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
-            From_date: convertDateFormat(FromDate),
-            To_date: convertDateFormat(ToDate),
+            From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
+            To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
             Group: "",
             TradePattern: "",
             PatternName: ""
@@ -1059,6 +1060,7 @@ const Tradehistory = () => {
                         data2: response.profitconcount,
                         data3: response.lossconcount,
                         data4: response.lossconsistant,
+                        Overall: response.Overall
 
                     })
                     setShowTable(true)
@@ -1076,7 +1078,8 @@ const Tradehistory = () => {
                         data1: "",
                         data2: "",
                         data3: "",
-                        data4: ""
+                        data4: "",
+                        Overall: []
 
                     })
                 }
@@ -1283,7 +1286,8 @@ const Tradehistory = () => {
 
     useEffect(() => {
         setShowTable(false)
-    }, [selectStrategyType, selectGroup])
+    }, [selectStrategyType, selectGroup, selectedRowData])
+
 
 
     return (
@@ -1327,12 +1331,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-lg-3 ">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-lg-3">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate=="" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -1353,6 +1357,14 @@ const Tradehistory = () => {
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
 
                             {showTable && <>
+
+                                <div>
+                                    <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && getAllTradeData.Overall[0].PnL}</span>
+                                    </p>
+
+                                </div>
+
                                 <div className='mt-3'>
                                     <GridExample
                                         columns={columns3}
@@ -1455,8 +1467,6 @@ const Tradehistory = () => {
 
                                                                 </a>
                                                             </li>
-
-
                                                         </ul>
                                                     </div>
                                                 </div>

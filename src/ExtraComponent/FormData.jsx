@@ -139,6 +139,7 @@ const DynamicForm = ({
                                 placeholder={`Enter ${field.label}`}
                                 readOnly={field.disable}
                                 id={field.name}
+                                  autoComplete="new-password" 
                                 name={field.name}
                                 defaultValue={""}
                                 value={formik.values[field.name] || ""}
@@ -169,6 +170,7 @@ const DynamicForm = ({
                                 className="form-control"
                                 placeholder={`Enter ${field.label}`}
                                 readOnly={field.disable}
+                                
                                 id={field.name}
                                 name={field.name}
                                 value={inputValue}
@@ -556,7 +558,7 @@ const DynamicForm = ({
                                       ? "text"
                                       : field.type
                                   }
-                                  defaultValue={""}
+                                  value={formik.values[field.name] || ""}
                                   placeholder={`Enter ${field.label}`}
                                   {...formik.getFieldProps(field.name)}
                                   className={` form-control`}
@@ -612,6 +614,7 @@ const DynamicForm = ({
                                       ? "text"
                                       : field.type
                                   }
+                                  value={formik.values[field.name] || ""}
                                   placeholder={`Enter ${field.label}`}
                                   {...formik.getFieldProps(field.name)}
                                   className={` form-control`}

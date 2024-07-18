@@ -97,11 +97,11 @@ const Adduser = () => {
 
     const formik = useFormik({
         initialValues: {
-            UserName: '',
-            Email: '',
-            Password: '',
-            Confirm_Password: '',
-            PhoneNo: '',
+            UserName: null,
+            Email: null,
+            Password: null,
+            Confirm_Password: null,
+            PhoneNo: null,
             Select_License: '',
             Select_License_Type: '',
             From_Date: '',
