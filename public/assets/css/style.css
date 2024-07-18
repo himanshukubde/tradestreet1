@@ -5240,6 +5240,6 @@ body.sidebar-main .iq-sidebar {
   width: 100%;
 }
 
-.MuiInputBase-root {
+.MuiTablePagination-input {
   margin-top: -15px !important;
 }
