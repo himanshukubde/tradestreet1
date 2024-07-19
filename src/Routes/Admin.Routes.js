@@ -3,17 +3,15 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Dashboards from '../components/admin/Dashboard/Dashboards';
 import Sidebar from '../components/layouts/Sidebar';
 import Header from '../components/layouts/Header';
-import Footer from '../components/layouts/Footer';
 import Adduser from '../components/admin/User/Adduser';
 import Clientservice from '../components/admin/User/Clientservice';
 import Tradehistory from '../components/admin/trade/Tradehistory';
-import Allscript from '../components/admin/script/AllScript';
- 
+import Allscript from '../components/admin/AdminScript/AllScript';
 import Clientactivity from '../components/admin/User/Clientactivity';
 import Clientreport from '../components/admin/User/Clientreport';
 import Smtp from '../components/admin/Smtp/Smtp';
 import UserLogs from '../components/admin/User/UserLogs';
-import Strategygroup from '../components/admin/group/Strategygroup';
+import StrategyGroup from '../components/admin/Groups/StrategyGroup';
 import ServiceReport from '../components/admin/User/ServiceReport';
 import Addscript from '../components/admin/script/Addscript.Scalping';
 import AddScriptOption from '../components/admin/script/AddScript.Option'
@@ -42,7 +40,7 @@ const AdminRoute = () => {
             <Route path="/clientreport" element={<Clientreport />} />
             <Route path="/smtp" element={<Smtp />} />
             <Route path="/userlogs" element={<UserLogs />} />
-            <Route path="/strategygroup" element={<Strategygroup />} />
+            <Route path="/strategygroup" element={<StrategyGroup />} />
             <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
            
