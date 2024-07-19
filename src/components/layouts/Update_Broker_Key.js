@@ -4,11 +4,17 @@ import Formikform from "../../ExtraComponent/FormData";
 import { useFormik } from 'formik';
 import { GetBrokerData, UpdateBrokerData } from "../Common API/User";
 import Swal from 'sweetalert2';
+import { AdminAddBrokerCredential, Get_Broker_Details } from '../Common API/Admin';
 
-const Update_Broker_Key = ({ closeModal, isVisible }) => {
+const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");
     const [refresh, setRefresh] = useState(false);
     const [userDetails, setUserDetails] = useState({ loading: true, data: {} });
+    const [upDateData, setUpDateData] = useState({
+        data: []
+    });
+
+
 
     const fetchData = async () => {
         const requestData = { userName };
@@ -139,6 +145,125 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
 
 
 
+    const getBrokerDetails = async () => {
+        try {
+            const response = await Get_Broker_Details();
+            if (response.Status) {
+                setUpDateData({ data: response.BrokerDetail });
+            } else {
+                setUpDateData({ data: {} });
+            }
+        } catch (err) {
+            console.log("Error in finding the broker details", err);
+        }
+    };
+    useEffect(() => {
+        getBrokerDetails();
+    }, []);
+
+
+    const formik2 = useFormik({
+        
+        initialValues: {
+            api_key:  '',
+            Pwd: '',
+            Userid: '',
+            DOB: '',
+        },
+        validate: (values) => {
+            let errors = {};
+            if (!values.api_key) {
+                errors.api_key = "Please Enter API Key";
+            }
+            if (!values.Pwd) {
+                errors.Pwd = "Please Enter Password";
+            }
+            if (!values.Userid) {
+                errors.Userid = "Please Enter User ID";
+            }
+            if (!values.DOB) {
+                errors.DOB = "Please Enter Authorization Key";
+            }
+            return errors;
+        },
+        onSubmit: async (values) => {
+            const data = {
+                Userid: values.Userid,
+                api_key: values.api_key,
+                Pwd: values.Pwd,
+                DOB: values.DOB
+            };
+            try {
+                const response = await AdminAddBrokerCredential(data);
+                if (response.Status) {
+                    setUpDateData({ data: response.Data });
+                    Swal.fire({
+                        title: "Updated successfully!",
+                        text: "Broker Credential Updated successfully!",
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    }).then(() => {
+                        closeModal(false);
+                    });
+                    
+                } else {
+                    Swal.fire({
+                        title: "Error",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            } catch (error) {
+                console.log("Error in updating Broker", error);
+            }
+        }
+    });
+
+    const fields1 = [
+        {
+            name: "Userid",
+            label: "User ID",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "api_key",
+            label: "API key",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "Pwd",
+            label: "Password",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "DOB",
+            label: "Authorization Key",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+    ];
+
+  
+
+
     useEffect(() => {
         if (userDetails.data) {
             formik.setValues({
@@ -176,9 +301,9 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                                         formik.values.BrokerName.toUpperCase() === "DHAN" ? "Access Token" :
                                             formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "App Api Key" :
                                                 formik.values.BrokerName.toUpperCase() === "MANDOT" ? "App Api Key" :
-                                                formik.values.BrokerName.toUpperCase() === "INDIRA" ? "App Api Key" :
+                                                    formik.values.BrokerName.toUpperCase() === "INDIRA" ? "App Api Key" :
 
-                                                    "Username",
+                                                        "Username",
             showWhen: (values) => values.BrokerName.toUpperCase() === "ANGEL" ||
                 values.BrokerName.toUpperCase() === "ALICEBLUE" ||
                 values.BrokerName.toUpperCase() === "ICICI" ||
@@ -188,7 +313,7 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                 values.BrokerName.toUpperCase() === "FYERS" ||
                 values.BrokerName.toUpperCase() === "ZEBULL" ||
                 values.BrokerName.toUpperCase() === "MANDOT" ||
-                values.BrokerName.toUpperCase() === "DHAN"|| values.BrokerName.toUpperCase() === "INDIRA",
+                values.BrokerName.toUpperCase() === "DHAN" || values.BrokerName.toUpperCase() === "INDIRA",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -203,9 +328,9 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                         formik.values.BrokerName.toUpperCase() === "FYERS" ? "Secret Key" :
                             formik.values.BrokerName.toUpperCase() === "DHAN" ? "Client ID" :
                                 formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "User Password" :
-                                formik.values.BrokerName.toUpperCase() === "INDIRA" ? "User Password" :
+                                    formik.values.BrokerName.toUpperCase() === "INDIRA" ? "User Password" :
 
-                                    "Mobile No.",
+                                        "Mobile No.",
             showWhen: (values) => values.BrokerName.toUpperCase() === "UPSTOX" ||
                 values.BrokerName.toUpperCase() === "5PAISA" ||
                 values.BrokerName.toUpperCase() === "MASTERTRUST" ||
@@ -246,26 +371,39 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                         formik.values.BrokerName.toUpperCase() === "MASTERTRUST" ? "Redirect Uri" :
                             formik.values.BrokerName.toUpperCase() === "FYERS" ? "Redirect Uri" :
                                 formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Date of Birth" :
-                                formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Secret Key" :
-                                formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Mobile No." :
+                                    formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Secret Key" :
+                                        formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Mobile No." :
 
-                                "Mobile No.",
+                                            "Mobile No.",
             showWhen: (values) => values.BrokerName.toUpperCase() === "ICICI" ||
                 values.BrokerName.toUpperCase() === "UPSTOX" ||
                 values.BrokerName.toUpperCase() === "5PAISA" ||
                 values.BrokerName.toUpperCase() === "MASTERTRUST" ||
                 values.BrokerName.toUpperCase() === "ZEBULL" ||
-                 values.BrokerName.toUpperCase() === "MANDOT"|| 
+                values.BrokerName.toUpperCase() === "MANDOT" ||
                 values.BrokerName.toUpperCase() === "FYERS" || values.BrokerName.toUpperCase() === "INDIRA",
             label_size: 12,
             col_size: 6,
             disable: false,
         },
     ];
+ 
+
+    useEffect(() => {
+        if (upDateData.data && upDateData.data[0]) {
+            console.log( upDateData.data && upDateData.data[0].api_key )
+            formik2.setFieldValue('api_key',  upDateData.data && upDateData.data[0].api_key || '' )
+            formik2.setFieldValue('Pwd', upDateData.data && upDateData.data[0].Pwd || '')
+            formik2.setFieldValue("Userid", upDateData && upDateData.data[0].username || '')
+            formik2.setFieldValue("DOB", upDateData && upDateData.data[0].Auth_key || '')
+        }
+
+    }, [upDateData.data])
 
     return (
         <div>
-            {!userDetails.loading && isVisible && (
+
+            {Role == "Admin" ? !userDetails.loading && isVisible &&
                 <div className="modal show" id="exampleModal" style={{ display: "block" }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -282,17 +420,48 @@ const Update_Broker_Key = ({ closeModal, isVisible }) => {
                                 />
                             </div>
                             <Formikform
-                                fields={fields.filter(
-                                    (field) => !field.showWhen || field.showWhen(formik.values)
+                                fields={fields1.filter(
+                                    (fields1) => !fields1.showWhen || fields1.showWhen(formik2.values)
                                 )}
-
+                               
                                 btn_name="Update"
-                                formik={formik}
+                                formik={formik2}
+
                             />
                         </div>
                     </div>
                 </div>
-            )}
+                 
+                :
+
+                !userDetails.loading && isVisible && (
+                    <div className="modal show" id="exampleModal" style={{ display: "block" }}>
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">
+                                        Update Broker Key : - {userDetails.data && userDetails.data.BrokerName}
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                        onClick={() => closeModal(false)}
+                                    />
+                                </div>
+                                <Formikform
+                                    fields={fields.filter(
+                                        (field) => !field.showWhen || field.showWhen(formik.values)
+                                    )}
+
+                                    btn_name="Update"
+                                    formik={formik}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
         </div>
     );
 };

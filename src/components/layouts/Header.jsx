@@ -16,7 +16,7 @@ const Header = () => {
     const [isFixed, setIsFixed] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [activeElement, setActiveElement] = useState(null);
-    const [getModal, setModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [getTradingStatus, setTradingStatus] = useState(false);
     const [getBrokerName, setBrokerName] = useState("");
@@ -251,51 +251,7 @@ const Header = () => {
                                             Set API Key
                                         </button>
                                     </li>
-                                    <li className="nav-item">
-
-                                        <div className={`iq-sub-dropdown ${activeElement === 'language' ? 'iq-show' : ''}`}>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-02.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                French
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-03.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Spanish
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-04.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Italian
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-05.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                German
-                                            </a>
-                                            <a className="iq-sub-card" href="#">
-                                                <img
-                                                    src="assets/images/small/flag-06.png"
-                                                    alt="img-flag"
-                                                    className="img-fluid me-2"
-                                                />
-                                                Japanese
-                                            </a>
-                                        </div>
-                                    </li>
+                                    
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
@@ -511,7 +467,7 @@ const Header = () => {
             </div>
 
 
-            <UpdateBrokerKey isVisible={isModalVisible} closeModal={handleCloseModal} />
+            <UpdateBrokerKey isVisible={isModalVisible} closeModal={handleCloseModal} Role={role} />
 
         </>
     );

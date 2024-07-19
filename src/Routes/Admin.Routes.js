@@ -8,7 +8,7 @@ import Adduser from '../components/admin/User/Adduser';
 import Clientservice from '../components/admin/User/Clientservice';
 import Tradehistory from '../components/admin/trade/Tradehistory';
 import Allscript from '../components/admin/script/AllScript';
-import Brokercredential from '../components/admin/broker/Brokercredential';
+ 
 import Clientactivity from '../components/admin/User/Clientactivity';
 import Clientreport from '../components/admin/User/Clientreport';
 import Smtp from '../components/admin/detail/Smtp';
@@ -38,7 +38,6 @@ const AdminRoute = () => {
             <Route path="/allscript" element={<Allscript />} />
             <Route path="/addscript/scalping" element={<Addscript />} />
             <Route path="/addscript/pattern" element={<PatternScript />} />
-            <Route path="/brokercredential" element={<Brokercredential />} />
             <Route path="/clientactivity" element={<Clientactivity />} />
             <Route path="/clientreport" element={<Clientreport />} />
             <Route path="/smtp" element={<Smtp />} />

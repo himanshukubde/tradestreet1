@@ -124,13 +124,7 @@ const Sidebar = () => {
                                             <span>Client Service</span>
                                         </Link>
                                     </li>
-                                    <li className={activeItem === 'brokercredential' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'brokercredential')}>
-                                        <Link to="/admin/brokercredential" className="iq-waves-effect">
-                                            <i className="lab la-mendeley" />
-                                            <span>Broker Credential</span>
-                                        </Link>
-                                    </li>
-                                     
+                                
                                     <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
                                         <Link to="/admin/userlogs" className="iq-waves-effect">
                                             <i className="la la-envelope-open" />
