@@ -1072,8 +1072,8 @@ const Pannel = () => {
                                             onChange={(e) => setActivity(e.target.value)}
                                             value={getActivity}>
                                             <option value="">Select Task Status</option>
-                                            {gettaskStatus && gettaskStatus.map((item) => {
-                                                return <option value={item}>{item}</option>
+                                            {gettaskStatus && gettaskStatus.map((item , index) => {
+                                                return <option value={item}  key={index}>{item}</option>
                                             })}
                                         </select>
                                     </div>

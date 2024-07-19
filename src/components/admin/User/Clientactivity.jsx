@@ -129,11 +129,14 @@ const Clientactivity = () => {
                                                 >
                                                             <option value="">Select Username</option>
 
-                                                    {getUserName.data && getUserName.data.map((item) => {
-                                                        return <>
-                                                            <option value={item.Username}>{item.Username}</option>
-                                                        </>
-                                                    })}
+                                                    {getUserName.data && getUserName.data.map((item, index) => 
+                                                         
+                                                            <option value={item.Username}  key={index}>{item.Username}</option>
+
+                                                         
+
+                                                        
+                                                    )}
                                                 </select>
                                             </div>
                                             <div className="form-group col-lg-3 ">
