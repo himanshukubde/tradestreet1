@@ -249,7 +249,7 @@ const Strategygroup = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Strategy Group</h4>
+                                <h4 className="card-title">Strategy Group pppp</h4>
                             </div>
                             <div className="iq-card-header-toolbar d-flex align-items-center">
                                 <button

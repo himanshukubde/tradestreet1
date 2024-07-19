@@ -8,10 +8,6 @@ const Dashboards = () => {
         loading: true,
         data: []
     });
-
-    console.log("dashData :", dashData)
-
-
     const GetAdminDashboardData = async () => {
         await GetAdminDashboard()
             .then((response) => {
