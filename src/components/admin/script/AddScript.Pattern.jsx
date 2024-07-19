@@ -238,8 +238,6 @@ const AddClient = () => {
         formik.setFieldValue('TStype', "Point")
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('TType', "BUY")
-
-
     }, [])
 
 
