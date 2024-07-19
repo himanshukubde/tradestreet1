@@ -2,16 +2,16 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Sidebar from '../components/layouts/Sidebar';
 import Header from '../components/layouts/Header';
-import Footer from '../components/layouts/Footer';
+ 
 import Dashboard from '../components/user/userdash/Userdashboard';
-import Broker from '../components/user/broker/Userbroker';
+ 
 import Addscript from '../components/user/userscript/Addscript.scalping';
  
 import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import LastPattern from '../components/user/pattern/LastPattern';
 import Editprofile from '../components/user/userprofile/Editprofile';
-import Discription from '../components/user/describe/Discription';
+import Discription from '../components/user/Discription/Discription';
 import Tradehistory from '../components/user/Tradehistory/Tradehistory';
 import Updateparameter from '../components/user/parameter/Updateparameter';
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
@@ -36,7 +36,7 @@ const UserRoute = () => {
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
              
-            <Route path="/broker" element={<Broker />} />
+           
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<Editprofile />} />
             <Route path="/lastpattern" element={<LastPattern />} />
@@ -57,7 +57,7 @@ const UserRoute = () => {
 
 
           </Routes>
-          {/* <Footer /> */}
+    
         </div>
       </div>
       {/* )} */}
