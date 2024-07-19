@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { setSmtpDetail, Get_SMTP_Details } from '../../Common API/Admin';
+import { setSmtpDetail, Get_SMTP_Details } from '../../CommonAPI/Admin';
 import Swal from 'sweetalert2';
 
 const Smtp = () => {

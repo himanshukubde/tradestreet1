@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GetClientService, Get_Broker_Name, GetGroupNames, ExtendEndDate, EditClientPanle, ServiceCount } from '../../Common API/Admin';
+import { GetClientService, Get_Broker_Name, GetGroupNames, ExtendEndDate, EditClientPanle, ServiceCount } from '../../CommonAPI/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import { Link } from 'react-router-dom';
 import { SquarePen } from 'lucide-react';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetClientService, GetClientLogs } from '../../Common API/Admin'
+import { GetClientService, GetClientLogs } from '../../CommonAPI/Admin'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';

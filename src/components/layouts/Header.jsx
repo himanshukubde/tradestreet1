@@ -4,7 +4,7 @@ import UpdateBrokerKey from "./Update_Broker_Key";
 import Loginwihapi from "./log_with_api";
 import * as Config from "../../Utils/Config";
 import axios from "axios";
-import { TradingStatus } from "../Common API/User";
+import { TradingStatus } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetAdminDashboard } from '../../Common API/Admin'
+import { GetAdminDashboard } from '../../CommonAPI/Admin'
 import Loader from '../../../ExtraComponent/Loader';
 
 const Dashboards = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-import { CreateAccount, Get_Broker_Name, GetGroupNames } from '../../Common API/Admin'
+import { CreateAccount, Get_Broker_Name, GetGroupNames } from '../../CommonAPI/Admin'
 import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";

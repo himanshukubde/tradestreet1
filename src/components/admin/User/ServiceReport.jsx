@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetGroupNames, Get_All_Service, get_User_Data } from '../../Common API/Admin'
+import { GetGroupNames, Get_All_Service, get_User_Data } from '../../CommonAPI/Admin'
 import { Eye, Trash2 } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'

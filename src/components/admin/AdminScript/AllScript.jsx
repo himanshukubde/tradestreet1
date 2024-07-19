@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetAllGroupService, GetGroupNames, DeleteScript } from '../../Common API/Admin';
+import { GetAllGroupService, GetGroupNames, DeleteScript } from '../../CommonAPI/Admin';
 import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader'

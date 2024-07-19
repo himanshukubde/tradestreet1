@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import Formikform from "../../ExtraComponent/FormData";
 import { useFormik } from 'formik';
-import { GetBrokerData, UpdateBrokerData } from "../Common API/User";
+import { GetBrokerData, UpdateBrokerData } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
-import { AdminAddBrokerCredential, Get_Broker_Details } from '../Common API/Admin';
+import { AdminAddBrokerCredential, Get_Broker_Details } from '../CommonAPI/Admin';
 
 const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");

@@ -5,7 +5,7 @@ import Sidebar from '../components/layouts/Sidebar';
 import Header from '../components/layouts/Header';
 import Adduser from '../components/admin/User/Adduser';
 import Clientservice from '../components/admin/User/Clientservice';
-import Tradehistory from '../components/admin/trade/Tradehistory';
+import Tradehistory from '../components/admin/TradeHistory/Tradehistory';
 import Allscript from '../components/admin/AdminScript/AllScript';
 import Clientactivity from '../components/admin/User/Clientactivity';
 import Clientreport from '../components/admin/User/Clientreport';

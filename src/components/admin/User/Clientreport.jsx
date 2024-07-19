@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Get_Client_Report } from '../../Common API/Admin'
+import { Get_Client_Report } from '../../CommonAPI/Admin'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Checkbox from '@mui/material/Checkbox';
 import {ClientReportColumn} from './UserAllColumn'

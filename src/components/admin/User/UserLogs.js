@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-import { Get_Panle_Logs } from '../../Common API/User'
-import { GetAllTaskStatus, GetClientService, Get_All_Client_Logs } from '../../Common API/Admin'
+import { Get_Panle_Logs } from '../../CommonAPI/User'
+import { GetAllTaskStatus, GetClientService, Get_All_Client_Logs } from '../../CommonAPI/Admin'
 import Checkbox from '@mui/material/Checkbox';
 import DatePicker from "react-datepicker";
 import { Eye } from 'lucide-react';
