@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { RegistorUser } from '../Common API/Common'
+import { RegistorUser } from '../CommonAPI/Common'
 import Swal from 'sweetalert2'
 import { Eye, EyeOff } from 'lucide-react'
 

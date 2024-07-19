@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
-import { GetAllGroupService } from '../../Common API/Admin';
+import { GetAllUserScript, DeleteUserScript } from '../../CommonAPI/User';
 import Loader from '../../../ExtraComponent/Loader';
 import { getColumns, getColumns1, getColumns2 } from './Columns';
 import Swal from 'sweetalert2';
 
-const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
-    const stgType = data
+const Coptyscript = ({ data, selectedType, data2 }) => {
     const userName = localStorage.getItem('name')
 
 
+   
     const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(false)
     const [selectGroup, setSelectGroup] = useState('');
     const [getAllService, setAllservice] = useState({
         loading: true,
-        data: []
+        ScalpingData: [],
+        OptionData: [],
+        PatternData: [],
+        PatternOption: [],
+        Marketwise: [],
+        PremiumRotation: []
     });
-
-
-
+ 
     const handleAddScript1 = (data1) => {
         if (data2.status == false) {
             Swal.fire({
@@ -33,26 +37,29 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
         else {
 
             const selectedRowIndex = data1.rowIndex;
-            const selectedRow = getAllService.data[selectedRowIndex];
-            const data = { selectStrategyType: "Scalping", ...selectedRow };
+            const selectedRow = getAllService.ScalpingData[selectedRowIndex];
+            const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", ...selectedRow };
             navigate('/user/addscript/scalping', { state: { data } });
         }
+
+
     }
 
     const handleAddScript2 = (data1) => {
         if (data2.status == false) {
             Swal.fire({
                 title: "Error",
-                text: data2.msg,
+                text:  data2.msg,
                 icon: "error",
                 timer: 1500,
                 timerProgressBar: true
             });
+
         }
         else {
 
             const selectedRowIndex = data1.rowIndex;
-            const selectedRow = getAllService.data[selectedRowIndex];
+            const selectedRow = getAllService.OptionData[selectedRowIndex];
             const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
             navigate('/user/addscript/option', { state: { data } });
         }
@@ -62,39 +69,48 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
         if (data2.status == false) {
             Swal.fire({
                 title: "Error",
-                text: data2.msg,
+                text:  data2.msg,
                 icon: "error",
                 timer: 1500,
                 timerProgressBar: true
             });
+
         }
         else {
+
             const selectedRowIndex = data1.rowIndex;
-            const selectedRow = getAllService.data[selectedRowIndex];
+            const selectedRow = getAllService.PatternData[selectedRowIndex];
             const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
             navigate('/user/addscript/pattern', { state: { data } });
         }
     }
 
 
-
     const GetAllUserScriptDetails = async () => {
+        const data = { userName: userName };
 
-
-        const data = { Strategy: stgType, Group: GroupName }
-
-        await GetAllGroupService(data)
+        await GetAllUserScript(data)
             .then((response) => {
                 if (response.Status) {
                     setAllservice({
                         loading: false,
-                        data: response.Data
+                        ScalpingData: response.Scalping,
+                        OptionData: response.Option,
+                        PatternData: response.Pattern,
+                        PatternOption: response.PatternOption,
+                        Marketwise: response.Marketwise,
+                        PremiumRotation: response.PremiumRotation
 
                     });
                 } else {
                     setAllservice({
                         loading: false,
-                        data: []
+                        ScalpingData: [],
+                        OptionData: [],
+                        PatternData: [],
+                        PatternOption: [],
+                        Marketwise: [],
+                        PremiumRotation: []
                     });
                 }
             })
@@ -105,7 +121,7 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
 
     useEffect(() => {
         GetAllUserScriptDetails();
-    }, [selectedType, stgType, GroupName]);
+    }, [selectedType, refresh]);
 
     return (
         <div className="container-fluid">
@@ -114,15 +130,17 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
                     <div className="iq-card">
                         <div className="iq-card-body " style={{ padding: '3px' }}>
                             <div className="tab-content" id="myTabContent-3">
+
                                 <div className="tab-pane fade show active" id="home-justify" role="tabpanel" aria-labelledby="home-tab-justify">
                                     {data && (
                                         <>
                                             <div className="iq-card-body " style={{ padding: '3px' }}>
                                                 <div className="table-responsive">
+
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
                                                             columns={data === "Scalping" ? getColumns(handleAddScript1) : data === "Option Strategy" ? getColumns1(handleAddScript2) : data === "Pattern" ? getColumns2(handleAddScript3) : getColumns(handleAddScript1)}
-                                                            data={getAllService.data}
+                                                            data={data === "Scalping" ? getAllService.ScalpingData : data === "Option Strategy" ? getAllService.OptionData : data === "Pattern" ? getAllService.PatternData : []}
                                                             checkBox={false}
                                                         />
                                                     }
@@ -140,4 +158,4 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
     );
 }
 
-export default GroupScript;
+export default Coptyscript;

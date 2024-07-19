@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Get_Profile_Data } from '../../Common API/User'
+import { Get_Profile_Data } from '../../CommonAPI/User'
 
 const Profile = () => {
     var username = localStorage.getItem('name')

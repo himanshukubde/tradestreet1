@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {Link} from 'react-router-dom'
-import { LoginPage , ForgotPassword } from '../Common API/Common'
+import { LoginPage , ForgotPassword } from '../CommonAPI/Common'
 
 const Login = () => {
     const [Username, setUserName] = useState('');

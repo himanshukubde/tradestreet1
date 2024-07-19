@@ -13,9 +13,9 @@ import Smtp from '../components/admin/Smtp/Smtp';
 import UserLogs from '../components/admin/User/UserLogs';
 import StrategyGroup from '../components/admin/Groups/StrategyGroup';
 import ServiceReport from '../components/admin/User/ServiceReport';
-import Addscript from '../components/admin/script/Addscript.Scalping';
-import AddScriptOption from '../components/admin/script/AddScript.Option'
-import PatternScript from '../components/admin/script/AddScript.Pattern'
+import AddscriptScalping from '../components/admin/AdminScript/Addscript.Scalping';
+import AddScriptOption from '../components/admin/AdminScript/AddScript.Option'
+import PatternScript from '../components/admin/AdminScript/AddScript.Pattern'
 
 
 
@@ -23,7 +23,6 @@ import PatternScript from '../components/admin/script/AddScript.Pattern'
 const AdminRoute = () => {
   return (
     <>
-
       <div className='wrapper'>
         <Sidebar />
         <div id="content-page" className="content-page">
@@ -34,7 +33,7 @@ const AdminRoute = () => {
             <Route path="/clientservice" element={<Clientservice />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
             <Route path="/allscript" element={<Allscript />} />
-            <Route path="/addscript/scalping" element={<Addscript />} />
+            <Route path="/addscript/scalping" element={<AddscriptScalping />} />
             <Route path="/addscript/pattern" element={<PatternScript />} />
             <Route path="/clientactivity" element={<Clientactivity />} />
             <Route path="/clientreport" element={<Clientreport />} />
@@ -43,12 +42,9 @@ const AdminRoute = () => {
             <Route path="/strategygroup" element={<StrategyGroup />} />
             <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
-           
           </Routes>
-          {/* <Footer /> */}
         </div>
       </div>
-      {/* )} */}
     </>
   );
 }

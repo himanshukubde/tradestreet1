@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getNetPnLData } from '../../Common API/User'
+import { getNetPnLData } from '../../CommonAPI/User'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";

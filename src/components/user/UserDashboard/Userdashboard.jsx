@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Coptyscript from './Copyscript'
 import GroupScript from './Groupscript'
 import CurrentScript from './CurrentScript'
-import { GetAllUserGroup, OpenPosition } from '../../Common API/User'
-import { ExpriyEndDate } from '../../Common API/Admin'
+import { GetAllUserGroup, OpenPosition } from '../../CommonAPI/User'
+import { ExpriyEndDate } from '../../CommonAPI/Admin'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 const Userdashboard = () => {
     const userName = localStorage.getItem('name')

@@ -3,25 +3,24 @@ import { Route, Routes } from 'react-router-dom';
 import Sidebar from '../components/layouts/Sidebar';
 import Header from '../components/layouts/Header';
  
-import Dashboard from '../components/user/userdash/Userdashboard';
+import Dashboard from '../components/user/UserDashboard/Userdashboard';
  
-import Addscript from '../components/user/userscript/Addscript.scalping';
+import Addscript from '../components/user/UserScript/Addscript.scalping';
  
-import Profile from '../components/user/userprofile/Profile';
-import AddScriptOption from '../components/user/userscript/AddScript.Option'
+import Profile from '../components/user/UserProfile/Profile';
+import AddScriptOption from '../components/user/UserScript/AddScript.Option'
 import LastPattern from '../components/user/Patterns/LastPattern';
-import Editprofile from '../components/user/userprofile/Editprofile';
+import Editprofile from '../components/user/UserProfile/Editprofile';
 import Discription from '../components/user/Discription/Discription';
 import Tradehistory from '../components/user/Tradehistory/Tradehistory';
- 
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/TrackPanel/TrackPannel';
 import TradeReport  from '../components/user/TradeReport/TradeReport'
-import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
-import AddNewScalpingScript from '../components/user/userscript/AddNewScript.Scalping'
-import AddNewScalpingOption from '../components/user/userscript/AddNewScript.Option'
-import AddNewScalpingPattern from '../components/user/userscript/AddNewScript.Pattern'
+import AddScriptPattern from '../components/user/UserScript/AddScript.Pattern'
+import AddNewScalpingScript from '../components/user/UserScript/AddNewScript.Scalping'
+import AddNewScalpingOption from '../components/user/UserScript/AddNewScript.Option'
+import AddNewScalpingPattern from '../components/user/UserScript/AddNewScript.Pattern'
 import TechnicalPattern from '../components/user/Patterns/TechnicalPattern'
 
 
@@ -35,8 +34,6 @@ const UserRoute = () => {
           <Header />
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-             
-           
             <Route path="/profile" element={<Profile />} />
             <Route path="/editprofile" element={<Editprofile />} />
             <Route path="/lastpattern" element={<LastPattern />} />
@@ -45,7 +42,6 @@ const UserRoute = () => {
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
-            
             <Route path="/traderesponse" element={<Traderesponse />} />
             <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />

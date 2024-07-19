@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../Common API/Admin';
-import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../Common API/User';
+import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../CommonAPI/Admin';
+import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../CommonAPI/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
 

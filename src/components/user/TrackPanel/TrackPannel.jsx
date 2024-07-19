@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-import { Get_Panle_Logs } from '../../Common API/User'
+import { Get_Panle_Logs } from '../../CommonAPI/User'
 import DatePicker from "react-datepicker";
 import { Eye } from 'lucide-react';
 

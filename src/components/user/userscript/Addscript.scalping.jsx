@@ -3,8 +3,8 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange, ExpriyEndDate } from '../../Common API/Admin'
-import { AddScript } from '../../Common API/User'
+import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange, ExpriyEndDate } from '../../CommonAPI/Admin'
+import { AddScript } from '../../CommonAPI/User'
 
 const AddClient = () => {
     const userName = localStorage.getItem('name')

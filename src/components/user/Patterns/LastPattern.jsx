@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Get_Pattern_Name2, Get_Pattern_Charting } from '../../Common API/Admin'
-import { Get_Last_Pattern_Data, AvailableScript, LastPatternCandleData } from '../../Common API/User'
+import { Get_Pattern_Name2, Get_Pattern_Charting } from '../../CommonAPI/Admin'
+import { Get_Last_Pattern_Data, AvailableScript, LastPatternCandleData } from '../../CommonAPI/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
 import "ag-charts-enterprise";

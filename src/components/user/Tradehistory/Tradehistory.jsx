@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../Common API/Admin'
+import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../CommonAPI/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
-import {get_Trade_Data} from '../../Common API/User'
+import {get_Trade_Data} from '../../CommonAPI/User'
 import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";

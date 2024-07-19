@@ -3,7 +3,7 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { AddAdminScript, GET_EXPIRY_DATE } from '../../Common API/Admin'
+import { AddAdminScript, GET_EXPIRY_DATE } from '../../CommonAPI/Admin'
 
 
 const AddClient = () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
-import { GetAllUserScript, DeleteUserScript, Discontinue, Continue } from '../../Common API/User';
+import { GetAllUserScript, DeleteUserScript, Discontinue, Continue } from '../../CommonAPI/User';
 import Loader from '../../../ExtraComponent/Loader';
 import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
