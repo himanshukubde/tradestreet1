@@ -182,13 +182,13 @@ const AddClient = () => {
                 Strike: values.Strike,
                 expirydata1: values.expirydata1,
                 TType: values.TType == 0 ? "" : values.TType,
-                EntryPrice: values.EntryPrice,
-                EntryRange: values.EntryRange,
+                EntryPrice: values.Strategy === "Fixed Price" ? Number(values.LowerRange) : Number(values.EntryPrice),
+                EntryRange: values.Strategy === "Fixed Price" ? Number(values.HigherRange) : Number(values.EntryRange),
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : Number(values.LowerRange),
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : Number(values.HigherRange),
                 TStype: values.Strategy == "Fixed Price" ? "" : values.TStype,
-                Targetvalue: values.Targetvalue,
-                Slvalue: values.Slvalue,
-                LowerRange: values.LowerRange,
-                HigherRange: values.HigherRange,
+                Targetvalue: Number(values.Targetvalue),
+                Slvalue: Number(values.Slvalue),
                 HoldExit: values.set_Range ? values.HoldExit : "Hold",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
@@ -223,7 +223,7 @@ const AddClient = () => {
                 return SweentAlertFun("Higher Price should be greater than Lower Range")
             }
             if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.Targetvalue) <= Number(values.HigherRange) || Number(values.Slvalue) >= Number(values.LowerRange))) {
-                
+
                 return SweentAlertFun(Number(values.Targetvalue) <= Number(values.HigherRange) ? "Target should be Greater than Higher Range " : Number(values.HigherRange) <= Number(values.LowerRange) ? "Higher Range should be Greater than Lower Range" : "Stoploss should be Smaller than Lower Range")
             }
             if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.LowerRange) || values.Slvalue <= Number(values.HigherRange))) {
@@ -278,6 +278,9 @@ const AddClient = () => {
     }, [])
 
 
+    useEffect(() => {
+        formik.setFieldValue('Strategy', "Fixed Price")
+    }, [])
 
     const fields = [
         {
@@ -457,7 +460,7 @@ const AddClient = () => {
         },
         {
             name: "Slvalue",
-            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Rentry Point",
+            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-entry Point",
             type: "text5",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 6 : 4,

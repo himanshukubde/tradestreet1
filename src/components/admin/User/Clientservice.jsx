@@ -29,7 +29,9 @@ const Clientservice = () => {
             try {
                 const response = await Get_Broker_Name();
                 if (response.Status) {
-                    const brokerList = response.Brokernamelist.filter(item => item.BrokerName !== 'Demo');
+
+                  
+                    const brokerList = response.Brokernamelist.filter(item => item.BrokerName !== 'DEMO');
                     setBrokers({ loading: false, data: brokerList });
                 } else {
                     setBrokers({ loading: false, data: [] });
@@ -373,8 +375,7 @@ const Clientservice = () => {
     ];
     
   
-    
-
+     
     const currentDate = new Date();
     currentDate.setDate(
         currentDate.getDate() +
@@ -390,6 +391,7 @@ const Clientservice = () => {
     const form_Date = fromDate.toISOString().split('T')[0];
 
 
+   
  
     useEffect(()=>{
         if(showModal)

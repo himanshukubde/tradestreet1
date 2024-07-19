@@ -145,10 +145,10 @@ const AddClient = () => {
                 errors.Targetvalue = values.Strategy == "Fixed Price" ? "Please Enter A Target Price." : "Please Enter A Target Value.";
             }
             if (!values.LowerRange && (values.set_Range || values.Strategy === "Fixed Price")) {
-                errors.LowerRange = "Please Enter The Lower Price.";
+                errors.LowerRange = "Please Enter The Lower Range.";
             }
             if (!values.HigherRange && (values.set_Range || values.Strategy === "Fixed Price")) {
-                errors.HigherRange = "Please Enter The Higher Price.";
+                errors.HigherRange = "Please Enter The Higher Range.";
             }
             if (!values.Group && values.Strategy === "Fixed Price") {
                 errors.Group = "Please Select A Unique ID.";
@@ -176,13 +176,14 @@ const AddClient = () => {
                 Strike: values.Strike,
                 expirydata1: values.expirydata1,
                 TType: values.TType == 0 ? "" : values.TType,
-                EntryPrice: values.EntryPrice,
-                EntryRange: values.EntryRange,
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
+                
                 TStype: values.TStype,
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
-                LowerRange: values.LowerRange,
-                HigherRange: values.HigherRange,
+                EntryPrice: values.Strategy === "Fixed Price" ? values.LowerRange : values.EntryPrice,
+                EntryRange: values.Strategy === "Fixed Price" ? values.HigherRange : values.EntryRange,
                 HoldExit: values.set_Range ? values.HoldExit : "Hold",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
@@ -282,6 +283,9 @@ const AddClient = () => {
 
     }, [])
 
+    useEffect(() => {
+        formik.setFieldValue('Strategy', "Fixed Price")
+    }, [])
 
     const fields = [
         {
@@ -461,7 +465,7 @@ const AddClient = () => {
         },
         {
             name: "Slvalue",
-            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Rentry Point",
+            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-entry Point",
             type: "text5",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 6 : 4,
@@ -504,7 +508,7 @@ const AddClient = () => {
         },
         {
             name: "LowerRange",
-            label: "Lower Price",
+            label: "Lower Range",
             type: "text5",
             showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
             label_size: 12,
@@ -514,7 +518,7 @@ const AddClient = () => {
         },
         {
             name: "HigherRange",
-            label: "Higher Price",
+            label: "Higher Range",
             type: "text5",
             showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
             label_size: 12,

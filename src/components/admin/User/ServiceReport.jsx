@@ -121,38 +121,6 @@ const Userlog = () => {
             }
         },
         {
-            name: "MCX",
-            label: "MCX",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CDS",
-            label: "CDS",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SingleScript",
-            label: "SingleScript",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "OneDirection",
-            label: "OneDirection",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "Fixed Price",
             label: "Fixed Price",
             options: {
@@ -160,6 +128,24 @@ const Userlog = () => {
                 sort: true,
             }
         },
+        {
+            name: "OneDirection",
+            label: "One Directional",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        }, 
+        {
+            name: "SingleScript",
+            label: "Multi Directional",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+       
+       
     ];
 
     const columns1 = [
@@ -469,24 +455,8 @@ const Userlog = () => {
             }
         },
         {
-            name: "MCX",
-            label: "MCX",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "CDS",
-            label: "CDS",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "Candlestickpattern",
-            label: "Candlestickpattern",
+            label: "Candlestick Pattern",
             options: {
                 filter: true,
                 sort: true,
@@ -494,7 +464,7 @@ const Userlog = () => {
         },
         {
             name: "ChartPattern",
-            label: "ChartPattern",
+            label: "Charting Pattern",
             options: {
                 filter: true,
                 sort: true,
@@ -1283,7 +1253,7 @@ const Userlog = () => {
                                                 <div className="iq-card-body px-2">
                                                     <div className="iq-card-body px-0">
                                                         <FullDataTable
-                                                            columns={columns1}
+                                                            columns={columns2}
                                                             data={getServiceDetails.data}
                                                             checkBox={false}
                                                         />

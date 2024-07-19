@@ -125,9 +125,7 @@ const AddClient = () => {
             if (!values.ETPattern) {
                 errors.ETPattern = "Please Select Pattern Name.";
             }
-            if (!values.HoldExit) {
-                errors.HoldExit = "Please Select Previous Trend.";
-            }
+           
             if (!values.TStype) {
                 errors.TStype = "Please Enter Measurement Type.";
             }
@@ -180,7 +178,7 @@ const AddClient = () => {
                 Quantity: values.Quantity,
                 LowerRange: 0.0,
                 HigherRange: 0.0,
-                HoldExit: values.HoldExit,
+                HoldExit: '',
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
                 EntryTime: values.EntryTime,
@@ -251,7 +249,7 @@ const AddClient = () => {
         formik.setFieldValue('TStype',  "Point" )
         formik.setFieldValue('ExitDay',  "Intraday" )
         formik.setFieldValue('TType',  "BUY" )
-        formik.setFieldValue('HoldExit',  "Without Trend" )
+        
         formik.setFieldValue('Trade_Count', 1)
         
     }, [])

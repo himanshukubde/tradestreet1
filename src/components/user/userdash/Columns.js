@@ -586,14 +586,7 @@ export const getColumns2 = (handleAddScript3) => [
             sort: true,
         }
     },
-    {
-        name: "Trend",
-        label: "Trend",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TradeCount",
         label: "Trade Count",
@@ -1254,14 +1247,7 @@ export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
             sort: true,
         }
     },
-    {
-        name: "Trend",
-        label: "Trend",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TradeCount",
         label: "Trade Count",

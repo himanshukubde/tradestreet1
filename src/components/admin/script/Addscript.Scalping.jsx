@@ -169,13 +169,13 @@ const AddClient = () => {
         Strike: values.Strike,
         expirydata1: values.expirydata1,
         TType: values.TType,
-        EntryPrice: values.EntryPrice,
-        EntryRange: values.EntryRange,
+        EntryPrice: values.Strategy === "Fixed Price" ? values.LowerRange : values.EntryPrice,
+        EntryRange: values.Strategy === "Fixed Price" ? values.HigherRange : values.EntryRange,
         TStype: values.Strategy === "Fixed Price" ? "" : values.TStype,
         Targetvalue: values.Targetvalue,
         Slvalue: values.Slvalue,
-        LowerRange: values.LowerRange,
-        HigherRange: values.HigherRange,
+        LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
+        HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
         HoldExit: values.set_Range && (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "Hold",
         ExitDay: values.ExitDay,
         EntryTime: values.EntryTime,
@@ -258,11 +258,14 @@ const AddClient = () => {
     formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX")
     formik.setFieldValue("HoldExit", "Hold")
-
-
   }, [])
 
 
+
+
+  useEffect(() => {
+    formik.setFieldValue('Strategy', "Fixed Price")
+  }, [])
   // Fixed Target
 
   const fields = [
@@ -441,7 +444,7 @@ const AddClient = () => {
     },
     {
       name: "Slvalue",
-      label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Rentry Point",
+      label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-Entry Point",
       type: "text5",
       label_size: 12,
       col_size: formik.values.Strategy == "Fixed Price" ? 6 : 4,
@@ -484,7 +487,7 @@ const AddClient = () => {
     },
     {
       name: "LowerRange",
-      label: "Lower Price",
+      label: "Lower Range",
       type: "text5",
       showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
       label_size: 12,
@@ -494,7 +497,7 @@ const AddClient = () => {
     },
     {
       name: "HigherRange",
-      label: "Higher Price",
+      label: "Higher Range",
       type: "text5",
       showWhen: (values) => values.set_Range == true || values.Strategy == "Fixed Price",
       label_size: 12,
