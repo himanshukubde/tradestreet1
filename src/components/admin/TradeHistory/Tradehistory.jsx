@@ -624,8 +624,8 @@ const Tradehistory = () => {
                                                                 <div className="col-sm-12">
                                                                     <div className="iq-card">
                                                                         <div className="iq-card-body">
-                                                                            <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
-                                                                            <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
+                                                                            <p>Profit Consistant : <spam>{getAllTradeData.data1}</spam></p>
+                                                                            <p>Profit Consistant Count : <spam>{getAllTradeData.data2}</spam></p>
 
                                                                         </div>
                                                                     </div>
@@ -640,8 +640,8 @@ const Tradehistory = () => {
                                                                 <div className="col-sm-12">
                                                                     <div className="iq-card">
                                                                         <div className="iq-card-body">
-                                                                            <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
-                                                                            <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+                                                                            <p>Loss Consistant : <spam>{getAllTradeData.data4}</spam></p>
+                                                                            <p>Loss Consistant Count : <spam>{getAllTradeData.data3}</spam></p>
 
                                                                         </div>
                                                                     </div>
@@ -663,7 +663,7 @@ const Tradehistory = () => {
 
                                 <div>
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        EquityCurve
+                                        Equity Curve
                                     </p>
 
                                     <GridExample
