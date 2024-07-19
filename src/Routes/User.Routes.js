@@ -9,11 +9,11 @@ import Addscript from '../components/user/userscript/Addscript.scalping';
  
 import Profile from '../components/user/userprofile/Profile';
 import AddScriptOption from '../components/user/userscript/AddScript.Option'
-import LastPattern from '../components/user/pattern/LastPattern';
+import LastPattern from '../components/user/Patterns/LastPattern';
 import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/Discription/Discription';
 import Tradehistory from '../components/user/Tradehistory/Tradehistory';
-import Updateparameter from '../components/user/parameter/Updateparameter';
+ 
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/TrackPanel/TrackPannel';
@@ -22,7 +22,7 @@ import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
 import AddNewScalpingScript from '../components/user/userscript/AddNewScript.Scalping'
 import AddNewScalpingOption from '../components/user/userscript/AddNewScript.Option'
 import AddNewScalpingPattern from '../components/user/userscript/AddNewScript.Pattern'
-import TechnicalPattern from '../components/user/pattern/Technical'
+import TechnicalPattern from '../components/user/Patterns/TechnicalPattern'
 
 
 const UserRoute = () => {
@@ -45,7 +45,7 @@ const UserRoute = () => {
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/discription" element={<Discription />} />
             <Route path="/tradehistory" element={<Tradehistory />} />
-            <Route path="/updateparameter" element={<Updateparameter />} />
+            
             <Route path="/traderesponse" element={<Traderesponse />} />
             <Route path="/profitandloss" element={<ProfitAndLoss />} />
             <Route path="/pannel" element={<Pannel />} />
