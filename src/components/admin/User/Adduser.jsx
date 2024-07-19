@@ -429,9 +429,7 @@ const Adduser = () => {
         return daysToAdd
 
     }
-
-
-    console.log("getGroupData :", getGroupData)
+ 
     return (
         <>
             {getGroupData.loading ? <Loader /> :
