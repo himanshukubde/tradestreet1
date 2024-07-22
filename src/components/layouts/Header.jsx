@@ -242,7 +242,7 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                   
+                                  
                                     <li className="nav-item">
                                         <button
                                             type="button"
@@ -388,35 +388,25 @@ const Header = () => {
                                             </li> :
                                             <>
                                                     <li className="nav-item me-3">
-                                                        <div className="custom-switch-inner">
+                                                        <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                                                            <div className="custom-switch-inner">
 
-
-                                                            <input
-
-                                                                type="checkbox"
-
-                                                                className="custom-control-input"
-
-                                                                id="customSwitch-11"
-
-                                                                defaultChecked=""
-
-                                                            />
-
-                                                            <label
-
-                                                                className="custom-control-label"
-
-                                                                htmlFor="customSwitch-11"
-
-                                                                data-on-label="On"
-
-                                                                data-off-label="Off"
-
-                                                            ></label>
-
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="custom-control-input"
+                                                                    id="customSwitch-11"
+                                                                    defaultChecked=""
+                                                                />
+                                                                <label
+                                                                    className="custom-control-label"
+                                                                    htmlFor="customSwitch-11"
+                                                                    data-on-label="On"
+                                                                    data-off-label="Off"
+                                                                ></label>
+                                                            </div>
                                                         </div>
-                                                     </li>
+
+                                                    </li>
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
@@ -426,21 +416,7 @@ const Header = () => {
                                                         Set API Key
                                                     </button>
                                                 </li>
-                                                <li className="nav-item">
-                                                    <a href='#' className="rtl-switch-toogle">
-                                                        <span className="form-check form-switch">
-                                                            <input
-                                                                className="form-check-input rtl-switch"
-                                                                type="checkbox"
-                                                                role="switch"
-                                                                id="rtl-switch"
-                                                                checked={getTradingStatus}
-                                                                onChange={(e) => handleToggle(e)}
-                                                            />
-                                                            <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
-                                                        </span>
-                                                    </a>
-                                                </li>
+                                               
                                             </>
                                     }
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
