@@ -38,57 +38,57 @@ const Header = () => {
             Loginwihapi(requestData)
         } else {
             console.log("----Trading Of")
-                var data = {
-                    Username: Username,
-                    session: "",
-                    AccToken: "",
-                    usrid: "",
-                    sid: "",
-                    jwt_Token: "",
-                }
-    
-                try {
-                    const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
-    
-                    console.log("response.data :", response.data)
-                    if (response.data.Status) { // Assuming the status is in response.data.Status
-                 
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Trading On successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                            timer: 1000
-                        }).then(() => {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1000);
-                        });
-                    } else {
-    
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Trading Off successfully.',
-                            icon: 'error',
-                            confirmButtonText: 'OK',
-                            timer: 1000
-                        }).then(() => {
-                            setTimeout(() => {
-                                window.location.reload();
-    
-                            }, 1000);
-                        });
-                    }
-                } catch (err) {
-                    console.error("Error in ConnectBroker request", err);
+            var data = {
+                Username: Username,
+                session: "",
+                AccToken: "",
+                usrid: "",
+                sid: "",
+                jwt_Token: "",
+            }
+
+            try {
+                const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+
+                console.log("response.data :", response.data)
+                if (response.data.Status) { // Assuming the status is in response.data.Status
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Trading On successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 1000
+                    }).then(() => {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    });
+                } else {
+
                     Swal.fire({
                         title: 'Error!',
-                        text: 'An error occurred. Please try again later.',
+                        text: 'Trading Off successfully.',
                         icon: 'error',
                         confirmButtonText: 'OK',
+                        timer: 1000
+                    }).then(() => {
+                        setTimeout(() => {
+                            window.location.reload();
+
+                        }, 1000);
                     });
                 }
-         
+            } catch (err) {
+                console.error("Error in ConnectBroker request", err);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            }
+
 
         }
     };
@@ -242,6 +242,7 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
+                                  
                                     <li className="nav-item">
                                         <button
                                             type="button"
@@ -266,7 +267,7 @@ const Header = () => {
                                             <i className="ri-notification-3-fill" />
                                             <span className="bg-danger dots" />
                                         </a>
-                                       
+
                                     </li>
                                     <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
                                         <a
@@ -277,7 +278,7 @@ const Header = () => {
                                             <i className="ri-mail-open-fill" />
                                             <span className="bg-primary count-mail" />
                                         </a>
-                                     
+
                                     </li>
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
@@ -288,7 +289,7 @@ const Header = () => {
 
                                             onClick={(e) => handleClick(e, 'profile')}
                                         >
-                                          
+
                                             <div className="caption">
                                                 <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
                                                     Log out
@@ -296,7 +297,7 @@ const Header = () => {
                                                 </button>
                                             </div>
                                         </a>
-                                     
+
                                     </li>
                                 </ul>
                             </div>
@@ -342,6 +343,26 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
+                                                    <li className="nav-item me-3">
+                                                        <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                                                            <div className="custom-switch-inner">
+
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="custom-control-input"
+                                                                    id="customSwitch-11"
+                                                                    defaultChecked=""
+                                                                />
+                                                                <label
+                                                                    className="custom-control-label"
+                                                                    htmlFor="customSwitch-11"
+                                                                    data-on-label="On"
+                                                                    data-off-label="Off"
+                                                                ></label>
+                                                            </div>
+                                                        </div>
+
+                                                    </li>
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
@@ -351,21 +372,7 @@ const Header = () => {
                                                         Set API Key
                                                     </button>
                                                 </li>
-                                                <li className="nav-item">
-                                                    <a href='#' className="rtl-switch-toogle">
-                                                        <span className="form-check form-switch">
-                                                            <input
-                                                                className="form-check-input rtl-switch"
-                                                                type="checkbox"
-                                                                role="switch"
-                                                                id="rtl-switch"
-                                                                checked={getTradingStatus}
-                                                                onChange={(e) => handleToggle(e)}
-                                                            />
-                                                            <span className="rtl-toggle-tooltip ltr-tooltip">{getTradingStatus ? 'on' : 'off'}</span>
-                                                        </span>
-                                                    </a>
-                                                </li>
+                                               
                                             </>
                                     }
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
