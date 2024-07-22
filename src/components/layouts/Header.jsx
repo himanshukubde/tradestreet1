@@ -242,26 +242,7 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                    <li className="nav-item me-3">
-                                        <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                                            <div className="custom-switch-inner">
-
-                                                <input
-                                                    type="checkbox"
-                                                    className="custom-control-input"
-                                                    id="customSwitch-11"
-                                                    defaultChecked=""
-                                                />
-                                                <label
-                                                    className="custom-control-label"
-                                                    htmlFor="customSwitch-11"
-                                                    data-on-label="On"
-                                                    data-off-label="Off"
-                                                ></label>
-                                            </div>
-                                        </div>
-
-                                    </li>
+                                   
                                     <li className="nav-item">
                                         <button
                                             type="button"
@@ -406,6 +387,36 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
+                                                    <li className="nav-item">
+                                                        <div className="custom-switch-inner">
+
+
+                                                            <input
+
+                                                                type="checkbox"
+
+                                                                className="custom-control-input"
+
+                                                                id="customSwitch-11"
+
+                                                                defaultChecked=""
+
+                                                            />
+
+                                                            <label
+
+                                                                className="custom-control-label"
+
+                                                                htmlFor="customSwitch-11"
+
+                                                                data-on-label="On"
+
+                                                                data-off-label="Off"
+
+                                                            ></label>
+
+                                                        </div>
+                                                     </li>
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
