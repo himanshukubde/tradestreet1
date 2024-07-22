@@ -265,22 +265,32 @@ const AddClient = () => {
 
 
     useEffect(() => {
-        formik.setFieldValue('Strategy', "Multi Directional")
-        formik.setFieldValue('Exchange', "NFO")
-        formik.setFieldValue("TType", "BUY")
-        formik.setFieldValue("ExitDay", "Intraday")
-        formik.setFieldValue("EntryPrice", 0)
-        formik.setFieldValue("EntryRange", 0)
-        formik.setFieldValue("Instrument", "FUTIDX")
-        formik.setFieldValue("HoldExit", "Hold")
-        formik.setFieldValue('Trade_Count', 1)
-
+        formik.setFieldValue('Strategy', location.state.data.ScalpType)
+        formik.setFieldValue('Exchange', location.state.data.Exchange)
+        formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
+        formik.setFieldValue('Symbol', location.state.data['Instrument Symbol'])
+        formik.setFieldValue('expirydata1', location.state.data.ExpiryDate)
+        formik.setFieldValue('TType', location.state.data.TType)
+        formik.setFieldValue('Lotsize', location.state.data.Lotsize)
+        formik.setFieldValue('Set_First_Trade_Range', location.state.data.EntryPrice == 0 || location.state.data.EntryRange == 0 ? false : true)
+        formik.setFieldValue('EntryPrice', location.state.data.EntryPrice)
+        formik.setFieldValue('EntryRange', location.state.data.EntryRange)
+        formik.setFieldValue('TStype', location.state.data.TStype)
+        formik.setFieldValue('Targetvalue', location.state.data['Booking Point'])
+        formik.setFieldValue('Slvalue', location.state.data['Re-entry Point'])
+        formik.setFieldValue('set_Range', location.state.data.LowerRange == 0 || location.state.data.HigherRange == 0 ? false : true)
+        formik.setFieldValue('LowerRange', location.state.data.LowerRange)
+        formik.setFieldValue('HigherRange', location.state.data.HigherRange)
+        formik.setFieldValue('HoldExit', location.state.data.HoldExit)
+        formik.setFieldValue('ExitDay', location.state.data.ExitDay)
+        formik.setFieldValue('EntryTime', location.state.data.EntryTime)
+        formik.setFieldValue('ExitTime', location.state.data.ExitTime)
+        formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
     }, [])
 
 
-    useEffect(() => {
-        formik.setFieldValue('Strategy', "Fixed Price")
-    }, [])
+     
 
     const fields = [
         {
@@ -753,31 +763,34 @@ const AddClient = () => {
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
 
-    useEffect(() => {
+   
+  useEffect(() => {
 
-        if (formik.values.set_Range == false) {
-            formik.setFieldValue('LowerRange', 0)
-            formik.setFieldValue('HigherRange', 0)
+    if (formik.values.set_Range == false) {
+      formik.setFieldValue('LowerRange', 0)
+      formik.setFieldValue('HigherRange', 0)
 
-        }
-        if (formik.values.Set_First_Trade_Range) {
-            formik.setFieldValue('EntryPrice', 0)
-            formik.setFieldValue('EntryRange', 0)
+    }
+    if (formik.values.Set_First_Trade_Range) {
+      formik.setFieldValue('EntryPrice', 0)
+      formik.setFieldValue('EntryRange', 0)
+    }
 
-        }
-        if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-            formik.setFieldValue('Optiontype', "")
-            formik.setFieldValue('Strike', "")
-        }
-        if (formik.values.Exchange == "NSE") {
-            formik.setFieldValue('Instrument', "")
-            formik.setFieldValue('Symbol', "")
-            formik.setFieldValue('expirydata1', "")
-            formik.setFieldValue('Strike', "")
-            formik.setFieldValue('Optiontype', "")
-        }
 
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+
+    if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
+      formik.setFieldValue('Optiontype', "")
+      formik.setFieldValue('Strike', "")
+    }
+    if (formik.values.Exchange == "NSE") {
+      formik.setFieldValue('Instrument', "FUTIDX")
+      formik.setFieldValue('Symbol', "")
+      formik.setFieldValue('expirydata1', "")
+      formik.setFieldValue('Strike', "")
+      formik.setFieldValue('Optiontype', "")
+    }
+
+  }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
     return (

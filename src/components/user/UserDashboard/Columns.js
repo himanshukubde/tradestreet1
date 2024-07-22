@@ -171,6 +171,14 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
+    {
+        name: "GroupN",
+        label: "GroupN",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
    
 ];
 
@@ -783,6 +791,14 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
     {
         name: "SEDate",
         label: "SEDate",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "GroupN",
+        label: "GroupN",
         options: {
             filter: true,
             sort: true,

@@ -156,7 +156,7 @@ export const columns = (handleDelete)=>[
     },
     {
         name: "EntryTime",
-        label: "Entry  Time",
+        label: "Entry Time",
         options: {
             filter: true,
             sort: true,
@@ -170,10 +170,17 @@ export const columns = (handleDelete)=>[
             sort: true,
         }
     },
-
     {
         name: "Instrument Type",
         label: "Instrument Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,
@@ -343,6 +350,7 @@ export const columns2 = (handleDelete)=> [
 
 
 ];
+
 export const columns1 =(handleDelete)=> [
     {
         name: "S.No",

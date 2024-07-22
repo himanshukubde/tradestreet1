@@ -280,147 +280,142 @@ const AddClient = () => {
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-
     }, [])
 
-    useEffect(() => {
-        formik.setFieldValue('Strategy', "Fixed Price")
-    }, [])
+     
 
     const fields = [
         {
             name: "Strategy",
             label: "Scalping Type",
             type: "radio2",
-            title: [{ title: "Multi Directional", value: "Multi Directional" }, { title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }],
+            title: [{ title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }, { title: "Multi Directional", value: "Multi Directional" }],
             hiding: false,
             label_size: 12,
             col_size: 12,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Exchange",
             label: "Exchange",
             type: "select",
             options: getAllExchange && getAllExchange.map((item) => ({
-                label: item,
-                value: item,
+              label: item,
+              value: item,
             })),
-
-
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: formik.values.Exchange == 'NFO' && (formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX") ? 3 : formik.values.Exchange == 'NFO' && (formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK") ? 4 : formik.values.Exchange == 'NSE' && formik.values.Instrument == 'FUTIDX' ? 6 : 6,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Instrument",
             label: "Instrument",
             type: "select",
-            options: formik.values.Exchange == "NFO" ?
+            options: formik.values.Exchange === "NFO" ?
+              [
+                { label: "FUTIDX", value: "FUTIDX" },
+                { label: "FUTSTK", value: "FUTSTK" },
+                { label: "OPTIDX", value: "OPTIDX" },
+                { label: "OPTSTK", value: "OPTSTK" },
+              ]
+              : formik.values.Exchange === "MCX" ?
                 [
-                    { label: "FUTIDX", value: "FUTIDX" },
-                    { label: "FUTSTK", value: "FUTSTK" },
-                    { label: "OPTIDX", value: "OPTIDX" },
-                    { label: "OPTSTK", value: "OPTSTK" },
+                  { label: "OPTFUT", value: "OPTFUT" },
+                  { label: "FUTCOM", value: "FUTCOM" },
+                  { label: "FUTIDX", value: "FUTIDX" },
                 ]
-                : formik.values.Exchange == "MCX" ?
-                    [
-                        { label: "OPTFUT", value: "OPTFUT" },
-                        { label: "FUTCOM", value: "FUTCOM" },
-                        { label: "FUTIDX", value: "FUTIDX" },
-                    ]
-                    : formik.values.Exchange == "CDS" ?
-                        [
-                            { label: "OPTCUR", value: "OPTCUR" },
-                            { label: "FUTCUR", value: "FUTCUR" },
-                        ]
-                        :
-                        [],
+                : formik.values.Exchange == "CDS" ?
+                  [
+                    { label: "OPTCUR", value: "OPTCUR" },
+                    { label: "FUTCUR", value: "FUTCUR" },
+                  ]
+                  :
+                  [],
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: 3,
+            col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Symbol",
             label: "Symbol",
             type: "select",
             options: getSymbolData.data && getSymbolData.data.map((item) => ({
-                label: item,
-                value: item,
+              label: item,
+              value: item,
             })),
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange == "NSE" ? 6 : 3,
+            col_size: formik.values.Exchange == "NSE" ? 6 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Optiontype",
             label: "Option Type",
             type: "select",
             options: [
-                { label: "CE", value: "CE" },
-                { label: "PE", value: "PE" },
+              { label: "CE", value: "CE" },
+              { label: "PE", value: "PE" },
             ],
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
             hiding: false,
             col_size: 4,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Strike",
             label: "Strike Price",
             type: "select",
             options: getStricke.data && getStricke.data.map((item) => ({
-                label: item,
-                value: item
+              label: item,
+              value: item
             })),
             showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
             label_size: 12,
             col_size: 4,
             hiding: false,
             disable: false,
-        },
-        {
+          },
+          {
             name: "expirydata1",
             label: "Expiry Date",
             type: "select1",
             options: getExpiryDate && getExpiryDate.data.map((item) => ({
-                label: item,
-                value: item
+              label: item,
+              value: item
             })),
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: 4,
+            col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : 4,
             disable: false,
-        },
-        {
+          },
+          {
             name: "TType",
             label: "Type",
             type: "trt",
-            showWhen: (values) => values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK",
+            showWhen: (values) => (values.Strategy === 'Multi Directional' || values.Strategy === 'One Directional') && (values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK") || values.Strategy != 'Fixed Price',
             label_size: 12,
             hiding: false,
             col_size: 6,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Set_First_Trade_Range",
             label: "Set First Trade Range",
             type: "checkbox",
-
+      
             showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
             label_size: 12,
             col_size: 12,
             hiding: false,
             disable: false,
-        },
-        {
+          },
+          {
             name: "EntryPrice",
             label: "First Trade Lower Range",
             type: "text5",
@@ -428,8 +423,8 @@ const AddClient = () => {
             col_size: 6,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "EntryRange",
             label: "First Trade Higher Range",
             type: "text5",
@@ -438,23 +433,23 @@ const AddClient = () => {
             col_size: 6,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "TStype",
             label: "Measurement Type",
             type: "select",
             options: [
-                { label: "Percentage", value: "Percentage" },
-                { label: "Point", value: "Point" },
+              { label: "Percentage", value: "Percentage" },
+              { label: "Point", value: "Point" },
             ],
             showWhen: (values) => values.Strategy != "Fixed Price",
             label_size: 12,
             col_size: 4,
             hiding: false,
             disable: false,
-        },
-
-        {
+          },
+      
+          {
             name: "Targetvalue",
             label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
             type: "text5",
@@ -462,30 +457,30 @@ const AddClient = () => {
             col_size: formik.values.Strategy == "Fixed Price" ? 6 : 4,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "Slvalue",
-            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-entry Point",
+            label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-Entry Point",
             type: "text5",
             label_size: 12,
             col_size: formik.values.Strategy == "Fixed Price" ? 6 : 4,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "TType",
             label: "Transaction Type",
             type: "select1",
             options: [
-                { label: "BUY", value: "BUY" },
-                { label: "SELL", value: "SELL" },
+              { label: "BUY", value: "BUY" },
+              { label: "SELL", value: "SELL" },
             ],
             label_size: 12,
             hiding: false,
             col_size: 6,
             disable: false,
-        },
-        {
+          },
+          {
             name: "Quantity",
             label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
             type: "text5",
@@ -493,20 +488,20 @@ const AddClient = () => {
             col_size: 6,
             hiding: false,
             disable: false,
-        },
-
-        {
+          },
+      
+          {
             name: "set_Range",
             label: "Trade Range",
             type: "checkbox",
-
+      
             showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
             label_size: 12,
             col_size: 12,
             hiding: false,
             disable: false,
-        },
-        {
+          },
+          {
             name: "LowerRange",
             label: "Lower Range",
             type: "text5",
@@ -515,8 +510,8 @@ const AddClient = () => {
             col_size: formik.values.Strategy == "Fixed Price" ? 4 : 4,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "HigherRange",
             label: "Higher Range",
             type: "text5",
@@ -525,58 +520,59 @@ const AddClient = () => {
             col_size: formik.values.Strategy == "Fixed Price" ? 4 : 4,
             disable: false,
             hiding: false,
-        },
-
-        {
+          },
+      
+          {
             name: "HoldExit",
             label: "Hold/Exit",
             type: "select",
             options: [
-                { label: "Hold", value: "Hold" },
-                { label: "Exit", value: "Exit" },
+              { label: "Hold", value: "Hold" },
+              { label: "Exit", value: "Exit" },
             ],
             showWhen: (values) => values.set_Range == true && (values.Strategy == "Multi Directional" || values.Strategy == "One Directional"),
             label_size: 12,
             col_size: formik.values.set_Range ? 4 : 3,
             disable: false,
             hiding: false,
-        },
-
-        {
+          },
+      
+          {
             name: "Group",
             label: "Unique ID",
             type: "select",
             options: [
-                { label: "A", value: "A" },
-                { label: "B", value: "B" },
-                { label: "C", value: "C" },
-                { label: "D", value: "D" },
-                { label: "E", value: "E" },
-                { label: "F", value: "F" },
-                { label: "G", value: "G" },
-                { label: "H", value: "H" },
-                { label: "I", value: "I" },
-                { label: "J", value: "J" },
+              { label: "A", value: "A" },
+              { label: "B", value: "B" },
+              { label: "C", value: "C" },
+              { label: "D", value: "D" },
+              { label: "E", value: "E" },
+              { label: "F", value: "F" },
+              { label: "G", value: "G" },
+              { label: "H", value: "H" },
+              { label: "I", value: "I" },
+              { label: "J", value: "J" },
             ],
             showWhen: (values) => values.Strategy == "Fixed Price",
             label_size: 12,
             col_size: 4,
             disable: false,
             hiding: false,
-        },
-        {
+          },
+          {
             name: "ExitDay",
             label: "Exit Day",
             type: "select",
             options: [
-                { label: "Intraday", value: "Intraday" },
-                { label: "Delivery", value: "Delivery" },
+              { label: "Intraday", value: "Intraday" },
+              { label: "Delivery", value: "Delivery" },
             ],
             label_size: 12,
             col_size: 4,
             disable: false,
             hiding: false,
-        },
+          },
+          
         {
             name: "Trade_Execution",
             label: "Trade Execution",

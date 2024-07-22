@@ -112,18 +112,19 @@ const Sidebar = () => {
                                             <span>Strategies Group</span>
                                         </Link>
                                     </li>
-                                    <li className={activeItem === 'allscript' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allscript')}>
-                                        <Link to="/admin/allscript" className="iq-waves-effect">
-                                            <i className="ri-home-8-fill" />
-                                            <span>Add Script</span>
-                                        </Link>
-                                    </li>
                                     <li className={activeItem === 'clientservice' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'clientservice')}>
                                         <Link to="/admin/clientservice" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
                                             <span>Client Service</span>
                                         </Link>
                                     </li>
+                                    <li className={activeItem === 'allscript' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allscript')}>
+                                        <Link to="/admin/allscript" className="iq-waves-effect">
+                                            <i className="ri-home-8-fill" />
+                                            <span>Add Script</span>
+                                        </Link>
+                                    </li>
+                                   
                                 
                                     <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
                                         <Link to="/admin/userlogs" className="iq-waves-effect">

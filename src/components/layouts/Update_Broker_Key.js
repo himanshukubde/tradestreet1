@@ -8,6 +8,8 @@ import { AdminAddBrokerCredential, Get_Broker_Details } from '../CommonAPI/Admin
 
 const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");
+    console.log("Role", Role)
+
     const [refresh, setRefresh] = useState(false);
     const [userDetails, setUserDetails] = useState({ loading: true, data: {} });
     const [upDateData, setUpDateData] = useState({
@@ -146,16 +148,20 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
 
     const getBrokerDetails = async () => {
-        try {
-            const response = await Get_Broker_Details();
-            if (response.Status) {
-                setUpDateData({ data: response.BrokerDetail });
-            } else {
-                setUpDateData({ data: {} });
+        if (Role == 'Admin') {
+            try {
+                const response = await Get_Broker_Details();
+                if (response.Status) {
+                    setUpDateData({ data: response.BrokerDetail });
+                } else {
+                    setUpDateData({ data: {} });
+                }
+            } catch (err) {
+                console.log("Error in finding the broker details", err);
             }
-        } catch (err) {
-            console.log("Error in finding the broker details", err);
+
         }
+
     };
     useEffect(() => {
         getBrokerDetails();
@@ -163,9 +169,9 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
 
     const formik2 = useFormik({
-        
+
         initialValues: {
-            api_key:  '',
+            api_key: '',
             Pwd: '',
             Userid: '',
             DOB: '',
@@ -194,6 +200,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 DOB: values.DOB
             };
             try {
+                console.log("Ram")
                 const response = await AdminAddBrokerCredential(data);
                 if (response.Status) {
                     setUpDateData({ data: response.Data });
@@ -206,7 +213,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                     }).then(() => {
                         closeModal(false);
                     });
-                    
+
                 } else {
                     Swal.fire({
                         title: "Error",
@@ -261,7 +268,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
         },
     ];
 
-  
+
 
 
     useEffect(() => {
@@ -387,12 +394,12 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
             disable: false,
         },
     ];
- 
+
 
     useEffect(() => {
         if (upDateData.data && upDateData.data[0]) {
-            console.log( upDateData.data && upDateData.data[0].api_key )
-            formik2.setFieldValue('api_key',  upDateData.data && upDateData.data[0].api_key || '' )
+            console.log(upDateData.data && upDateData.data[0].api_key)
+            formik2.setFieldValue('api_key', upDateData.data && upDateData.data[0].api_key || '')
             formik2.setFieldValue('Pwd', upDateData.data && upDateData.data[0].Pwd || '')
             formik2.setFieldValue("Userid", upDateData && upDateData.data[0].username || '')
             formik2.setFieldValue("DOB", upDateData && upDateData.data[0].Auth_key || '')
@@ -423,7 +430,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                                 fields={fields1.filter(
                                     (fields1) => !fields1.showWhen || fields1.showWhen(formik2.values)
                                 )}
-                               
+
                                 btn_name="Update"
                                 formik={formik2}
 
@@ -431,7 +438,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                         </div>
                     </div>
                 </div>
-                 
+
                 :
 
                 !userDetails.loading && isVisible && (

@@ -472,7 +472,7 @@ const LastPattern = () => {
                                         <label>Time Frame</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedTimeFrame(e.target.value)} value={selectedTimeFrame}>
                                             <option value="">Please Select Time Frame</option>
-                                            {timeFrameData && timeFrameData.data.map((item) => (
+                                            {timeFrameData.data.length>0 && timeFrameData.data.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}
                                         </select>

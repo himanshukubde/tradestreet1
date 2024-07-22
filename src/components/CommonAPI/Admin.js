@@ -2,8 +2,15 @@ import axios from "axios"
 import * as Config from "../../Utils/Config";
 
 export const CreateAccount = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}addclient`, data)
+        const res = await axios.post(`${Config.base_url}addclient`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         
         return res?.data
     }
@@ -14,8 +21,15 @@ export const CreateAccount = async (data) => {
 }
 
 export const GetAdminDashboard = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}admindashboard`)
+        const res = await axios.get(`${Config.base_url}admindashboard`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
 
         return res?.data
     }
@@ -26,8 +40,15 @@ export const GetAdminDashboard = async (data) => {
 }
 
 export const Add_Group = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}adminstrategiesgroup`, data)
+        const res = await axios.post(`${Config.base_url}adminstrategiesgroup`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -37,8 +58,15 @@ export const Add_Group = async (data) => {
 }
 
 export const GetGroupNames = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}admingrouptable`)
+        const res = await axios.get(`${Config.base_url}admingrouptable`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -48,8 +76,15 @@ export const GetGroupNames = async () => {
 }
 
 export const GetClientService = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Profile`)
+        const res = await axios.get(`${Config.base_url}Profile`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -59,8 +94,15 @@ export const GetClientService = async () => {
 }
 
 export const AddBrokerCredential = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Broker`, data)
+        const res = await axios.post(`${Config.base_url}Broker`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -69,8 +111,15 @@ export const AddBrokerCredential = async (data) => {
 }
  
 export const AdminAddBrokerCredential = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}AdmBroker`, data)
+        const res = await axios.post(`${Config.base_url}AdmBroker`, {
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+        }})
+             
+      
         return res?.data
     }
     catch (err) {
@@ -79,8 +128,15 @@ export const AdminAddBrokerCredential = async (data) => {
 }
 
 export const GetAllGroupService = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}groupstrategies`, data)
+        const res = await axios.post(`${Config.base_url}groupstrategies`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -89,8 +145,15 @@ export const GetAllGroupService = async (data) => {
 }
 
 export const Get_Symbol = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}GetSym`, data)
+        const res = await axios.post(`${Config.base_url}GetSym`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -99,8 +162,15 @@ export const Get_Symbol = async (data) => {
 }
 
 export const Get_StrikePrice = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}GetStrike`, data)
+        const res = await axios.post(`${Config.base_url}GetStrike`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -109,8 +179,15 @@ export const Get_StrikePrice = async (data) => {
 }
 
 export const setSmtpDetail = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}upload_images`, data)
+        const res = await axios.post(`${Config.base_url}upload_images`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -120,8 +197,15 @@ export const setSmtpDetail = async (data) => {
 }
 
 export const GET_EXPIRY_DATE = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}GetExpiry`, data)
+        const res = await axios.post(`${Config.base_url}GetExpiry`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -131,8 +215,15 @@ export const GET_EXPIRY_DATE = async (data) => {
 }
 
 export const AddAdminScript = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}AdminAddscript`, data)
+        const res = await axios.post(`${Config.base_url}AdminAddscript`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -141,8 +232,15 @@ export const AddAdminScript = async (data) => {
 }
 
 export const Get_Pattern_Time_Frame = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Timeframe`)
+        const res = await axios.get(`${Config.base_url}Timeframe`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
 
     }
@@ -152,8 +250,15 @@ export const Get_Pattern_Time_Frame = async () => {
 }
 
 export const Get_Pattern_Name = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Pattern/CandleStick`)
+        const res = await axios.get(`${Config.base_url}Pattern/CandleStick`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
 
     }
@@ -163,8 +268,15 @@ export const Get_Pattern_Name = async () => {
 }
 
 export const Get_Pattern_Name2 = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}CCPattern/${data.selectPattern}`)
+        const res = await axios.get(`${Config.base_url}CCPattern/${data.selectPattern}`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
 
     }
@@ -174,8 +286,15 @@ export const Get_Pattern_Name2 = async (data) => {
 }
 
 export const Get_Pattern_Charting = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Pattern/Charting`)
+        const res = await axios.get(`${Config.base_url}Pattern/Charting`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
 
     }
@@ -185,8 +304,15 @@ export const Get_Pattern_Charting = async () => {
 }
 
 export const Get_All_Service = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Servicereport`, data)
+        const res = await axios.post(`${Config.base_url}Servicereport`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -196,8 +322,15 @@ export const Get_All_Service = async (data) => {
 }
 
 export const get_User_Data = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Data`, data)
+        const res = await axios.post(`${Config.base_url}Data`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -207,8 +340,15 @@ export const get_User_Data = async (data) => {
 }
 
 export const get_Trade_History = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Tradehistory`, data)
+        const res = await axios.post(`${Config.base_url}Tradehistory`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -218,8 +358,15 @@ export const get_Trade_History = async (data) => {
 }
 
 export const get_PnL_Data = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Barchart`, data)
+        const res = await axios.post(`${Config.base_url}Barchart`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -229,8 +376,15 @@ export const get_PnL_Data = async (data) => {
 }
 
 export const get_EQuityCurveData = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Equitycurve`, data)
+        const res = await axios.post(`${Config.base_url}Equitycurve`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -240,8 +394,16 @@ export const get_EQuityCurveData = async (data) => {
 }
 
 export const get_DrapDownData = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Drawdown`, data)
+
+        const res = await axios.post(`${Config.base_url}Drawdown`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -252,8 +414,15 @@ export const get_DrapDownData = async (data) => {
 }
 
 export const get_FiveMostProfitTrade = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}fiveprofit`, data)
+        const res = await axios.post(`${Config.base_url}fiveprofit`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -264,8 +433,15 @@ export const get_FiveMostProfitTrade = async (data) => {
 }
 
 export const get_FiveMostLossTrade = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}fiveloss`, data)
+        const res = await axios.post(`${Config.base_url}fiveloss`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -276,8 +452,15 @@ export const get_FiveMostLossTrade = async (data) => {
 }
 
 export const GetClientLogs = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Clientactivity`, data)
+        const res = await axios.post(`${Config.base_url}Clientactivity`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -288,8 +471,15 @@ export const GetClientLogs = async (data) => {
 }
 
 export const Get_Client_Report = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Threadreport`, data)
+        const res = await axios.post(`${Config.base_url}Threadreport`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -300,8 +490,15 @@ export const Get_Client_Report = async (data) => {
 }
 
 export const Get_Broker_Name = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Brokernamelist`)
+        const res = await axios.get(`${Config.base_url}Brokernamelist`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
 
     }
@@ -311,8 +508,15 @@ export const Get_Broker_Name = async () => {
 }
 
 export const DeleteScript = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Admin_Delete_Script`, data)
+        const res = await axios.post(`${Config.base_url}Admin_Delete_Script`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -321,8 +525,15 @@ export const DeleteScript = async (data) => {
 }
 
 export const Get_SMTP_Details = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}SMTPDetail`)
+        const res = await axios.get(`${Config.base_url}SMTPDetail`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -331,8 +542,15 @@ export const Get_SMTP_Details = async () => {
 }
 
 export const ExtendEndDate = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}ExtendEndDate`, data)
+        const res = await axios.post(`${Config.base_url}ExtendEndDate`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -341,8 +559,15 @@ export const ExtendEndDate = async (data) => {
 }
 
 export const EditClientPanle = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}ClientPanel`, data)
+        const res = await axios.post(`${Config.base_url}ClientPanel`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -351,8 +576,15 @@ export const EditClientPanle = async (data) => {
 }
 
 export const ServiceCount = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}ServiceCountEx`, data)
+        const res = await axios.post(`${Config.base_url}ServiceCountEx`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -361,8 +593,15 @@ export const ServiceCount = async (data) => {
 } 
 
 export const GetExchange = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Exchange`)
+        const res = await axios.get(`${Config.base_url}Exchange`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -371,8 +610,15 @@ export const GetExchange = async () => {
 }
 
 export const GetAllTaskStatus = async () => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}TaskStatus`)
+        const res = await axios.get(`${Config.base_url}TaskStatus`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -381,8 +627,15 @@ export const GetAllTaskStatus = async () => {
 }
 
 export const Get_All_Client_Logs = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}UserallScriptDetail`, data)
+        const res = await axios.post(`${Config.base_url}UserallScriptDetail`, data,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -391,8 +644,15 @@ export const Get_All_Client_Logs = async (data) => {
 }
 
 export const ExpriyEndDate = async (data) => {
+    const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}AddExpiry/${data.Username}`)
+        const res = await axios.get(`${Config.base_url}AddExpiry/${data.Username}`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
@@ -401,9 +661,16 @@ export const ExpriyEndDate = async (data) => {
 }
 
 export const Get_Broker_Details = async (data) => {
+    const token = localStorage.getItem('token')
     try {
         
-        const res = await axios.get(`${Config.base_url}AdmBroker`)
+        const res = await axios.get(`${Config.base_url}AdmBroker`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
         return res?.data
     }
     catch (err) {
