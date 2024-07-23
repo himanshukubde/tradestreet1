@@ -88,7 +88,7 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            Trade_Count: 0,
+            Trade_Count: 1,
             Trade_Execution: "Paper Trade",
         },
 
@@ -211,7 +211,7 @@ const AddClient = () => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Script Added !",
-                            text: "New Script Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -223,7 +223,7 @@ const AddClient = () => {
                     else {
                         Swal.fire({
                             title: "Error !",
-                            text: "Error in added new Script..!",
+                            text: response.massage,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true

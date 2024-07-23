@@ -132,9 +132,9 @@ const Login = () => {
                 <div className="row no-gutters">
                     <div className="col-md-6 text-center">
                         <div className="sign-in-detail text-white">
-                            <a className="sign-in-logo mb-5" href="index.html">
+                            {/* <a className="sign-in-logo mb-5" href="index.html">
                                 <img src="assets/images/logo-white.png" className="img-fluid" alt="logo" />
-                            </a>
+                            </a> */}
                             <div
                                 className="owl-carousel owl-loaded owl-drag"
                                 data-autoplay="true"
@@ -287,13 +287,13 @@ const Login = () => {
                             <div className="mt-4">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1" className="mb-2">
-                                        UserName
+                                        Username
                                     </label>
                                     <input
                                         type="text"
                                         className="form-control mb-0"
                                         id="exampleInputEmail1"
-                                        placeholder="Enter Your UserName"
+                                        placeholder="Enter Your Username"
                                         value={Username}
                                         onChange={(e) => setUserName(e.target.value)}
                                     />
@@ -308,8 +308,8 @@ const Login = () => {
                                     <input
                                         type={changeType}
                                         className="form-control mb-0"
-                                        id="exampleInputPassword1"
-                                        placeholder="Password"
+                                        id="exampleInputPassword1"s
+                                        placeholder="Enter Your Password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />

@@ -63,9 +63,9 @@ const Register = () => {
                     <div className="row no-gutters">
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
-                                <a className="sign-in-logo mb-5" href="index.html">
+                                {/* <a className="sign-in-logo mb-5" href="index.html">
                                     <img src="assets/images/logo-white.png" className="img-fluid" alt="logo" />
-                                </a>
+                                </a> */}
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"
                                     data-autoplay="true"
@@ -217,26 +217,26 @@ const Register = () => {
                                 <div className="mt-4 row">
                                     <div className="form-group col-lg-6">
                                         <label htmlFor="username" className="mb-2">
-                                            User Name
+                                            Username
                                         </label>
                                         <input
                                             type="text"
                                             className="form-control mb-0"
                                             id="username"
-                                            placeholder="Enter Your UserName"
+                                            placeholder="Enter Your Username"
                                             value={Username}
                                             onChange={(e) => setUserName(e.target.value)}
                                         />
                                     </div>
                                     <div className="form-group col-lg-6">
                                         <label htmlFor="phone" className="mb-2">
-                                            Phone No
+                                            Phone Number
                                         </label>
                                         <input
                                             type="number"
                                             className="form-control mb-0"
                                             id="phone"
-                                            placeholder="Enter Your Phone No"
+                                            placeholder="Enter Your Phone Number"
                                             value={number}
                                             onChange={(e) => setNumber(e.target.value)}
                                         />

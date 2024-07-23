@@ -74,7 +74,7 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            Trade_Count: 2,
+            Trade_Count: 1,
             Unique_ID: "",
             Measurment_Type: ""
         },

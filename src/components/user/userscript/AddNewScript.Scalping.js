@@ -82,7 +82,7 @@ const AddClient = () => {
             PEDeepHigher: 0.0,
             set_Range: "",
             Set_First_Trade_Range: "",
-            Trade_Count: 0,
+            Trade_Count: 1,
             Trade_Execution: "Paper Trade",
         },
         validate: (values) => {

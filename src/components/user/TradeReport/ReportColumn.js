@@ -46,7 +46,7 @@ export const getColumns = () => [
     },
     {
         name: "TType",
-        label: "TType",
+        label: "Trade Type",
         options: {
             filter: true,
             sort: true,
@@ -70,7 +70,7 @@ export const getColumns = () => [
     },
     {
         name: "ExpiryDate",
-        label: "ExpiryDate",
+        label: "Expiry Date",
         options: {
             filter: true,
             sort: true,
@@ -78,7 +78,7 @@ export const getColumns = () => [
     },
     {
         name: "TradeExecution",
-        label: "TradeExecution",
+        label: "Trade Execution",
         options: {
             filter: true,
             sort: true,
@@ -86,7 +86,7 @@ export const getColumns = () => [
     },
     {
         name: "ExitDay",
-        label: "ExitDay",
+        label: "Exit Day",
         options: {
             filter: true,
             sort: true,
@@ -94,7 +94,7 @@ export const getColumns = () => [
     },
     {
         name: "EntryTime",
-        label: "EntryTime",
+        label: "Entry Time",
         options: {
             filter: true,
             sort: true,
@@ -102,7 +102,7 @@ export const getColumns = () => [
     },
     {
         name: "ExitTime",
-        label: "ExitTime",
+        label: "Exit Time",
         options: {
             filter: true,
             sort: true,
@@ -110,7 +110,7 @@ export const getColumns = () => [
     },
     {
         name: "Expirytype",
-        label: "Expirytype",
+        label: "Expiry Type",
         options: {
             filter: true,
             sort: true,
@@ -142,7 +142,7 @@ export const getColumns = () => [
     },
     {
         name: "TaskStatus",
-        label: "TaskStatus",
+        label: "Task Status",
         options: {
             filter: true,
             sort: true,
@@ -150,7 +150,7 @@ export const getColumns = () => [
     },
     {
         name: "TaskTime",
-        label: "TaskTime",
+        label: "Task Time",
         options: {
             filter: true,
             sort: true,
@@ -158,7 +158,7 @@ export const getColumns = () => [
     },
     {
         name: "TradeCount",
-        label: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -256,7 +256,7 @@ export const getColumns1 = () => [
     },
     {
         name: "Expirytype",
-        label: "Expirytype",
+        label: "Expiry Type",
         options: {
             filter: true,
             sort: true,
@@ -288,7 +288,7 @@ export const getColumns1 = () => [
     },
     {
         name: "TradeExecution",
-        label: "TradeExecution",
+        label: "Trade Execution",
         options: {
             filter: true,
             sort: true,
@@ -328,7 +328,7 @@ export const getColumns1 = () => [
     },
     {
         name: "DeepStrike",
-        label: "DeepStrike",
+        label: "Deep Strike",
         options: {
             filter: true,
             sort: true,
@@ -336,7 +336,7 @@ export const getColumns1 = () => [
     },
     {
         name: "DepthofStrike",
-        label: "DepthofStrike",
+        label: "Depth of Strike",
         options: {
             filter: true,
             sort: true,
@@ -360,7 +360,7 @@ export const getColumns1 = () => [
     },
     {
         name: "StrikeType",
-        label: "StrikeType",
+        label: "Strike Type",
         options: {
             filter: true,
             sort: true,
@@ -368,7 +368,7 @@ export const getColumns1 = () => [
     },
     {
         name: "LowerRange",
-        label: "LowerRange",
+        label: "Lower Range",
         options: {
             filter: true,
             sort: true,
@@ -376,7 +376,7 @@ export const getColumns1 = () => [
     },
     {
         name: "HigherRange",
-        label: "HigherRange",
+        label: "Higher Range",
         options: {
             filter: true,
             sort: true,
@@ -400,7 +400,7 @@ export const getColumns1 = () => [
     },
     {
         name: "PEDepthLower",
-        label: "PEDepthLower",
+        label: "PEDepth Lower",
         options: {
             filter: true,
             sort: true,
@@ -408,7 +408,7 @@ export const getColumns1 = () => [
     },
     {
         name: "PEDepthHigher",
-        label: "PEDepthHigher",
+        label: "PEDepth Higher",
         options: {
             filter: true,
             sort: true,
@@ -424,7 +424,7 @@ export const getColumns1 = () => [
     },
     {
         name: "CEDeepHigher",
-        label: "CEDeepHigher",
+        label: "CEDeep Higher",
         options: {
             filter: true,
             sort: true,
@@ -432,7 +432,7 @@ export const getColumns1 = () => [
     },
     {
         name: "PEDeepHigher",
-        label: "PEDeepHigher",
+        label: "PEDeep Higher",
         options: {
             filter: true,
             sort: true,
@@ -440,7 +440,7 @@ export const getColumns1 = () => [
     },
     {
         name: "PEDeepLower",
-        label: "PEDeepLower",
+        label: "PEDeep Lower",
         options: {
             filter: true,
             sort: true,
@@ -464,7 +464,7 @@ export const getColumns1 = () => [
     },
     {
         name: "TradeCount",
-        label: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
