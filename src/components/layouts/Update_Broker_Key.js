@@ -399,7 +399,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
     useEffect(() => {
         if (upDateData.data && upDateData.data[0]) {
-            console.log(upDateData.data && upDateData.data[0].api_key)
+            
             formik2.setFieldValue('api_key', upDateData.data && upDateData.data[0].api_key || '')
             formik2.setFieldValue('Pwd', upDateData.data && upDateData.data[0].Pwd || '')
             formik2.setFieldValue("Userid", upDateData && upDateData.data[0].username || '')

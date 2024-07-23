@@ -678,3 +678,43 @@ export const Get_Broker_Details = async (data) => {
     }
 }
  
+
+export const AdmindashboardGraph = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}admindashboardData23`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AdmindashboardData = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}admindashboardData`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+ 
+ 
+
+
