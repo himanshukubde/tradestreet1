@@ -101,6 +101,83 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             })
     }
 
+    const handleEdit = async (rowData) => {
+        const index = rowData.rowIndex
+        const req =
+            data == 'Scalping' ?
+                {
+                    Username: userName,
+                    MainStrategy: data,
+                    Strategy: getAllService.ScalpingData[index].ScalpType,
+                    Symbol: getAllService.ScalpingData[index].Symbol,
+                    ETPattern: "",
+                    Timeframe: "",
+                    TType: "",
+                    Group: getAllService.ScalpingData[index].GroupN,
+                    TradePattern: "",
+                    TSymbol: "",
+                    PatternName: ""
+                } : data == 'Option Strategy' ?
+                    {
+                        MainStrategy: data,
+                        Strategy: getAllService.OptionData[index].STG,
+                        Symbol: getAllService.OptionData[index].MainSymbol,
+                        Username: userName,
+                        ETPattern: getAllService.OptionData[index].Targettype,
+                        Timeframe: "",
+                        TType: "",
+                        Group: getAllService.OptionData[index].GroupN,
+                        TSymbol: "",
+                        TradePattern: "",
+                        PatternName: ""
+                    }
+                    : data == 'Pattern' ?
+                        {
+
+                            MainStrategy: data,
+                            Strategy: getAllService.PatternData[index].TradePattern,
+                            Symbol: getAllService.PatternData[index].Symbol,
+                            Username: userName,
+                            ETPattern: getAllService.PatternData[index].Pattern,
+                            Timeframe: getAllService.PatternData[index].TimeFrame,
+                            TType: getAllService.PatternData[index].TType,
+                            Group: "",
+                            TSymbol: "",
+                            TradePattern: "",
+                            PatternName: ""
+
+                        } : ''
+
+
+        await DeleteUserScript(req)
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Deleted",
+                        text: "Script Deleted successfully",
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        didClose: () => {
+                            setRefresh(!refresh);
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: "Error in script delete",
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+
+            })
+            .catch((err) => {
+                console.log("Error in delete script", err)
+            })
+    }
+
     const HandleContinueDiscontinue = async (rowData) => {
         const index = rowData.rowIndex
         let trading;
@@ -378,7 +455,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
-                                                            columns={data === "Scalping" ? getColumns3(handleDelete, HandleContinueDiscontinue) : data === "Option Strategy" ? getColumns4(handleDelete, HandleContinueDiscontinue) : data === "Pattern" ? getColumns5(handleDelete, HandleContinueDiscontinue) : getColumns3(handleDelete, HandleContinueDiscontinue)}
+                                                            columns={data === "Scalping" ? getColumns3(handleDelete,handleEdit, HandleContinueDiscontinue) : data === "Option Strategy" ? getColumns4(handleDelete, handleEdit ,HandleContinueDiscontinue) : data === "Pattern" ? getColumns5(handleDelete, handleEdit, HandleContinueDiscontinue) : getColumns3(handleDelete , handleEdit, HandleContinueDiscontinue)}
                                                             data={data === "Scalping" ? getAllService.ScalpingData : data === "Option Strategy" ? getAllService.OptionData : data === "Pattern" ? getAllService.PatternData : []}
                                                             checkBox={false}
                                                         />

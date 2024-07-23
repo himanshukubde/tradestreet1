@@ -1,6 +1,7 @@
 import React from 'react';
 import { CopyPlus } from 'lucide-react';
 import Checkbox from '@mui/material/Checkbox';
+import {SquarePen } from 'lucide-react';
 
 
 export const getColumns = (handleAddScript1) => [
@@ -606,7 +607,7 @@ export const getColumns2 = (handleAddScript3) => [
 
 ];
 
-export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
+export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -628,6 +629,21 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
             customBodyRender: (value, tableMeta, updateValue) => {
                 return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
                     Squre Off
+                </button>
+                </>
+            }
+        }
+    },
+    {
+        name: "Edit",
+        label: "Edit",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
+                    <SquarePen />
+                    
                 </button>
                 </>
             }
@@ -806,7 +822,7 @@ export const getColumns3 = (handleDelete , handleContinutyDiscontinuty) => [
     },
 ];
 
-export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
+export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -830,6 +846,21 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
                     Squre Off
                 </button>
 
+                </>
+            }
+        }
+    },
+    {
+        name: "Edit",
+        label: "Edit",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
+                    <SquarePen />
+                    
+                </button>
                 </>
             }
         }
@@ -1056,7 +1087,7 @@ export const getColumns4 = (handleDelete , handleContinutyDiscontinuty) => [
     },
 ];
 
-export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
+export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -1080,6 +1111,21 @@ export const getColumns5 = (handleDelete , handleContinutyDiscontinuty) => [
                     Squre Off
                 </button>
 
+                </>
+            }
+        }
+    },
+    {
+        name: "Edit",
+        label: "Edit",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
+                    <SquarePen />
+                    
+                </button>
                 </>
             }
         }
