@@ -271,6 +271,61 @@ const Tradehistory = () => {
 
     ];
 
+    const columns5 = [
+        {
+            name: "S.No",
+            label: "S.No",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const rowIndex = tableMeta.rowIndex;
+                    return rowIndex + 1;
+                }
+            },
+        },
+        {
+            name: "Symbol",
+            label: "Symbol",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Strategy",
+            label: "Strategy",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Strategy",
+            label: "Strategy",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "PnL",
+            label: "PnL",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "Username",
+            label: "Username",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+    ];
+
 
 
 
@@ -572,7 +627,6 @@ const Tradehistory = () => {
 
 
     ];
-
     const columns = [
         {
             name: "S.No",
@@ -779,8 +833,9 @@ const Tradehistory = () => {
         setStrategyType('Scalping')
     }, []);
 
-
-
+    useEffect(() => {
+        setShowTable(false)
+    }, [selectStrategyType, FromDate, ToDate])
 
     return (
         <div>
@@ -826,7 +881,7 @@ const Tradehistory = () => {
 
                                     <div className='mt-3'>
                                         <GridExample
-                                            columns={selectStrategyType == 'Scalping' ? columns1 : selectStrategyType == 'Pattern' ? columns3 : columns1}
+                                            columns={selectStrategyType == 'Scalping' ? columns1 : selectStrategyType == 'Pattern' ? columns3 : columns5}
                                             data={getPnLData.data1}
                                             checkBox={false}
                                         />
