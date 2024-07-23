@@ -257,6 +257,9 @@ const AddClient = () => {
         },
     });
 
+
+   
+
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -280,6 +283,9 @@ const AddClient = () => {
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('Group', location.state.data.GroupN)
+
+
     }, [])
 
      
@@ -761,28 +767,30 @@ const AddClient = () => {
     useEffect(() => {
 
         if (formik.values.set_Range == false) {
-            formik.setFieldValue('LowerRange', 0)
-            formik.setFieldValue('HigherRange', 0)
-
+          formik.setFieldValue('LowerRange', 0)
+          formik.setFieldValue('HigherRange', 0)
+    
         }
         if (formik.values.Set_First_Trade_Range) {
-            formik.setFieldValue('EntryPrice', 0)
-            formik.setFieldValue('EntryRange', 0)
-
+          formik.setFieldValue('EntryPrice', 0)
+          formik.setFieldValue('EntryRange', 0)
         }
+    
+    
+    
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-            formik.setFieldValue('Optiontype', "")
-            formik.setFieldValue('Strike', "")
+          formik.setFieldValue('Optiontype', "")
+          formik.setFieldValue('Strike', "")
         }
         if (formik.values.Exchange == "NSE") {
-            formik.setFieldValue('Instrument', "")
-            formik.setFieldValue('Symbol', "")
-            formik.setFieldValue('expirydata1', "")
-            formik.setFieldValue('Strike', "")
-            formik.setFieldValue('Optiontype', "")
+          formik.setFieldValue('Instrument', "FUTIDX")
+          formik.setFieldValue('Symbol', "")
+          formik.setFieldValue('expirydata1', "")
+          formik.setFieldValue('Strike', "")
+          formik.setFieldValue('Optiontype', "")
         }
-
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+    
+      }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
     return (

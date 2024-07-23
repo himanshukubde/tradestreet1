@@ -30,7 +30,6 @@ const AddClient = () => {
     }
 
     const formik = useFormik({
-
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
             Username: "",
@@ -78,9 +77,6 @@ const AddClient = () => {
             Shifting_Value: 1
 
         },
-
-
-
         validate: (values) => {
             let errors = {};
             const maxTime = "15:29:59";
@@ -318,7 +314,6 @@ const AddClient = () => {
 
     useEffect(() => {
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
-        formik.setFieldValue('Strategy', "ShortStrangle")
         formik.setFieldValue('Symbol', "BANKNIFTY")
         formik.setFieldValue('Expirytype', "Weekly")
         formik.setFieldValue('ETPattern', "Premium Addition")
@@ -738,6 +733,10 @@ const AddClient = () => {
             disable: false,
         },
     ];
+
+    useEffect(() => {
+        formik.setFieldValue('Strategy', formik.values.Measurment_Type == "Straddle/Strangle" ? "LongStrangle" : formik.values.Measurment_Type == "Butterfly/Condor" ? "LongIronButterfly" : formik.values.Measurment_Type == "Spread" ? "BearCallSpread" : formik.values.Measurment_Type == "Ladder/Coverd" ? "BullCallLadder" : formik.values.Measurment_Type == "Collar/Ratio" ? "LongCollar" : formik.values.Measurment_Type == "Shifting/FourLeg" ? "ShortShifting" : "")
+    }, [formik.values.Measurment_Type])
 
     const getExpriyData = async () => {
         const data = { Exchange: "NFO", Instrument: "FUTIDX", Symbol: formik.values.Symbol, Strike: "" }

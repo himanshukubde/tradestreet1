@@ -187,13 +187,16 @@ const Header = () => {
     }, [isActive]);
 
     const fetchData = async () => {
-        const requestData = { userName: Username };
-        const response = await TradingStatus(requestData);
+        if(role=='User'){
 
-        if (response) {
-            setBrokerName(response.Brokername)
-            if (response.Status) {
-                setTradingStatus(true)
+            const requestData = { userName: Username };
+            const response = await TradingStatus(requestData);
+    
+            if (response) {
+                setBrokerName(response.Brokername)
+                if (response.Status) {
+                    setTradingStatus(true)
+                }
             }
         }
     };

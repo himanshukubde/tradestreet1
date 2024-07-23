@@ -301,7 +301,6 @@ const AddClient = () => {
 
     useEffect(() => {
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
-        formik.setFieldValue('Strategy', "ShortStrangle")
         formik.setFieldValue('Symbol', "BANKNIFTY")
         formik.setFieldValue('Expirytype', "Weekly")
         formik.setFieldValue('ETPattern', "Premium Addition")

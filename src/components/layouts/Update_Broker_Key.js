@@ -8,7 +8,7 @@ import { AdminAddBrokerCredential, Get_Broker_Details } from '../CommonAPI/Admin
 
 const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");
-    console.log("Role", Role)
+    
 
     const [refresh, setRefresh] = useState(false);
     const [userDetails, setUserDetails] = useState({ loading: true, data: {} });
@@ -19,13 +19,14 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
 
     const fetchData = async () => {
-        const requestData = { userName };
-        const response = await GetBrokerData(requestData);
-
-        if (response && response.BrokerDetail && response.BrokerDetail[0]) {
-            setUserDetails({ loading: false, data: response.BrokerDetail[0] });
-        } else {
-            setUserDetails({ loading: false, data: {} });
+        if(Role=='User'){
+            const requestData = { userName };
+            const response = await GetBrokerData(requestData);
+            if (response && response.BrokerDetail && response.BrokerDetail[0]) {
+                setUserDetails({ loading: false, data: response.BrokerDetail[0] });
+            } else {
+                setUserDetails({ loading: false, data: {} });
+            }
         }
     };
 

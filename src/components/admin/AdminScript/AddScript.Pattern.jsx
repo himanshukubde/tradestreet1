@@ -679,9 +679,6 @@ const AddClient = () => {
 
 
     useEffect(() => {
-
-
-
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")

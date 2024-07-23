@@ -282,8 +282,9 @@ const AddClient = () => {
         get_Exchange()
     }, [])
 
-    const fields = [
+    
 
+    const fields = [
         {
             name: "Exchange",
             label: "Exchange",
@@ -294,20 +295,9 @@ const AddClient = () => {
             })),
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
             disable: false,
         },
-        {
-            name: "Exchange",
-            label: "Exchange",
-            type: "cp",
-            hiding: false,
-            showWhen: (values) => values.Exchange == "NFO",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
-
         {
             name: "Instrument",
             label: "Instrument",
@@ -335,7 +325,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -349,7 +339,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange == "NSE" ? 6 : 6,
+            col_size:formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4: 6,
             disable: false,
         },
         {
@@ -391,22 +381,9 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: 4,
+            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 4,
             disable: false,
         },
-        {
-            name: "expirydata1",
-            label: "Expiry Date",
-            type: "cp",
-
-            showWhen: (values) => values.Instrument === "FUTSTK" || values.Instrument === "FUTIDX",
-            label_size: 12,
-            hiding: false,
-            col_size: 7,
-            disable: false,
-        },
-
-
         {
             name: "Timeframe",
             label: "Time Frame",
@@ -454,7 +431,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-         
         {
             name: "TStype",
             label: "Measurement Type",
@@ -469,7 +445,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "Targetvalue",
             label: "Target",
@@ -515,7 +490,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -579,10 +553,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
-
     ];
-
 
 
     const getSymbol = async () => {
