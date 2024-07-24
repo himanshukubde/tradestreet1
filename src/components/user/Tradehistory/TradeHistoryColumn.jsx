@@ -45,31 +45,24 @@ export const columns =()=> [
     },
     {
         name: "TType",
-        label: "TType",
+        label: "Trade Type",
         options: {
             filter: true,
             sort: true,
         }
     },
     {
-        name: "Quantity",
+        name: "Lot",
         label: "Quantity",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "ExpiryDate",
-        label: "ExpiryDate",
+        label: "Expiry Date",
         options: {
             filter: true,
             sort: true,
@@ -77,7 +70,7 @@ export const columns =()=> [
     },
     {
         name: "TradeExecution",
-        label: "TradeExecution",
+        label: "Trade Execution",
         options: {
             filter: true,
             sort: true,
@@ -85,7 +78,7 @@ export const columns =()=> [
     },
     {
         name: "ExitDay",
-        label: "ExitDay",
+        label: "Exit Day",
         options: {
             filter: true,
             sort: true,
@@ -93,7 +86,7 @@ export const columns =()=> [
     },
     {
         name: "EntryTime",
-        label: "EntryTime",
+        label: "Entry Time",
         options: {
             filter: true,
             sort: true,
@@ -101,23 +94,16 @@ export const columns =()=> [
     },
     {
         name: "ExitTime",
-        label: "ExitTime",
+        label: "Exit Time",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "SSDate",
-        label: "SSDate",
+        label: "SS Date",
         options: {
             filter: true,
             sort: true,
@@ -125,23 +111,16 @@ export const columns =()=> [
     },
     {
         name: "SEDate",
-        label: "SEDate",
+        label: "SE Date",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "TaskStatus",
-        label: "TaskStatus",
+        label: "Task Status",
         options: {
             filter: true,
             sort: true,
@@ -149,7 +128,7 @@ export const columns =()=> [
     },
     {
         name: "TaskTime",
-        label: "TaskTime",
+        label: "Task Time",
         options: {
             filter: true,
             sort: true,
@@ -157,7 +136,7 @@ export const columns =()=> [
     },
     {
         name: "TradeCount",
-        label: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -189,14 +168,7 @@ export const columns1 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Targettype",
         label: "Risk Handle",
@@ -206,21 +178,15 @@ export const columns1 =()=> [
         }
     },
     {
-        name: "Lotsize",
-        label: "Lotsize",
+        name: "Symbol",
+        label: "Symbol",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Instrument Type",
-        label: "Instrument Type",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
+    
     {
         name: "Expirydate",
         label: "Expiry Date",
@@ -237,30 +203,8 @@ export const columns1 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Symbol",
-        label: "Symbol",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "IName",
-        label: "IName",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+   
+    
     {
         name: "strategytype",
         label: "Measurment Type",
@@ -279,7 +223,7 @@ export const columns1 =()=> [
     },
     {
         name: "SL value",
-        label: "SL value",
+        label: "stoploss",
         options: {
             filter: true,
             sort: true,
@@ -287,7 +231,7 @@ export const columns1 =()=> [
     },
     {
         name: "TradeExecution",
-        label: "TradeExecution",
+        label: "Trade Execution",
         options: {
             filter: true,
             sort: true,
@@ -295,7 +239,7 @@ export const columns1 =()=> [
     },
     {
         name: "Lot Size",
-        label: "LotSize",
+        label: "Lot Size",
         options: {
             filter: true,
             sort: true,
@@ -326,8 +270,8 @@ export const columns1 =()=> [
         }
     },
     {
-        name: "DeepStrike",
-        label: "DeepStrike",
+        name: "StrikeType",
+        label: "Strike Type",
         options: {
             filter: true,
             sort: true,
@@ -335,15 +279,24 @@ export const columns1 =()=> [
     },
     {
         name: "DepthofStrike",
-        label: "DepthofStrike",
+        label: "Depth of Strike",
         options: {
             filter: true,
             sort: true,
         }
     },
     {
+        name: "DeepStrike",
+        label: "Deep Strike",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+   
+    {
         name: "SSDate",
-        label: "SSDate",
+        label: "SS Date",
         options: {
             filter: true,
             sort: true,
@@ -351,23 +304,16 @@ export const columns1 =()=> [
     },
     {
         name: "SEDate",
-        label: "SEDate",
+        label: "SE Date",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "StrikeType",
-        label: "StrikeType",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+   
     {
         name: "LowerRange",
-        label: "LowerRange",
+        label: "Lower Range",
         options: {
             filter: true,
             sort: true,
@@ -375,7 +321,7 @@ export const columns1 =()=> [
     },
     {
         name: "HigherRange",
-        label: "HigherRange",
+        label: "Higher Range",
         options: {
             filter: true,
             sort: true,
@@ -447,23 +393,16 @@ export const columns1 =()=> [
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "FixedSM",
-        label: "FixedSM",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TradeCount",
-        label: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -486,7 +425,15 @@ export const columns2 =()=> [
     },
     {
         name: "TradePattern",
-        label: "TradePattern",
+        label: "Pattern Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Pattern",
+        label: "Pattern Name",
         options: {
             filter: true,
             sort: true,
@@ -518,7 +465,7 @@ export const columns2 =()=> [
     },
     {
         name: "TType",
-        label: "TType",
+        label: "Trade Type",
         options: {
             filter: true,
             sort: true,
@@ -526,7 +473,7 @@ export const columns2 =()=> [
     },
     {
         name: "TStype",
-        label: "TStype",
+        label: "Measurement Type",
         options: {
             filter: true,
             sort: true,
@@ -542,7 +489,7 @@ export const columns2 =()=> [
     },
     {
         name: "SL value",
-        label: "SL value",
+        label: "stoploss",
         options: {
             filter: true,
             sort: true,
@@ -556,14 +503,7 @@ export const columns2 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Expiry Date",
         label: "Expiry Date",
@@ -574,7 +514,7 @@ export const columns2 =()=> [
     },
     {
         name: "TradeExecution",
-        label: "TradeExecution",
+        label: "Trade Execution",
         options: {
             filter: true,
             sort: true,
@@ -582,7 +522,7 @@ export const columns2 =()=> [
     },
     {
         name: "ExitDay",
-        label: "ExitDay",
+        label: "Exit Day",
         options: {
             filter: true,
             sort: true,
@@ -590,7 +530,7 @@ export const columns2 =()=> [
     },
     {
         name: "EntryTime",
-        label: "EntryTime",
+        label: "Entry Time",
         options: {
             filter: true,
             sort: true,
@@ -598,23 +538,16 @@ export const columns2 =()=> [
     },
     {
         name: "ExitTime",
-        label: "ExitTime",
+        label: "Exit Time",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Pattern",
-        label: "Pattern",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TimeFrame",
-        label: "TimeFrame",
+        label: "Time Frame",
         options: {
             filter: true,
             sort: true,
@@ -622,7 +555,7 @@ export const columns2 =()=> [
     },
     {
         name: "SEDate",
-        label: "SEDate",
+        label: "SE Date",
         options: {
             filter: true,
             sort: true,
@@ -630,23 +563,16 @@ export const columns2 =()=> [
     },
     {
         name: "SSDate",
-        label: "SSDate",
+        label: "SS Date",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "Trend",
-        label: "Trend",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "TradeCount",
-        label: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,

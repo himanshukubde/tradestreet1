@@ -6,7 +6,7 @@ import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import { getColumns3, getColumns2, getColumns1, getColumns, getColumns4, getColumns5 } from './ReportColumn'
+import { getColumns3, getColumns2, getColumns1, getColumns, getColumns4, getColumns5 , getColumns8 , getColumns7 , getColumns6 } from './ReportColumn'
 
 const TradeReport = () => {
     const [selectStrategyType, setStrategyType] = useState('')
@@ -218,9 +218,9 @@ const TradeReport = () => {
                                     <div className='mt-3'>
                                         <h4 className='mt-3 mb-2'>Close Trade</h4>
                                         <GridExample
-                                            columns={selectStrategyType === "Scalping" ? getColumns3() :
-                                                selectStrategyType === "Option Strategy" ? getColumns4() :
-                                                    selectStrategyType === "Pattern" ? getColumns5() : getColumns3()
+                                            columns={selectStrategyType === "Scalping" ? getColumns6() :
+                                                selectStrategyType === "Option Strategy" ? getColumns7() :
+                                                    selectStrategyType === "Pattern" ? getColumns8() : getColumns6()
                                             }
                                             data={getAllTradeData.data1}
                                             onRowSelect={handleRowSelect}

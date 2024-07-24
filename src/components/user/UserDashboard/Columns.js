@@ -628,7 +628,7 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
                 return <><button className='btn btn-primary' onClick={() => handleDelete(tableMeta)}>
-                   Squre Off
+                   Square Off
                 </button>
                 </>
             }
@@ -842,8 +842,8 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn btn-primary' onClick={() => handleEdit(tableMeta)}>
-                    Squre Off
+                return <><button className='btn btn-primary' onClick={() => handleDelete(tableMeta)}>
+                    Square Off
                 </button>
 
                 </>
@@ -857,7 +857,7 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn' onClick={() => handleDelete(tableMeta)}>
+                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
                      <SquarePen/>
                 </button>
 
@@ -1108,7 +1108,7 @@ export const getColumns5 = (handleDelete, handleEdit, handleContinutyDiscontinut
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
                 return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
-                    Squre Off
+                    Square Off
                 </button>
 
                 </>

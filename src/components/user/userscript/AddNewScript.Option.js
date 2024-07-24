@@ -323,7 +323,7 @@ const AddClient = () => {
         formik.setFieldValue('ExitDay', "Intraday")
         formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
-        formik.setFieldValue('DeepStrike', 0)
+        formik.setFieldValue('DeepStrike', 2)
         formik.setFieldValue('Lower_Range', 0)
         formik.setFieldValue('Higher_Range', 0)
         formik.setFieldValue('EntryTime', "09:15:00")
@@ -802,9 +802,9 @@ const AddClient = () => {
             formik.setFieldValue('Lower_Range', 1)
         }
 
-        if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
+        if (((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
 
-            formik.setFieldValue('DeepStrike', 0)
+            formik.setFieldValue('DeepStrike', 2)
         }
 
         if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
