@@ -136,9 +136,7 @@ const Tradehistory = () => {
         setSelectedRowData(rowData);
     };
 
-
-
-
+ 
     const handleSubmit = async () => {
         const data = {
             MainStrategy: selectStrategyType,
@@ -149,7 +147,9 @@ const Tradehistory = () => {
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
             To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
-            Group: "",
+            
+            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN  : "",
+            
             TradePattern: "",
             PatternName: ""
         }
