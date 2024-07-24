@@ -359,7 +359,8 @@ const Header = () => {
                                                     <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
                                                         <div className="custom-switch-inner">
 
-                                                            <input
+ 
+                                                            {/* <input
                                                                 type="checkbox"
                                                                 className="custom-control-input"
                                                                 id="customSwitch-11"
@@ -371,9 +372,27 @@ const Header = () => {
                                                                 htmlFor="customSwitch-11"
                                                                 data-on-label="On"
                                                                 data-off-label="Off"
-                                                            ></label>
+                                                            ></label> */}
+ 
+
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="custom-control-input"
+                                                                    id="customSwitch-11"
+                                                                    checked={getTradingStatus}
+                                                                    onChange={handleToggle}
+                                                                   
+                                                                />
+                                                                <label
+                                                                    className="custom-control-label"
+                                                                    htmlFor="customSwitch-11"
+                                                                    data-on-label="Paper trading on"
+                                                                    data-off-label="Live trading on"
+                                                                ></label>
+                                                            </div>
+ 
                                                         </div>
-                                                    </div>
+                                                    
 
                                                 </li>
                                                 <li className="nav-item">
