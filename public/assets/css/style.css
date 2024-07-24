@@ -3314,13 +3314,16 @@ button.close-popup {
 
 .custom-switch.custom-switch-icon .custom-control-label::before,
 .custom-switch.custom-switch-text .custom-control-label::before {
-  height: 20px;
+  width: 112px !important;
+  height: 26px;
   -webkit-transition: all .25s ease;
   transition: all .25s ease;
   user-select: none;
   top: 0;
-  left: 1px;
+  left: -61px;
   width: 2.75rem;
+  border-radius: 15px !important;
+  line-height: 22px;
 }
 
 .custom-switch.custom-switch-text .custom-control-label::before {
@@ -3331,12 +3334,13 @@ button.close-popup {
 .custom-switch.custom-switch-text .custom-control-label:after {
   position: absolute;
   top: 1px;
-  left: 2px;
+  left: -60px;
   -webkit-transition: all .25s ease;
   transition: all .25s ease;
   user-select: none;
-  height: 18px;
-  width: 18px
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
 }
 
 .custom-switch.custom-switch-icon .custom-control-input:checked~.custom-control-label::after {
@@ -3348,7 +3352,7 @@ button.close-popup {
 .custom-switch.custom-switch-text .custom-control-input:checked~.custom-control-label::after {
   -webkit-transform: translateX(1.6rem);
   -ms-transform: translateX(1.6rem);
-  transform: translateX(1.6rem);
+  transform: translateX(5.4rem);
 }
 
 .custom-switch-inner {
@@ -3360,6 +3364,7 @@ button.close-popup {
   color: #fff;
   content: attr(data-on-label);
   text-align: left;
+  line-height: 22px;
 }
 
 .custom-switch.custom-switch-text label::before {
@@ -3477,7 +3482,7 @@ button.close-popup {
   left: -2.25rem;
   width: 1.75rem;
   pointer-events: all;
-  border-radius: 0.5rem;
+  border-radius: 1.5rem;
 }
 
 .custom-control-label::before {
