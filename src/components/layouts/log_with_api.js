@@ -5,7 +5,7 @@ import * as Config from "../../Utils/Config";
 const loginWithApi = async (UserDetails) => {
     const token = localStorage.getItem('token');
 
-
+    
     if (UserDetails) {
 
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
