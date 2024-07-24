@@ -23,6 +23,7 @@ const Header = () => {
     const [getBrokerName, setBrokerName] = useState("");
 
 
+    console.log("cPP", getTradingStatus)
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
 
@@ -362,7 +363,7 @@ const Header = () => {
                                                                 type="checkbox"
                                                                 className="custom-control-input"
                                                                 id="customSwitch-11"
-                                                                defaultChecked=""
+                                                                checked={getTradingStatus}
                                                                 onChange={handleToggle}
                                                             />
                                                             <label
