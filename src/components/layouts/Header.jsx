@@ -386,8 +386,8 @@ const Header = () => {
                                                                 <label
                                                                     className="custom-control-label"
                                                                     htmlFor="customSwitch-11"
-                                                                    data-on-label="Paper trading on"
-                                                                    data-off-label="Live trading on"
+                                                                    data-on-label="Live trading on"
+                                                                    data-off-label="Paper trading on"
                                                                 ></label>
                                                             </div>
  
