@@ -117,8 +117,8 @@ const TradeReport = () => {
                 if (response.Status) {
                     setAllTradeData({
                         loading: false,
-                        data1: response.CloseData,
-                        data2: response.OpenData
+                        data1: response.CloseData ? response.CloseData : [],
+                        data2: response.OpenData ? response.OpenData : []
                     })
                     setShowTable(true)
                 }

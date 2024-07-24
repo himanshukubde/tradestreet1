@@ -5,6 +5,8 @@ import { GetAllUserScript, DeleteUserScript, Discontinue, Continue } from '../..
 import Loader from '../../../ExtraComponent/Loader';
 import { getColumns3, getColumns4, getColumns5 } from './Columns';
 import Swal from 'sweetalert2';
+import Formikform from "../../../ExtraComponent/FormData";
+import { useFormik } from 'formik';
 
 const Coptyscript = ({ data, selectedType, data2 }) => {
     const userName = localStorage.getItem('name')
@@ -21,6 +23,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         Marketwise: [],
         PremiumRotation: []
     });
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [EditData, setEditData] = useState({})
 
 
 
@@ -101,82 +105,19 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             })
     }
 
+
+
+
+
+
+
+
     const handleEdit = async (rowData) => {
+        setShowEditModal(true)
         const index = rowData.rowIndex
-        const req =
-            data == 'Scalping' ?
-                {
-                    Username: userName,
-                    MainStrategy: data,
-                    Strategy: getAllService.ScalpingData[index].ScalpType,
-                    Symbol: getAllService.ScalpingData[index].Symbol,
-                    ETPattern: "",
-                    Timeframe: "",
-                    TType: "",
-                    Group: getAllService.ScalpingData[index].GroupN,
-                    TradePattern: "",
-                    TSymbol: "",
-                    PatternName: ""
-                } : data == 'Option Strategy' ?
-                    {
-                        MainStrategy: data,
-                        Strategy: getAllService.OptionData[index].STG,
-                        Symbol: getAllService.OptionData[index].MainSymbol,
-                        Username: userName,
-                        ETPattern: getAllService.OptionData[index].Targettype,
-                        Timeframe: "",
-                        TType: "",
-                        Group: getAllService.OptionData[index].GroupN,
-                        TSymbol: "",
-                        TradePattern: "",
-                        PatternName: ""
-                    }
-                    : data == 'Pattern' ?
-                        {
-
-                            MainStrategy: data,
-                            Strategy: getAllService.PatternData[index].TradePattern,
-                            Symbol: getAllService.PatternData[index].Symbol,
-                            Username: userName,
-                            ETPattern: getAllService.PatternData[index].Pattern,
-                            Timeframe: getAllService.PatternData[index].TimeFrame,
-                            TType: getAllService.PatternData[index].TType,
-                            Group: "",
-                            TSymbol: "",
-                            TradePattern: "",
-                            PatternName: ""
-
-                        } : ''
-
-
-        await DeleteUserScript(req)
-            .then((response) => {
-                if (response.Status) {
-                    Swal.fire({
-                        title: "Deleted",
-                        text: "Script Deleted successfully",
-                        icon: "success",
-                        timer: 1500,
-                        timerProgressBar: true,
-                        didClose: () => {
-                            setRefresh(!refresh);
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Error !",
-                        text: "Error in script delete",
-                        icon: "error",
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-                }
-
-            })
-            .catch((err) => {
-                console.log("Error in delete script", err)
-            })
+        setEditData(getAllService.ScalpingData[index])
     }
+
 
     const HandleContinueDiscontinue = async (rowData) => {
         const index = rowData.rowIndex
@@ -431,6 +372,184 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         GetAllUserScriptDetails();
     }, [selectedType, refresh]);
 
+    const formik = useFormik({
+        initialValues: {
+            MainStrategy: "",
+            Strategy: "",
+            Symbol: "",
+            Username: "",
+            ETPattern: "",
+            Timeframe: "",
+            Targetvalue: 5.0,
+            Slvalue: 5.0,
+            TStype: "",
+            Quantity: 5,
+            LowerRange: 0.0,
+            HigherRange: 0.0,
+            HoldExit: "Hold",
+            EntryPrice: 0.0,
+            EntryRange: 0.0,
+            EntryTime: "09:00:00",
+            ExitTime: "14:00:00",
+            ExitDay: "Intraday",
+            TradeExecution: "Paper Trade",
+            Group: "",
+            CEDepthLower: 0.0,
+            CEDepthHigher: 0.0,
+            PEDepthLower: 0.0,
+            PEDepthHigher: 0.0,
+            CEDeepLower: 0.0,
+            CEDeepHigher: 0.0,
+            PEDeepLower: 0.0,
+            PEDeepHigher: 0.0,
+            DepthofStrike: 1
+        },
+        validate: (values) => {
+            let errors = {};
+
+            return errors;
+        },
+        onSubmit: async (values) => {
+
+        }
+    });
+
+
+
+    const fields = [
+        {
+            name: "TStype",
+            label: "Measurement Type",
+            type: "select",
+            options: [
+                { label: "Percentage", value: "Percentage" },
+                { label: "Point", value: "Point" },
+            ],
+            showWhen: (values) => showEditModal && EditData.ScalpType != "Fixed Price",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "Quantity",
+            label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
+            type: "text5",
+            label_size: 12,
+            col_size: showEditModal && EditData.ScalpType == "Fixed Price" ? 12 : 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "Targetvalue",
+            label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
+            type: "text5",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        }, {
+            name: "Slvalue",
+            label: showEditModal && EditData.ScalpType == "Fixed Price" ? "Stoploss Price" : "Re-Entry Point",
+            type: "text5",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "EntryPrice",
+            label: "First Trade Lower Range",
+            type: "text5",
+            showWhen: (values) => showEditModal && EditData.ScalpType != "Fixed Price",
+
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "EntryRange",
+            label: "First Trade Higher Range",
+            type: "text5",
+            showWhen: (values) => showEditModal && EditData.ScalpType != "Fixed Price",
+
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        }, {
+            name: "LowerRange",
+            label: "Lower Range",
+            type: "text5",
+
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "HigherRange",
+            label: "Higher Range",
+            type: "text5",
+
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "HoldExit",
+            label: "Hold/Exit",
+            type: "select",
+            options: [
+                { label: "Hold", value: "Hold" },
+                { label: "Exit", value: "Exit" },
+            ],
+            showWhen: (values) =>showEditModal && EditData.ScalpType != "Fixed Price",
+
+            label_size: 12,
+            col_size: showEditModal && EditData.ScalpType != "Fixed Price" ? 4 :6,
+            disable: false,
+            hiding: false,
+        },
+         ,
+        {
+            name: "EntryTime",
+            label: "Entry Time",
+            type: "timepiker",
+            label_size: 12,
+            col_size: showEditModal && EditData.ScalpType != "Fixed Price" ? 4 :6,
+            disable: false,
+            hiding: false,
+        },
+        {
+            name: "ExitTime",
+            label: "Exit Time",
+            type: "timepiker",
+            label_size: 12,
+            col_size: showEditModal && EditData.ScalpType != "Fixed Price" ? 4 :6,
+            disable: false,
+            hiding: false,
+        },
+
+    ];
+
+
+
+    useEffect(() => {
+
+        formik.setFieldValue('EntryPrice', EditData.EntryPrice)
+        formik.setFieldValue('EntryRange', EditData.EntryRange)
+        formik.setFieldValue('TStype', EditData.TStype)
+        formik.setFieldValue('Targetvalue', EditData['Booking Point'])
+        formik.setFieldValue('Slvalue', EditData['Re-entry Point'])
+        formik.setFieldValue('LowerRange', EditData.LowerRange)
+        formik.setFieldValue('HigherRange', EditData.HigherRange)
+        formik.setFieldValue('HoldExit', EditData.HoldExit)
+        formik.setFieldValue('EntryTime', EditData.EntryTime)
+        formik.setFieldValue('ExitTime', EditData.ExitTime)
+    }, [showEditModal])
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -455,7 +574,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
                                                     {getAllService.loading ? <Loader /> :
                                                         <FullDataTable
-                                                            columns={data === "Scalping" ? getColumns3(handleDelete,handleEdit, HandleContinueDiscontinue) : data === "Option Strategy" ? getColumns4(handleDelete, handleEdit ,HandleContinueDiscontinue) : data === "Pattern" ? getColumns5(handleDelete, handleEdit, HandleContinueDiscontinue) : getColumns3(handleDelete , handleEdit, HandleContinueDiscontinue)}
+                                                            columns={data === "Scalping" ? getColumns3(handleDelete, handleEdit, HandleContinueDiscontinue) : data === "Option Strategy" ? getColumns4(handleDelete, handleEdit, HandleContinueDiscontinue) : data === "Pattern" ? getColumns5(handleDelete, handleEdit, HandleContinueDiscontinue) : getColumns3(handleDelete, handleEdit, HandleContinueDiscontinue)}
                                                             data={data === "Scalping" ? getAllService.ScalpingData : data === "Option Strategy" ? getAllService.OptionData : data === "Pattern" ? getAllService.PatternData : []}
                                                             checkBox={false}
                                                         />
@@ -470,6 +589,30 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     </div>
                 </div>
             </div>
+            {showEditModal && <div className="modal show" id="exampleModal" style={{ display: "block" }}>
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content ">
+                        <div className="modal-header ">
+                            <h5 className="modal-title">Edit Script</h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => setShowEditModal(false)}
+                            />
+                        </div>
+                        <Formikform
+                            fields={fields.filter(
+                                (field) => !field.showWhen || field.showWhen(formik.values)
+                            )}
+
+                            btn_name="Update"
+                            formik={formik}
+                        />
+                    </div>
+                </div>
+            </div>}
         </div>
     );
 }

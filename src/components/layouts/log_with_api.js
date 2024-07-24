@@ -3,16 +3,24 @@ import Swal from 'sweetalert2';
 import * as Config from "../../Utils/Config";
 
 const loginWithApi = async (UserDetails) => {
+    const token = localStorage.getItem('token');
 
 
     if (UserDetails) {
 
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
-
-
             try {
-                const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username);
+               
+                const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
 
+                console.log(response)
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({
@@ -58,7 +66,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'AngelBroker/' + UserDetails.Username,
-                headers: {}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             };
 
             axios.request(config)
@@ -82,7 +93,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'ICICIBroker/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -106,7 +120,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'UpstoxBroker/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -130,7 +147,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + '5PaisaBroker/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -152,7 +172,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'MastertrustBroker/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -174,7 +197,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'FayersBroker/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -192,10 +218,15 @@ const loginWithApi = async (UserDetails) => {
 
         if (UserDetails.BrokerName.toUpperCase() === "DHAN".toUpperCase()) {
 
-          
+
             try {
-                const response = await axios.get(Config.base_url + 'Dhan/' + UserDetails.Username);
-               
+                const response = await axios.get(Config.base_url + 'Dhan/' + UserDetails.Username,{
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Authorization': `Bearer ${token}`
+                  }
+                });
+
 
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
@@ -241,7 +272,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'Zebull/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -279,7 +313,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'Mandot/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)
@@ -316,7 +353,10 @@ const loginWithApi = async (UserDetails) => {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: Config.base_url + 'Indira/' + UserDetails.Username,
-                headers: {}
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`
+              }
             };
 
             axios.request(config)

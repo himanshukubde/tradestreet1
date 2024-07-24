@@ -675,14 +675,7 @@ export const getColumns3 = () => [
             }
         },
     },
-    {
-        name: "Username",
-        label: "Username",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Symbol",
         label: "Symbol",
@@ -693,7 +686,15 @@ export const getColumns3 = () => [
     },
     {
         name: "ETime",
-        label: "ETime",
+        label: "Entry Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "EPrice",
+        label: "Entry Price",
         options: {
             filter: true,
             sort: true,
@@ -701,23 +702,16 @@ export const getColumns3 = () => [
     },
     {
         name: "ExitTime",
-        label: "ExitTime",
+        label: "Exit Time",
         options: {
             filter: true,
             sort: true,
         }
     },
+    
     {
         name: "ExitPrice",
-        label: "ExitPrice",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "ExitPrice",
-        label: "ExitPrice",
+        label: "Exit Price",
         options: {
             filter: true,
             sort: true,

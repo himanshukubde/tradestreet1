@@ -636,14 +636,13 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
     },
     {
         name: "Edit",
-        label: "Edit",
+        label: "",
         options: {
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
-                    <SquarePen />
-                    
+                return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
+                    Squre Off
                 </button>
                 </>
             }
@@ -846,21 +845,6 @@ export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinut
                     Squre Off
                 </button>
 
-                </>
-            }
-        }
-    },
-    {
-        name: "Edit",
-        label: "Edit",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
-                    <SquarePen />
-                    
-                </button>
                 </>
             }
         }
@@ -1111,21 +1095,6 @@ export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinu
                     Squre Off
                 </button>
 
-                </>
-            }
-        }
-    },
-    {
-        name: "Edit",
-        label: "Edit",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
-                    <SquarePen />
-                    
-                </button>
                 </>
             }
         }

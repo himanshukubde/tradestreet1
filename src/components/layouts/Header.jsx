@@ -12,6 +12,7 @@ const Header = () => {
     const navigate = useNavigate();
     const role = localStorage.getItem("Role");
     const Username = localStorage.getItem("name");
+    const token = localStorage.getItem("token");
     const [isActive, setIsActive] = useState(true);
     const [isFixed, setIsFixed] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -48,7 +49,14 @@ const Header = () => {
             }
 
             try {
-                const response = await axios.post(`${Config.base_url}ConnectBroker`, data);
+                
+                const response = await axios.post(`${Config.base_url}ConnectBroker`, data,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
 
                 console.log("response.data :", response.data)
                 if (response.data.Status) { // Assuming the status is in response.data.Status
@@ -68,7 +76,7 @@ const Header = () => {
 
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Trading Off successfully.',
+                        text: 'Trading Off successfully cppp.',
                         icon: 'error',
                         confirmButtonText: 'OK',
                         timer: 1000
@@ -187,11 +195,11 @@ const Header = () => {
     }, [isActive]);
 
     const fetchData = async () => {
-        if(role=='User'){
+        if (role == 'User') {
 
             const requestData = { userName: Username };
             const response = await TradingStatus(requestData);
-    
+
             if (response) {
                 setBrokerName(response.Brokername)
                 if (response.Status) {
@@ -245,7 +253,7 @@ const Header = () => {
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-                                  
+
                                     <li className="nav-item">
                                         <button
                                             type="button"
@@ -255,7 +263,7 @@ const Header = () => {
                                             Set API Key
                                         </button>
                                     </li>
-                                    
+
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
@@ -346,26 +354,27 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
-                                                    <li className="nav-item me-3">
-                                                        <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                                                            <div className="custom-switch-inner">
+                                                <li className="nav-item me-3">
+                                                    <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                                                        <div className="custom-switch-inner">
 
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="custom-control-input"
-                                                                    id="customSwitch-11"
-                                                                    defaultChecked=""
-                                                                />
-                                                                <label
-                                                                    className="custom-control-label"
-                                                                    htmlFor="customSwitch-11"
-                                                                    data-on-label="On"
-                                                                    data-off-label="Off"
-                                                                ></label>
-                                                            </div>
+                                                            <input
+                                                                type="checkbox"
+                                                                className="custom-control-input"
+                                                                id="customSwitch-11"
+                                                                defaultChecked=""
+                                                                onChange={handleToggle}
+                                                            />
+                                                            <label
+                                                                className="custom-control-label"
+                                                                htmlFor="customSwitch-11"
+                                                                data-on-label="On"
+                                                                data-off-label="Off"
+                                                            ></label>
                                                         </div>
+                                                    </div>
 
-                                                    </li>
+                                                </li>
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
@@ -375,7 +384,7 @@ const Header = () => {
                                                         Set API Key
                                                     </button>
                                                 </li>
-                                               
+
                                             </>
                                     }
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>

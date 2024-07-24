@@ -774,8 +774,6 @@ const Dashboards = () => {
                                                 <b>Admin</b>
                                             </h4>
                                             
-                                            
-                                             
                                         </div>
                                         <hr />
                                         <ul className="doctoe-sedual d-flex align-items-center justify-content-between p-0">
@@ -798,7 +796,7 @@ const Dashboards = () => {
                             <div className="iq-card">
                                 <div className="iq-card-header d-flex justify-content-between">
                                     <div className="iq-header-title">
-                                        <h4 className="card-title">Admin</h4>
+                                        <h4 className="card-title">Earning Per Day</h4>
                                     </div>
                                 </div>
                                 <AgChartsReact options={options}/>
