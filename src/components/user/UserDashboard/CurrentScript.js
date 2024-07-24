@@ -106,12 +106,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     }
 
 
-
-
-
-
-
-
     const handleEdit = async (rowData) => {
         setShowEditModal(true)
         const index = rowData.rowIndex

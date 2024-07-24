@@ -1,7 +1,7 @@
 import React from 'react';
 import { CopyPlus } from 'lucide-react';
 import Checkbox from '@mui/material/Checkbox';
-import {SquarePen } from 'lucide-react';
+import { SquarePen } from 'lucide-react';
 
 
 export const getColumns = (handleAddScript1) => [
@@ -99,7 +99,7 @@ export const getColumns = (handleAddScript1) => [
             filter: true,
             sort: true,
         }
-    }, 
+    },
     {
         name: "TType",
         label: "Trade Type",
@@ -180,7 +180,7 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
-   
+
 ];
 
 export const getColumns1 = (handleAddScript2) => [
@@ -239,7 +239,7 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    
+
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -595,7 +595,7 @@ export const getColumns2 = (handleAddScript3) => [
             sort: true,
         }
     },
-    
+
     {
         name: "TradeCount",
         label: "Trade Count",
@@ -607,7 +607,7 @@ export const getColumns2 = (handleAddScript3) => [
 
 ];
 
-export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinuty) => [
+export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -627,8 +627,8 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
-                    Squre Off
+                return <><button className='btn btn-primary' onClick={() => handleDelete(tableMeta)}>
+                   Squre Off
                 </button>
                 </>
             }
@@ -636,13 +636,14 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
     },
     {
         name: "Edit",
-        label: "",
+        label: "Edit",
         options: {
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
-                    Squre Off
+                return <><button className='btn' onClick={() => handleEdit(tableMeta)}>
+                  <SquarePen/>
+
                 </button>
                 </>
             }
@@ -656,11 +657,11 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
                 const isChecked = Boolean(value);
-               
+
                 return (
                     <Checkbox
                         checked={isChecked}
-                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
+                        onClick={() => handleContinutyDiscontinuty(tableMeta)}
                     />
 
                 );
@@ -738,7 +739,7 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
             filter: true,
             sort: true,
         }
-    }, 
+    },
     {
         name: "TType",
         label: "Trade Type",
@@ -821,7 +822,7 @@ export const getColumns3 = (handleDelete ,handleEdit, handleContinutyDiscontinut
     },
 ];
 
-export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinuty) => [
+export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -841,8 +842,23 @@ export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinut
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-                return <><button className='btn btn-primary ' onClick={() => handleDelete(tableMeta)}>
+                return <><button className='btn btn-primary' onClick={() => handleEdit(tableMeta)}>
                     Squre Off
+                </button>
+
+                </>
+            }
+        }
+    },
+    {
+        name: "Edit",
+        label: "Edit",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn' onClick={() => handleDelete(tableMeta)}>
+                     <SquarePen/>
                 </button>
 
                 </>
@@ -860,7 +876,7 @@ export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinut
                 return (
                     <Checkbox
                         checked={isChecked}
-                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
+                        onClick={() => handleContinutyDiscontinuty(tableMeta)}
                     />
 
                 );
@@ -899,7 +915,7 @@ export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinut
             sort: true,
         }
     },
-    
+
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -1071,7 +1087,7 @@ export const getColumns4 = (handleDelete ,handleEdit, handleContinutyDiscontinut
     },
 ];
 
-export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinuty) => [
+export const getColumns5 = (handleDelete, handleEdit, handleContinutyDiscontinuty) => [
     {
         name: "S.No",
         label: "S.No",
@@ -1100,6 +1116,21 @@ export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinu
         }
     },
     {
+        name: "Edit",
+        label: "Edit",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return <><button className='btn ' onClick={() => handleEdit(tableMeta)}>
+                  <SquarePen/>
+                </button>
+
+                </>
+            }
+        }
+    },
+    {
         name: "Trading",
         label: "Trading",
         options: {
@@ -1110,8 +1141,8 @@ export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinu
                 return (
                     <Checkbox
                         checked={isChecked}
-                        onClick={()=>handleContinutyDiscontinuty(tableMeta)}
-                        
+                        onClick={() => handleContinutyDiscontinuty(tableMeta)}
+
                     />
 
                 );
@@ -1278,7 +1309,7 @@ export const getColumns5 = (handleDelete ,handleEdit , handleContinutyDiscontinu
             sort: true,
         }
     },
-    
+
     {
         name: "TradeCount",
         label: "Trade Count",
