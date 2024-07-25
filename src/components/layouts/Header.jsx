@@ -50,7 +50,7 @@ const Header = () => {
             }
 
             try {
-                
+
                 const response = await axios.post(`${Config.base_url}ConnectBroker`, data,
                     {
                         headers: {
@@ -342,6 +342,42 @@ const Header = () => {
 
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
+                                    <div className="custom-switch-inner">
+
+
+                                        {/* <input
+                                                                type="checkbox"
+                                                                className="custom-control-input"
+                                                                id="customSwitch-11"
+                                                                checked={getTradingStatus}
+                                                                onChange={handleToggle}
+                                                            />
+                                                            <label
+                                                                className="custom-control-label"
+                                                                htmlFor="customSwitch-11"
+                                                                data-on-label="On"
+                                                                data-off-label="Off"
+                                                            ></label> */}
+
+
+                                        <input
+                                            type="checkbox"
+                                            className="custom-control-input"
+                                            id="customSwitch-11"
+                                            checked={getTradingStatus}
+                                            onChange={handleToggle}
+
+                                        />
+                                        <label
+                                            className="custom-control-label"
+                                            htmlFor="customSwitch-11"
+                                            data-on-label="Live trading on"
+                                            data-off-label="Paper trading on"
+                                        ></label>
+                                    </div>
+
+                                </div>
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     {
                                         getBrokerName && getBrokerName == "Demo" ?
@@ -355,46 +391,7 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
-                                                <li className="nav-item me-3">
-                                                    <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                                                        <div className="custom-switch-inner">
 
- 
-                                                            {/* <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="customSwitch-11"
-                                                                checked={getTradingStatus}
-                                                                onChange={handleToggle}
-                                                            />
-                                                            <label
-                                                                className="custom-control-label"
-                                                                htmlFor="customSwitch-11"
-                                                                data-on-label="On"
-                                                                data-off-label="Off"
-                                                            ></label> */}
- 
-
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="custom-control-input"
-                                                                    id="customSwitch-11"
-                                                                    checked={getTradingStatus}
-                                                                    onChange={handleToggle}
-                                                                   
-                                                                />
-                                                                <label
-                                                                    className="custom-control-label"
-                                                                    htmlFor="customSwitch-11"
-                                                                    data-on-label="Live trading on"
-                                                                    data-off-label="Paper trading on"
-                                                                ></label>
-                                                            </div>
- 
-                                                        </div>
-                                                    
-
-                                                </li>
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"

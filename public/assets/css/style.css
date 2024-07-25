@@ -3324,6 +3324,7 @@ button.close-popup {
   width: 2.75rem;
   border-radius: 15px !important;
   line-height: 22px;
+  background-color: red;
 }
 
 .custom-switch.custom-switch-text .custom-control-label::before {
@@ -3341,6 +3342,7 @@ button.close-popup {
   height: 24px;
   width: 24px;
   border-radius: 12px;
+  background-color: green;
 }
 
 .custom-switch.custom-switch-icon .custom-control-input:checked~.custom-control-label::after {
