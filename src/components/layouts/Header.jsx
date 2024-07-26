@@ -23,7 +23,7 @@ const Header = () => {
     const [getBrokerName, setBrokerName] = useState("");
 
 
-    console.log("cPP", getTradingStatus)
+    
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
 

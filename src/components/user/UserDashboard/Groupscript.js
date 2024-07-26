@@ -31,10 +31,12 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
             });
         }
         else {
+           
 
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.data[selectedRowIndex];
-            const data = { selectStrategyType: "Scalping", ...selectedRow };
+            const data = { selectStrategyType: "Scalping",type : "group" ,  ...selectedRow };
+            console.log("data1", data)
             navigate('/user/addscript/scalping', { state: { data } });
         }
     }
@@ -53,7 +55,7 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
 
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.data[selectedRowIndex];
-            const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', type : "group" ,  ...selectedRow };
             navigate('/user/addscript/option', { state: { data } });
         }
     }
@@ -71,7 +73,7 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
         else {
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.data[selectedRowIndex];
-            const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', type : "group" ,  ...selectedRow };
             navigate('/user/addscript/pattern', { state: { data } });
         }
     }

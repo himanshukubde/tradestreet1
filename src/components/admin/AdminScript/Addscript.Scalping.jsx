@@ -167,7 +167,7 @@ const AddClient = () => {
         Symbol: values.Symbol,
         Optiontype: values.Optiontype,
         Strike: values.Strike,
-        expirydata1: values.expirydata1,
+        expirydata1: values.Exchange=="NSE" ? getExpiryDate.data[0] :  values.expirydata1,
         TType: values.TType,
         EntryPrice: values.Strategy === "Fixed Price" ? values.LowerRange : values.EntryPrice,
         EntryRange: values.Strategy === "Fixed Price" ? values.HigherRange : values.EntryRange,
@@ -653,36 +653,36 @@ const AddClient = () => {
   }, [])
 
   const getExpiry = async () => {
-    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Exchange != 'NSE') {
-      const data = {
-        Exchange: formik.values.Exchange,
-        Instrument: formik.values.Instrument,
-        Symbol: formik.values.Symbol,
-        Strike: formik.values.Strike
-      }
+    if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
+        const data = {
+            Exchange: formik.values.Exchange,
+            Instrument: formik.values.Exchange=="NSE" ? "" :  formik.values.Instrument,
+            Symbol:  formik.values.Exchange=="NSE" ? "" :  formik.values.Symbol,
+            Strike:  formik.values.Exchange=="NSE" ? "" : formik.values.Strike
+        }
 
-      await GET_EXPIRY_DATE(data)
-        .then((response) => {
-          if (response.Status) {
-            setExpiryDate({
-              loading: false,
-              data: response['Expiry Date']
+        await GET_EXPIRY_DATE(data)
+            .then((response) => {
+                if (response.Status) {
+                    setExpiryDate({
+                        loading: false,
+                        data: response['Expiry Date']
+                    })
+
+                } else {
+                    setExpiryDate({
+                        loading: false,
+                        data: []
+                    })
+
+                }
             })
-
-          } else {
-            setExpiryDate({
-              loading: false,
-              data: []
+            .catch((err) => {
+                console.log("Error in finding the Expiry date", err)
             })
-
-          }
-        })
-        .catch((err) => {
-          console.log("Error in finding the Expiry date", err)
-        })
     }
 
-  }
+}
 
   useEffect(() => {
     getExpiry()

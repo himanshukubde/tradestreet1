@@ -238,6 +238,7 @@ const AddClient = () => {
         },
     });
 
+    console.log("location.state.data", location.state.data)
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -246,7 +247,6 @@ const AddClient = () => {
         formik.setFieldValue('Strategy', location.state.data.TradePattern)
         formik.setFieldValue('Timeframe', location.state.data.TimeFrame)
         formik.setFieldValue('ETPattern', location.state.data.Pattern)
-        
         formik.setFieldValue('TStype', location.state.data.TStype)
         formik.setFieldValue('Slvalue', location.state.data['SL value'])
         formik.setFieldValue('Targetvalue', location.state.data['Target value'])
@@ -257,6 +257,8 @@ const AddClient = () => {
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('expirydata1', location.state.data['Expiry Date'])
+
     }, [])
 
 
