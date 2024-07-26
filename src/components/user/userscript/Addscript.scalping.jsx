@@ -259,6 +259,7 @@ const AddClient = () => {
 
 
    
+    console.log("location.state.data :", location.state.data)
 
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
@@ -766,12 +767,12 @@ const AddClient = () => {
 
     useEffect(() => {
 
-        if (formik.values.set_Range == false) {
+        if (!formik.values.set_Range == false) {
           formik.setFieldValue('LowerRange', 0)
           formik.setFieldValue('HigherRange', 0)
     
         }
-        if (formik.values.Set_First_Trade_Range) {
+        if (!formik.values.Set_First_Trade_Range) {
           formik.setFieldValue('EntryPrice', 0)
           formik.setFieldValue('EntryRange', 0)
         }
