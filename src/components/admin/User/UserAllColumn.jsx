@@ -358,7 +358,7 @@ export const columns =()=> [
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,
@@ -804,7 +804,7 @@ export const columns1 = ()=>[
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,

@@ -38,15 +38,15 @@ const loginWithApi = async (UserDetails) => {
 
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Trading Off successfully.',
+                        text: response.data.massage,
                         icon: 'error',
                         confirmButtonText: 'OK',
-                        timer: 1000
+                        timer: 3000
                     }).then(() => {
                         setTimeout(() => {
                             window.location.reload();
 
-                        }, 1000);
+                        }, 3000);
                     });
                 }
             } catch (err) {

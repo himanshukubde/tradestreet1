@@ -102,11 +102,11 @@ const AddClient = () => {
             if (!values.Quantity) {
                 errors.Quantity = "Please enter the Lot.";
             }
-            if (!values.Trade_Count) {
-                errors.Trade_Count = "Please enter the Trade Count.";
-            }
-            if (!values.Trade_Execution) {
+            if (!values.Trade_Execution || values.Trade_Execution==0) {
                 errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count==0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
             }
             if (!values.ExitTime) {
                 errors.ExitTime = "Please select an exit time.";
@@ -126,6 +126,14 @@ const AddClient = () => {
             if (!values.Expirytype) {
                 errors.Expirytype = "Please select an expiry type.";
             }
+
+
+
+            
+
+
+
+
             if (!values.Lower_Range && values.Striketype === 'Premium_Range') {
                 errors.Lower_Range = "Please enter the lower range.";
             }
@@ -141,6 +149,20 @@ const AddClient = () => {
             if (!values.PEDeepLower && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDeepLower == 0) {
                 errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower can not be Zero" : "Please Enter PE Hedge Lower.";
             }
+
+
+
+            
+
+
+
+
+            
+            if (!values.PEDepthHigher && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDepthHigher == 0) {
+                errors.PEDepthHigher = values.PEDepthHigher == 0 ? "PE Main Higher can not be Zero" : "Please Enter PE Main Higher.";
+            }
+
+
             if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher can not be Zero" : "Please Enter PE Hedge Higher.";
             }
@@ -212,8 +234,8 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
-                LowerRange: values.Lower_Range,
-                HigherRange: values.Higher_Range,
+                LowerRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Lower_Range : 0,
+                HigherRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Higher_Range : 0,
                 HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
@@ -413,7 +435,7 @@ const AddClient = () => {
         {
             name: "Quantity",
             label: "Lot",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -449,7 +471,7 @@ const AddClient = () => {
         {
             name: "Lower_Range",
             label: "Lower Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,
@@ -459,7 +481,7 @@ const AddClient = () => {
         {
             name: "Higher_Range",
             label: "Higher Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,

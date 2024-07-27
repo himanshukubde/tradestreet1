@@ -107,6 +107,12 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
+            if (!values.Trade_Execution || values.Trade_Execution==0) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count==0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
+            }
             if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
                 errors.Optiontype = "Enter Option Type.";
             }

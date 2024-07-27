@@ -122,10 +122,10 @@ const Strategygroup = () => {
                 errors.ProductType = 'Please Select Product Type';
             }
             if (!values.TimeOrigin) {
-                errors.TimeOrigin = 'Please Enter Time Origin';
+                errors.TimeOrigin = 'Please Select Time Origin';
             }
             if (!values.Risk) {
-                errors.Risk = 'Please Enter Risk';
+                errors.Risk = 'Please Enter Risk %';
             }
             if (!values.FundReuirement) {
                 errors.FundReuirement = 'Please Enter Fund Requirement';

@@ -101,6 +101,22 @@ export const getColumns = (handleAddScript1) => [
         }
     },
     {
+        name: "LowerRange",
+        label: "Lower Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HigherRange",
+        label: "Higher Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "TType",
         label: "Trade Type",
         options: {
@@ -174,7 +190,7 @@ export const getColumns = (handleAddScript1) => [
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,
@@ -741,6 +757,22 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
         }
     },
     {
+        name: "LowerRange",
+        label: "Lower Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HigherRange",
+        label: "Higher Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "TType",
         label: "Trade Type",
         options: {
@@ -814,7 +846,7 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
         options: {
             filter: true,
             sort: true,

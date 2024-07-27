@@ -151,6 +151,9 @@ const AddClient = () => {
             if (!values.PEDeepHigher && values.PEDeepHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.PEDeepHigher = values.PEDeepHigher == 0 ? "PE Hedge Higher Cannot Be Zero." : "Please Enter PE Hedge Higher.";
             }
+            if (!values.PEDepthHigher && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDepthHigher == 0) {
+                errors.PEDepthHigher = values.PEDepthHigher == 0 ? "PE Main Higher can not be Zero" : "Please Enter PE Main Higher.";
+            }
 
             if (values.Striketype == "Depth_of_Strike" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'LongStraddle' && values.Strategy != 'ShortStraddle') {
                 if (values.DepthofStrike > 5 || values.DepthofStrike < -5 || values.DepthofStrike == 0) {
@@ -193,7 +196,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: location.state.data.selectGroup,
                 Strategy: values.Strategy,
-                ETPattern: values.ETPattern,
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ?  values.ETPattern : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
@@ -204,8 +207,8 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
-                LowerRange: values.Lower_Range,
-                HigherRange: values.Higher_Range,
+                LowerRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Lower_Range : 0,
+                HigherRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Higher_Range : 0,
                 HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
@@ -404,7 +407,7 @@ const AddClient = () => {
         {
             name: "Quantity",
             label: "Lot",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -440,7 +443,7 @@ const AddClient = () => {
         {
             name: "Lower_Range",
             label: "Lower Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,
@@ -450,7 +453,7 @@ const AddClient = () => {
         {
             name: "Higher_Range",
             label: "Higher Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,

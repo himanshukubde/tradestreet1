@@ -79,34 +79,46 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
                         } : ''
 
-
-        await DeleteUserScript(req)
-            .then((response) => {
-                if (response.Status) {
-                    Swal.fire({
-                        title: "Deleted",
-                        text: "Script Deleted successfully",
-                        icon: "success",
-                        timer: 1500,
-                        timerProgressBar: true,
-                        didClose: () => {
-                            setRefresh(!refresh);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await DeleteUserScript(req)
+                    .then((response) => {
+                        if (response.Status) {
+                            Swal.fire({
+                                title: "Square off Successfully!",
+                                text:  response.massage ,
+                                icon: "success",
+                                timer: 1500,
+                                timerProgressBar: true,
+                                didClose: () => {
+                                    setRefresh(!refresh);
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error !",
+                                text: response.massage,
+                                icon: "error",
+                                timer: 1500,
+                                timerProgressBar: true
+                            });
                         }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Error !",
-                        text: "Error in script delete",
-                        icon: "error",
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-                }
 
-            })
-            .catch((err) => {
-                console.log("Error in delete script", err)
-            })
+                    })
+                    .catch((err) => {
+                        console.log("Error in delete script", err)
+                    })
+            }
+        });
+        
     }
 
 
@@ -378,7 +390,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         GetAllUserScriptDetails();
     }, [selectedType, refresh]);
 
-    console.log("EditDataScalping :", EditDataScalping)
+
 
     const formik = useFormik({
         initialValues: {
@@ -441,7 +453,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 Timeframe: "",
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
-                TStype: EditDataScalping.ScalpType != "Fixed Price" ? values.TStype :  EditDataScalping.TStype,
+                TStype: EditDataScalping.ScalpType != "Fixed Price" ? values.TStype : EditDataScalping.TStype,
                 Quantity: values.Quantity,
                 LowerRange: values.LowerRange,
                 HigherRange: values.HigherRange,
@@ -918,7 +930,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                 />
                             </> :
                                 data == "Option Strategy" ? <>
-                                    {console.log("cppppp :", EditDataOption)}
+                                   
                                     <Formikform
                                         fields={fields1}
 

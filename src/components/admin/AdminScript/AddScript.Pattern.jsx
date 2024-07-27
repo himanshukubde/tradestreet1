@@ -201,7 +201,7 @@ const AddClient = () => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Script Added !",
-                            text: "New Script Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true

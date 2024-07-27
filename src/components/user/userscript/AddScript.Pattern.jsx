@@ -104,6 +104,12 @@ const AddClient = () => {
             if (!values.Instrument && values.Exchange == "NFO") {
                 errors.Instrument = "Please Enter Instrument Type.";
             }
+            if (!values.Trade_Execution || values.Trade_Execution==0) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count==0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
+            }
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
@@ -243,7 +249,8 @@ const AddClient = () => {
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
         formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
-        formik.setFieldValue('Symbol', location.state.data['Instrument Name'])
+      
+        formik.setFieldValue('Symbol', location.state.data.MainSymbol)
         formik.setFieldValue('Strategy', location.state.data.TradePattern)
         formik.setFieldValue('Timeframe', location.state.data.TimeFrame)
         formik.setFieldValue('ETPattern', location.state.data.Pattern)

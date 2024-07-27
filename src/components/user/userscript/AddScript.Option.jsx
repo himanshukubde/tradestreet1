@@ -89,6 +89,12 @@ const AddClient = () => {
             if (!values.Measurment_Type) {
                 errors.Measurment_Type = "Please select Option type.";
             }
+            if (!values.Trade_Execution || values.Trade_Execution == 0) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count == 0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
+            }
             if (!values.ETPattern) {
                 errors.ETPattern = "Please Select Risk Handle Type.";
             }
@@ -143,6 +149,9 @@ const AddClient = () => {
             }
             if (!values.CEDepthLower && values.CEDepthLower == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDepthLower = values.CEDepthLower == 0 ? "CE Main Lower Cannot Be Zero." : "Please Enter CE Main Lower.";
+            }
+            if (!values.PEDepthHigher && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDepthHigher == 0) {
+                errors.PEDepthHigher = values.PEDepthHigher == 0 ? "PE Main Higher can not be Zero" : "Please Enter PE Main Higher.";
             }
             if (!values.CEDepthHigher && values.CEDepthHigher == 0 && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy')) {
                 errors.CEDepthHigher = values.CEDepthHigher == 0 ? "CE Main Higher Cannot Be Zero." : "Please Enter CE Main Higher.";
@@ -210,8 +219,8 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
-                LowerRange: values.Lower_Range,
-                HigherRange: values.Higher_Range,
+                LowerRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Lower_Range : 0,
+                HigherRange: values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" ? values.Higher_Range : 0,
                 HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
@@ -225,7 +234,7 @@ const AddClient = () => {
                 Expirytype: values.Expirytype,
 
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                DepthofStrike: Number(values.DepthofStrike),
+                DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(values.DepthofStrike) : 0,
                 DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
@@ -311,6 +320,8 @@ const AddClient = () => {
     });
 
 
+    
+
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
             location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
@@ -338,6 +349,25 @@ const AddClient = () => {
         formik.setFieldValue('Higher_Range', location.state.data.HigherRange)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+
+
+        // formik.setFieldValue('Unique_ID', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+
     }, [])
 
 
@@ -420,7 +450,7 @@ const AddClient = () => {
         {
             name: "Quantity",
             label: "Lot",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             col_size: 4,
@@ -456,7 +486,7 @@ const AddClient = () => {
         {
             name: "Lower_Range",
             label: "Lower Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,
@@ -466,7 +496,7 @@ const AddClient = () => {
         {
             name: "Higher_Range",
             label: "Higher Range",
-            type: "number",
+            type: "text3",
             hiding: false,
             showWhen: (value) => value.Striketype == "Premium_Range" && value.Measurment_Type != "Shifting/FourLeg",
             label_size: 12,
@@ -516,7 +546,6 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-
         {
             name: "TStype",
             label: "Measurement Type",
@@ -719,7 +748,7 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-         
+
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -740,7 +769,7 @@ const AddClient = () => {
         },
     ];
 
-    
+
 
 
 
