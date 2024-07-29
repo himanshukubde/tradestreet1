@@ -36,7 +36,7 @@ const GroupScript = ({ data, selectedType, GroupName, data2 }) => {
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.data[selectedRowIndex];
             const data = { selectStrategyType: "Scalping",type : "group" ,  ...selectedRow };
-            console.log("data1", data)
+         
             navigate('/user/addscript/scalping', { state: { data } });
         }
     }

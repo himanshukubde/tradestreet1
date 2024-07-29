@@ -205,7 +205,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 const response = await AdminAddBrokerCredential(data);
                 if (response.Status) {
                     setUpDateData({ data: response.Data });
-                    console.log("Ram")
+                    
                     Swal.fire({
                         title: "Updated successfully!",
                         text: "Broker Credential Updated successfully!",
@@ -218,7 +218,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
                 }
                  else {
-                    console.log("Ram1")
+                   
                     Swal.fire({
                         title: "Error",
                         text: response.message,

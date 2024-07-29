@@ -112,7 +112,7 @@ export const AddBrokerCredential = async (data) => {
  
 export const AdminAddBrokerCredential = async (data) => {
     const token = localStorage.getItem('token')
-    console.log(token)
+   
     try {
         const res = await axios.post(`${Config.base_url}AdmBroker`,data, {
             headers: { 

@@ -20,7 +20,7 @@ const loginWithApi = async (UserDetails) => {
                     }
                 );
 
-                console.log(response)
+               
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({
@@ -280,7 +280,7 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response);
+                   
 
                     let swalOptions = {
                         confirmButtonText: 'OK',

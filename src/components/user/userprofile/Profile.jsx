@@ -22,9 +22,7 @@ const Profile = () => {
     useEffect(() => {
         getprofiledata()
     }, []);
-
-
-    console.log("data && data.Group :", data && data.Group)
+ 
     return (
         <div>
             <div className="container-fluid">

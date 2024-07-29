@@ -244,7 +244,7 @@ const AddClient = () => {
         },
     });
 
-    console.log("location.state.data", location.state.data)
+    
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -725,7 +725,7 @@ const AddClient = () => {
         GetPatternCharting()
     }, [])
 
-    console.log("serviceEndDate :", serviceEndDate)
+    
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }

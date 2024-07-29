@@ -94,7 +94,7 @@ const TradeReport = () => {
     };
 
 
-    console.log(selectedRowData && selectedRowData)
+ 
 
     const handleSubmit = async () => {
         const data = {

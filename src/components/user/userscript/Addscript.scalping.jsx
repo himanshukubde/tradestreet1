@@ -175,7 +175,7 @@ const AddClient = () => {
             if (!values.Slvalue) {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
-            console.log(errors)
+           
 
                
             return errors;

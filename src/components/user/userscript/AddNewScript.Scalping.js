@@ -27,7 +27,7 @@ const AddClient = () => {
         data: []
     })
     const [serviceEndDate, setServiceEndDate] = useState('')
-    console.log("serviceEndDate :", serviceEndDate)
+    
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -162,7 +162,7 @@ const AddClient = () => {
             if (!values.Slvalue) {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
-            console.log(errors)
+           
 
             return errors;
         },
