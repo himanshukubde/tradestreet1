@@ -561,8 +561,7 @@ const Tradehistory = () => {
                                             type="pie"
                                             width={options1.chart.width}
                                         />
-                                    </div>
-
+                                    </div> 
                                 </div>
 
                                 {/*  Consistent Loss & Profit-Making Trades: */}

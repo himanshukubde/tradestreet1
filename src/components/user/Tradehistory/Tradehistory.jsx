@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../CommonAPI/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
-import {get_Trade_Data} from '../../CommonAPI/User'
+import { get_Trade_Data } from '../../CommonAPI/User'
 import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";
@@ -10,7 +10,7 @@ import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import {columns8 , columns7 , columns6 , columns5 , columns4  , columns3 , columns2 , columns1 , columns} from './TradeHistoryColumn'
+import { columns8, columns7, columns6, columns5, columns4, columns3, columns2, columns1, columns } from './TradeHistoryColumn'
 const Tradehistory = () => {
 
     const [selectStrategyType, setStrategyType] = useState('')
@@ -19,13 +19,15 @@ const Tradehistory = () => {
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
     const [showTable, setShowTable] = useState(false)
-    const [report , setReport] = useState({
-        loading: true , 
-        data1:[], 
-        data2:[]
+    const [report, setReport] = useState({
+        loading: true,
+        data1: [],
+        data2: []
     })
 
-  
+    console.log(columns7())
+    console.log(report.data1)
+
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
@@ -33,7 +35,7 @@ const Tradehistory = () => {
         data2: "",
         data3: "",
         data4: "",
-        Overall:[]
+        Overall: []
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
@@ -127,7 +129,7 @@ const Tradehistory = () => {
         GetTradeHistory()
     }, [selectStrategyType])
 
-  
+
 
 
 
@@ -136,7 +138,7 @@ const Tradehistory = () => {
         setSelectedRowData(rowData);
     };
 
- 
+
     const handleSubmit = async () => {
         const data = {
             MainStrategy: selectStrategyType,
@@ -147,9 +149,9 @@ const Tradehistory = () => {
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
             To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
-            
-            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN  : "",
-            
+
+            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN : "",
+
             TradePattern: "",
             PatternName: ""
         }
@@ -165,7 +167,7 @@ const Tradehistory = () => {
                         data2: response.profitconcount,
                         data3: response.lossconcount,
                         data4: response.lossconsistant,
-                        Overall : response.Overall
+                        Overall: response.Overall
 
                     })
                     setShowTable(true)
@@ -184,7 +186,7 @@ const Tradehistory = () => {
                         data2: "",
                         data3: "",
                         data4: "",
-                        Overall:[]
+                        Overall: []
 
                     })
                 }
@@ -193,8 +195,8 @@ const Tradehistory = () => {
                 console.log("Error in finding the All TradeData", err)
             })
 
-         
-        
+
+
         //GET PNL DATA
         await get_PnL_Data(data)
             .then((response) => {
@@ -316,8 +318,8 @@ const Tradehistory = () => {
             })
 
 
-       // Get Trade Report 
-       await get_Trade_Data(data)
+        // Get Trade Report 
+        await get_Trade_Data(data)
 
             .then((response) => {
                 if (response.Status) {
@@ -326,7 +328,7 @@ const Tradehistory = () => {
                         data1: response.Data1,
                         data2: response.Data2
                     })
-                    
+
                 }
                 else {
                     Swal.fire({
@@ -346,7 +348,7 @@ const Tradehistory = () => {
             .catch((err) => {
                 console.log("Error in finding the All TradeData", err)
             })
-    
+
     }
 
 
@@ -526,8 +528,119 @@ const Tradehistory = () => {
 
 
                                     {/* cp */}
- 
-                                    <div className='mt-3'>
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col-lg-6">
+                                                <div className="iq-card">
+                                                    <div className="iq-card-body p-0 mt-4">
+                                                        <table className="table">
+                                                            <thead className="table-dark">
+                                                                <tr>
+                                                                    <th scope="col">Name</th>
+                                                                    <th scope="col">Value</th>
+                                                                    
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">Current Price</th>
+                                                                    <td>{report.loading==false && report.data1[0]['Current Price']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Max Drawdown</th>
+                                                                    <td>{report.loading==false && report.data1[0]['Max Drawdown']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Max Open Trade</th>
+                                                                    <td>{report.loading==false && report.data1[0]['Max Open Trade']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Max Profit</th>
+                                                                    <td>{report.loading==false && report.data1[0]['Max Profit']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">profit at Max Draw Down</th>
+                                                                    <td>{report.loading==false && report.data1[0]['profit at Max Draw Down']}</td>
+                                                                    
+                                                                </tr>
+                                                                 
+                                                                
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6">
+                                                <div className="iq-card">
+                                                    <div className="iq-card-body p-0 mt-4">
+                                                        <table className="table">
+                                                            <thead className="table-dark  btn-primary">
+                                                                <tr>
+                                                                    <th scope="col">Name</th>
+                                                                    <th scope="col">Value</th>
+                                                                    
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">Current Runing loss</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Current open Trade</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Current open Trade']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Last trade open price</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Last trade open price']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Max Involved fund</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Max Involved fund']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Max Price of Trade Execution</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Max Price of Trade Execution']}</td>
+                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Min Price of Trade Execution</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Min Price of Trade Execution']}</td>
+                                                                    
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th scope="row">Current Runing loss</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
+                                                                    
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th scope="row">Current Runing loss</th>
+                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
+                                                                    
+                                                                </tr>
+                                                                
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+
+
                                         <GridExample
                                             columns={columns7()}
                                             data={report.data1}
@@ -535,21 +648,6 @@ const Tradehistory = () => {
                                             checkBox={false}
                                         />
                                     </div>
-
-
-                                     
-                                    <div className='mt-3'>
-                                        <GridExample
-                                            columns={columns8()}
-                                            data={report.data2}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
-
-
-
-
 
                                     {/* PnL Graph show */}
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
