@@ -97,12 +97,7 @@ const Pannel = () => {
             options: {
                 filter: true,
                 sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-
-                    
-
-                    return <Eye onClick={(e) => handleMessageView(tableMeta)} />
-                }
+               
             }
         },
         {
@@ -114,9 +109,6 @@ const Pannel = () => {
             }
         },
     ];
-
-
-
 
     const GetAllPanleData = async () => {
         const data = {
@@ -140,7 +132,7 @@ const Pannel = () => {
                             return item.Activity == 'Broker Update'
                         }
                         else if (getActivity == 3) {
-                            return item.Activity == 'AddScript'
+                            return item.Activity == 'Add Script'
                         }
                         else if (getActivity == 4) {
                             return item.Activity == 'Continue Script'

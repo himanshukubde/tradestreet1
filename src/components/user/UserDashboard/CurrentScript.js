@@ -28,14 +28,14 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     const [EditDataOption, setEditDataOption] = useState({})
     const [EditDataPattern, setEditDataPattern] = useState({})
 
-    console.log("EditDataPattern :", EditDataPattern)
+    
 
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
             text: text,
             icon: "error",
-            timer: 5500,
+            timer: 1000,
             timerProgressBar: true
         });
     }
@@ -215,8 +215,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                         PatternName: ""
 
                                     } : ''
-
-
                     await Discontinue(req)
                         .then((response) => {
                             if (response.Status) {
@@ -417,6 +415,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         },
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
             if (values.TStype == "" && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.TStype = "Please select Measurement Type";
             }
@@ -444,11 +444,19 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             if (values.HoldExit == "" && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.HoldExit = "Please select Hold/Exit";
             }
+
             if (values.EntryTime == "") {
                 errors.EntryTime = "Please select Entry Time";
             }
+            else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            }
+
             if (values.ExitTime == "") {
                 errors.ExitTime = "Please select Exit Time";
+            }
+            else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
             }
             return errors;
         },
@@ -484,8 +492,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 PEDeepHigher: 0.0,
                 DepthofStrike: 0
             }
-
-
             if (EditDataScalping.ScalpType != "Fixed Price" && (Number(values.EntryPrice) >= Number(values.EntryRange))) {
                 return SweentAlertFun("First Trade Higher Range should be greater than First Trade Lower Range")
             }
@@ -568,6 +574,34 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         },
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
+            if (!values.TStype) {
+                errors.TStype = "Please Select Measurement Type."
+            }
+            if (!values.Quantity) {
+                errors.Quantity = "Please Enter Lot Size."
+            }
+            if (!values.Targetvalue) {
+                errors.Targetvalue = "Please Enter Target Value."
+            }
+            if (!values.Slvalue) {
+                errors.Slvalue = "Please Enter Stoploss."
+            }
+
+            if (values.EntryTime == "") {
+                errors.EntryTime = "Please select Entry Time";
+            }
+            else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            }
+
+            if (values.ExitTime == "") {
+                errors.ExitTime = "Please select Exit Time";
+            }
+            else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
+            }
 
             return errors;
         },
@@ -630,7 +664,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     });
     const formik2 = useFormik({
         initialValues: {
-
             MainStrategy: "",
             Strategy: "",
             Symbol: "",
@@ -663,6 +696,34 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         },
         validate: (values) => {
             let errors = {};
+            const maxTime = "15:29:59";
+            const minTime = "09:15:00";
+            if (!values.TStype) {
+                errors.TStype = "Please Select Measurement Type."
+            }
+            if (!values.Quantity) {
+                errors.Quantity = "Please Enter Lot Size."
+            }
+            if (!values.Targetvalue) {
+                errors.Targetvalue = "Please Enter Target Value."
+            }
+            if (!values.Slvalue) {
+                errors.Slvalue = "Please Enter Stoploss."
+            }
+
+            if (values.EntryTime == "") {
+                errors.EntryTime = "Please select Entry Time";
+            }
+            else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            }
+
+            if (values.ExitTime == "") {
+                errors.ExitTime = "Please select Exit Time";
+            }
+            else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
+            }
 
             return errors;
         },
@@ -941,7 +1002,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             col_size: 6,
             disable: false,
             hiding: false,
-        }, {
+        },
+         {
             name: "Slvalue",
             label: "Stoploss",
             type: "text5",

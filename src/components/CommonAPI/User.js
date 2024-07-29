@@ -441,6 +441,23 @@ export const UpdateUserScript = async (data) => {
     }
 }
 
+export const CheckPnL = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}MaxPnlStrike`, data , 
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 
 
 

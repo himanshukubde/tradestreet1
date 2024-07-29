@@ -182,7 +182,7 @@ const AddClient = () => {
                 TType: values.TType == 0 ? "" : values.TType,
                 LowerRange: values.LowerRange,
                 HigherRange:  values.HigherRange,
-                TStype: values.TStype,
+                TStype: values.Strategy != "Fixed Price" ?  values.TStype : '',
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 EntryPrice:  values.EntryPrice,
@@ -269,6 +269,9 @@ const AddClient = () => {
         formik.setFieldValue("EntryRange", 0)
         formik.setFieldValue("Instrument", "FUTIDX")
         formik.setFieldValue("HoldExit", "Hold")
+        formik.setFieldValue("TStype", "Point")
+
+
       }, [])
 
 

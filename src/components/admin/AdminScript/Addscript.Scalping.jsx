@@ -159,7 +159,7 @@ const AddClient = () => {
 
     onSubmit: async (values) => {
       const req = {
- 
+
         MainStrategy: location.state.data.selectStrategyType,
         Username: location.state.data.selectGroup,
         Strategy: values.Strategy,
@@ -170,14 +170,14 @@ const AddClient = () => {
         Strike: values.Strike,
         expirydata1: values.Exchange == "NSE" ? getExpiryDate.data[0] : values.expirydata1,
         TType: values.TType,
-        EntryPrice:   values.EntryPrice,
-        EntryRange:   values.EntryRange,
+        EntryPrice: values.EntryPrice,
+        EntryRange: values.EntryRange,
         TStype: values.Strategy === "Fixed Price" ? "" : values.TStype,
         Targetvalue: values.Targetvalue,
         Slvalue: values.Slvalue,
         LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
         HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
-        HoldExit:  (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
+        HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
         ExitDay: values.ExitDay,
         EntryTime: values.EntryTime,
         ExitTime: values.ExitTime,
@@ -262,6 +262,7 @@ const AddClient = () => {
     formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX")
     formik.setFieldValue("HoldExit", "Hold")
+    formik.setFieldValue("TStype", "Point")
   }, [])
 
 

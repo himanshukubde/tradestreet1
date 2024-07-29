@@ -12,7 +12,7 @@ const Profile = () => {
         }
         await Get_Profile_Data(data).then((response) => {
             if (response.Data) {
-      
+
                 setData(response.Data[0])
             }
         })
@@ -23,6 +23,8 @@ const Profile = () => {
         getprofiledata()
     }, []);
 
+
+    console.log("data && data.Group :", data && data.Group)
     return (
         <div>
             <div className="container-fluid">
@@ -81,9 +83,8 @@ const Profile = () => {
                                         </div>
                                         <div className="col-4">Group :</div>
                                         <div className="col-8">
-                                            {data && data.Group}
+                                            {data && Array.isArray(data.Group) && data.Group.join(' , ')}
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
