@@ -361,22 +361,7 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    {
-        name: "DepthofStrike",
-        label: "Depth of Strike",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Spread",
-        label: "Spread",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+  
     {
         name: "SSDate",
         label: "SSDate",
@@ -388,6 +373,14 @@ export const getColumns1 = (handleAddScript2) => [
     {
         name: "StrikeType",
         label: "Strike Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DepthofStrike",
+        label: "Strike Value",
         options: {
             filter: true,
             sort: true,
@@ -999,7 +992,7 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     },
     {
         name: "Target value",
-        label: "Target value",
+        label: "Target",
         options: {
             filter: true,
             sort: true,
@@ -1053,22 +1046,8 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
             sort: true,
         }
     },
-    {
-        name: "DepthofStrike",
-        label: "Depth of Strike",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Spread",
-        label: "Spread",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
+    
     {
         name: "SSDate",
         label: "SSDate",
@@ -1080,6 +1059,14 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "StrikeType",
         label: "Strike Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DepthofStrike",
+        label: "Strike Value",
         options: {
             filter: true,
             sort: true,

@@ -307,7 +307,7 @@ export const ConnectBroker = async (data) => {
 export const AvailableScript = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Script/AvailableScript`, data,
+        const res = await axios.get(`${Config.base_url}Script/AvailableScript`,
             {
                 headers: { 
                   'Content-Type': 'application/json', 

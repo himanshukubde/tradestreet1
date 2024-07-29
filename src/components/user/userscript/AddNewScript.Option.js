@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { GET_EXPIRY_DATE, ExpriyEndDate } from '../../CommonAPI/Admin'
-import { AddScript } from '../../CommonAPI/User'
+import { AddScript , CheckPnL } from '../../CommonAPI/User'
 
 
 const AddClient = () => {
@@ -16,6 +16,19 @@ const AddClient = () => {
         data: []
     })
     const [serviceEndDate, setServiceEndDate] = useState('')
+    const [showPnl, setShowPnl] = useState(false)
+
+    const [PnlData, setPnlData] = useState({
+        MaximumProfit: "",
+        MaximumLoss: "",
+        SpotPriceMaximumProfit1: "",
+        SpotPriceMaximumProfit2: "",
+        SpotPriceMaximumLoss1: "",
+        SpotPriceMaximumLoss2: "",
+        NoprofitLoss1: "",
+        NoprofitLoss2: ""
+    })
+
 
 
     const SweentAlertFun = (text) => {
@@ -248,7 +261,7 @@ const AddClient = () => {
                 expirydata1: values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
                 Expirytype: values.Expirytype,
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                DepthofStrike: Number(values.DepthofStrike),
+                DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(values.DepthofStrike) : 0,
                 DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
@@ -861,7 +874,88 @@ const AddClient = () => {
 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
+    const handleCheckPnl = async () => {
+        const req = {
+            MainStrategy: location.state.data.selectStrategyType,
+            Strategy: formik.values.Strategy,
+            Username: userName,
+            ETPattern: formik.values.ETPattern,
+            Timeframe: "",
+            Exchange: "NFO",
+            Symbol: formik.values.Symbol,
+            Instrument: 'FUTIDX',
+            Strike: '',
+            Optiontype: '',
+            Targetvalue: formik.values.Targetvalue,
+            Slvalue: formik.values.Slvalue,
+            TStype: formik.values.TStype,
+            Quantity: formik.values.Quantity,
+            LowerRange: formik.values.Striketype == "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" ? formik.values.Lower_Range : 0,
+            HigherRange: formik.values.Striketype == "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" ? formik.values.Higher_Range : 0,
+            HoldExit: "",
+            EntryPrice: 0.0,
+            EntryRange: 0.0,
+            EntryTime: formik.values.EntryTime,
+            ExitTime: formik.values.ExitTime,
+            ExitDay: formik.values.ExitDay,
+            TradeExecution: formik.values.Trade_Execution,
+            FixedSM: "",
+            TType: "",
+            serendate: serviceEndDate,
+            expirydata1: formik.values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : formik.values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
+            Expirytype: formik.values.Expirytype,
+            Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? formik.values.Striketype : '',
+            DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(formik.values.DepthofStrike) : 0,
+            DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(formik.values.DeepStrike) : 0,
+            Group: formik.values.Unique_ID,
+            CEDepthLower: Number(formik.values.CEDepthLower),
+            CEDepthHigher: Number(formik.values.CEDepthHigher),
+            PEDepthLower: Number(formik.values.PEDepthLower),
+            PEDepthHigher: Number(formik.values.PEDepthHigher),
+            CEDeepLower: Number(formik.values.CEDeepLower),
+            CEDeepHigher: Number(formik.values.CEDeepHigher),
+            PEDeepLower: Number(formik.values.PEDeepLower),
+            PEDeepHigher: Number(formik.values.PEDeepHigher),
+            TradeCount: Number(formik.values.Trade_Count),
+        }
+        await CheckPnL(req)
+            .then((response) => {
+                if (response.Status) {
+                    setShowPnl(true)
+                    setPnlData({
+                        MaximumProfit: response.MaximumProfit,
+                        MaximumLoss: response.MaximumLoss,
+                        SpotPriceMaximumProfit1: response.SpotPriceMaximumProfit1,
+                        SpotPriceMaximumProfit2: response.SpotPriceMaximumProfit2,
+                        SpotPriceMaximumLoss1: response.SpotPriceMaximumLoss1,
+                        SpotPriceMaximumLoss2: response.SpotPriceMaximumLoss2,
+                        NoprofitLoss1: response.NoprofitLoss1,
+                        NoprofitLoss2: response.NoprofitLoss2
 
+                    })
+                }
+                else {
+                    setPnlData({
+                        MaximumProfit: "",
+                        MaximumLoss: "",
+                        SpotPriceMaximumProfit1: "",
+                        SpotPriceMaximumProfit2: "",
+                        SpotPriceMaximumLoss1: "",
+                        SpotPriceMaximumLoss2: "",
+                        NoprofitLoss1: "",
+                        NoprofitLoss2: ""
+                    })
+                }
+            })
+            .catch((err) => {
+                console("Error in fatching the Pnl", err)
+
+            })
+    }
+
+    useEffect(() => {
+        setShowPnl(false)
+    }, [formik.values])
     return (
         <>
             <AddForm
@@ -871,6 +965,63 @@ const AddClient = () => {
                 btn_name1="Cancel"
                 formik={formik}
                 btn_name1_route={"/user/dashboard"}
+                additional_field={
+                    <div>
+                        <p className="btn btn-primary" onClick={handleCheckPnl}>Check PnL</p>
+                        {
+
+                            showPnl && <div>
+                                
+                                <div>
+                                    <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+                                        <thead>
+                                            <tr>
+                                                <th style={{ borderBottom: '2px solid #ddd', padding: '8px', fontSize: '16px', fontWeight: 'bold', color: 'black' }}>Label</th>
+                                                <th style={{ borderBottom: '2px solid #ddd', padding: '8px', fontSize: '16px', fontWeight: 'bold', color: 'black' }}>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumProfit</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumProfit}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumLoss</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumLoss}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit1</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit1}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit2</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit2}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss1</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss1}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss2</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss2}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>NoprofitLoss1</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.NoprofitLoss1}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>NoprofitLoss2</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.NoprofitLoss2}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+
+                            </div>
+                        }
+                    </div>
+                }
             />
 
         </>

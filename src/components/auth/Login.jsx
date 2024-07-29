@@ -11,8 +11,12 @@ const Login = () => {
     const [visiablity, setVisiablity] = useState("");
     const [showModal , setShowModal] = useState(false)
     const [forgotPassEmail , setForgotPassEmail] = useState('')
+    const [forgotPassUsername , setForgotPassUsername] = useState('')
     const [emailError, setEmailError] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+
     const navigate = useNavigate();
+
     
 
     const handleLogin = async (e) => {
@@ -76,7 +80,7 @@ const Login = () => {
 
     const handleForgotPass = async() => {
         if(!emailError){
-           const data = {Email: forgotPassEmail}
+           const data = {Email: forgotPassEmail ,username: forgotPassUsername}
           await ForgotPassword(data)
           .then((response)=>{
             if(response.Status){
@@ -121,6 +125,16 @@ const Login = () => {
             setEmailError('Please enter a valid email address');
         } else {
             setEmailError('');
+        }
+    };
+
+    const handleUsernameChange = (e) => {
+        const email = e.target.value;
+        setForgotPassUsername(email);
+        if (!email) {
+            setUsernameError('Username Can Not Be Empty');
+        } else {
+            setUsernameError('');
         }
     };
 
@@ -393,6 +407,21 @@ const Login = () => {
                                             {emailError && (
                                                 <div className="error-message" style={{color: 'red'}}>
                                                     {emailError}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="input-block mb-3">
+                                            <label>Username</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Email"
+                                                onChange={handleUsernameChange}
+                                                value={forgotPassUsername}
+                                            />
+                                            {usernameError && (
+                                                <div className="error-message" style={{color: 'red'}}>
+                                                    {usernameError}
                                                 </div>
                                             )}
                                         </div>
