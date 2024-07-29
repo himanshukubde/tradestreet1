@@ -2,25 +2,27 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Sidebar from '../components/layouts/Sidebar';
 import Header from '../components/layouts/Header';
- 
+
 import Dashboard from '../components/user/UserDashboard/Userdashboard';
- 
-import Addscript from '../components/user/UserScript/Addscript.scalping';
- 
-import Profile from '../components/user/UserProfile/Profile';
-import AddScriptOption from '../components/user/UserScript/AddScript.Option'
+
+// import Addscript from '../components/user/UserScript/Addscript.scalping';
+import Addscript from '../components/user/userscript/Addscript.scalping';
+
+
+import Profile from '../components/user/userprofile/Profile';
+import AddScriptOption from '../components/user/userscript/AddScript.Option'
 import LastPattern from '../components/user/Patterns/LastPattern';
-import Editprofile from '../components/user/UserProfile/Editprofile';
+import Editprofile from '../components/user/userprofile/Editprofile';
 import Discription from '../components/user/Discription/Discription';
 import Tradehistory from '../components/user/Tradehistory/Tradehistory';
 import Traderesponse from '../components/user/TradeResponse/Traderesponse';
 import ProfitAndLoss from '../components/user/ProfitAndLoss/ProfitAndLoss';
 import Pannel from '../components/user/TrackPanel/TrackPannel';
-import TradeReport  from '../components/user/TradeReport/TradeReport'
-import AddScriptPattern from '../components/user/UserScript/AddScript.Pattern'
-import AddNewScalpingScript from '../components/user/UserScript/AddNewScript.Scalping'
-import AddNewScalpingOption from '../components/user/UserScript/AddNewScript.Option'
-import AddNewScalpingPattern from '../components/user/UserScript/AddNewScript.Pattern'
+import TradeReport from '../components/user/TradeReport/TradeReport'
+import AddScriptPattern from '../components/user/userscript/AddScript.Pattern'
+import AddNewScalpingScript from '../components/user/userscript/AddNewScript.Scalping'
+import AddNewScalpingOption from '../components/user/userscript/AddNewScript.Option'
+import AddNewScalpingPattern from '../components/user/userscript/AddNewScript.Pattern'
 import TechnicalPattern from '../components/user/Patterns/TechnicalPattern'
 
 
@@ -53,7 +55,7 @@ const UserRoute = () => {
 
 
           </Routes>
-    
+
         </div>
       </div>
       {/* )} */}
