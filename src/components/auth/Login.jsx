@@ -74,9 +74,6 @@ const Login = () => {
     };
 
 
- 
-     
- 
 
     const handleForgotPass = async() => {
         if(!emailError){
