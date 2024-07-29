@@ -3240,8 +3240,8 @@ button.close-popup {
 }
 
 .custom-control-input:checked~.custom-control-label::before {
-  border-color: #0d5883;
-  background-color: #0d5883;
+
+  background-color: #00ED64 !important;
 }
 
 .custom-checkbox.checkbox-icon label i {
@@ -3314,7 +3314,7 @@ button.close-popup {
 
 .custom-switch.custom-switch-icon .custom-control-label::before,
 .custom-switch.custom-switch-text .custom-control-label::before {
-  width: 112px !important;
+  width: 130px !important;
   height: 26px;
   -webkit-transition: all .25s ease;
   transition: all .25s ease;
@@ -3324,7 +3324,7 @@ button.close-popup {
   width: 2.75rem;
   border-radius: 15px !important;
   line-height: 22px;
-  background-color: red;
+  background-color: #FF0000;
 }
 
 .custom-switch.custom-switch-text .custom-control-label::before {
@@ -3340,9 +3340,9 @@ button.close-popup {
   transition: all .25s ease;
   user-select: none;
   height: 24px;
-  width: 24px;
+  width: 36px;
   border-radius: 12px;
-  background-color: green;
+  background-color: #fff;
 }
 
 .custom-switch.custom-switch-icon .custom-control-input:checked~.custom-control-label::after {
@@ -3354,7 +3354,7 @@ button.close-popup {
 .custom-switch.custom-switch-text .custom-control-input:checked~.custom-control-label::after {
   -webkit-transform: translateX(1.6rem);
   -ms-transform: translateX(1.6rem);
-  transform: translateX(5.4rem);
+  transform: translateX(5.8rem);
 }
 
 .custom-switch-inner {
@@ -3370,7 +3370,7 @@ button.close-popup {
 }
 
 .custom-switch.custom-switch-text label::before {
-  color: #000;
+  color: #fff;
   content: attr(data-off-label);
   width: 2.85rem;
   height: 20px;
