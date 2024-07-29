@@ -30,6 +30,15 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
     console.log("EditDataPattern :", EditDataPattern)
 
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+            title: "Error",
+            text: text,
+            icon: "error",
+            timer: 5500,
+            timerProgressBar: true
+        });
+    }
 
 
     const handleDelete = async (rowData) => {
@@ -94,7 +103,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         if (response.Status) {
                             Swal.fire({
                                 title: "Square off Successfully!",
-                                text:  response.massage ,
+                                text: response.massage,
                                 icon: "success",
                                 timer: 1500,
                                 timerProgressBar: true,
@@ -118,7 +127,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     })
             }
         });
-        
+
     }
 
 
@@ -411,25 +420,25 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             if (values.TStype == "" && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.TStype = "Please select Measurement Type";
             }
-            if (values.Quantity == 0) {
+            if (!values.Quantity || values.Quantity == 0) {
                 errors.Quantity = "Please enter Quantity";
             }
-            if (values.Targetvalue == 0.0) {
+            if (values.Targetvalue == 0.0 || !values.Targetvalue) {
                 errors.Targetvalue = "Please enter Target value";
             }
-            if (values.Slvalue == 0) {
+            if (values.Slvalue == 0 || !values.Slvalue) {
                 errors.Slvalue = "Please enter SL value";
             }
-            if (values.EntryPrice == 0.0 && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
+            if (!values.EntryPrice && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.EntryPrice = "Please enter Entry Price";
             }
-            if (values.EntryRange == 0.0 && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
+            if (!values.EntryRange && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.EntryRange = "Please enter Entry Range";
             }
-            if (values.LowerRange == 0.0) {
+            if (!values.LowerRange) {
                 errors.LowerRange = "Please enter Lower Range";
             }
-            if (values.HigherRange == 0.0) {
+            if (!values.HigherRange) {
                 errors.HigherRange = "Please enter Higher Range";
             }
             if (values.HoldExit == "" && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
@@ -458,8 +467,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 LowerRange: values.LowerRange,
                 HigherRange: values.HigherRange,
                 HoldExit: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? EditDataScalping.HoldExit : values.HoldExit,
-                EntryPrice: EditDataScalping.ScalpType != "Fixed Price" ? EditDataScalping.EntryPrice : values.EntryPrice,
-                EntryRange: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? EditDataScalping.EntryRange : values.EntryRange,
+                EntryPrice: EditDataScalping.ScalpType != "Fixed Price" ? values.EntryPrice : EditDataScalping.EntryPrice,
+                EntryRange: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? values.EntryRange : EditDataScalping.EntryRange,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: EditDataScalping.ExitDay,
@@ -474,6 +483,125 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
                 DepthofStrike: 0
+            }
+
+
+            if (EditDataScalping.ScalpType != "Fixed Price" && (Number(values.EntryPrice) >= Number(values.EntryRange))) {
+                return SweentAlertFun("First Trade Higher Range should be greater than First Trade Lower Range")
+            }
+
+            if (Number(values.LowerRange) >= Number(values.HigherRange)) {
+                return SweentAlertFun("Higher Range should be greater than Lower Range")
+            }
+
+            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) >= Number(values.Slvalue))) {
+                return SweentAlertFun("Stoploss should be greater than target price")
+            }
+
+            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) >= Number(values.EntryRange))) {
+                return SweentAlertFun("Higher Range should be greater than target price")
+            }
+
+            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Slvalue) >= Number(values.EntryPrice))) {
+                return SweentAlertFun("Lower Range should be greater than Stoploss")
+            }
+
+            await UpdateUserScript(req)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Updated",
+                            text: response.massage,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true,
+                        });
+                        setTimeout(() => {
+                            setShowEditModal(false)
+                        }, 1500)
+                    } else {
+                        Swal.fire({
+                            title: "Error !",
+                            text: response.massage,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                })
+        }
+    });
+
+
+
+    const formik1 = useFormik({
+        initialValues: {
+            MainStrategy: "",
+            Strategy: "",
+            Symbol: "",
+            Username: "",
+            ETPattern: "",
+            Timeframe: "",
+            Targetvalue: 0,
+            Slvalue: 0,
+            TStype: "",
+            Quantity: "",
+            LowerRange: 0,
+            HigherRange: 0,
+            HoldExit: "",
+            EntryPrice: 0,
+            EntryRange: 0,
+            EntryTime: "",
+            ExitTime: "",
+            ExitDay: "",
+            TradeExecution: "",
+            Group: "",
+            CEDepthLower: 0.0,
+            CEDepthHigher: 0.0,
+            PEDepthLower: 0.0,
+            PEDepthHigher: 0.0,
+            CEDeepLower: 0.0,
+            CEDeepHigher: 0.0,
+            PEDeepLower: 0.0,
+            PEDeepHigher: 0.0,
+            DepthofStrike: 1,
+        },
+        validate: (values) => {
+            let errors = {};
+
+            return errors;
+        },
+        onSubmit: async (values) => {
+            const req = {
+                MainStrategy: data,
+                Strategy: EditDataOption.STG,
+                Symbol: EditDataOption.MainSymbol,
+                Username: userName,
+                ETPattern: EditDataOption.Targettype,
+                Timeframe: "",
+                Targetvalue: values.Targetvalue,
+                Slvalue: values.Slvalue,
+                TStype: values.TStype,
+                Quantity: Number(values.Quantity),
+                LowerRange: EditDataOption.LowerRange,
+                HigherRange: EditDataOption.HigherRange,
+                HoldExit: "",
+                EntryPrice: 0.0,
+                EntryRange: 0.0,
+                EntryTime: values.EntryTime,
+                ExitTime: values.ExitTime,
+                ExitDay: EditDataOption['Product Type'],
+                TradeExecution: EditDataOption.TradeExecution,
+                Group: EditDataOption.GroupN,
+                CEDepthLower: EditDataOption.CEDepthLower,
+                CEDepthHigher: EditDataOption.CEDepthHigher,
+                PEDepthLower: EditDataOption.PEDepthLower,
+                PEDepthHigher: EditDataOption.PEDepthHigher,
+                CEDeepLower: EditDataOption.CEDeepLower,
+                CEDeepHigher: EditDataOption.PEDeepHigher,
+                PEDeepLower: EditDataOption.PEDeepLower,
+                PEDeepHigher: EditDataOption.PEDeepHigher,
+                DepthofStrike: EditDataOption.DepthofStrike,
             }
             await UpdateUserScript(req)
                 .then((response) => {
@@ -500,68 +628,28 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 })
         }
     });
-    const formik1 = useFormik({
-        initialValues: {
-            MainStrategy: "",
-            Strategy: "",
-            Symbol: "",
-            Username: "",
-            ETPattern: "",
-            Timeframe: "",
-            Targetvalue: 0.0,
-            Slvalue: 0,
-            TStype: "CP",
-            Quantity: 0,
-            LowerRange: 0.0,
-            HigherRange: 0.0,
-            HoldExit: "Hold",
-            EntryPrice: 0.0,
-            EntryRange: 0.0,
-            EntryTime: "",
-            ExitTime: "",
-            ExitDay: "Intraday",
-            TradeExecution: "Paper Trade",
-            Group: "",
-            CEDepthLower: 0.0,
-            CEDepthHigher: 0.0,
-            PEDepthLower: 0.0,
-            PEDepthHigher: 0.0,
-            CEDeepLower: 0.0,
-            CEDeepHigher: 0.0,
-            PEDeepLower: 0.0,
-            PEDeepHigher: 0.0,
-            DepthofStrike: 1
-        },
-        validate: (values) => {
-            let errors = {};
-
-            return errors;
-        },
-        onSubmit: async (values) => {
-
-        }
-    });
     const formik2 = useFormik({
         initialValues: {
+
             MainStrategy: "",
             Strategy: "",
             Symbol: "",
             Username: "",
             ETPattern: "",
             Timeframe: "",
-            Targetvalue: 0.0,
+            Targetvalue: 0,
             Slvalue: 0,
-            TStype: "CP",
+            TStype: "",
             Quantity: 0,
             LowerRange: 0.0,
             HigherRange: 0.0,
-            HoldExit: "Hold",
+            HoldExit: "",
             EntryPrice: 0.0,
             EntryRange: 0.0,
             EntryTime: "",
             ExitTime: "",
-            ExitDay: "Intraday",
-            TradeExecution: "Paper Trade",
+            ExitDay: "",
+            TradeExecution: "",
             Group: "",
             CEDepthLower: 0.0,
             CEDepthHigher: 0.0,
@@ -571,7 +659,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-            DepthofStrike: 1
+            DepthofStrike: 0
         },
         validate: (values) => {
             let errors = {};
@@ -579,7 +667,63 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             return errors;
         },
         onSubmit: async (values) => {
+            const req = {
+                MainStrategy: data,
+                Strategy: EditDataPattern.TradePattern,
+                Symbol: EditDataPattern['Instrument Name'],
+                Username: userName,
+                ETPattern: EditDataPattern.Pattern,
+                Timeframe: EditDataPattern.TimeFrame,
+                Targetvalue: EditDataPattern['Target value'],
+                Slvalue: EditDataPattern['SL value'],
+                TStype: EditDataPattern.TStype,
+                Quantity: EditDataPattern.Quantity,
+                LowerRange: 0.0,
+                HigherRange: 0.0,
+                HoldExit: "",
+                EntryPrice: 0.0,
+                EntryRange: 0.0,
+                EntryTime: values.EntryTime,
+                ExitTime: values.ExitTime,
+                ExitDay: EditDataPattern.ExitDay,
+                TradeExecution: EditDataPattern.TradeExecution,
+                Group: "",
+                CEDepthLower: 0.0,
+                CEDepthHigher: 0.0,
+                PEDepthLower: 0.0,
+                PEDepthHigher: 0.0,
+                CEDeepLower: 0.0,
+                CEDeepHigher: 0.0,
+                PEDeepLower: 0.0,
+                PEDeepHigher: 0.0,
+                DepthofStrike: 1,
+                TradeCount: EditDataPattern.TradeCount
 
+
+            }
+            await UpdateUserScript(req)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Updated",
+                            text: response.massage,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true,
+                        });
+                        setTimeout(() => {
+                            setShowEditModal(false)
+                        }, 1500)
+                    } else {
+                        Swal.fire({
+                            title: "Error !",
+                            text: response.massage,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                })
         }
     });
 
@@ -617,7 +761,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             col_size: 6,
             disable: false,
             hiding: false,
-        }, {
+        },
+        {
             name: "Slvalue",
             label: showEditModal && EditDataScalping.ScalpType == "Fixed Price" ? "Stoploss Price" : "Re-Entry Point",
             type: "text5",
@@ -639,7 +784,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         {
             name: "EntryRange",
             label: "First Trade Higher Range",
-            type: "text5",
+            type: "text3",
             showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
 
             label_size: 12,
@@ -649,7 +794,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         }, {
             name: "LowerRange",
             label: "Lower Range",
-            type: "text5",
+            type: "text3",
 
             label_size: 12,
             col_size: 6,
@@ -829,6 +974,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
 
 
+
     useEffect(() => {
         if (data == "Scalping") {
             formik.setFieldValue('EntryPrice', EditDataScalping.EntryPrice)
@@ -852,7 +998,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             formik1.setFieldValue('ExitTime', EditDataOption['Exit Time'])
         }
         else if (data == "Pattern") {
-            console.log("cpppp :")
             formik2.setFieldValue('TStype', EditDataPattern.TStype)
             formik2.setFieldValue('Targetvalue', EditDataPattern['Target value'])
             formik2.setFieldValue('Slvalue', EditDataPattern['SL value'])
@@ -862,8 +1007,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         }
     }, [showEditModal, data])
 
-
-    console.log("data :", data)
 
     return (
         <div className="container-fluid">
@@ -930,16 +1073,14 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                 />
                             </> :
                                 data == "Option Strategy" ? <>
-                                   
+
                                     <Formikform
                                         fields={fields1}
-
                                         btn_name="Update"
                                         formik={formik1}
                                     />
                                 </>
                                     :
-
                                     <Formikform
                                         fields={fields2.filter(
                                             (field) => !field.showWhen || field.showWhen(formik2.values)
