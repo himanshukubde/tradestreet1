@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
-
+import * as d3 from 'd3';
 const ChartExample = ({ ChartData }) => {
   const [options, setOptions] = useState(null);
 
@@ -10,6 +10,7 @@ const ChartExample = ({ ChartData }) => {
       ...item,
       date: new Date(item.date),
     }));
+
     const chartOptions = {
       data: processedData,
       footnote: {
@@ -48,7 +49,7 @@ const ChartExample = ({ ChartData }) => {
                 title: `<b>${new Date(datum[xKey]).toLocaleString("en-GB", {
                   day: "numeric",
                   month: "short",
-                  year: "numeric",
+                  year: "numeric"
                 })}</b>`,
                 content: `<b>O</b>: ${datum[openKey].toLocaleString()}<br/><b>H</b>: ${datum[highKey].toLocaleString()}<br/><b>L</b>: ${datum[lowKey].toLocaleString()}<br/><b>C</b>: ${datum[closeKey].toLocaleString()}`,
               };
@@ -61,7 +62,10 @@ const ChartExample = ({ ChartData }) => {
           type: "time",
           position: "bottom",
           label: {
-            format: "%H:%M",
+            format: "%b %d",
+          },
+          tick: {
+            count: d3.timeDay.every(1),  // Ensures that each day is displayed
           },
         },
         {
