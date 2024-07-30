@@ -278,7 +278,7 @@ const LastPattern = () => {
                                 {
                                     showCandle && <div className="row">
                                         <div className='shadow p-3 mb-5 mt-3 bg-white rounded'>
-                                            <AgChartsReact ChartData={getCandleData && getCandleData.data} />
+                                            <AgChartsReact ChartData={getCandleData && getCandleData.data} type={'lastpattern'} />
                                         </div>
                                     </div>
                                 }

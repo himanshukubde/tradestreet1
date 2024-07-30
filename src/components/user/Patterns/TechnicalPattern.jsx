@@ -529,7 +529,7 @@ const LastPattern = () => {
                             <div className="">
                                 {
                                     getCandlestickTable.loading == false || ChartPatternTableData.loading==false ? <div className='shadow p-3  bg-white rounded m-4'>
-                                        <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} />
+                                        <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} />
                                     </div>
                                         : ""
                                 }
