@@ -101,7 +101,7 @@ const Sidebar = () => {
                                 <>
                                     <li className={activeItem === 'dashboard' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'dashboard')}>
                                         <Link to="/admin/dashboard" className="iq-waves-effect">
-                                            <i className="ri-hospital-fill" />
+                                            <i className="ri-home-fill" />
                                             <span>Dashboard</span>
                                         </Link>
                                     </li>
@@ -168,7 +168,7 @@ const Sidebar = () => {
                                 <>
                                     <li className={activeItem === '/user/dashboard' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, '/user/dashboard')}>
                                         <Link to="/user/dashboard" className="iq-waves-effect">
-                                            <i className="ri-hospital-fill" />
+                                            <i className="ri-home-fill" />
                                             <span>Dashboard</span>
                                         </Link>
                                     </li>
