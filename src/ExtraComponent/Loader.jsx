@@ -6,9 +6,10 @@ const Loader = () => {
     return (
         <div className='d-flex justify-content-center align-items-center'  style={{height:"50vh"}} >
             
-            <RiseLoader color="#36d7b7" />
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
     );
 };
+
 
 export default Loader;
