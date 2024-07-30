@@ -27,7 +27,6 @@ const AddClient = () => {
     }
 
 
-
     const formik = useFormik({
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
@@ -87,12 +86,14 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please Select a Symbol Type.";
             }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Please Enter a Target Value.";
+
+            if (!values.Targetvalue || values.Targetvalue == 0) {
+                errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Please Enter a Stop Loss Value.";
+            if (!values.Slvalue || values.Slvalue == 0) {
+                errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
+
             if (!values.TStype) {
                 errors.TStype = "Please Select a Measurement Type.";
             }
@@ -196,7 +197,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: location.state.data.selectGroup,
                 Strategy: values.Strategy,
-                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ?  values.ETPattern : "",
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
@@ -220,8 +221,8 @@ const AddClient = () => {
                 expirydata1: getExpiry && getExpiry.data[0],
                 Expirytype: values.Expirytype,
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                DepthofStrike:Number(values.DepthofStrike),
-                DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ?  Number(values.DeepStrike) : 0,
+                DepthofStrike: Number(values.DepthofStrike),
+                DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
                 CEDepthHigher: Number(values.CEDepthHigher),
@@ -264,7 +265,7 @@ const AddClient = () => {
                 }
 
                 else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
- 
+
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
                 else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
@@ -306,13 +307,13 @@ const AddClient = () => {
         formik.setFieldValue('Measurment_Type', "Straddle/Strangle")
         formik.setFieldValue('Symbol', "BANKNIFTY")
         formik.setFieldValue('Expirytype', "Weekly")
-        formik.setFieldValue('ETPattern', "Premium Addition")
+        formik.setFieldValue('ETPattern', "Future")
         formik.setFieldValue('TStype', "Percentage")
         formik.setFieldValue('Targetvalue', 1.00)
         formik.setFieldValue('Slvalue', 1.00)
         formik.setFieldValue('Quantity', 1)
         formik.setFieldValue('ExitDay', "Intraday")
-        formik.setFieldValue('Striketype',  "Depth_of_Strike")
+        formik.setFieldValue('Striketype', "Depth_of_Strike")
         formik.setFieldValue('DepthofStrike', 1)
         formik.setFieldValue('DeepStrike', 2)
         formik.setFieldValue('Lower_Range', 0)
@@ -492,9 +493,10 @@ const AddClient = () => {
 
                 ] :
                 [
-                    { label: "Premium Addition", value: "Premium Addition" },
                     { label: "Future", value: "Future" },
                     { label: "Leg vice", value: "Leg vice" },
+                    { label: "Premium Addition", value: "Premium Addition" },
+                    
 
                 ],
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
@@ -503,7 +505,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
-       
+
         {
             name: "TStype",
             label: "Measurement Type",
@@ -525,7 +527,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -536,7 +538,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "StopLoss Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -739,51 +741,51 @@ const AddClient = () => {
 
 
 
-   
-        useEffect(() => {
 
-            if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
-                formik.setFieldValue('Striketype', "Depth_of_Strike")
-            }
-            if (formik.values.Striketype != "Premium_Range") {
-                formik.setFieldValue('Higher_Range', 1)
-                formik.setFieldValue('Lower_Range', 1)
-            }
-    
-            if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
-    
-                formik.setFieldValue('DeepStrike', 2)
-            }
-    
-            if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
-    
-                formik.setFieldValue('Shifting_Value', 1)
-    
-            }
-    
-            if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
-                formik.setFieldValue('TStype', "Point")
-                formik.setFieldValue('Targetvalue', 0)
-                formik.setFieldValue('Slvalue', 0)
-            }
-            if (formik.values.Measurment_Type == "Shifting/FourLeg") {
-                formik.setFieldValue('ETPattern', "Premium Addition")
-            }
-    
-    
-            if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
-                formik.setFieldValue('Unique_ID', '')
-                formik.setFieldValue('CEDepthLower', 0)
-                formik.setFieldValue('CEDepthHigher', 0)
-                formik.setFieldValue('PEDepthLower', 0)
-                formik.setFieldValue('PEDepthHigher', 0)
-                formik.setFieldValue('CEDeepLower', 0)
-                formik.setFieldValue('CEDeepHigher', 0)
-                formik.setFieldValue('PEDeepLower', 0)
-                formik.setFieldValue('PEDeepHigher', 0)
-            }
-    
-        }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
+    useEffect(() => {
+
+        if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
+            formik.setFieldValue('Striketype', "Depth_of_Strike")
+        }
+        if (formik.values.Striketype != "Premium_Range") {
+            formik.setFieldValue('Higher_Range', 1)
+            formik.setFieldValue('Lower_Range', 1)
+        }
+
+        if (!((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
+
+            formik.setFieldValue('DeepStrike', 2)
+        }
+
+        if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
+
+            formik.setFieldValue('Shifting_Value', 1)
+
+        }
+
+        if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
+            formik.setFieldValue('TStype', "Point")
+            formik.setFieldValue('Targetvalue', 0)
+            formik.setFieldValue('Slvalue', 0)
+        }
+        if (formik.values.Measurment_Type == "Shifting/FourLeg") {
+            formik.setFieldValue('ETPattern', "Premium Addition")
+        }
+
+
+        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
+            formik.setFieldValue('Unique_ID', '')
+            formik.setFieldValue('CEDepthLower', 0)
+            formik.setFieldValue('CEDepthHigher', 0)
+            formik.setFieldValue('PEDepthLower', 0)
+            formik.setFieldValue('PEDepthHigher', 0)
+            formik.setFieldValue('CEDeepLower', 0)
+            formik.setFieldValue('CEDeepHigher', 0)
+            formik.setFieldValue('PEDeepLower', 0)
+            formik.setFieldValue('PEDeepHigher', 0)
+        }
+
+    }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
     return (
         <>

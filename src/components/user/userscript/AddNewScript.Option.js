@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { GET_EXPIRY_DATE, ExpriyEndDate } from '../../CommonAPI/Admin'
-import { AddScript , CheckPnL } from '../../CommonAPI/User'
+import { AddScript, CheckPnL } from '../../CommonAPI/User'
 
 
 const AddClient = () => {
@@ -103,22 +103,27 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please select a symbol type.";
             }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Please enter a target value.";
+
+
+
+            if (!values.Targetvalue || values.Targetvalue == 0) {
+                errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Please enter a stop loss value.";
+            if (!values.Slvalue || values.Slvalue == 0) {
+                errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
+
+
             if (!values.TStype) {
                 errors.TStype = "Please select a TStype.";
             }
             if (!values.Quantity) {
                 errors.Quantity = "Please enter the Lot.";
             }
-            if (!values.Trade_Execution || values.Trade_Execution==0) {
+            if (!values.Trade_Execution || values.Trade_Execution == 0) {
                 errors.Trade_Execution = "Please Select Trade Execution.";
             }
-            if (!values.Trade_Count || values.Trade_Count==0) {
+            if (!values.Trade_Count || values.Trade_Count == 0) {
                 errors.Trade_Count = "Please Enter Trade Count.";
             }
             if (!values.ExitTime) {
@@ -142,7 +147,7 @@ const AddClient = () => {
 
 
 
-            
+
 
 
 
@@ -165,12 +170,12 @@ const AddClient = () => {
 
 
 
-            
 
 
 
 
-            
+
+
             if (!values.PEDepthHigher && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDepthHigher == 0) {
                 errors.PEDepthHigher = values.PEDepthHigher == 0 ? "PE Main Higher can not be Zero" : "Please Enter PE Main Higher.";
             }
@@ -236,7 +241,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
                 Strategy: values.Strategy,
-                ETPattern: values.ETPattern,
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
@@ -533,10 +538,9 @@ const AddClient = () => {
 
                 ] :
                 [
-                    { label: "Premium Addition", value: "Premium Addition" },
                     { label: "Future", value: "Future" },
                     { label: "Leg vice", value: "Leg vice" },
-
+                    { label: "Premium Addition", value: "Premium Addition" }
                 ],
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
             hiding: false,
@@ -566,7 +570,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -577,7 +581,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "StopLoss Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -747,7 +751,7 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-         
+
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -971,7 +975,7 @@ const AddClient = () => {
                         {
 
                             showPnl && <div>
-                                
+
                                 <div>
                                     <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
                                         <thead>
@@ -1016,7 +1020,7 @@ const AddClient = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
 
                             </div>
                         }

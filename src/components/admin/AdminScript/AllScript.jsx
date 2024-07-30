@@ -21,6 +21,7 @@ const Addscript = () => {
         loading: true,
         data: []
     })
+
     const [getGroupData, setGroupData] = useState({
         loading: true,
         data: []
@@ -69,7 +70,6 @@ const Addscript = () => {
                 console.log("Error in delete script", err)
             })
     }
-
 
     // 1
     const GetAllGroupDetails = async () => {
@@ -129,9 +129,6 @@ const Addscript = () => {
             })
     }
 
-
-
-
     const handleAddScript = () => {
         setFormSubmitted(true);
         const data = { selectGroup: selectGroup, selectStrategyType: selectStrategyType };
@@ -177,13 +174,9 @@ const Addscript = () => {
         setStrategyType('Scalping')
     }, []);
 
-
-
     useEffect(() => {
         getAllgroupService()
     }, [selectStrategyType, selectGroup, refresh])
-
-
 
     return (
         <div>

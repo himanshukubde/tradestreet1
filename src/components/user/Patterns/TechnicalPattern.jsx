@@ -17,6 +17,8 @@ const LastPattern = () => {
     const [chartPattern, setChartPattern] = useState('');
     const [patternNames, setPatternNames] = useState([]);
     const [allSymbols, setAllSymbols] = useState([]);
+    const [showCandle, setShowCandle] = useState(false)
+
     const [availableScripts, setAvailableScripts] = useState([]);
     const [getCandlestickTable, setCandlestickTable] = useState({
         loading: true,
@@ -282,7 +284,7 @@ const LastPattern = () => {
     const fetchAvailableScripts = async () => {
         await AvailableScript()
             .then((response) => {
-            
+
                 if (response.Status) {
                     setAvailableScripts(response.Symbol);
                 } else {
@@ -295,11 +297,11 @@ const LastPattern = () => {
     };
 
     const fetchAllSymbols = async () => {
-        const data = { Username : Username , Strategy : selectedPatternType && selectedPatternType=="Candlestick Patterns" ? "CandlestickPattern" : "ChartingPattern" };
+        const data = { Username: Username, Strategy: selectedPatternType && selectedPatternType == "Candlestick Patterns" ? "CandlestickPattern" : "ChartingPattern" };
         await GetSymbolIp(data)
-        .then((response) => {
-            
-            if (response.Status) {
+            .then((response) => {
+
+                if (response.Status) {
                     setAllSymbols(response.Data);
                 } else {
                     setAllSymbols([]);
@@ -313,7 +315,7 @@ const LastPattern = () => {
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
-    }, [selectedPatternType , scriptType ]);
+    }, [selectedPatternType, scriptType]);
 
     const fetchPatternTimeFrames = async () => {
         await Get_Pattern_Time_Frame()
@@ -419,7 +421,7 @@ const LastPattern = () => {
         fetchPatternNames();
     }, []);
 
-  
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -472,7 +474,7 @@ const LastPattern = () => {
                                         <label>Time Frame</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedTimeFrame(e.target.value)} value={selectedTimeFrame}>
                                             <option value="">Please Select Time Frame</option>
-                                            {timeFrameData.data.length>0 && timeFrameData.data.map((item) => (
+                                            {timeFrameData.data.length > 0 && timeFrameData.data.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}
                                         </select>
@@ -500,35 +502,33 @@ const LastPattern = () => {
                                 </div>
                             </div>
                         </div>
+
+
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
-                                    {/* {getCandlestickTable.loading ? <Loader /> : ( */}
                                     <FullDataTable
                                         columns={columns1}
                                         data={getCandlestickTable && getCandlestickTable.data2}
                                         checkBox={false}
                                     />
-                                    {/* )} */}
                                 </>
                                 : <>
-                                    {/* {ChartPatternTableData.loading ? <Loader /> : ( */}
+
                                     <FullDataTable
                                         columns={columns}
                                         data={ChartPatternTableData && ChartPatternTableData.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
                                     />
-                                     {/* )}  */}
                                 </>
                             }
                         </div>
-
                         <div className="row">
 
                             <div className="">
                                 {
-                                    getCandlestickTable.loading == false || ChartPatternTableData.loading==false ? <div className='shadow p-3  bg-white rounded m-4'>
+                                    getCandlestickTable.loading == false || ChartPatternTableData.loading == false ? <div className='shadow p-3  bg-white rounded m-4'>
                                         <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} />
                                     </div>
                                         : ""

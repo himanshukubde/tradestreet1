@@ -446,7 +446,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target",
-            type: "number",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -456,7 +456,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "Stoploss",
-            type: "number",
+            type: "text3",
 
 
             label_size: 12,

@@ -111,18 +111,26 @@ const AddClient = () => {
       if (!values.Quantity) {
         errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value." : "Please Enter Quantity Value.";
       }
+      if (!values.TStype && values.Strategy != 'Fixed Price') {
+        errors.TStype = "Please Select Measurement Type.";
+      }
+
+      
       if (!values.ExitTime) {
         errors.ExitTime = "Please Select Exit Time.";
       } else if (values.ExitTime > maxTime) {
         errors.ExitTime = "Exit Time Must be Before 15:29:59.";
       }
-      if (!values.TStype && values.Strategy != 'Fixed Price') {
-        errors.TStype = "Please Select Measurement Type.";
+      else if (values.ExitTime < minTime) {
+        errors.ExitTime = "Exit Time Must be After 09:15:00.";
       }
       if (!values.EntryTime) {
         errors.EntryTime = "Please Select Entry Time.";
       } else if (values.EntryTime < minTime) {
         errors.EntryTime = "Entry Time Must be After 09:15:00.";
+      }
+      else if (values.EntryTime > maxTime) {
+        errors.EntryTime = "Entry Time Must be Before 15:29:59.";
       }
       if (!values.ExitDay) {
         errors.ExitDay = "Please Select Exit Day.";
@@ -166,8 +174,8 @@ const AddClient = () => {
         Exchange: values.Exchange,
         Instrument: values.Exchange === "NFO" ? values.Instrument : "",
         Symbol: values.Symbol,
-        Optiontype: values.Optiontype,
-        Strike: values.Strike,
+        Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Optiontype : "",
+        Strike: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Strike : "",
         expirydata1: values.Exchange == "NSE" ? getExpiryDate.data[0] : values.expirydata1,
         TType: values.TType,
         EntryPrice: values.EntryPrice,
@@ -218,6 +226,10 @@ const AddClient = () => {
 
       if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.EntryPrice) || values.Slvalue <= Number(values.EntryRange))) {
         return SweentAlertFun(Number(values.Targetvalue) >= Number(values.EntryPrice) ? "Target should be Smaller than Lower Price" : "Stoploss should be Greater than Higher Price")
+      }
+
+      if (values.EntryTime >= values.ExitTime) {
+        return SweentAlertFun("Exit Time should be greater than Entry Time")
       }
 
 

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { GET_EXPIRY_DATE, ExpriyEndDate } from '../../CommonAPI/Admin'
-import { AddScript, CheckPnL } from '../../CommonAPI/User'
+import { AddScript } from '../../CommonAPI/User'
 
 
 const AddClient = () => {
@@ -15,22 +15,12 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    const [showPnl, setShowPnl] = useState(false)
-
+    
     const [serviceEndDate, setServiceEndDate] = useState('')
 
 
 
-    const [PnlData, setPnlData] = useState({
-        MaximumProfit: "",
-        MaximumLoss: "",
-        SpotPriceMaximumProfit1: "",
-        SpotPriceMaximumProfit2: "",
-        SpotPriceMaximumLoss1: "",
-        SpotPriceMaximumLoss2: "",
-        NoprofitLoss1: "",
-        NoprofitLoss2: ""
-    })
+    
 
 
     const SweentAlertFun = (text) => {
@@ -108,17 +98,17 @@ const AddClient = () => {
             if (!values.Trade_Count || values.Trade_Count == 0) {
                 errors.Trade_Count = "Please Enter Trade Count.";
             }
-            if (!values.ETPattern) {
+            if (!values.ETPattern && values.Measurment_Type != "Shifting/FourLeg") {
                 errors.ETPattern = "Please Select Risk Handle Type.";
             }
             if (!values.Symbol) {
                 errors.Symbol = "Please Select a Symbol Type.";
             }
-            if (!values.Targetvalue) {
-                errors.Targetvalue = "Please Enter a Target Value.";
+            if (!values.Targetvalue || values.Targetvalue == 0) {
+                errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if (!values.Slvalue) {
-                errors.Slvalue = "Please Enter a Stop Loss Value.";
+            if (!values.Slvalue || values.Slvalue == 0) {
+                errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
             if (!values.TStype) {
                 errors.TStype = "Please Select a Measurement Type.";
@@ -213,6 +203,7 @@ const AddClient = () => {
                 }
             }
            
+            console.log("CPP", errors)
             return errors;
         },
 
@@ -221,7 +212,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
                 Strategy: values.Strategy,
-                ETPattern: values.ETPattern,
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
@@ -540,16 +531,13 @@ const AddClient = () => {
             type: "select",
             options: formik.values.Strategy == "CoveredPut" || formik.values.Strategy == "CoveredCall" || formik.values.Strategy == "ShortCollar" || formik.values.Strategy == "LongCollar" ?
                 [
-
                     { label: "Future", value: "Future" },
                     { label: "Leg vice", value: "Leg vice" },
-
                 ] :
                 [
-                    { label: "Premium Addition", value: "Premium Addition" },
                     { label: "Future", value: "Future" },
                     { label: "Leg vice", value: "Leg vice" },
-
+                    { label: "Premium Addition", value: "Premium Addition" },
                 ],
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg",
             hiding: false,
@@ -578,7 +566,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -589,7 +577,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "StopLoss Value",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type != "Shifting/FourLeg" || (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
@@ -879,88 +867,8 @@ const AddClient = () => {
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
 
-    const handleCheckPnl = async () => {
-        const req = {
-            MainStrategy: location.state.data.selectStrategyType,
-            Strategy: formik.values.Strategy,
-            Username: userName,
-            ETPattern: formik.values.ETPattern,
-            Timeframe: "",
-            Exchange: "NFO",
-            Symbol: formik.values.Symbol,
-            Instrument: 'FUTIDX',
-            Strike: '',
-            Optiontype: '',
-            Targetvalue: formik.values.Targetvalue,
-            Slvalue: formik.values.Slvalue,
-            TStype: formik.values.TStype,
-            Quantity: formik.values.Quantity,
-            LowerRange: formik.values.Striketype == "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" ? formik.values.Lower_Range : 0,
-            HigherRange: formik.values.Striketype == "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" ? formik.values.Higher_Range : 0,
-            HoldExit: "",
-            EntryPrice: 0.0,
-            EntryRange: 0.0,
-            EntryTime: formik.values.EntryTime,
-            ExitTime: formik.values.ExitTime,
-            ExitDay: formik.values.ExitDay,
-            TradeExecution: formik.values.Trade_Execution,
-            FixedSM: "",
-            TType: "",
-            serendate: serviceEndDate,
-            expirydata1: formik.values.Expirytype == "Weekly" ? getExpiry && getExpiry.data[0] : formik.values.Expirytype == "Next Week" ? getExpiry && getExpiry.data[1] : getExpiry && getExpiry.data[2],
-            Expirytype: formik.values.Expirytype,
-            Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? formik.values.Striketype : '',
-            DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(formik.values.DepthofStrike) : 0,
-            DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(formik.values.DeepStrike) : 0,
-            Group: formik.values.Unique_ID,
-            CEDepthLower: Number(formik.values.CEDepthLower),
-            CEDepthHigher: Number(formik.values.CEDepthHigher),
-            PEDepthLower: Number(formik.values.PEDepthLower),
-            PEDepthHigher: Number(formik.values.PEDepthHigher),
-            CEDeepLower: Number(formik.values.CEDeepLower),
-            CEDeepHigher: Number(formik.values.CEDeepHigher),
-            PEDeepLower: Number(formik.values.PEDeepLower),
-            PEDeepHigher: Number(formik.values.PEDeepHigher),
-            TradeCount: Number(formik.values.Trade_Count),
-        }
-        await CheckPnL(req)
-            .then((response) => {
-                if (response.Status) {
-                    setShowPnl(true)
-                    setPnlData({
-                        MaximumProfit: response.MaximumProfit,
-                        MaximumLoss: response.MaximumLoss,
-                        SpotPriceMaximumProfit1: response.SpotPriceMaximumProfit1,
-                        SpotPriceMaximumProfit2: response.SpotPriceMaximumProfit2,
-                        SpotPriceMaximumLoss1: response.SpotPriceMaximumLoss1,
-                        SpotPriceMaximumLoss2: response.SpotPriceMaximumLoss2,
-                        NoprofitLoss1: response.NoprofitLoss1,
-                        NoprofitLoss2: response.NoprofitLoss2
-
-                    })
-                }
-                else {
-                    setPnlData({
-                        MaximumProfit: "",
-                        MaximumLoss: "",
-                        SpotPriceMaximumProfit1: "",
-                        SpotPriceMaximumProfit2: "",
-                        SpotPriceMaximumLoss1: "",
-                        SpotPriceMaximumLoss2: "",
-                        NoprofitLoss1: "",
-                        NoprofitLoss2: ""
-                    })
-                }
-            })
-            .catch((err) => {
-                console("Error in fatching the Pnl", err)
-
-            })
-    }
-
-    useEffect(() => {
-        setShowPnl(false)
-    }, [formik.values])
+   
+ 
 
     return (
         <>
@@ -971,63 +879,7 @@ const AddClient = () => {
                 btn_name1="Cancel"
                 formik={formik}
                 btn_name1_route={"/user/dashboard"}
-                additional_field={
-                    <div>
-                        <p className="btn btn-primary" onClick={handleCheckPnl}>Check PnL</p>
-                        {
-
-                            showPnl && <div>
-                                
-                                <div>
-                                    <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-                                        <thead>
-                                            <tr>
-                                                <th style={{ borderBottom: '2px solid #ddd', padding: '8px', fontSize: '16px', fontWeight: 'bold', color: 'black' }}>Label</th>
-                                                <th style={{ borderBottom: '2px solid #ddd', padding: '8px', fontSize: '16px', fontWeight: 'bold', color: 'black' }}>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumProfit</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumProfit}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumLoss</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumLoss}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit1</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit1}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit2</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit2}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss1</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss1}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss2</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss2}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>NoprofitLoss1</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.NoprofitLoss1}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>NoprofitLoss2</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.NoprofitLoss2}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-
-                            </div>
-                        }
-                    </div>
-                }
+                
             />
 
         </>
