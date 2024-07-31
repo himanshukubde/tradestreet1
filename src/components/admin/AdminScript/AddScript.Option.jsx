@@ -196,8 +196,6 @@ const AddClient = () => {
             return errors;
         },
 
-
-
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -210,7 +208,7 @@ const AddClient = () => {
                 Instrument: "FUTIDX",
                 Strike: "",
                 Optiontype: "",
-                Targetvalue: values.Targetvalue,
+                Targetvalue: values.Measurment_Type == "Shifting/FourLeg" && (values.Strategy == 'ShortShifting' || values.Strategy == 'LongShifting') ? values.Shifting_Point : values.Targetvalue,
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
@@ -227,7 +225,7 @@ const AddClient = () => {
                 expirydata1: getExpiry && getExpiry.data[0],
                 Expirytype: values.Expirytype,
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                DepthofStrike: Number(values.DepthofStrike),
+                DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(values.DepthofStrike) : formik.values.Measurment_Type == "Shifting/FourLeg" && formik.values.Strategy != 'ShortFourLegStretegy' && formik.values.Strategy != 'LongFourLegStretegy' ? values.Shifting_Value : 0,
                 DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
                 Group: values.Unique_ID,
                 CEDepthLower: Number(values.CEDepthLower),
@@ -243,7 +241,6 @@ const AddClient = () => {
 
 
             if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
-
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
 
@@ -331,7 +328,7 @@ const AddClient = () => {
         formik.setFieldValue('EntryTime', "09:15:00")
         formik.setFieldValue('ExitTime', "15:25:00")
         formik.setFieldValue('TStype', "Point")
-        formik.setFieldValue('Shifting_Point', 100)
+        formik.setFieldValue('Shifting_Point', 1)
         formik.setFieldValue('Shifting_Value', 1)
     }, [])
 
@@ -484,7 +481,7 @@ const AddClient = () => {
         {
             name: "Shifting_Value",
             label: "Number of Shifts",
-            type: "number",
+            type: "text3",
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
             hiding: false,
             label_size: 12,
@@ -559,7 +556,7 @@ const AddClient = () => {
         {
             name: "Shifting_Point",
             label: "Shifting Point",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),

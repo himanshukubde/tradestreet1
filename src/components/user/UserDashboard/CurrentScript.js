@@ -109,6 +109,9 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                     setRefresh(!refresh);
                                 }
                             });
+                            setTimeout(()=>{
+                                window.location.reload()
+                            },1500)
                         } else {
                             Swal.fire({
                                 title: "Error !",
@@ -1134,7 +1137,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             formik2.setFieldValue('Quantity', EditDataPattern.Quantity)
             formik2.setFieldValue('EntryTime', EditDataPattern.EntryTime)
             formik2.setFieldValue('ExitTime', EditDataPattern.ExitTime)
-            console.log("EditDataPattern ----:", EditDataPattern.TradeCount)
+          
 
             formik2.setFieldValue('TradeCount', EditDataPattern.TradeCount)
 
