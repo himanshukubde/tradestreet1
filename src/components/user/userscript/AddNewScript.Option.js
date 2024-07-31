@@ -106,10 +106,10 @@ const AddClient = () => {
 
 
 
-            if ((!values.Targetvalue || values.Targetvalue == 0) && (formik.values.Measurment_Type!='Shifting/FourLeg')) {
+            if ((!values.Targetvalue || values.Targetvalue == 0) && (formik.values.Measurment_Type != 'Shifting/FourLeg')) {
                 errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if ((!values.Slvalue || values.Slvalue == 0) && (formik.values.Measurment_Type!='Shifting/FourLeg')) {
+            if ((!values.Slvalue || values.Slvalue == 0) && (formik.values.Measurment_Type != 'Shifting/FourLeg')) {
                 errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
 
@@ -961,6 +961,7 @@ const AddClient = () => {
     useEffect(() => {
         setShowPnl(false)
     }, [formik.values])
+
     return (
         <>
             <AddForm
@@ -972,7 +973,10 @@ const AddClient = () => {
                 btn_name1_route={"/user/dashboard"}
                 additional_field={
                     <div>
-                        <p className="btn btn-primary" onClick={handleCheckPnl}>Check PnL</p>
+                        {(formik.values.Strategy == 'CoveredCall' || formik.values.Strategy == 'CoveredPut' || formik.values.Strategy == 'LongCollar' || formik.values.Strategy == 'ShortCollar' || formik.values.Strategy == 'LongFourLegStretegy' || formik.values.Strategy == 'ShortFourLegStretegy') ? "" :
+                            <p className="btn btn-primary" onClick={handleCheckPnl}>Check PnL</p>
+                        }
+
                         {
 
                             showPnl && <div>

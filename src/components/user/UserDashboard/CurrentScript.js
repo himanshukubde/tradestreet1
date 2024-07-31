@@ -28,8 +28,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     const [EditDataOption, setEditDataOption] = useState({})
     const [EditDataPattern, setEditDataPattern] = useState({})
 
-
-
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -139,6 +137,9 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         }
         else if (data == 'Option Strategy') {
             setEditDataOption(getAllService.OptionData[index])
+        }
+        else if (data == 'Pattern') {
+            setEditDataPattern(getAllService.PatternData[index])
         }
         else {
             setEditDataPattern(getAllService.PatternData[index])
@@ -397,8 +398,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         GetAllUserScriptDetails();
     }, [selectedType, refresh, showEditModal]);
 
-     
-
 
     const formik = useFormik({
         initialValues: {
@@ -447,19 +446,23 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 errors.HoldExit = "Please select Hold/Exit";
             }
 
-            if (values.EntryTime == "") {
-                errors.EntryTime = "Please select Entry Time";
+            if (values.ExitTime == '') {
+                errors.ExitTime = "Please Select Exit Time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
             }
-            else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+            }
+            if (values.EntryTime == '') {
+                errors.EntryTime = "Please Select Entry Time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+            }
+            else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
             }
 
-            if (values.ExitTime == "") {
-                errors.ExitTime = "Please select Exit Time";
-            }
-            else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
             if (!values.TradeCount) {
                 errors.TradeCount = "Please Enter Trade Count."
             }
@@ -519,6 +522,10 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 return SweentAlertFun("Lower Price should be greater than Stoploss Price")
             }
 
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+            }
+
             await UpdateUserScript(req)
                 .then((response) => {
                     if (response.Status) {
@@ -531,6 +538,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         });
                         setTimeout(() => {
                             setShowEditModal(false)
+                            formik.resetForm()
                         }, 1500)
                     } else {
                         Swal.fire({
@@ -544,8 +552,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 })
         }
     });
-
-
 
     const formik1 = useFormik({
         initialValues: {
@@ -597,19 +603,23 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 errors.Slvalue = "Please Enter Stoploss."
             }
 
-            if (values.EntryTime == "") {
-                errors.EntryTime = "Please select Entry Time";
+            if (values.ExitTime == '') {
+                errors.ExitTime = "Please Select Exit Time.";
+            } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
             }
-            else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
+            else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+            }
+            if (values.EntryTime == '') {
+                errors.EntryTime = "Please Select Entry Time.";
+            } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+            }
+            else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
             }
 
-            if (values.ExitTime == "") {
-                errors.ExitTime = "Please select Exit Time";
-            }
-            else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
             if (!values.TradeCount) {
                 errors.TradeCount = "Please Enter Trade Count."
             }
@@ -621,7 +631,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             const req = {
                 MainStrategy: data,
                 Strategy: EditDataOption.STG,
-                Symbol: EditDataOption.MainSymbol,
+                Symbol: EditDataOption.Symbol,
                 Username: userName,
                 ETPattern: EditDataOption.Targettype,
                 Timeframe: "",
@@ -650,6 +660,10 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 DepthofStrike: EditDataOption.DepthofStrike,
                 TradeCount: values.TradeCount
             }
+            
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+            }
             await UpdateUserScript(req)
                 .then((response) => {
                     if (response.Status) {
@@ -662,6 +676,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         });
                         setTimeout(() => {
                             setShowEditModal(false)
+                            formik.resetForm()
                         }, 1500)
                     } else {
                         Swal.fire({
@@ -706,7 +721,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
             DepthofStrike: 0,
-            TradeCount: 0,
+            TradeCount: "",
         },
         validate: (values) => {
             let errors = {};
@@ -725,7 +740,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 errors.Slvalue = "Please Enter Stoploss."
             }
 
-            if (!values.ExitTime) {
+            if (values.ExitTime == '') {
                 errors.ExitTime = "Please Select Exit Time.";
             } else if (values.ExitTime > maxTime) {
                 errors.ExitTime = "Exit Time Must be Before 15:29:59.";
@@ -733,7 +748,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             else if (values.ExitTime < minTime) {
                 errors.ExitTime = "Exit Time Must be After 09:15:00.";
             }
-            if (!values.EntryTime) {
+            if (values.EntryTime == '') {
                 errors.EntryTime = "Please Select Entry Time.";
             } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must be After 09:15:00.";
@@ -752,11 +767,11 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             const req = {
                 MainStrategy: data,
                 Strategy: EditDataPattern.TradePattern,
-                Symbol: EditDataPattern['Instrument Name'],
+                Symbol: EditDataPattern.Symbol,
                 Username: userName,
                 ETPattern: EditDataPattern.Pattern,
                 Timeframe: EditDataPattern.TimeFrame,
-                Targetvalue:Number(values.Targetvalue),
+                Targetvalue: Number(values.Targetvalue),
                 Slvalue: Number(values.Slvalue),
                 TStype: EditDataPattern.TStype,
                 Quantity: Number(values.Quantity),
@@ -782,8 +797,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 TradeCount: Number(values.TradeCount)
             }
 
-            if(values.EntryTime >= values.ExitTime){
-                return SweentAlertFun("Exit Time should be greater than Entry Time") 
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
             }
             await UpdateUserScript(req)
                 .then((response) => {
@@ -797,6 +812,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         });
                         setTimeout(() => {
                             setShowEditModal(false)
+                            formik.resetForm()
                         }, 1500)
                     } else {
                         Swal.fire({
@@ -810,8 +826,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 })
         }
     });
-
-
 
     const fields = [
 
@@ -1086,15 +1100,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
     ];
 
-
-
-    // EntryPrice: values.EntryPrice,
-    // EntryRange: values.EntryRange,
-    // LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
-    // HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
-
-
-
     useEffect(() => {
         if (data == "Scalping") {
             formik.setFieldValue('EntryPrice', EditDataScalping.EntryPrice)
@@ -1118,22 +1123,24 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             formik1.setFieldValue('Quantity', EditDataOption['Lot Size'])
             formik1.setFieldValue('EntryTime', EditDataOption['Entry Time'])
             formik1.setFieldValue('ExitTime', EditDataOption['Exit Time'])
-            formik.setFieldValue('TradeCount', EditDataOption.TradeCount)
+            formik1.setFieldValue('TradeCount', EditDataOption.TradeCount)
 
         }
         else if (data == "Pattern") {
+
             formik2.setFieldValue('TStype', EditDataPattern.TStype)
             formik2.setFieldValue('Targetvalue', EditDataPattern['Target value'])
             formik2.setFieldValue('Slvalue', EditDataPattern['SL value'])
             formik2.setFieldValue('Quantity', EditDataPattern.Quantity)
             formik2.setFieldValue('EntryTime', EditDataPattern.EntryTime)
             formik2.setFieldValue('ExitTime', EditDataPattern.ExitTime)
-            formik.setFieldValue('TradeCount', EditDataPattern.TradeCount)
+            console.log("EditDataPattern ----:", EditDataPattern.TradeCount)
+
+            formik2.setFieldValue('TradeCount', EditDataPattern.TradeCount)
 
         }
     }, [showEditModal, data])
 
-    console.log("EditDataPattern :", EditDataPattern)
 
     return (
         <div className="container-fluid">
