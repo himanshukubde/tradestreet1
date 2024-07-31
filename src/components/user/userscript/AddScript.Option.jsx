@@ -79,11 +79,11 @@ const AddClient = () => {
             PEDeepHigher: location.state.data.PEDeepHigher,
             Trade_Count: 1,
             Unique_ID: location.state.data.GroupN,
-            Measurment_Type: ""
+            Measurment_Type: "",
+            Shifting_Point:1,
 
 
         },
-
         validate: (values) => {
             let errors = {};
             const maxTime = "15:29:59";
@@ -106,12 +106,15 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please Select a Symbol Type.";
             }
-            if (!values.Targetvalue || values.Targetvalue == 0) {
+             
+
+            if ((!values.Targetvalue || values.Targetvalue == 0) && (formik.values.Measurment_Type != 'Shifting/FourLeg')) {
                 errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if (!values.Slvalue || values.Slvalue == 0) {
+            if ((!values.Slvalue || values.Slvalue == 0) && (formik.values.Measurment_Type != 'Shifting/FourLeg')) {
                 errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
+
             if (!values.TStype) {
                 errors.TStype = "Please Select a Measurement Type.";
             }
@@ -146,7 +149,7 @@ const AddClient = () => {
             if (!values.Higher_Range && values.Striketype === 'Premium_Range') {
                 errors.Higher_Range = "Please Enter the Higher Range.";
             }
-            if (!values.Striketype) {
+            if (!values.Striketype && (values.Strategy != "ShortStraddle" && values.Strategy != "LongStraddle" && values.Measurment_Type != "Shifting/FourLeg" && values.Strategy != 'ShortStraddle' && values.Strategy != 'LongStraddle')) {
                 errors.Striketype = "Please Select a Strike Type.";
             }
             if (!values.Unique_ID && (values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy")) {
@@ -215,6 +218,8 @@ const AddClient = () => {
             return errors;
         },
         onSubmit: async (values) => {
+
+            console.log("formik :", formik.values.Shifting_Point)
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
@@ -226,7 +231,7 @@ const AddClient = () => {
                 Instrument: "FUTIDX",
                 Strike: "",
                 Optiontype: "",
-                Targetvalue: values.Measurment_Type == "Shifting/FourLeg" && (values.Strategy == 'ShortShifting' || values.Strategy == 'LongShifting') ? values.Shifting_Point : values.Targetvalue,
+                Targetvalue: values.Measurment_Type == "Shifting/FourLeg" && (values.Strategy == 'ShortShifting' || values.Strategy == 'LongShifting') ? Number(values.Shifting_Point) : Number(values.Targetvalue),
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
                 Quantity: values.Quantity,
@@ -331,6 +336,7 @@ const AddClient = () => {
                     console.log("Error in added new Script", err)
                 })
         },
+        
     });
 
 
@@ -373,6 +379,9 @@ const AddClient = () => {
         formik.setFieldValue('PEDepthHigher', location.state.data.PEDepthHigher)
         formik.setFieldValue('PEDeepLower', location.state.data.PEDeepLower)
         formik.setFieldValue('PEDeepHigher', location.state.data.PEDeepHigher)
+        formik.setFieldValue('Shifting_Point', location.state.data['Target value'])
+        
+
 
 
     }, [])
@@ -593,7 +602,7 @@ const AddClient = () => {
         {
             name: "Shifting_Point",
             label: "Shifting Point",
-            type: "number",
+            type: "text3",
             hiding: false,
             label_size: 12,
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),

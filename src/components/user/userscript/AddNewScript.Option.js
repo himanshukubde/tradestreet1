@@ -361,7 +361,7 @@ const AddClient = () => {
         formik.setFieldValue('EntryTime', "09:15:00")
         formik.setFieldValue('ExitTime', "15:25:00")
         formik.setFieldValue('TStype', "Point")
-        formik.setFieldValue('Shifting_Point', 1)
+        formik.setFieldValue('Shifting_Point', 100)
         formik.setFieldValue('Shifting_Value', 1)
         formik.setFieldValue('Trade_Count', 1)
     }, [])
