@@ -106,10 +106,10 @@ const AddClient = () => {
 
 
 
-            if (!values.Targetvalue || values.Targetvalue == 0) {
+            if ((!values.Targetvalue || values.Targetvalue == 0) && (formik.values.Measurment_Type!='Shifting/FourLeg')) {
                 errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
             }
-            if (!values.Slvalue || values.Slvalue == 0) {
+            if ((!values.Slvalue || values.Slvalue == 0) && (formik.values.Measurment_Type!='Shifting/FourLeg')) {
                 errors.Slvalue = values.Slvalue == 0 ? "Stoploss Can Not be Zero" : "Please Enter a Stop Loss Value.";
             }
 
@@ -232,6 +232,7 @@ const AddClient = () => {
 
             }
 
+            console.log("errors", errors)
 
 
             return errors;

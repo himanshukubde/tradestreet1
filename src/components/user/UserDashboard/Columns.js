@@ -196,6 +196,14 @@ export const getColumns = (handleAddScript1) => [
             sort: true,
         }
     },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
 
 ];
 
@@ -387,6 +395,14 @@ export const getColumns1 = (handleAddScript2) => [
         }
     },
     {
+        name: "DeepStrike",
+        label: "Deep Strike",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "LowerRange",
         label: "Lower Range",
         options: {
@@ -413,6 +429,14 @@ export const getColumns1 = (handleAddScript2) => [
     {
         name: "TaskTime",
         label: "TaskTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -613,6 +637,7 @@ export const getColumns2 = (handleAddScript3) => [
             sort: true,
         }
     },
+
 
 ];
 
@@ -840,6 +865,14 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "GroupN",
         label: "Unique ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -1073,6 +1106,14 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
         }
     },
     {
+        name: "DeepStrike",
+        label: "Deep Strike",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "LowerRange",
         label: "Lower Range",
         options: {
@@ -1099,6 +1140,14 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "TaskTime",
         label: "TaskTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,

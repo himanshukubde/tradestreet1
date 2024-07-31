@@ -28,14 +28,14 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     const [EditDataOption, setEditDataOption] = useState({})
     const [EditDataPattern, setEditDataPattern] = useState({})
 
-    
+
 
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
             text: text,
             icon: "error",
-            timer: 1000,
+            timer: 10000,
             timerProgressBar: true
         });
     }
@@ -308,7 +308,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                     setRefresh(!refresh)
                                     Swal.fire({
                                         title: "Success",
-                                        text: "Script Continued",
+                                        text: response.massage,
                                         icon: "success",
                                         timer: 1500,
                                         timerProgressBar: true
@@ -317,8 +317,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                 else {
                                     Swal.fire({
                                         title: "Error !",
-                                        text: "",
-                                        icon: response.massage,
+                                        text: response.massage,
+                                        icon: 'error',
                                         timer: 1500,
                                         timerProgressBar: true
                                     });
@@ -395,8 +395,9 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
     useEffect(() => {
         GetAllUserScriptDetails();
-    }, [selectedType, refresh]);
+    }, [selectedType, refresh, showEditModal]);
 
+    console.log('EditDataScalping :', EditDataScalping)
 
 
     const formik = useFormik({
@@ -405,13 +406,14 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             Quantity: 0,
             Targetvalue: 0.0,
             Slvalue: 0,
-            EntryPrice: 0.0,
-            EntryRange: 0.0,
+            EntryPrice: 0,
+            EntryRange: 0,
             LowerRange: 0.0,
             HigherRange: 0.0,
             HoldExit: "Hold",
             EntryTime: "",
-            ExitTime: ""
+            ExitTime: "",
+            TradeCount: 0
         },
         validate: (values) => {
             let errors = {};
@@ -429,16 +431,16 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             if (values.Slvalue == 0 || !values.Slvalue) {
                 errors.Slvalue = "Please enter SL value";
             }
-            if (!values.EntryPrice && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
+            if (!values.EntryPrice && values.EntryPrice != 0 && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.EntryPrice = "Please enter Entry Price";
             }
-            if (!values.EntryRange && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
+            if (!values.EntryRange && values.EntryRange != 0 && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
                 errors.EntryRange = "Please enter Entry Range";
             }
-            if (!values.LowerRange) {
+            if (!values.LowerRange && values.LowerRange != 0) {
                 errors.LowerRange = "Please enter Lower Range";
             }
-            if (!values.HigherRange) {
+            if (!values.HigherRange && values.HigherRange != 0) {
                 errors.HigherRange = "Please enter Higher Range";
             }
             if (values.HoldExit == "" && showEditModal && EditDataScalping.ScalpType != "Fixed Price") {
@@ -475,8 +477,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 LowerRange: values.LowerRange,
                 HigherRange: values.HigherRange,
                 HoldExit: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? EditDataScalping.HoldExit : values.HoldExit,
-                EntryPrice: EditDataScalping.ScalpType != "Fixed Price" ? values.EntryPrice : EditDataScalping.EntryPrice,
-                EntryRange: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? values.EntryRange : EditDataScalping.EntryRange,
+                EntryPrice: values.EntryPrice,
+                EntryRange: values.EntryRange,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: EditDataScalping.ExitDay,
@@ -490,26 +492,28 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 CEDeepHigher: 0.0,
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
-                DepthofStrike: 0
+                DepthofStrike: 0,
+                TradeCount: values.TradeCount
+
             }
-            if (EditDataScalping.ScalpType != "Fixed Price" && (Number(values.EntryPrice) >= Number(values.EntryRange))) {
-                return SweentAlertFun("First Trade Higher Range should be greater than First Trade Lower Range")
+            if (Number(values.EntryPrice) > 0 && Number(values.EntryRange) && (Number(values.EntryPrice) >= Number(values.EntryRange))) {
+                return SweentAlertFun(showEditModal && EditDataScalping.ScalpType == "Fixed Price" ? "Higher Price should be greater than Lower Price" : "First Trade Higher Range should be greater than First Trade Lower Range")
             }
 
-            if (Number(values.LowerRange) >= Number(values.HigherRange)) {
+            if (Number(values.LowerRange) > 0 && Number(values.HigherRange) > 0 && (Number(values.LowerRange) >= Number(values.HigherRange))) {
                 return SweentAlertFun("Higher Range should be greater than Lower Range")
             }
 
-            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) >= Number(values.Slvalue))) {
-                return SweentAlertFun("Stoploss should be greater than target price")
+            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) <= Number(values.Slvalue))) {
+                return SweentAlertFun("Target Price should be greater than Stoploss Price")
             }
 
-            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) >= Number(values.EntryRange))) {
-                return SweentAlertFun("Higher Range should be greater than target price")
+            if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Targetvalue) <= Number(values.EntryRange))) {
+                return SweentAlertFun("Target Price should be greater than Higher price")
             }
 
             if (EditDataScalping.ScalpType == "Fixed Price" && (Number(values.Slvalue) >= Number(values.EntryPrice))) {
-                return SweentAlertFun("Lower Range should be greater than Stoploss")
+                return SweentAlertFun("Lower Price should be greater than Stoploss Price")
             }
 
             await UpdateUserScript(req)
@@ -791,32 +795,11 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
 
     const fields = [
-        {
-            name: "TStype",
-            label: "Measurement Type",
-            type: "select",
-            options: [
-                { label: "Percentage", value: "Percentage" },
-                { label: "Point", value: "Point" },
-            ],
-            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
-            label_size: 12,
-            col_size: 6,
-            hiding: false,
-            disable: false,
-        },
-        {
-            name: "Quantity",
-            label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
-            type: "text5",
-            label_size: 12,
-            col_size: showEditModal && EditDataScalping.ScalpType == "Fixed Price" ? 12 : 6,
-            hiding: false,
-            disable: false,
-        },
+
+
         {
             name: "Targetvalue",
-            label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
+            label: showEditModal && EditDataScalping.ScalpType == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
             type: "text5",
             label_size: 12,
             col_size: 6,
@@ -834,9 +817,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         },
         {
             name: "EntryPrice",
-            label: "First Trade Lower Range",
-            type: "text5",
-            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
+            label: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? "First Trade Lower Range" : "Lower Price",
+            type: "text3",
 
             col_size: 6,
             disable: false,
@@ -844,19 +826,19 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
         },
         {
             name: "EntryRange",
-            label: "First Trade Higher Range",
+            label: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? "First Trade Higher Range" : "Higher Price",
             type: "text3",
-            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
 
             label_size: 12,
             col_size: 6,
             disable: false,
             hiding: false,
-        }, {
+        },
+        {
             name: "LowerRange",
             label: "Lower Range",
             type: "text3",
-
+            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -866,11 +848,20 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             name: "HigherRange",
             label: "Higher Range",
             type: "text5",
-
+            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
             label_size: 12,
             col_size: 6,
             disable: false,
             hiding: false,
+        },
+        {
+            name: "Quantity",
+            label: showEditModal && EditDataScalping.Exchange == "NFO" ? "Lot" : "Quantity",
+            type: "text5",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
         },
         {
             name: "HoldExit",
@@ -883,17 +874,40 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
 
             label_size: 12,
-            col_size: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? 4 : 6,
+            col_size: 6,
             disable: false,
             hiding: false,
         },
-        ,
+        {
+            name: "TStype",
+            label: "Measurement Type",
+            type: "select",
+            options: [
+                { label: "Percentage", value: "Percentage" },
+                { label: "Point", value: "Point" },
+            ],
+            showWhen: (values) => showEditModal && EditDataScalping.ScalpType != "Fixed Price",
+            label_size: 12,
+            col_size: 6,
+            hiding: false,
+            disable: false,
+        },
+        {
+            name: "TradeCount",
+            label: "Trade Count",
+            type: "text5",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+            hiding: false,
+        },
+
         {
             name: "EntryTime",
             label: "Entry Time",
             type: "timepiker",
             label_size: 12,
-            col_size: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? 4 : 6,
+            col_size: 6,
             disable: false,
             hiding: false,
         },
@@ -902,7 +916,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             label: "Exit Time",
             type: "timepiker",
             label_size: 12,
-            col_size: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? 4 : 6,
+            col_size: 6,
             disable: false,
             hiding: false,
         },
@@ -1003,7 +1017,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             disable: false,
             hiding: false,
         },
-         {
+        {
             name: "Slvalue",
             label: "Stoploss",
             type: "text5",
@@ -1036,6 +1050,12 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
 
 
+    // EntryPrice: values.EntryPrice,
+    // EntryRange: values.EntryRange,
+    // LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
+    // HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
+
+
 
     useEffect(() => {
         if (data == "Scalping") {
@@ -1050,6 +1070,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             formik.setFieldValue('EntryTime', EditDataScalping.EntryTime)
             formik.setFieldValue('ExitTime', EditDataScalping.ExitTime)
             formik.setFieldValue('Quantity', EditDataScalping.Quantity)
+            formik.setFieldValue('TradeCount', EditDataScalping.TradeCount)
+
         }
         else if (data == "Option Strategy") {
             formik1.setFieldValue('TStype', EditDataOption.strategytype)
@@ -1119,7 +1141,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
-                                onClick={() => setShowEditModal(false)}
+                                onClick={() => { setShowEditModal(false); formik.resetForm() }}
                             />
                         </div>
 

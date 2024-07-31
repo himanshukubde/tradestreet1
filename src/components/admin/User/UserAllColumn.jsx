@@ -71,7 +71,7 @@ export const ClientActivityPage =()=> [
         }
     },
     {
-        name: "RemainingAmmount",
+        name: "RemainingAmount",
         label: "Remaining Ammount",
         options: {
             filter: true,
@@ -302,20 +302,13 @@ export const columns =()=> [
     },
     {
         name: "HoldExit",
-        label: "HoldExit",
+        label: "Hold Exit",
         options: {
             filter: true,
             sort: true,
         }
     },
-    {
-        name: "closescript",
-        label: "closescript",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Instrument Symbol",
         label: "Instrument Symbol",
@@ -342,7 +335,7 @@ export const columns =()=> [
     },
     {
         name: "EntryPrice",
-        label: "EntryPrice",
+        label: "Entry Price",
         options: {
             filter: true,
             sort: true,
@@ -350,7 +343,7 @@ export const columns =()=> [
     },
     {
         name: "EntryRange",
-        label: "EntryRange",
+        label: "Entry Range",
         options: {
             filter: true,
             sort: true,
@@ -364,14 +357,7 @@ export const columns =()=> [
             sort: true,
         }
     },
-    {
-        name: "ExitRule",
-        label: "ExitRule",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Profit",
         label: "Profit",
@@ -428,14 +414,7 @@ export const columns =()=> [
             sort: true,
         }
     },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "SSDate",
         label: "SSDate",
@@ -476,14 +455,7 @@ export const columns =()=> [
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "TradeCount",
         label: "Trade Count",
@@ -520,27 +492,10 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-                const isChecked = Boolean(value);
-                return (
-                    <Checkbox
-                        checked={isChecked}
-                        
-                    />
-
-                );
-            }
-        }
-    },
+     
     {
         name: "STG",
-        label: "STG",
+        label: "Strategy",
         options: {
             filter: true,
             sort: true,
@@ -570,14 +525,7 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -586,14 +534,7 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "ExpiryDate",
-        label: "ExpiryDate",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Token",
         label: "Token",
@@ -810,14 +751,7 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "FixedSM",
-        label: "FixedSM",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "TradeCount",
         label: "TradeCount",
@@ -920,22 +854,8 @@ export const columns2 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
+   
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -1016,24 +936,7 @@ export const columns2 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-                const isChecked = Boolean(value);
-                return (
-                    <Checkbox
-                        checked={isChecked}
-                         
-                    />
-
-                );
-            }
-        }
-    },
+    
     {
         name: "EntryTime",
         label: "EntryTime",
@@ -1074,14 +977,7 @@ export const columns2 = ()=>[
             sort: true,
         }
     },
-    {
-        name: "Trend",
-        label: "Trend",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TaskStatus",
         label: "TaskStatus",
@@ -1180,14 +1076,7 @@ export const ReportColumns3 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Quantity",
         label: "Quantity",
@@ -1236,14 +1125,7 @@ export const ReportColumns3 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "SSDate",
         label: "SSDate",
@@ -1260,14 +1142,7 @@ export const ReportColumns3 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+   
     {
         name: "TaskStatus",
         label: "TaskStatus",
@@ -1317,14 +1192,7 @@ export const ReportColumns4 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Targettype",
         label: "Targettype",
@@ -1333,14 +1201,7 @@ export const ReportColumns4 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -1525,14 +1386,7 @@ export const ReportColumns4 =()=> [
             sort: true,
         }
     },
-    {
-        name: "FixedSM",
-        label: "FixedSM",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+   
     {
         name: "TaskStatus",
         label: "TaskStatus",
@@ -1622,22 +1476,8 @@ export const ReportColumns5 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Lotsize",
-        label: "Lotsize",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Expirytype",
-        label: "Expirytype",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
+   
     {
         name: "Instrument Type",
         label: "Instrument Type",
@@ -1702,14 +1542,7 @@ export const ReportColumns5 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Trading",
-        label: "Trading",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "ExitDay",
         label: "ExitDay",

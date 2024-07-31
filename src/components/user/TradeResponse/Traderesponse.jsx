@@ -7,9 +7,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
 import {columns3 , columns2 ,columns1 , columns} from './TradeReponseColumn'
-const Tradehistory = () => {
+const TradeResponse = () => {
     const [selectStrategyType, setStrategyType] = useState('')
-    const [tradeHistory, setTradeHistory] = useState('')
+    const [tradeHistory, setTradeHistory] = useState({
+        loading : true,
+        data:[]
+    })
     const [selectedRowData, setSelectedRowData] = useState('');
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
@@ -21,6 +24,8 @@ const Tradehistory = () => {
 
     })
 
+
+    console.log("tradeHistory :", tradeHistory)
 
      
 
@@ -57,18 +62,18 @@ const Tradehistory = () => {
 
 
 
-    const GetTradeHistory = async () => {
+    const GetTradeResposne = async () => {
         const data = { Data: selectStrategyType, Username: Username }
 
         //GET TRADEHISTORY
         await get_User_Data(data)
             .then((response) => {
                 if (response.Status) {
-
+                    
                     const filterLiveTrade = response.Data.filter((item) => {
                         return item.TradeExecution == 'Live Trade'
-
                     })
+
                     setTradeHistory({
                         loading: false,
                         data: filterLiveTrade
@@ -88,8 +93,8 @@ const Tradehistory = () => {
 
     }
     useEffect(() => {
-        GetTradeHistory()
-    }, [selectStrategyType])
+        GetTradeResposne()
+    }, [selectStrategyType , FromDate , ToDate])
 
 
  
@@ -223,4 +228,4 @@ const Tradehistory = () => {
     );
 };
 
-export default Tradehistory;
+export default TradeResponse;

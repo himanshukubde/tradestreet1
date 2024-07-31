@@ -201,13 +201,17 @@ const AddClient = () => {
                 Strike: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Strike : "",
                 expirydata1: values.Exchange == "NSE" ? getExpiryDate.data[0] : values.expirydata1,
                 TType: values.TType == 0 ? "" : values.TType,
-                LowerRange: values.LowerRange,
-                HigherRange: values.HigherRange,
+                
                 TStype: values.TStype,
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
+                 
+
                 EntryPrice: values.EntryPrice,
                 EntryRange: values.EntryRange,
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
+
 
                 HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
 

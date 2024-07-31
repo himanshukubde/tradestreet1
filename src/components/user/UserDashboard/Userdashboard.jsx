@@ -450,7 +450,6 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-
     ];
 
 
