@@ -26,6 +26,7 @@ const Userdashboard = () => {
         Option: [],
         Pattern: []
     })
+
     const getUserAllGroup = async () => {
         const data = { User: userName }
         await GetAllUserGroup(data)
@@ -51,8 +52,6 @@ const Userdashboard = () => {
     useEffect(() => {
         getUserAllGroup()
     }, [activeTab])
-
-
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
