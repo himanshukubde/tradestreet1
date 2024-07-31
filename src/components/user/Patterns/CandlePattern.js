@@ -9,7 +9,7 @@ const ChartExample = ({ ChartData }) => {
   useEffect(() => {
     const adjustTime = (date) => {
       const dateObj = new Date(date);
-      // Subtract 5 hours (5 * 60 * 60 * 1000 milliseconds)
+       
       return new Date(dateObj.getTime() - (5 * 60 * 60 * 1000));
     };
 

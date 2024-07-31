@@ -3,7 +3,7 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../CommonAPI/Admin'
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../CommonAPI/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
-
+import {columns , columns1} from './PatternsColumns'
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
 
@@ -33,250 +33,7 @@ const LastPattern = () => {
         loading: true,
         data: []
     });
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta) => tableMeta.rowIndex + 1
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trend before pattern",
-            label: "Trend before pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Previous trend price",
-            label: "Previous trend price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Start Time",
-            label: "Start Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Start Price",
-            label: "Start Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End Time",
-            label: "End Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End Price",
-            label: "End Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "After trend price",
-            label: "After trend price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trend after pattern",
-            label: "Trend after pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
-    const columns1 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta) => tableMeta.rowIndex + 1
-            }
-        },
-        {
-            name: "open",
-            label: "open",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "close",
-            label: "close",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "high",
-            label: "high",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "low",
-            label: "low",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreOpen",
-            label: "PreOpen",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreHigh",
-            label: "PreHigh",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreLow",
-            label: "PreLow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreClose",
-            label: "PreClose",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreOpen2",
-            label: "PreOpen2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreHigh2",
-            label: "PreHigh2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreLow2",
-            label: "PreLow2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreClose2",
-            label: "PreClose2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreOpen3",
-            label: "PreOpen3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreLow3",
-            label: "PreLow3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreClose3",
-            label: "PreClose3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "total",
-            label: "total",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "body_length",
-            label: "body_length",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "upper_shadow",
-            label: "upper_shadow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "lower_shadow",
-            label: "lower_shadow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
+   
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
@@ -515,7 +272,7 @@ const LastPattern = () => {
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
                                     <FullDataTable
-                                        columns={columns1}
+                                        columns={columns1()}
                                         data={getCandlestickTable && getCandlestickTable.data2}
                                         checkBox={false}
                                     />
@@ -523,7 +280,7 @@ const LastPattern = () => {
                                 : <>
 
                                     <FullDataTable
-                                        columns={columns}
+                                        columns={columns()}
                                         data={ChartPatternTableData && ChartPatternTableData.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
