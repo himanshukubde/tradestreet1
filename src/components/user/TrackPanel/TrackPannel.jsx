@@ -128,37 +128,40 @@ await Get_Panle_Logs(data)
     .then((response) => {
         if (response.Status) {
             const filterData = response.PanelDetails.filter((item) => {
-                if (getActivity == '') {
-                    return item
-                }
-                else if (getActivity == 1) {
-                    return item.Activity == 'Login'
-                }
-                else if (getActivity == 2) {
-                    return item.Activity == 'Broker Update'
-                }
-                else if (getActivity == 3) {
-                    return item.Activity == 'Add Script'
-                }
-                else if (getActivity == 4) {
-                    return item.Activity == 'Continue Script'
-                }
-                else if (getActivity == 5) {
-                    return item.Activity == 'Connect with Broker'
-                }
-                else if (getActivity == 6) {
-                    return item.Activity == 'Update Script'
-                }
-                else if (getActivity == 7) {
-                    return item.Activity == 'Square Script'
-                }
-                else return item
+                const matchedData  = getActivity=='' || item.Activity.toLowerCase()== getActivity.toLowerCase();
+
+                return matchedData
+                // if (getActivity == '') {
+                //     return item
+                // }
+                // else if (getActivity == 1) {
+                //     return item.Activity == 'Login'
+                // }
+                // else if (getActivity == 2) {
+                //     return item.Activity == 'Broker Update'
+                // }
+                // else if (getActivity == 3) {
+                //     return item.Activity == 'Add Script'
+                // }
+                // else if (getActivity == 4) {
+                //     return item.Activity == 'Continue Script'
+                // }
+                // else if (getActivity == 5) {
+                //     return item.Activity == 'Connect with Broker'
+                // }
+                // else if (getActivity == 6) {
+                //     return item.Activity == 'Update Script'
+                // }
+                // else if (getActivity == 7) {
+                //     return item.Activity == 'Square Script'
+                // }
+                // else return item
             })
 
 
             setPanleData({
                 loading: false,
-                data: filterData
+                data: getActivity!='' ?  filterData : response.PanelDetails
             })
         }
         else {
@@ -207,16 +210,11 @@ return (
                                         <option value="">All Activity</option>
                                         {
                                             getSortName.map((item, index) => {
-                                                return <option value={index + 1}>{item}</option>
+                                                return <option value={item}>{item}</option>
                                             })
 
                                         }
-                                        {/* <option value={1}>Login</option>
-                                            <option value={2}>Broker Update</option>
-                                            <option value={3}>Add Script</option>
-                                            <option value={4}>Continue Script</option>
-                                            <option value={5}>Square Script</option> */}
-
+                                         
                                     </select>
                                 </div>
                             </div>

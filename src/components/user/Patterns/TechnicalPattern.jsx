@@ -352,6 +352,7 @@ const LastPattern = () => {
                         loading: false,
                         data: response.Data
                     });
+                    setShowCandle(true)
                 } else {
                     setChartPatternTableData({
                         loading: false,
@@ -376,6 +377,7 @@ const LastPattern = () => {
                         data1: response.Data.CandleData,
                         data2: response.Data.PatternData
                     });
+                    setShowCandle(true)
                 } else {
                     setCandlestickTable({
                         loading: false,
@@ -421,6 +423,11 @@ const LastPattern = () => {
         fetchPatternNames();
     }, []);
 
+
+    useEffect(()=>{
+        setShowCandle(false)
+
+    },[selectedPatternType , candlestickPattern , scriptType , selectedTimeFrame , chartPattern])
 
     return (
         <div className="container-fluid">
@@ -524,20 +531,16 @@ const LastPattern = () => {
                                 </>
                             }
                         </div>
-                        <div className="row">
-
+                        {showCandle && <div className="row">
                             <div className="">
                                 {
-                                    getCandlestickTable.loading == false || ChartPatternTableData.loading == false ? <div className='shadow p-3  bg-white rounded m-4'>
+                                    getCandlestickTable.loading == false || ChartPatternTableData.loading == false ? <div className='shadow p-3 bg-white rounded m-4'>
                                         <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} />
                                     </div>
                                         : ""
                                 }
-
-
-
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

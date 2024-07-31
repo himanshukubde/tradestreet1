@@ -101,15 +101,21 @@ const AddClient = () => {
                 errors.Quantity = "Please Enter the Lot Value.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Please Select an Exit Time.";
-            } else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Please Select an Entry Time.";
-            } else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
-            }
+                errors.ExitTime = "Please Select Exit Time.";
+              } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+              }
+              else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+              }
+              if (!values.EntryTime) {
+                errors.EntryTime = "Please Select Entry Time.";
+              } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+              }
+              else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
+              }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select an Exit Day.";
             }
@@ -273,6 +279,10 @@ const AddClient = () => {
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
             }
+
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+              }
 
 
             try {

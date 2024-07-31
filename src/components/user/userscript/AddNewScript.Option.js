@@ -127,30 +127,27 @@ const AddClient = () => {
                 errors.Trade_Count = "Please Enter Trade Count.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Please select an exit time.";
-            }
-            else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit time must be before 15:29:59.";
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Please select an entry time.";
-            }
-            else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry time must be after 09:15:00.";
-            }
+                errors.ExitTime = "Please Select Exit Time.";
+              } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+              }
+              else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+              }
+              if (!values.EntryTime) {
+                errors.EntryTime = "Please Select Entry Time.";
+              } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+              }
+              else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
+              }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please select an exit day.";
             }
             if (!values.Expirytype) {
                 errors.Expirytype = "Please select an expiry type.";
             }
-
-
-
-
-
-
-
 
             if (!values.Lower_Range && values.Striketype === 'Premium_Range') {
                 errors.Lower_Range = "Please enter the lower range.";
@@ -167,14 +164,6 @@ const AddClient = () => {
             if (!values.PEDeepLower && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDeepLower == 0) {
                 errors.PEDeepLower = values.PEDeepLower == 0 ? "PE Hedge Lower can not be Zero" : "Please Enter PE Hedge Lower.";
             }
-
-
-
-
-
-
-
-
 
             if (!values.PEDepthHigher && (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') && values.PEDepthHigher == 0) {
                 errors.PEDepthHigher = values.PEDepthHigher == 0 ? "PE Main Higher can not be Zero" : "Please Enter PE Main Higher.";
@@ -287,6 +276,9 @@ const AddClient = () => {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+              }
 
             if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
