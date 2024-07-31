@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-import { Get_Panle_Logs } from '../../CommonAPI/User'
+import { Get_Panle_Logs, GetName } from '../../CommonAPI/User'
 import DatePicker from "react-datepicker";
 import { Eye } from 'lucide-react';
 
@@ -15,8 +15,8 @@ const Pannel = () => {
     const [ToDate, setToData] = useState('')
     const [getActivity, setActivity] = useState('')
     const [getMsg, setMsg] = useState('')
+    const [getSortName, setSortName] = useState([])
 
-    
     // set Defult Date 
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate());
@@ -47,18 +47,24 @@ const Pannel = () => {
         }
     };
 
-    const handleMessageView = (tableMeta) => {
 
-
-        setShowModal(!showModal)
-        const selectedRowIndex = tableMeta.rowIndex;
-        const selectedRow = getPanleData.data[selectedRowIndex];
-        setMsg(selectedRow.Message)
-
-        
-
-
+    console.log('setSortName :', getSortName)
+    const GetSortTypeName = async () => {
+        const data = { userName: userName }
+        await GetName(data)
+            .then((response) => {
+                if (response.Status) {
+                    setSortName(response.Taskstatus)
+                }
+                else {
+                    setSortName([])
+                }
+            })
     }
+
+    useEffect(() => {
+        GetSortTypeName()
+    }, [])
 
     const columns = [
         {
@@ -97,7 +103,7 @@ const Pannel = () => {
             options: {
                 filter: true,
                 sort: true,
-               
+
             }
         },
         {
@@ -118,136 +124,148 @@ const Pannel = () => {
         }
 
 
-        await Get_Panle_Logs(data)
-            .then((response) => {
-                if (response.Status) {
-                    const filterData = response.PanelDetails.filter((item) => {
-                        if (getActivity == '') {
-                            return item
-                        }
-                        else if (getActivity == 1) {
-                            return item.Activity == 'Login'
-                        }
-                        else if (getActivity == 2) {
-                            return item.Activity == 'Broker Update'
-                        }
-                        else if (getActivity == 3) {
-                            return item.Activity == 'Add Script'
-                        }
-                        else if (getActivity == 4) {
-                            return item.Activity == 'Continue Script'
-                        }
-                        else if (getActivity == 5) {
-                            return item.Activity == 'Square Script'
-                        }
-                        else return item
-                    })
-                    
+await Get_Panle_Logs(data)
+    .then((response) => {
+        if (response.Status) {
+            const filterData = response.PanelDetails.filter((item) => {
+                if (getActivity == '') {
+                    return item
+                }
+                else if (getActivity == 1) {
+                    return item.Activity == 'Login'
+                }
+                else if (getActivity == 2) {
+                    return item.Activity == 'Broker Update'
+                }
+                else if (getActivity == 3) {
+                    return item.Activity == 'Add Script'
+                }
+                else if (getActivity == 4) {
+                    return item.Activity == 'Continue Script'
+                }
+                else if (getActivity == 5) {
+                    return item.Activity == 'Connect with Broker'
+                }
+                else if (getActivity == 6) {
+                    return item.Activity == 'Update Script'
+                }
+                else if (getActivity == 7) {
+                    return item.Activity == 'Square Script'
+                }
+                else return item
+            })
 
-                    setPanleData({
-                        loading: false,
-                        data: filterData
-                    })
-                }
-                else {
-                    setPanleData({
-                        loading: false,
-                        data: []
-                    })
-                }
+
+            setPanleData({
+                loading: false,
+                data: filterData
             })
-            .catch((err) => {
-                console.log("Error in finding the panle details", err)
+        }
+        else {
+            setPanleData({
+                loading: false,
+                data: []
             })
+        }
+    })
+    .catch((err) => {
+        console.log("Error in finding the panle details", err)
+    })
     }
-    useEffect(() => {
-        GetAllPanleData()
-    }, [ToDate, fromDate, getActivity])
+useEffect(() => {
+    GetAllPanleData()
+}, [ToDate, fromDate, getActivity])
 
 
 
-    return (
-        <>
-            <div>
-                <div className="col-sm-12 col-lg-12">
-                    <div className="iq-card">
-                        <div className="iq-card-header d-flex justify-content-between">
-                            <div className="iq-header-title">
-                                <h4 className="card-title">Panel Track</h4>
-                            </div>
+return (
+    <>
+        <div>
+            <div className="col-sm-12 col-lg-12">
+                <div className="iq-card">
+                    <div className="iq-card-header d-flex justify-content-between">
+                        <div className="iq-header-title">
+                            <h4 className="card-title">Panel Track</h4>
                         </div>
-                        <div className="iq-card-body">
-                            <div>
-                                <div className='row'>
-                                    <div className="form-group col-lg-3 ">
-                                        <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={fromDate == '' ? formattedDate : fromDate} onChange={(date) => setFromData(date)} />
-                                    </div>
-                                    <div className="form-group col-lg-3">
-                                        <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToData(date)} />
-                                    </div>
-                                    <div className="form-group col-md-4">
-                                        <label htmlFor="email">Activity</label>
-                                        <select className="form-select my-2" required=""
-                                            onChange={(e) => setActivity(e.target.value)}
-                                            value={getActivity}>
-                                            <option value="">All Activity</option>
-                                            <option value={1}>Login</option>
+                    </div>
+                    <div className="iq-card-body">
+                        <div>
+                            <div className='row'>
+                                <div className="form-group col-lg-3 ">
+                                    <label>Select form Date</label>
+                                    <DatePicker className="form-select" selected={fromDate == '' ? formattedDate : fromDate} onChange={(date) => setFromData(date)} />
+                                </div>
+                                <div className="form-group col-lg-3">
+                                    <label>Select To Date</label>
+                                    <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToData(date)} />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label htmlFor="email">Activity</label>
+                                    <select className="form-select my-2" required=""
+                                        onChange={(e) => setActivity(e.target.value)}
+                                        value={getActivity}>
+                                        <option value="">All Activity</option>
+                                        {
+                                            getSortName.map((item, index) => {
+                                                return <option value={index + 1}>{item}</option>
+                                            })
+
+                                        }
+                                        {/* <option value={1}>Login</option>
                                             <option value={2}>Broker Update</option>
                                             <option value={3}>Add Script</option>
                                             <option value={4}>Continue Script</option>
-                                            <option value={5}>Square Script</option>
+                                            <option value={5}>Square Script</option> */}
 
-                                        </select>
-                                    </div>
+                                    </select>
                                 </div>
                             </div>
-                            <div className="table-responsive">
-                                <FullDataTable
-                                    columns={columns}
-                                    data={getPanleData.data}
-                                    checkBox={false}
-                                />
-                            </div >
                         </div>
-                    </div >
+                        <div className="table-responsive">
+                            <FullDataTable
+                                columns={columns}
+                                data={getPanleData.data}
+                                checkBox={false}
+                            />
+                        </div >
+                    </div>
                 </div >
-            </div>
+            </div >
+        </div>
 
-            {showModal && (
-                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
-                    <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
-                        <div className="modal-content">
-                            <div className="modal-header border-0 pb-0">
-                                <div className="form-header modal-header-title text-start mb-0">
-                                    <h4 className="mb-0">Message</h4>
-                                </div>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                    onClick={() => setShowModal(!showModal)}
-                                >
-                                </button>
+        {showModal && (
+            <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
+                    <div className="modal-content">
+                        <div className="modal-header border-0 pb-0">
+                            <div className="form-header modal-header-title text-start mb-0">
+                                <h4 className="mb-0">Message</h4>
                             </div>
-                            <form action="#">
-                                <div className="modal-body">
-                                    <div className="row">
-                                        {
-                                            getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
-                                        }
-                                    </div>
-                                </div>
-                            </form>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => setShowModal(!showModal)}
+                            >
+                            </button>
                         </div>
+                        <form action="#">
+                            <div className="modal-body">
+                                <div className="row">
+                                    {
+                                        getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
+                                    }
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            )}
+            </div>
+        )}
 
-        </>
-    )
+    </>
+)
 }
 export default Pannel
 
