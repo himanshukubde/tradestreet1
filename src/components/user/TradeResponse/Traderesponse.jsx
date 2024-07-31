@@ -24,8 +24,7 @@ const TradeResponse = () => {
 
     })
 
-
-    console.log("tradeHistory :", tradeHistory)
+ 
 
      
 

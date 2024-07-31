@@ -201,20 +201,14 @@ const AddClient = () => {
                 Strike: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Strike : "",
                 expirydata1: values.Exchange == "NSE" ? getExpiryDate.data[0] : values.expirydata1,
                 TType: values.TType == 0 ? "" : values.TType,
-                
                 TStype: values.TStype,
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
-                 
-
                 EntryPrice: values.EntryPrice,
                 EntryRange: values.EntryRange,
                 LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
                 HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
-
-
                 HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
-
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
@@ -309,7 +303,7 @@ const AddClient = () => {
         if (formik.values.Exchange == "NSE") {
 
             formik.setFieldValue('Instrument', "FUTIDX")
-            //   formik.setFieldValue('Symbol', "")
+          
             formik.setFieldValue('expirydata1', "")
             formik.setFieldValue('Strike', "")
             formik.setFieldValue('Optiontype', "")

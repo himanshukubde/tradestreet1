@@ -361,7 +361,7 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response.data);
+                    
 
                     let swalOptions = {
                         confirmButtonText: 'OK',

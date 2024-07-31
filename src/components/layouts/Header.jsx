@@ -60,7 +60,7 @@ const Header = () => {
                         }
                     });
 
-                console.log("response.data :", response.data)
+                
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({

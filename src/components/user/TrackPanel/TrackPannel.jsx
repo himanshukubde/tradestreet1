@@ -47,8 +47,7 @@ const Pannel = () => {
         }
     };
 
-
-    console.log('setSortName :', getSortName)
+ 
     const GetSortTypeName = async () => {
         const data = { userName: userName }
         await GetName(data)

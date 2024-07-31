@@ -24,9 +24,7 @@ const Tradehistory = () => {
         data1: [],
         data2: []
     })
-
-    console.log(columns7())
-    console.log(report.data1)
+ 
 
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,

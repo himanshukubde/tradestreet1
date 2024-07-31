@@ -15,12 +15,12 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    
+
     const [serviceEndDate, setServiceEndDate] = useState('')
 
 
 
-    
+
 
 
     const SweentAlertFun = (text) => {
@@ -28,7 +28,7 @@ const AddClient = () => {
             title: "Error",
             text: text,
             icon: "error",
-            timer: 1500,
+            timer: 30000,
             timerProgressBar: true
         });
 
@@ -39,11 +39,11 @@ const AddClient = () => {
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
             Username: "",
-            Strategy: "",
+            Strategy: location.state.data.STG,
             ETPattern: "",
             Timeframe: "",
             Exchange: "",
-            Symbol: "",
+            Symbol: location.state.data.MainSymbol,
             Instrument: "FUTIDX",
             Strike: "",
             Optiontype: "",
@@ -64,22 +64,24 @@ const AddClient = () => {
             TType: "",
             serendate: "2023-10-25",
             expirydata1: "2024-06-27",
-            Expirytype: "",
+            Expirytype: location.state.data.Expirytype,
             Striketype: "",
             DepthofStrike: "",
             DeepStrike: "",
             Group: "",
-            CEDepthLower: 0.0,
-            CEDepthHigher: 0.0,
-            PEDepthLower: 0.0,
-            PEDepthHigher: 0.0,
-            CEDeepLower: 0.0,
-            CEDeepHigher: 0.0,
-            PEDeepLower: 0.0,
-            PEDeepHigher: 0.0,
+            CEDepthLower: location.state.data.CEDepthLower,
+            CEDepthHigher: location.state.data.CEDepthHigher,
+            PEDepthLower: location.state.data.PEDepthLower,
+            PEDepthHigher: location.state.data.PEDepthHigher,
+            CEDeepLower: location.state.data.CEDeepLower,
+            CEDeepHigher: location.state.data.CEDeepHigher,
+            PEDeepLower: location.state.data.PEDeepLower,
+            PEDeepHigher: location.state.data.PEDeepHigher,
             Trade_Count: 1,
-            Unique_ID: "",
+            Unique_ID: location.state.data.GroupN,
             Measurment_Type: ""
+
+
         },
 
         validate: (values) => {
@@ -118,20 +120,20 @@ const AddClient = () => {
             }
             if (!values.ExitTime) {
                 errors.ExitTime = "Please Select Exit Time.";
-              } else if (values.ExitTime > maxTime) {
+            } else if (values.ExitTime > maxTime) {
                 errors.ExitTime = "Exit Time Must be Before 15:29:59.";
-              }
-              else if (values.ExitTime < minTime) {
+            }
+            else if (values.ExitTime < minTime) {
                 errors.ExitTime = "Exit Time Must be After 09:15:00.";
-              }
-              if (!values.EntryTime) {
+            }
+            if (!values.EntryTime) {
                 errors.EntryTime = "Please Select Entry Time.";
-              } else if (values.EntryTime < minTime) {
+            } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must be After 09:15:00.";
-              }
-              else if (values.EntryTime > maxTime) {
+            }
+            else if (values.EntryTime > maxTime) {
                 errors.EntryTime = "Entry Time Must be Before 15:29:59.";
-              }
+            }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select an Exit Day.";
             }
@@ -208,12 +210,10 @@ const AddClient = () => {
                     errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
                 }
             }
-           
-            console.log("CPP", errors)
+
+            console.log("errors", errors)
             return errors;
         },
-
-
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -245,17 +245,17 @@ const AddClient = () => {
                 Expirytype: values.Expirytype,
 
                 Striketype: formik.values.Strategy != "ShortStraddle" && formik.values.Strategy != "LongStraddle" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'ShortStraddle' && formik.values.Strategy != 'LongStraddle' ? values.Striketype : '',
-                 DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(values.DepthofStrike) : formik.values.Measurment_Type == "Shifting/FourLeg" && formik.values.Strategy != 'ShortFourLegStretegy' && formik.values.Strategy != 'LongFourLegStretegy' ? values.Shifting_Value : 0,
+                DepthofStrike: (formik.values.Striketype != "Premium_Range" && formik.values.Measurment_Type != "Shifting/FourLeg" && formik.values.Strategy != 'LongStraddle' && formik.values.Strategy != 'ShortStraddle') ? Number(values.DepthofStrike) : formik.values.Measurment_Type == "Shifting/FourLeg" && formik.values.Strategy != 'ShortFourLegStretegy' && formik.values.Strategy != 'LongFourLegStretegy' ? values.Shifting_Value : 0,
                 DeepStrike: ((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor") ? Number(values.DeepStrike) : 0,
-                Group: values.Unique_ID,
-                CEDepthLower: Number(values.CEDepthLower),
-                CEDepthHigher: Number(values.CEDepthHigher),
-                PEDepthLower: Number(values.PEDepthLower),
-                PEDepthHigher: Number(values.PEDepthHigher),
-                CEDeepLower: Number(values.CEDeepLower),
-                CEDeepHigher: Number(values.CEDeepHigher),
-                PEDeepLower: Number(values.PEDeepLower),
-                PEDeepHigher: Number(values.PEDeepHigher),
+                Group: values.Strategy == "LongFourLegStretegy" || values.Strategy == "ShortFourLegStretegy" ? values.Unique_ID : "",
+                CEDepthLower: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.CEDepthLower) : 0,
+                CEDepthHigher: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.CEDepthHigher) : 0,
+                PEDepthLower: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.PEDepthLower) : 0,
+                PEDepthHigher: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.PEDepthHigher) : 0,
+                CEDeepLower: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.CEDeepLower) : 0,
+                CEDeepHigher: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.CEDeepHigher) : 0,
+                PEDeepLower: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.PEDeepLower) : 0,
+                PEDeepHigher: values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy' ? Number(values.PEDeepHigher) : 0,
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
@@ -267,7 +267,7 @@ const AddClient = () => {
             }
             if (values.EntryTime >= values.ExitTime) {
                 return SweentAlertFun("Exit Time should be greater than Entry Time")
-              }
+            }
 
             if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
@@ -334,6 +334,8 @@ const AddClient = () => {
     });
 
 
+
+ 
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
             location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
@@ -361,24 +363,17 @@ const AddClient = () => {
         formik.setFieldValue('Higher_Range', location.state.data.HigherRange)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('Unique_ID', location.state.data.GroupN)
+        formik.setFieldValue('Shifting_Value', (location.state.data.Measurment_Type == "Shifting/FourLeg" && location.state.data.Strategy != 'ShortFourLegStretegy' && location.state.data.Strategy != 'LongFourLegStretegy') ? location.state.data.DepthofStrike : "")
+        formik.setFieldValue('CEDepthLower', location.state.data.CEDepthLower)
+        formik.setFieldValue('CEDepthHigher', location.state.data.CEDepthHigher)
+        formik.setFieldValue('CEDeepLower', location.state.data.CEDeepLower)
+        formik.setFieldValue('CEDeepHigher', location.state.data.CEDeepHigher)
+        formik.setFieldValue('PEDepthLower', location.state.data.PEDepthLower)
+        formik.setFieldValue('PEDepthHigher', location.state.data.PEDepthHigher)
+        formik.setFieldValue('PEDeepLower', location.state.data.PEDeepLower)
+        formik.setFieldValue('PEDeepHigher', location.state.data.PEDeepHigher)
 
-
-        // formik.setFieldValue('Unique_ID', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
-        // formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
 
     }, [])
 
@@ -528,7 +523,7 @@ const AddClient = () => {
         {
             name: "Shifting_Value",
             label: "Number of Shifts",
-            type: "number",
+            type: "text3",
             showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && value.Strategy != 'ShortFourLegStretegy' && value.Strategy != 'LongFourLegStretegy',
             hiding: false,
             label_size: 12,
@@ -842,12 +837,10 @@ const AddClient = () => {
         }
 
         if (((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
-
             formik.setFieldValue('DeepStrike', 2)
         }
 
         if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
-
             formik.setFieldValue('Shifting_Value', 1)
 
         }
@@ -861,24 +854,13 @@ const AddClient = () => {
             formik.setFieldValue('ETPattern', "Future")
         }
 
-
-        if (formik.values.Strategy != 'ShortFourLegStretegy' || formik.values.Strategy != 'LongFourLegStretegy') {
-            formik.setFieldValue('Unique_ID', '')
-            formik.setFieldValue('CEDepthLower', 0)
-            formik.setFieldValue('CEDepthHigher', 0)
-            formik.setFieldValue('PEDepthLower', 0)
-            formik.setFieldValue('PEDepthHigher', 0)
-            formik.setFieldValue('CEDeepLower', 0)
-            formik.setFieldValue('CEDeepHigher', 0)
-            formik.setFieldValue('PEDeepLower', 0)
-            formik.setFieldValue('PEDeepHigher', 0)
-        }
+ 
 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
 
-   
- 
+
+
 
     return (
         <>
@@ -889,7 +871,7 @@ const AddClient = () => {
                 btn_name1="Cancel"
                 formik={formik}
                 btn_name1_route={"/user/dashboard"}
-                
+
             />
 
         </>
