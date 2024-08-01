@@ -115,7 +115,7 @@ const AddClient = () => {
         errors.TStype = "Please Select Measurement Type.";
       }
 
-      
+
       if (!values.ExitTime) {
         errors.ExitTime = "Please Select Exit Time.";
       } else if (values.ExitTime > maxTime) {
@@ -726,11 +726,12 @@ const AddClient = () => {
     }
     if (formik.values.Exchange == "NSE") {
       formik.setFieldValue('Instrument', "FUTIDX")
-      formik.setFieldValue('Symbol', "")
       formik.setFieldValue('expirydata1', "")
       formik.setFieldValue('Strike', "")
       formik.setFieldValue('Optiontype', "")
+      formik.setFieldValue('Symbol', "")
     }
+     
 
   }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 

@@ -117,6 +117,8 @@ const AddClient = () => {
             if (!values.Instrument && values.Exchange !== 'NSE') {
                 errors.Instrument = "Please Select Instrument Type.";
             }
+
+          
             if (!values.Symbol) {
                 errors.Symbol = "Please Select Symbol Type.";
             }
@@ -185,6 +187,7 @@ const AddClient = () => {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
 
+            console.log("error : ", errors)
             return errors;
         },
 
@@ -301,13 +304,13 @@ const AddClient = () => {
             formik.setFieldValue('Strike', "")
         }
         if (formik.values.Exchange == "NSE") {
-
             formik.setFieldValue('Instrument', "FUTIDX")
-          
             formik.setFieldValue('expirydata1', "")
             formik.setFieldValue('Strike', "")
             formik.setFieldValue('Optiontype', "")
+            formik.setFieldValue('Symbol', "")
         }
+        
     }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
@@ -333,6 +336,7 @@ const AddClient = () => {
 
     const result = extractDetails(location.state.data.Symbol);
  
+    console.log("location.state.data :", location.state.data)
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)

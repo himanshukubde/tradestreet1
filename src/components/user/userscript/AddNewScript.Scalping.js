@@ -785,11 +785,13 @@ const AddClient = () => {
         }
         if (formik.values.Exchange == "NSE") {
           formik.setFieldValue('Instrument', "FUTIDX")
-          formik.setFieldValue('Symbol', "")
           formik.setFieldValue('expirydata1', "")
           formik.setFieldValue('Strike', "")
           formik.setFieldValue('Optiontype', "")
         }
+        if (formik.values.Exchange == "NFO") {
+          formik.setFieldValue('Symbol', "")
+      }
     
       }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
