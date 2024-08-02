@@ -317,7 +317,7 @@ const Adduser = () => {
             label: "Service Count",
             type: "select",
             options: [
-                { label: "0", value: "0" },
+                
                 { label: "1", value: "1" },
                 { label: "2", value: "2" },
                 { label: "5", value: "5" },
