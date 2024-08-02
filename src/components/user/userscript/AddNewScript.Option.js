@@ -433,7 +433,7 @@ const AddClient = () => {
             type: "select",
             options: [
                 { label: "Weekly", value: "Weekly" },
-                { label: "Next Week", value: "Next Week" },
+              
                 { label: "Monthly", value: "Monthly" },
 
             ],

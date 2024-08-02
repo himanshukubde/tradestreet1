@@ -80,7 +80,7 @@ const AddClient = () => {
             Trade_Count: 1,
             Unique_ID: location.state.data.GroupN,
             Measurment_Type: "",
-            Shifting_Point:1,
+            Shifting_Point: 1,
 
 
         },
@@ -106,7 +106,7 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please Select a Symbol Type.";
             }
-             
+
 
             if ((!values.Targetvalue || values.Targetvalue == 0) && (formik.values.Measurment_Type != 'Shifting/FourLeg')) {
                 errors.Targetvalue = values.Targetvalue == 0 ? "Target Can Not be Zero" : "Please Enter a Target Value.";
@@ -336,12 +336,12 @@ const AddClient = () => {
                     console.log("Error in added new Script", err)
                 })
         },
-        
+
     });
 
 
 
- 
+
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
             location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
@@ -380,7 +380,7 @@ const AddClient = () => {
         formik.setFieldValue('PEDeepLower', location.state.data.PEDeepLower)
         formik.setFieldValue('PEDeepHigher', location.state.data.PEDeepHigher)
         formik.setFieldValue('Shifting_Point', location.state.data['Target value'])
-        
+
 
 
 
@@ -454,7 +454,6 @@ const AddClient = () => {
             type: "select",
             options: [
                 { label: "Weekly", value: "Weekly" },
-                { label: "Next Week", value: "Next Week" },
                 { label: "Monthly", value: "Monthly" },
 
             ],
@@ -863,7 +862,7 @@ const AddClient = () => {
             formik.setFieldValue('ETPattern', "Future")
         }
 
- 
+
 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
