@@ -5352,3 +5352,7 @@ body.sidebar-main .iq-sidebar {
   backdrop-filter: blur(5px);
   z-index: 99;
 }
+
+.react-datepicker-wrapper{
+  width: 100%;
+}

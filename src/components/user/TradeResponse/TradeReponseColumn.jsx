@@ -1,5 +1,3 @@
-
-
 export const columns = [
     {
         name: "S.No",
@@ -616,6 +614,38 @@ export const columns3 = [
         }
     },
     {
+        name: "User_Id",
+        label: "User ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Token",
+        label: "Token",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "StrategyType",
+        label: "Strategy Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TargetType",
+        label: "Target Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "Orderdetail",
         label: "Order Detail",
         options: {
@@ -623,6 +653,24 @@ export const columns3 = [
             sort: true,
         }
     },
+    {
+        name: "Order",
+        label: "Order",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DateTime",
+        label: "DateTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+   
+    
     {
         name: "DateTime",
         label: "Date Time",

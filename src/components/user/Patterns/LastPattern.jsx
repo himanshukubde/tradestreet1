@@ -175,7 +175,7 @@ const LastPattern = () => {
                                 <div className="table-responsive">
                                     {getLastPatternData.loading ? <Loader /> :
                                         <FullDataTable
-                                            columns={selectPattern == 'Candlestick Patterns' ? columns2 : columns3}
+                                            columns={selectPattern == 'Candlestick Patterns' ? columns2() : columns3()}
                                             data={getLastPatternData.data}
                                             onRowSelect={handleRowSelect}
                                             checkBox={selectPattern == 'Candlestick Patterns' ? false : true}

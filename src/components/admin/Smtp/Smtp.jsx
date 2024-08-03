@@ -99,12 +99,12 @@ const Smtp = () => {
                                                 type={passwordVisible ? "text" : "password"} 
                                                 onChange={(e) => setPassword(e.target.value)} 
                                                 value={password} 
-                                                className="form-control" 
+                                                className="form-control my-2" 
                                                 id="password" 
                                             />
                                             <button 
                                                 type="button" 
-                                                className="btn btn-outline-secondary" 
+                                                className="btn btn-outline-secondary my-2" 
                                                 onClick={togglePasswordVisibility}
                                             >
                                                 {passwordVisible ? "Hide" : "Show"}
