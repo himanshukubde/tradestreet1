@@ -1,3 +1,5 @@
+
+// Scalping
 export const columns = [
     {
         name: "S.No",
@@ -134,6 +136,8 @@ export const columns = [
         }
     },
 ];
+
+// Option
 export const columns1 = [
     {
         name: "S.No",
@@ -410,6 +414,8 @@ export const columns1 = [
         }
     },
 ];
+
+// Pattern
 export const columns2 = [
     {
         name: "S.No",
@@ -589,6 +595,8 @@ export const columns2 = [
     },
 
 ];
+
+// scalping
 export const columns3 = [
     {
         name: "S.No",
@@ -597,11 +605,121 @@ export const columns3 = [
             filter: true,
             sort: true,
             customBodyRender: (value, tableMeta, updateValue) => {
-
                 const rowIndex = tableMeta.rowIndex;
-
                 return rowIndex + 1;
+            }
+        },
+    },
+    {
+        name: "Symbol",
+        label: "Symbol",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "User_Id",
+        label: "User ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Token",
+        label: "Token",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "StrategyType",
+        label: "Strategy Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Orderdetail",
+        label: "Order Detail",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Response",
+        label: "Response",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Order",
+        label: "Order",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DateTime",
+        label: "DateTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DateTime",
+        label: "Date Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitTime",
+        label: "Exit Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitResponse",
+        label: "Exit Response",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "GroupN",
+        label: "Unique ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    
+];
 
+// option
+export const columns4 = [
+    {
+        name: "S.No",
+        label: "S.No",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                const rowIndex = tableMeta.rowIndex;
+                return rowIndex + 1;
             }
         },
     },
@@ -669,11 +787,131 @@ export const columns3 = [
             sort: true,
         }
     },
-   
-    
     {
         name: "DateTime",
         label: "Date Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+  
+    {
+        name: "Response",
+        label: "Response",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "GroupN",
+        label: "Unique ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    
+];
+
+// pattern
+export const columns5 = [
+    {
+        name: "S.No",
+        label: "S.No",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                const rowIndex = tableMeta.rowIndex;
+                return rowIndex + 1;
+            }
+        },
+    },
+    {
+        name: "Symbol",
+        label: "Symbol",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "User_Id",
+        label: "User ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Token",
+        label: "Token",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "StrategyType",
+        label: "Strategy Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TargetType",
+        label: "Target Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Orderdetail",
+        label: "Order Detail",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Order",
+        label: "Order",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DateTime",
+        label: "DateTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DateTime",
+        label: "Date Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitTime",
+        label: "Exit Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "ExitResponse",
+        label: "Exit Response",
         options: {
             filter: true,
             sort: true,

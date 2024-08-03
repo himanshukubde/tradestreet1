@@ -219,7 +219,7 @@ const AddClient = () => {
         },
         onSubmit: async (values) => {
 
-            console.log("formik :", formik.values.Shifting_Point)
+            
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
@@ -264,8 +264,6 @@ const AddClient = () => {
                 TradeCount: values.Trade_Count,
                 TradeExecution: values.Trade_Execution
             }
-
-
             if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
 
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
@@ -274,8 +272,9 @@ const AddClient = () => {
                 return SweentAlertFun("Exit Time should be greater than Entry Time")
             }
 
-            if (values.Striketype == "Premium_Range" && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
+            if ((values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting/FourLeg" )&& (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
 
+               
                 return SweentAlertFun("Higher Range should be Greater than Lower Range")
             }
 
@@ -340,7 +339,7 @@ const AddClient = () => {
     });
 
 
-
+ 
 
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
@@ -862,7 +861,9 @@ const AddClient = () => {
             formik.setFieldValue('ETPattern', "Future")
         }
 
-
+        if(formik.values.Strategy!= location.state.data.Strategy)
+            console.log("Strategy", "")
+        
 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 

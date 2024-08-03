@@ -6,7 +6,7 @@ import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import {columns3 , columns2 ,columns1 , columns} from './TradeReponseColumn'
+import {columns3 , columns2 ,columns1 , columns , columns5 , columns4} from './TradeReponseColumn'
 const TradeResponse = () => {
     const [selectStrategyType, setStrategyType] = useState('')
     const [tradeHistory, setTradeHistory] = useState({
@@ -169,7 +169,6 @@ const TradeResponse = () => {
                         <div className="iq-card-body">
                             <div className="was-validated ">
                                 <div className='row'>
-
                                     <div className="form-group col-lg-4">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
@@ -210,7 +209,7 @@ const TradeResponse = () => {
                                 showTable && <>
                                     <div className='mt-3'>
                                         <GridExample
-                                            columns={columns3}
+                                            columns={selectStrategyType === "Scalping" ? columns3 : selectStrategyType === "Option Strategy" ? columns4 : columns5}
                                             data={getAllTradeData.data}
                                             onRowSelect={handleRowSelect}
                                             checkBox={false}

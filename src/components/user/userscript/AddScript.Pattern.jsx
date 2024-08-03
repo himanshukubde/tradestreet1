@@ -161,7 +161,7 @@ const AddClient = () => {
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select Exit Day.";
             }
-            if (!values.ExitTime) {
+            if (values.ExitTime=='') {
                 errors.ExitTime = "Please Select Exit Time.";
               } else if (values.ExitTime > maxTime) {
                 errors.ExitTime = "Exit Time Must be Before 15:29:59.";
@@ -169,7 +169,7 @@ const AddClient = () => {
               else if (values.ExitTime < minTime) {
                 errors.ExitTime = "Exit Time Must be After 09:15:00.";
               }
-              if (!values.EntryTime) {
+              if (values.EntryTime=='') {
                 errors.EntryTime = "Please Select Entry Time.";
               } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must be After 09:15:00.";
@@ -178,6 +178,8 @@ const AddClient = () => {
                 errors.EntryTime = "Entry Time Must be Before 15:29:59.";
               }
 
+
+              console.log("values " , errors)
             return errors;
         },
 
@@ -264,11 +266,11 @@ const AddClient = () => {
     });
 
     
+    console.log("location.state.data :", location.state.data)
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
         formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
-      
         formik.setFieldValue('Symbol', location.state.data.MainSymbol)
         formik.setFieldValue('Strategy', location.state.data.TradePattern)
         formik.setFieldValue('Timeframe', location.state.data.TimeFrame)
@@ -324,7 +326,7 @@ const AddClient = () => {
             hiding: false,
             label_size: 12,
             col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
-            disable: false,
+            disable: true,
         },
         {
             name: "Instrument",
@@ -777,7 +779,6 @@ const AddClient = () => {
         }
         if (formik.values.Exchange == "NSE") {
             formik.setFieldValue('Instrument', "")
-
         }
 
     }, [formik.values.Instrument, formik.values.Exchange])

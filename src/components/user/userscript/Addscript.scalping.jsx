@@ -289,30 +289,7 @@ const AddClient = () => {
 
 
 
-    useEffect(() => {
-       
-            if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-                formik.setFieldValue('LowerRange', 0)
-                formik.setFieldValue('HigherRange', 0)
-            }
-            if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
-                formik.setFieldValue('EntryPrice', 0)
-                formik.setFieldValue('EntryRange', 0)
-            }
-            if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-                formik.setFieldValue('Optiontype', "")
-                formik.setFieldValue('Strike', "")
-            }
-            if (formik.values.Exchange == "NSE") {
-                // formik.setFieldValue('Instrument', "FUTIDX")
-                // formik.setFieldValue('expirydata1', "")
-                // formik.setFieldValue('Strike', "")
-                // formik.setFieldValue('Optiontype', "")
-                // formik.setFieldValue('Symbol', "")
-            }
-
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
-
+  
 
  
     // Symbol Break
@@ -331,7 +308,6 @@ const AddClient = () => {
 
     const result = extractDetails(location.state.data.Symbol);
 
-    // console.log("location.state.data :", location.state.data)
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -358,8 +334,27 @@ const AddClient = () => {
         formik.setFieldValue('Group', location.state.data.GroupN)
         formik.setFieldValue('Optiontype', result ? result.type : "")
         formik.setFieldValue('Strike', result ? result.number : "")
-
     }, [location.state.data])
+
+
+    useEffect(() => {
+        if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
+            formik.setFieldValue('LowerRange', 0)
+            formik.setFieldValue('HigherRange', 0)
+        }
+        if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
+            formik.setFieldValue('EntryPrice', 0)
+            formik.setFieldValue('EntryRange', 0)
+        }
+        if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
+            formik.setFieldValue('Optiontype', "")
+            formik.setFieldValue('Strike', "")
+            formik.setFieldValue('Symbol', "")
+
+        }
+}, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument])
+
+
 
 
     const fields = [
@@ -414,7 +409,7 @@ const AddClient = () => {
             hiding: false,
             label_size: 12,
             col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
-            disable: false,
+            disable: true,
         },
         {
             name: "Symbol",
