@@ -55,7 +55,6 @@ const Register = () => {
 
 
 
-
     return (
         <div>
             <section className="sign-in-page">
@@ -63,9 +62,9 @@ const Register = () => {
                     <div className="row no-gutters">
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
-                                {/* <a className="sign-in-logo mb-5" href="index.html">
-                                    <img src="assets/images/logo-white.png" className="img-fluid" alt="logo" />
-                                </a> */}
+                                <a className="sign-in-logo mb-5" href="index.html">
+                                    <img src="assets/images/png1.jpeg" className="img-fluid" alt="logo" />
+                                </a>
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"
                                     data-autoplay="true"
