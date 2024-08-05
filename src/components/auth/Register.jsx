@@ -63,7 +63,7 @@ const Register = () => {
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
                                 <a className="sign-in-logo mb-5" href="index.html">
-                                    <img src="assets/images/png1.jpeg" className="img-fluid" alt="logo" />
+                                    <img src="" className="img-fluid"/>
                                 </a>
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"
@@ -90,7 +90,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/tradesoft.jpg"
+                                                       src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -104,7 +104,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/3.png"
+                                                      src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -118,7 +118,7 @@ const Register = () => {
                                             <div className="owl-item" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/1.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -132,7 +132,7 @@ const Register = () => {
                                             <div className="owl-item" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/2.png"
+                                                       src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -146,7 +146,7 @@ const Register = () => {
                                             <div className="owl-item active" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="/assets/images/tradesoft.jpg"
+                                                       src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                         style={{ borderRadius: 20 }}
@@ -158,10 +158,10 @@ const Register = () => {
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div className="owl-item cloned" style={{ width: 358 }}>
+                                            {/* <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/1.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -171,11 +171,11 @@ const Register = () => {
                                                         distracted by the readable content.
                                                     </p>
                                                 </div>
-                                            </div>
-                                            <div className="owl-item cloned" style={{ width: 358 }}>
+                                            </div> */}
+                                            {/* <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/2.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -185,7 +185,7 @@ const Register = () => {
                                                         distracted by the readable content.
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="owl-nav disabled">
@@ -196,7 +196,7 @@ const Register = () => {
                                             <i className="fa fa-angle-right fa-2x" />
                                         </button>
                                     </div>
-                                    <div className="owl-dots">
+                                    {/* <div className="owl-dots">
                                         <button role="button" className="owl-dot">
                                             <span />
                                         </button>
@@ -206,7 +206,7 @@ const Register = () => {
                                         <button role="button" className="owl-dot active">
                                             <span />
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

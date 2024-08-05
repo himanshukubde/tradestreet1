@@ -171,7 +171,7 @@ const Login = () => {
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/tradesoft.jpg"
+                                                    src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -185,7 +185,7 @@ const Login = () => {
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/3.png"
+                                                   src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -199,7 +199,7 @@ const Login = () => {
                                         <div className="owl-item" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/1.png"
+                                                    src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -213,7 +213,7 @@ const Login = () => {
                                         <div className="owl-item" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/2.png"
+                                                    src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -227,7 +227,7 @@ const Login = () => {
                                         <div className="owl-item active" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="/assets/images/tradesoft.jpg"
+                                                    src="/assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                     style={{ borderRadius: 20 }}
@@ -239,10 +239,10 @@ const Login = () => {
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                        {/* <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/1.png"
+                                                  src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -252,11 +252,11 @@ const Login = () => {
                                                     distracted by the readable content.
                                                 </p>
                                             </div>
-                                        </div>
-                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                        </div> */}
+                                        {/* <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
                                                 <img
-                                                    src="assets/images/login/2.png"
+                                                   src="assets/images/tradstreet.jpeg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
                                                 />
@@ -266,7 +266,7 @@ const Login = () => {
                                                     distracted by the readable content.
                                                 </p>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="owl-nav disabled">
@@ -278,7 +278,7 @@ const Login = () => {
                                     </button>
                                 </div>
                                 <div className="owl-dots">
-                                    <button role="button" className="owl-dot">
+                                    {/* <button role="button" className="owl-dot">
                                         <span />
                                     </button>
                                     <button role="button" className="owl-dot">
@@ -286,7 +286,7 @@ const Login = () => {
                                     </button>
                                     <button role="button" className="owl-dot active">
                                         <span />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
