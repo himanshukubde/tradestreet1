@@ -72,8 +72,8 @@ const Sidebar = () => {
         <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="#">
-                    <img src="/assets/images/tradstreet.png" className="img-fluid" alt="Logo" />
-                    {/* <span>Trade</span> */}
+                    <img src="/assets/images/vision-logo-white2.png" className="img-fluid" alt="Logo" />
+                    <span><img src="/assets/images/vision-logo-white3.png" className="img-fluid" alt="Logo" /></span>
                 </a>
                 <div className="iq-menu-bt-sidebar">
                     <div className="iq-menu-bt align-self-center">
@@ -124,8 +124,8 @@ const Sidebar = () => {
                                             <span>Add Script</span>
                                         </Link>
                                     </li>
-                                   
-                                
+
+
                                     <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
                                         <Link to="/admin/userlogs" className="iq-waves-effect">
                                             <i className="la la-envelope-open" />

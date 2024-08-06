@@ -510,7 +510,7 @@ a:hover {
   border-radius: 37px;
   position: absolute;
   top: 10%;
-  bottom: 10%;
+  bottom: 21%;
   left: 0;
   right: 0;
   z-index: 9;
@@ -1223,7 +1223,7 @@ div#lottie-fullscreen svg path {
   display: none;
   width: 260px;
   padding-top: 15px;
-  padding-left: 20px;
+  padding-left: 15px;
   float: left;
   position: relative;
   background: #ffffff;
@@ -1260,8 +1260,9 @@ div#lottie-fullscreen svg path {
 }
 
 .iq-sidebar-logo img {
-  height: 60px;
-  width: 160px;
+  height: 46px;
+  object-fit: cover;
+  /* width: 80px; */
 }
 
 .iq-top-navbar .iq-navbar-custom .iq-menu-bt-sidebar .iq-menu-bt {
