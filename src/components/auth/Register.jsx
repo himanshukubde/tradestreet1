@@ -240,7 +240,7 @@ const Register = () => {
                                             onChange={(e) => setNumber(e.target.value)}
                                         />
                                     </div>
-                                    <div className="form-group col-lg-6">
+                                    <div className="form-group col-lg-12">
                                         <label htmlFor="email" className="mb-2">
                                             Email
                                         </label>
