@@ -9,16 +9,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [changeType, setChangeType] = useState("password");
     const [visiablity, setVisiablity] = useState("");
-
     const [showModal, setShowModal] = useState(false)
     const [forgotPassEmail, setForgotPassEmail] = useState('')
-    const [forgotPassUsername, setForgotPassUsername] = useState('')
-
-
-
     const [emailError, setEmailError] = useState('');
-    const [usernameError, setUsernameError] = useState('');
-
     const navigate = useNavigate();
 
 
@@ -28,7 +21,7 @@ const Login = () => {
             .then((response) => {
 
                 if (response.Status) {
-
+                    console.log(response)
                     localStorage.setItem("Role", response.Role)
                     localStorage.setItem("name", Username)
                     localStorage.setItem("token", response.access_token)
@@ -78,176 +71,191 @@ const Login = () => {
 
 
 
-    // const handleForgotPass = async () => {
-    //     if (!emailError) {
-    //         const data = { Email: forgotPassEmail, username: forgotPassUsername }
-    //         await ForgotPassword(data)
-    //             .then((response) => {
-    //                 if (response.Status) {
-    //                     Swal.fire({
-    //                         title: "Success",
-    //                         text: response.Data,
-    //                         icon: "success",
-    //                         timer: 1500,
-    //                         timerProgressBar: true
-    //                     });
-    //                     setShowModal(false)
-    //                 }
-    //                 else {
-    //                     Swal.fire({
-    //                         title: "Error",
-    //                         text: response.Data,
-    //                         icon: "error",
-    //                         timer: 1500,
-    //                         timerProgressBar: true
-    //                     });
-    //                 }
-
-    //             })
-    //             .catch((err) => {
-    //                 console.log("Error in sending the mail", err)
-    //             })
-    //     }
-    // }
 
 
 
-        const handleForgotPass = async () => {
-            if (!emailError) {
-                const data = { Email: forgotPassEmail }
-                await ForgotPassword(data)
-                    .then((response) => {
-                        if (response.Status) {
-                            Swal.fire({
-                                title: "Success",
-                                text: response.Data,
-                                icon: "success",
-                                timer: 1500,
-                                timerProgressBar: true
-                            });
-                            setShowModal(false)
-                        }
-                        else {
-                            Swal.fire({
-                                title: "Error",
-                                text: response.Data,
-                                icon: "error",
-                                timer: 1500,
-                                timerProgressBar: true
-                            });
+    const handleForgotPass = async () => {
+        if (!emailError) {
+            const data = { Email: forgotPassEmail }
+            await ForgotPassword(data)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Success",
+                            text: response.Data,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        setShowModal(false)
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error",
+                            text: response.Data,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
 
-                        }
-                    })
-                    .catch((err) => {
-                        console.log("Error in sending the mail", err)
-                    })
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in sending the mail", err)
+                })
 
-            }
-        };
+        }
+    };
 
-        const validateEmail = (email) => {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        };
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    };
 
-        const handleEmailChange = (e) => {
-            const email = e.target.value;
-            setForgotPassEmail(email);
-            if (!email) {
-                setEmailError('Email cannot be empty');
-            } else if (!validateEmail(email)) {
-                setEmailError('Please enter a valid email address');
-            } else {
-                setEmailError('');
-            }
-        };
-
-        const handleUsernameChange = (e) => {
-            const email = e.target.value;
-            setForgotPassUsername(email);
-            if (!email) {
-                setUsernameError('Username Can Not Be Empty');
-            } else {
-                setUsernameError('');
-            }
-        };
+    const handleEmailChange = (e) => {
+        const email = e.target.value;
+        setForgotPassEmail(email);
+        if (!email) {
+            setEmailError('Email cannot be empty');
+        } else if (!validateEmail(email)) {
+            setEmailError('Please enter a valid email address');
+        } else {
+            setEmailError('');
+        }
+    };
 
 
 
-        return (
-            <section className="sign-in-page">
-                <div className="container sign-in-page-bg mt-5 mb-md-5 mb-0 p-0">
-                    <div className="row no-gutters">
-                        <div className="col-md-6 text-center">
-                            <div className="sign-in-detail text-white">
-                                {/* <a className="sign-in-logo mb-5" href="index.html">
+    return (
+        <section className="sign-in-page">
+            <div className="container sign-in-page-bg mt-5 mb-md-5 mb-0 p-0">
+                <div className="row no-gutters">
+                    <div className="col-md-6 text-center">
+                        <div className="sign-in-detail text-white">
+                            {/* <a className="sign-in-logo mb-5" href="index.html">
                                 <img src="assets/images/logo-white.png" className="img-fluid" alt="logo" />
                             </a> */}
-                                <div
-                                    className="owl-carousel owl-loaded owl-drag"
-                                    data-autoplay="true"
-                                    data-loop="true"
-                                    data-nav="false"
-                                    data-dots="true"
-                                    data-items={1}
-                                    data-items-laptop={1}
-                                    data-items-tab={1}
-                                    data-items-mobile={1}
-                                    data-items-mobile-sm={1}
-                                    data-margin={0}
-                                >
-                                    <div className="owl-stage-outer">
-                                        <div
-                                            className="owl-stage"
-                                            style={{
-                                                transform: "translate3d(-1432px, 0px, 0px)",
-                                                transition: "all 0.25s ease 0s",
-                                                width: 2506
-                                            }}
-                                        >
-                                            <div className="owl-item cloned" style={{ width: 358 }}>
-                                                <div className="item">
-                                                    <img
-                                                        src="assets/images/tradstreet.jpeg"
-                                                        className="img-fluid mb-4"
-                                                        alt="logo"
-                                                    />
-                                                    <h4 className="mb-1 text-white">Manage your orders</h4>
-                                                    <p>
-                                                        It is a long established fact that a reader will be
-                                                        distracted by the readable content.
-                                                    </p>
-                                                </div>
+                            <div
+                                className="owl-carousel owl-loaded owl-drag"
+                                data-autoplay="true"
+                                data-loop="true"
+                                data-nav="false"
+                                data-dots="true"
+                                data-items={1}
+                                data-items-laptop={1}
+                                data-items-tab={1}
+                                data-items-mobile={1}
+                                data-items-mobile-sm={1}
+                                data-margin={0}
+                            >
+                                <div className="owl-stage-outer">
+                                    <div
+                                        className="owl-stage"
+                                        style={{
+                                            transform: "translate3d(-1432px, 0px, 0px)",
+                                            transition: "all 0.25s ease 0s",
+                                            width: 2506
+                                        }}
+                                    >
+                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                            <div className="item">
+                                                <img
+                                                    src="assets/images/trqade.jpg"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                />
+                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p>
                                             </div>
-                                            <div className="owl-item cloned" style={{ width: 358 }}>
-                                                <div className="item">
-
-                                                </div>
-                                            </div>
-                                            <div className="owl-item" style={{ width: 358 }}>
-
-                                            </div>
-                                            <div className="owl-item" style={{ width: 358 }}>
-
-                                            </div>
-                                            <div className="owl-item active" style={{ width: 358 }}>
-                                                <div className="item">
-                                                    <img
-                                                        src="/assets/images/trqade.jpg"
-                                                        className="img-fluid mb-4"
-                                                        alt="logo"
-                                                        style={{ borderRadius: 20 }}
-                                                    />
-                                                    <h4 className="mb-1 text-white">Manage your orders</h4>
-                                                    <p>
-                                                        It is a long established fact that a reader will be
-                                                        distracted by the readable content.
-                                                    </p>
-                                                </div>
-                                            </div>
-
                                         </div>
-
+                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                            <div className="item">
+                                                {/* <img
+                                                    src="assets/images/login/3.png"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                />
+                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p> */}
+                                            </div>
+                                        </div>
+                                        <div className="owl-item" style={{ width: 358 }}>
+                                            {/* <div className="item">
+                                                <img
+                                                    src="assets/images/login/1.png"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                />
+                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p>
+                                            </div> */}
+                                        </div>
+                                        <div className="owl-item" style={{ width: 358 }}>
+                                            {/* <div className="item">
+                                                <img
+                                                    src="assets/images/login/2.png"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                />
+                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p>
+                                            </div> */}
+                                        </div>
+                                        <div className="owl-item active" style={{ width: 358 }}>
+                                            <div className="item">
+                                                <img
+                                                    src="/assets/images/trqade.jpg"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                    style={{ borderRadius: 20 }}
+                                                />
+                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                            <div className="item">
+                                                {/* <img
+                                                    src="assets/images/login/1.png"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                /> */}
+                                                {/* <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p> */}
+                                            </div>
+                                        </div>
+                                        <div className="owl-item cloned" style={{ width: 358 }}>
+                                            <div className="item">
+                                                {/* <img
+                                                    src="assets/images/login/2.png"
+                                                    className="img-fluid mb-4"
+                                                    alt="logo"
+                                                /> */}
+                                                {/* <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                <p>
+                                                    It is a long established fact that a reader will be
+                                                    distracted by the readable content.
+                                                </p> */}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="owl-nav disabled">
@@ -259,7 +267,15 @@ const Login = () => {
                                     </button>
                                 </div>
                                 <div className="owl-dots">
-
+                                    {/* <button role="button" className="owl-dot">
+                                        <span />
+                                    </button>
+                                    <button role="button" className="owl-dot">
+                                        <span />
+                                    </button>
+                                    <button role="button" className="owl-dot active">
+                                        <span />
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
@@ -342,9 +358,10 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
+            </div>
 
-            {
-            showModal && (
+
+            {showModal && (
                 <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
                     <div className="modal-dialog modal-dialog-centered modal-md">
                         <div className="modal-content" style={{ width: "600px" }}>
@@ -380,21 +397,6 @@ const Login = () => {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="input-block mb-3">
-                                            <label>Username</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter Email"
-                                                onChange={handleUsernameChange}
-                                                value={forgotPassUsername}
-                                            />
-                                            {usernameError && (
-                                                <div className="error-message" style={{ color: 'red' }}>
-                                                    {usernameError}
-                                                </div>
-                                            )}
-                                        </div>
                                     </div>
                                 </div>
                                 <div className="modal-footer">
@@ -412,8 +414,8 @@ const Login = () => {
                     </div>
                 </div>
             )
-        }
-        </section >
+            }
+        </section>
 
     );
 };
