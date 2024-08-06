@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import {Link} from 'react-router-dom'
-import { LoginPage , ForgotPassword } from '../CommonAPI/Common'
+import { Link } from 'react-router-dom'
+import { LoginPage, ForgotPassword } from '../CommonAPI/Common'
 
 const Login = () => {
     const [Username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [changeType, setChangeType] = useState("password");
     const [visiablity, setVisiablity] = useState("");
-    const [showModal , setShowModal] = useState(false)
-    const [forgotPassEmail , setForgotPassEmail] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [forgotPassEmail, setForgotPassEmail] = useState('')
     const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
-    
+
 
     const handleLogin = async (e) => {
         const data = { Username: Username, password: password }
@@ -70,41 +70,41 @@ const Login = () => {
     };
 
 
- 
-     
- 
 
-    const handleForgotPass = async() => {
-        if(!emailError){
-           const data = {Email: forgotPassEmail}
-          await ForgotPassword(data)
-          .then((response)=>{
-            if(response.Status){
-                Swal.fire({
-                    title: "Success",
-                    text:  response.Data,
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-                setShowModal(false)
-            }
-            else{
-                Swal.fire({
-                    title: "Error",
-                    text:  response.Data,
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
 
-            }
-          })
-          .catch((err)=>{
-            console.log("Error in sending the mail", err)
-          })
 
-        }   
+
+    const handleForgotPass = async () => {
+        if (!emailError) {
+            const data = { Email: forgotPassEmail }
+            await ForgotPassword(data)
+                .then((response) => {
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Success",
+                            text: response.Data,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        setShowModal(false)
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error",
+                            text: response.Data,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in sending the mail", err)
+                })
+
+        }
     };
 
     const validateEmail = (email) => {
@@ -124,7 +124,7 @@ const Login = () => {
         }
     };
 
- 
+
 
     return (
         <section className="sign-in-page">
@@ -173,7 +173,7 @@ const Login = () => {
                                         </div>
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
-                                                <img
+                                                {/* <img
                                                     src="assets/images/login/3.png"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
@@ -182,11 +182,11 @@ const Login = () => {
                                                 <p>
                                                     It is a long established fact that a reader will be
                                                     distracted by the readable content.
-                                                </p>
+                                                </p> */}
                                             </div>
                                         </div>
                                         <div className="owl-item" style={{ width: 358 }}>
-                                            <div className="item">
+                                            {/* <div className="item">
                                                 <img
                                                     src="assets/images/login/1.png"
                                                     className="img-fluid mb-4"
@@ -197,10 +197,10 @@ const Login = () => {
                                                     It is a long established fact that a reader will be
                                                     distracted by the readable content.
                                                 </p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="owl-item" style={{ width: 358 }}>
-                                            <div className="item">
+                                            {/* <div className="item">
                                                 <img
                                                     src="assets/images/login/2.png"
                                                     className="img-fluid mb-4"
@@ -211,7 +211,7 @@ const Login = () => {
                                                     It is a long established fact that a reader will be
                                                     distracted by the readable content.
                                                 </p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="owl-item active" style={{ width: 358 }}>
                                             <div className="item">
@@ -230,30 +230,30 @@ const Login = () => {
                                         </div>
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
-                                                <img
+                                                {/* <img
                                                     src="assets/images/login/1.png"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
-                                                />
-                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                /> */}
+                                                {/* <h4 className="mb-1 text-white">Manage your orders</h4>
                                                 <p>
                                                     It is a long established fact that a reader will be
                                                     distracted by the readable content.
-                                                </p>
+                                                </p> */}
                                             </div>
                                         </div>
                                         <div className="owl-item cloned" style={{ width: 358 }}>
                                             <div className="item">
-                                                <img
+                                                {/* <img
                                                     src="assets/images/login/2.png"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
-                                                />
-                                                <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                /> */}
+                                                {/* <h4 className="mb-1 text-white">Manage your orders</h4>
                                                 <p>
                                                     It is a long established fact that a reader will be
                                                     distracted by the readable content.
-                                                </p>
+                                                </p> */}
                                             </div>
                                         </div>
                                     </div>
@@ -267,7 +267,7 @@ const Login = () => {
                                     </button>
                                 </div>
                                 <div className="owl-dots">
-                                    <button role="button" className="owl-dot">
+                                    {/* <button role="button" className="owl-dot">
                                         <span />
                                     </button>
                                     <button role="button" className="owl-dot">
@@ -275,7 +275,7 @@ const Login = () => {
                                     </button>
                                     <button role="button" className="owl-dot active">
                                         <span />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
@@ -300,7 +300,7 @@ const Login = () => {
                                 </div>
                                 <div className="d-flex justify-content-between my-2">
                                     <label htmlFor="exampleInputPassword1">Password</label>
-                                    <a className="float-end border-none"  onClick={(e)=>setShowModal(!showModal)}>
+                                    <a className="float-end border-none" onClick={(e) => setShowModal(!showModal)}>
                                         Forgot password?
                                     </a>
                                 </div>
@@ -308,7 +308,7 @@ const Login = () => {
                                     <input
                                         type={changeType}
                                         className="form-control mb-0"
-                                        id="exampleInputPassword1"s
+                                        id="exampleInputPassword1" s
                                         placeholder="Enter Your Password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
@@ -327,7 +327,7 @@ const Login = () => {
                                     ></i>
                                 </div>
                                 <div className="d-flex w-100 justify-content-end  align-items-center mt-3 w-100">
-                                    
+
                                     <button type="submit" className="btn btn-primary float-end" onClick={handleLogin}>
                                         Sign in
                                     </button>
@@ -361,62 +361,62 @@ const Login = () => {
             </div>
 
 
-           { showModal && (
-            <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
-                <div className="modal-dialog modal-dialog-centered modal-md">
-                    <div className="modal-content" style={{width:"600px"}}>
-                        <div className="modal-header border-0 pb-0">
-                            <div className="form-header modal-header-title text-start mb-0">
-                                <h4 className="mb-0">Forgot Password</h4>
+            {showModal && (
+                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered modal-md">
+                        <div className="modal-content" style={{ width: "600px" }}>
+                            <div className="modal-header border-0 pb-0">
+                                <div className="form-header modal-header-title text-start mb-0">
+                                    <h4 className="mb-0">Forgot Password</h4>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(!showModal)}
+                                />
                             </div>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                onClick={() => setShowModal(!showModal)}
-                            />
-                        </div>
-                        <div>
-                            <div className="modal-body">
-                                <div className="row">
-                                    <div className="col-lg-12 col-sm-12">
-                                        <div className="input-block mb-3">
-                                            <label>Email</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter Email"
-                                                onChange={handleEmailChange}
-                                                value={forgotPassEmail}
-                                            />
-                                            {emailError && (
-                                                <div className="error-message" style={{color: 'red'}}>
-                                                    {emailError}
-                                                </div>
-                                            )}
+                            <div>
+                                <div className="modal-body">
+                                    <div className="row">
+                                        <div className="col-lg-12 col-sm-12">
+                                            <div className="input-block mb-3">
+                                                <label>Email</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Enter Email"
+                                                    onChange={handleEmailChange}
+                                                    value={forgotPassEmail}
+                                                />
+                                                {emailError && (
+                                                    <div className="error-message" style={{ color: 'red' }}>
+                                                        {emailError}
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    type="submit"
-                                    data-bs-dismiss="modal"
-                                    className="btn btn-primary paid-continue-btn"
-                                    onClick={handleForgotPass}
-                                >
-                                    Send
-                                </button>
+                                <div className="modal-footer">
+                                    <button
+                                        type="submit"
+                                        data-bs-dismiss="modal"
+                                        className="btn btn-primary paid-continue-btn"
+                                        onClick={handleForgotPass}
+                                    >
+                                        Send
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
-    }
+            )
+            }
         </section>
-    
+
     );
 };
 

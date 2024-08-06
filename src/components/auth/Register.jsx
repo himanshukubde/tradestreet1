@@ -103,7 +103,7 @@ const Register = () => {
                                                 </div>
                                             </div>
                                             <div className="owl-item cloned" style={{ width: 358 }}>
-                                                <div className="item">
+                                                {/* <div className="item">
                                                     <img
                                                         src="assets/images/login/3.png"
                                                         className="img-fluid mb-4"
@@ -114,10 +114,10 @@ const Register = () => {
                                                         It is a long established fact that a reader will be
                                                         distracted by the readable content.
                                                     </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="owl-item" style={{ width: 358 }}>
-                                                <div className="item">
+                                                {/* <div className="item">
                                                     <img
                                                         src="assets/images/login/1.png"
                                                         className="img-fluid mb-4"
@@ -128,10 +128,10 @@ const Register = () => {
                                                         It is a long established fact that a reader will be
                                                         distracted by the readable content.
                                                     </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="owl-item" style={{ width: 358 }}>
-                                                <div className="item">
+                                                {/* <div className="item">
                                                     <img
                                                         src="assets/images/login/2.png"
                                                         className="img-fluid mb-4"
@@ -142,7 +142,7 @@ const Register = () => {
                                                         It is a long established fact that a reader will be
                                                         distracted by the readable content.
                                                     </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="owl-item active" style={{ width: 358 }}>
                                                 <div className="item">
@@ -160,7 +160,7 @@ const Register = () => {
                                                 </div>
                                             </div>
                                             <div className="owl-item cloned" style={{ width: 358 }}>
-                                                <div className="item">
+                                                {/* <div className="item">
                                                     <img
                                                         src="assets/images/login/1.png"
                                                         className="img-fluid mb-4"
@@ -171,7 +171,7 @@ const Register = () => {
                                                         It is a long established fact that a reader will be
                                                         distracted by the readable content.
                                                     </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
@@ -198,7 +198,7 @@ const Register = () => {
                                         </button>
                                     </div>
                                     <div className="owl-dots">
-                                        <button role="button" className="owl-dot">
+                                        {/* <button role="button" className="owl-dot">
                                             <span />
                                         </button>
                                         <button role="button" className="owl-dot">
@@ -206,7 +206,7 @@ const Register = () => {
                                         </button>
                                         <button role="button" className="owl-dot active">
                                             <span />
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             </div>
