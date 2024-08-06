@@ -63,9 +63,9 @@ const Register = () => {
                     <div className="row no-gutters">
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
-                                {/* <a className="sign-in-logo mb-5" href="index.html">
-                                    <img src="assets/images/logo-white.png" className="img-fluid" alt="logo" />
-                                </a> */}
+                                <a className="sign-in-logo mb-5" href="index.html">
+                                    <img src="assets/images/vision-logo-white1.png" className="img-fluid" alt="logo" />
+                                </a>
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"
                                     data-autoplay="true"
@@ -91,7 +91,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/trqade.jpg"
+                                                        src="assets/images/tradesoft.jpg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -147,16 +147,16 @@ const Register = () => {
                                             <div className="owl-item active" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="/assets/images/trqade.jpg"
+                                                        src="/assets/images/tradesoft.jpg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
-                                                        style={{ borderRadius: 20 }}
+                                                        style={{ borderRadius: "20px", marginLeft: "54px" }}
                                                     />
-                                                    <h4 className="mb-1 text-white">Manage your orders</h4>
+                                                    {/* <h4 className="mb-1 text-white">Manage your orders</h4>
                                                     <p>
                                                         It is a long established fact that a reader will be
                                                         distracted by the readable content.
-                                                    </p>
+                                                    </p> */}
                                                 </div>
                                             </div>
                                             <div className="owl-item cloned" style={{ width: 358 }}>
