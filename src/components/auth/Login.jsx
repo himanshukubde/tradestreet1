@@ -133,7 +133,7 @@ const Login = () => {
                     <div className="col-md-6 text-center">
                         <div className="sign-in-detail text-white">
                             <a className="sign-in-logo mb-5" href="index.html">
-                                <img src="assets/images/vision-logo-white1.png" className="img-fluid" alt="logo" />
+                                <img src="assets/images/inalgologo.png" className="img-fluid" alt="logo" />
                             </a>
                             <div
                                 className="owl-carousel owl-loaded owl-drag"
@@ -219,7 +219,7 @@ const Login = () => {
                                                     src="/assets/images/tradesoft.jpg"
                                                     className="img-fluid mb-4"
                                                     alt="logo"
-                                                    style={{ borderRadius: "20px" , marginLeft:"54px" }}
+                                                    style={{ borderRadius: "20px", }}
                                                 />
                                                 {/* <h4 className="mb-1 text-white">Manage your orders</h4>
                                                 <p>
