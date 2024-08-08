@@ -3313,6 +3313,7 @@ button.close-popup {
 
 .custom-switch.custom-switch-text .custom-control-label {
   width: 46px;
+  margin-left: 15px;
 }
 
 .custom-switch.custom-switch-icon .custom-control-label::before,
