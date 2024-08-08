@@ -232,7 +232,7 @@ const Header = () => {
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
 
                             <button
-                                className="navbar-toggler"
+                                className="navbar-toggler ms-3 mt-3"
                                 type="button"
                                 data-bs-toggle="collapse"
                                 href="#navbarSupportedContent"
@@ -242,6 +242,18 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
+                            <div className="iq-menu-bt-sidebar">
+                                <div className="iq-menu-bt align-self-center">
+                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
+                                        <div className="main-circle">
+                                            <i className="ri-more-fill" />
+                                        </div>
+                                        <div className="hover-circle">
+                                            <i className="ri-more-2-fill" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="iq-menu-bt align-self-center">
                                 <div className="wrapper-menu">
                                     <div className="main-circle">
@@ -258,7 +270,7 @@ const Header = () => {
                                     <li className="nav-item">
                                         <button
                                             type="button"
-                                            className="btn btn-primary"
+                                            className="btn btn-primary mt-3 btn1"
                                             onClick={(e) => setIsModalVisible(true)}
                                         >
                                             Set API Key
@@ -329,6 +341,20 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
+
+                                <div className="iq-menu-bt-sidebar">
+                                    <div className="iq-menu-bt align-self-center">
+                                        <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
+                                            <div className="main-circle">
+                                                <i className="ri-more-fill" />
+                                            </div>
+                                            <div className="hover-circle">
+                                                <i className="ri-more-2-fill" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             <div className="iq-menu-bt align-self-center">
                                 <div className="wrapper-menu">
                                     <div className="main-circle">
