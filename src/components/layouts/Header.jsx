@@ -322,6 +322,8 @@ const Header = () => {
                     {role === 'Admin' ? (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
 
+
+                            <button className='btn btn-primary mx-4' onClick={() => setShowModal(true)}>Auto Login</button>
                             <button
                                 className="navbar-toggler ms-3 mt-3"
                                 type="button"
@@ -434,9 +436,6 @@ const Header = () => {
                                 aria-label="Toggle navigation"
                             >
                                 <i className="ri-menu-3-line" />
-                            </button>
-                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
-                                <i className="ri-more-fill" />
                             </button>
 
                             <div className="iq-menu-bt-sidebar">
