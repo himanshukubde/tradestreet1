@@ -435,6 +435,9 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
+                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                                <i className="ri-more-fill" />
+                            </button>
 
                             <div className="iq-menu-bt-sidebar">
                                 <div className="iq-menu-bt align-self-center">
