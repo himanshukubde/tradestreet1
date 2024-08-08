@@ -10,6 +10,25 @@ import {LastPattern , DataStart , AutoLogin} from '../CommonAPI/Admin'
 
 
 const Header = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    useEffect(() => {
+        // Remove sidebar-main class on initial load
+        document.body.classList.remove('sidebar-main');
+
+        if (isSidebarOpen) {
+            document.body.classList.add('sidebar-main');
+        } else {
+            document.body.classList.remove('sidebar-main');
+        }
+    }, [isSidebarOpen]);
+
+
+
     const navigate = useNavigate();
     const role = localStorage.getItem("Role");
     const Username = localStorage.getItem("name");
@@ -303,14 +322,49 @@ const Header = () => {
                     {role === 'Admin' ? (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
 
+                            <button
+                                className="navbar-toggler ms-3 mt-3"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                href="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                                <i className="ri-menu-3-line" />
+                            </button>
+                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                                <i className="ri-more-fill" />
+                            </button>
 
-                            <button className='btn btn-primary mx-4' onClick={() => setShowModal(true)}>Auto Login</button>
+                            {/* <div className="iq-menu-bt-sidebar">
+                                <div className="iq-menu-bt align-self-center">
+                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
+                                        <div className="main-circle">
+                                            <i className="ri-more-fill" />
+                                        </div>
+                                        <div className="hover-circle">
+                                            <i className="ri-more-2-fill" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div className="iq-menu-bt align-self-center" style={{ color: "#000" }} onClick={toggleSidebar}>
+                                <div className="wrapper-menu">
+                                    <div className="main-circle">
+                                        <i className="ri-more-fill" />
+                                    </div>
+                                    <div className="hover-circle">
+                                        <i className="ri-more-2-fill" />
+                                    </div>
+                                </div>
+                            </div> */}
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     <li className="nav-item">
                                         <button
                                             type="button"
-                                            className="btn btn-primary"
+                                            className="btn btn-primary mt-3 btn1"
                                             onClick={(e) => setIsModalVisible(true)}
                                         >
                                             Set API Key
@@ -381,6 +435,20 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
+
+                            <div className="iq-menu-bt-sidebar">
+                                <div className="iq-menu-bt align-self-center">
+                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
+                                        <div className="main-circle">
+                                            <i className="ri-more-fill" />
+                                        </div>
+                                        <div className="hover-circle">
+                                            <i className="ri-more-2-fill" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="iq-menu-bt align-self-center">
                                 <div className="wrapper-menu">
                                     <div className="main-circle">

@@ -569,7 +569,7 @@ a:hover {
   bottom: 0;
   left: 0;
   right: 270px;
-  z-index: 1;
+  z-index: -1;
   border-radius: 40px;
   background: rgba(8, 155, 171, 1);
   background: -moz-linear-gradient(left, rgba(8, 155, 171, 1) 0%, rgba(13, 181, 200, 1) 100%);
@@ -1020,6 +1020,7 @@ body.sidebar-main .iq-sidebar:hover .iq-menu li.menu-open>a {
 }
 
 .navbar-list {
+  display: block;
   margin: 0;
   padding: 0;
   float: right;
@@ -1290,7 +1291,7 @@ body.sidebar-main .iq-menu-bt-sidebar .iq-menu-bt {
 .wrapper-menu {
   font-size: 30px;
   line-height: 15px;
-  color: #ffffff;
+  color: #000;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1340,6 +1341,7 @@ body.sidebar-main .iq-menu-bt-sidebar .iq-menu-bt {
   right: 0;
   margin: 0 auto;
   border-radius: 50%;
+
 }
 
 .wrapper-menu.open .hover-circle {
@@ -5000,7 +5002,6 @@ Rtl Switch
 
 @media (max-width: 1699px) {
   .sign-in-detail {
-
     position: relative !important;
   }
 }
@@ -5167,7 +5168,7 @@ body.sidebar-main .iq-sidebar {
 }
 
 .iq-card .iq-card-header {
-  padding: 1px 6px !important;
+  padding: 1px 18px !important;
 }
 
 .input-container {
@@ -5351,4 +5352,8 @@ body.sidebar-main .iq-sidebar {
   /* background-color: rgba(0, 0, 0, 0.5); */
   backdrop-filter: blur(5px);
   /* z-index: 99; */
+}
+
+button.btn.btn-primary.btn1 {
+  margin-top: 21px !important;
 }
