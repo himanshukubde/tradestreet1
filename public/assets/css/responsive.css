@@ -186,7 +186,7 @@ body.sidebar-main .iq-sidebar:hover+div.content-page .iq-top-navbar.fixed-header
 }
 
 /* Responsive styles for screens smaller than 1200px */
-@media (max-width: 1199px) {
+@media (max-width: 991px) {
 	.hover-circle {
 		opacity: 0;
 		position: absolute;
