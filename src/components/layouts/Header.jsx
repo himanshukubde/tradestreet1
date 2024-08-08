@@ -9,6 +9,25 @@ import Swal from 'sweetalert2';
 
 
 const Header = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    useEffect(() => {
+        // Remove sidebar-main class on initial load
+        document.body.classList.remove('sidebar-main');
+
+        if (isSidebarOpen) {
+            document.body.classList.add('sidebar-main');
+        } else {
+            document.body.classList.remove('sidebar-main');
+        }
+    }, [isSidebarOpen]);
+
+
+
     const navigate = useNavigate();
     const role = localStorage.getItem("Role");
     const Username = localStorage.getItem("name");
@@ -242,7 +261,11 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
-                            <div className="iq-menu-bt-sidebar">
+                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                                <i className="ri-more-fill" />
+                            </button>
+
+                            {/* <div className="iq-menu-bt-sidebar">
                                 <div className="iq-menu-bt align-self-center">
                                     <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
                                         <div className="main-circle">
@@ -253,8 +276,8 @@ const Header = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="iq-menu-bt align-self-center">
+                            </div> 
+                            <div className="iq-menu-bt align-self-center" style={{ color: "#000" }} onClick={toggleSidebar}>
                                 <div className="wrapper-menu">
                                     <div className="main-circle">
                                         <i className="ri-more-fill" />
@@ -263,7 +286,7 @@ const Header = () => {
                                         <i className="ri-more-2-fill" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
 
@@ -342,19 +365,19 @@ const Header = () => {
                                 <i className="ri-menu-3-line" />
                             </button>
 
-                                <div className="iq-menu-bt-sidebar">
-                                    <div className="iq-menu-bt align-self-center">
-                                        <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
-                                            <div className="main-circle">
-                                                <i className="ri-more-fill" />
-                                            </div>
-                                            <div className="hover-circle">
-                                                <i className="ri-more-2-fill" />
-                                            </div>
+                            <div className="iq-menu-bt-sidebar">
+                                <div className="iq-menu-bt align-self-center">
+                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
+                                        <div className="main-circle">
+                                            <i className="ri-more-fill" />
+                                        </div>
+                                        <div className="hover-circle">
+                                            <i className="ri-more-2-fill" />
                                         </div>
                                     </div>
                                 </div>
-                                
+                            </div>
+
                             <div className="iq-menu-bt align-self-center">
                                 <div className="wrapper-menu">
                                     <div className="main-circle">

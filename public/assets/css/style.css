@@ -1291,7 +1291,7 @@ body.sidebar-main .iq-menu-bt-sidebar .iq-menu-bt {
 .wrapper-menu {
   font-size: 30px;
   line-height: 15px;
-  color: #ffffff;
+  color: #000;
   position: relative;
   display: flex;
   flex-direction: column;
