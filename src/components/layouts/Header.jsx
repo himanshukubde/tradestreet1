@@ -438,20 +438,11 @@ const Header = () => {
                                 <i className="ri-menu-3-line" />
                             </button>
 
-                            <div className="iq-menu-bt-sidebar">
-                                <div className="iq-menu-bt align-self-center">
-                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
-                                        <div className="main-circle">
-                                            <i className="ri-more-fill" />
-                                        </div>
-                                        <div className="hover-circle">
-                                            <i className="ri-more-2-fill" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                                <i className="ri-more-fill" />
+                            </button>
 
-                            <div className="iq-menu-bt align-self-center">
+                            {/* <div className="iq-menu-bt align-self-center">
                                 <div className="wrapper-menu">
                                     <div className="main-circle">
                                         <i className="ri-more-fill" />
@@ -460,7 +451,7 @@ const Header = () => {
                                         <i className="ri-more-2-fill" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -517,7 +508,7 @@ const Header = () => {
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
-                                                        className="btn btn-primary"
+                                                        className="btn btn-primary mt-4 btn1"
                                                         onClick={(e) => setIsModalVisible(true)}
                                                     >
                                                         Set API Key
