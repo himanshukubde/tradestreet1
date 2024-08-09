@@ -5104,6 +5104,10 @@ a {
   background: #3f414d !important;
 }
 
+.MuiTable-root td :first-child {
+  display: none !important;
+}
+
 .tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
   position: -webkit-sticky;
   position: sticky;
@@ -5166,6 +5170,9 @@ body.sidebar-main .iq-sidebar {
     width: 90%;
     /* Adjust width for smaller screens */
   }
+    .MuiTable-root td :first-child {
+      display: none !important;
+    }
 }
 
 .iq-card .iq-card-header {

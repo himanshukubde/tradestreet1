@@ -297,8 +297,9 @@ body.sidebar-main .iq-sidebar:hover+div.content-page .iq-top-navbar.fixed-header
 
 /* Responsive styles for screens smaller than 768px */
 @media (max-width: 767px) {
-
-
+	.MuiTable-root td :first-child {
+			display: none !important;
+		}
 	body.sidebar-main-menu .iq-sidebar {
 		width: 0px;
 
