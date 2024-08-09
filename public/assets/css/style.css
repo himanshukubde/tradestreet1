@@ -1261,7 +1261,7 @@ div#lottie-fullscreen svg path {
 }
 
 .iq-sidebar-logo img {
-  height: 46px;
+  height: 45px;
   object-fit: cover;
   /* width: 80px; */
 }
@@ -5170,9 +5170,10 @@ body.sidebar-main .iq-sidebar {
     width: 90%;
     /* Adjust width for smaller screens */
   }
-    .MuiTable-root td :first-child {
-      display: none !important;
-    }
+
+  .MuiTable-root td :first-child {
+    display: none !important;
+  }
 }
 
 .iq-card .iq-card-header {
