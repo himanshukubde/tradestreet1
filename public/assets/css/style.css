@@ -5165,15 +5165,28 @@ body.sidebar-main .iq-sidebar {
 
 }
 
+@media (max-width: 900px) {
+  .MuiTable-root td :first-child {
+    display: none !important;
+  }
+
+  .MuiTable-root td :last-child {
+    display: block !important;
+  }
+
+  .MUIDataTableBodyCell-root td :first-child {
+    display: none;
+  }
+
+}
+
 @media (max-width: 768px) {
   .custom-width-modal {
     width: 90%;
     /* Adjust width for smaller screens */
   }
 
-  .MuiTable-root td :first-child {
-    display: none !important;
-  }
+
 }
 
 .iq-card .iq-card-header {

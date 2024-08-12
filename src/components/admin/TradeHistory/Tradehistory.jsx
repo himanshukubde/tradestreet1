@@ -443,7 +443,7 @@ const Tradehistory = () => {
                         <div className="iq-card-body">
                             <div className="was-validated ">
                                 <div className='row'>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-md-3 col-sm-6">
                                         <label>Select Username</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setSelectGroup(e.target.value)}
@@ -457,7 +457,7 @@ const Tradehistory = () => {
                                             })}
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-md-3  col-sm-6">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setStrategyType(e.target.value)}
@@ -468,12 +468,20 @@ const Tradehistory = () => {
 
                                         </select>
                                     </div>
+<<<<<<< HEAD
                                     <div className="form-group col-lg-3">
+=======
+                                    <div className="form-group col-md-3 col-sm-6">
+>>>>>>> cd0fef63df75903842ebe0b3e93ae133fcba642f
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select"   selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
+<<<<<<< HEAD
                                     <div className="form-group col-lg-3 ">
+=======
+                                    <div className="form-group col-md-3 col-sm-6">
+>>>>>>> cd0fef63df75903842ebe0b3e93ae133fcba642f
                                         <label>Select To Date</label>
                                         <DatePicker className="form-select"  selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
