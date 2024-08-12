@@ -5103,9 +5103,9 @@ a {
   background: #3f414d !important;
 }
 
-.MuiTable-root td :first-child {
+/* .MuiTable-root td :first-child {
   display: none !important;
-}
+} */
 
 .tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
   position: -webkit-sticky;
@@ -5172,6 +5172,14 @@ body.sidebar-main .iq-sidebar {
 
   .MuiTable-root td :first-child {
     display: none !important;
+  }
+
+  .MuiTable-root td :last-child {
+    display: block !important;
+  }
+
+  .MUIDataTableBodyCell-root td :first-child {
+    display: none;
   }
 }
 
