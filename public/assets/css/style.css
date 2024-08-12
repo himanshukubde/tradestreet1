@@ -5104,9 +5104,9 @@ a {
   background: #3f414d !important;
 }
 
-.MuiTable-root td :first-child {
+/* .MuiTable-root td :first-child {
   display: none !important;
-}
+} */
 
 .tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
   position: -webkit-sticky;
