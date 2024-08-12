@@ -468,20 +468,12 @@ const Tradehistory = () => {
 
                                         </select>
                                     </div>
-<<<<<<< HEAD
-                                    <div className="form-group col-lg-3">
-=======
                                     <div className="form-group col-md-3 col-sm-6">
->>>>>>> cd0fef63df75903842ebe0b3e93ae133fcba642f
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select"   selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
-<<<<<<< HEAD
-                                    <div className="form-group col-lg-3 ">
-=======
                                     <div className="form-group col-md-3 col-sm-6">
->>>>>>> cd0fef63df75903842ebe0b3e93ae133fcba642f
                                         <label>Select To Date</label>
                                         <DatePicker className="form-select"  selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
