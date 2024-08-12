@@ -63,7 +63,7 @@ const Register = () => {
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
                                 <a className="sign-in-logo mb-5">
-                                    <img src="assets/images/vision-logo-white1.png" className="img-fluid" alt="logo" />
+                                    <img src="assets/images/trade-logo.png" className="img-fluid" alt="logo" />
                                 </a>
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"
