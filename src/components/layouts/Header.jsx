@@ -251,7 +251,7 @@ const Header = () => {
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
 
                             <button
-                                className="navbar-toggler ms-3 mt-3"
+                                className="navbar-toggler ms-3"
                                 type="button"
                                 data-bs-toggle="collapse"
                                 href="#navbarSupportedContent"
