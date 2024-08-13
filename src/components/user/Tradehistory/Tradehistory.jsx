@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { get_User_Data, get_Trade_History, get_PnL_Data, get_EQuityCurveData, get_DrapDownData, get_FiveMostProfitTrade, get_FiveMostLossTrade } from '../../CommonAPI/Admin'
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
-import {get_Trade_Data} from '../../CommonAPI/User'
+import { get_Trade_Data } from '../../CommonAPI/User'
 import DatePicker from "react-datepicker";
 
 import { AgChartsReact } from "ag-charts-react";
@@ -10,7 +10,7 @@ import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import {columns8 , columns7 , columns6 , columns5 , columns4  , columns3 , columns2 , columns1 , columns} from './TradeHistoryColumn'
+import { columns8, columns7, columns6, columns5, columns4, columns3, columns2, columns1, columns } from './TradeHistoryColumn'
 const Tradehistory = () => {
 
     const [selectStrategyType, setStrategyType] = useState('')
@@ -19,13 +19,13 @@ const Tradehistory = () => {
     const [ToDate, setToDate] = useState('');
     const [FromDate, setFromDate] = useState('');
     const [showTable, setShowTable] = useState(false)
-    const [report , setReport] = useState({
-        loading: true , 
-        data1:[], 
-        data2:[]
+    const [report, setReport] = useState({
+        loading: true,
+        data1: [],
+        data2: []
     })
 
-  
+
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
@@ -33,7 +33,7 @@ const Tradehistory = () => {
         data2: "",
         data3: "",
         data4: "",
-        Overall:[]
+        Overall: []
     })
     const [getPnLData, setPnlData] = useState({
         loading: true,
@@ -127,7 +127,7 @@ const Tradehistory = () => {
         GetTradeHistory()
     }, [selectStrategyType])
 
-  
+
 
 
 
@@ -136,7 +136,7 @@ const Tradehistory = () => {
         setSelectedRowData(rowData);
     };
 
- 
+
     const handleSubmit = async () => {
         const data = {
             MainStrategy: selectStrategyType,
@@ -147,9 +147,9 @@ const Tradehistory = () => {
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
             To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
-            
-            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN  : "",
-            
+
+            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN : "",
+
             TradePattern: "",
             PatternName: ""
         }
@@ -165,7 +165,7 @@ const Tradehistory = () => {
                         data2: response.profitconcount,
                         data3: response.lossconcount,
                         data4: response.lossconsistant,
-                        Overall : response.Overall
+                        Overall: response.Overall
 
                     })
                     setShowTable(true)
@@ -184,7 +184,7 @@ const Tradehistory = () => {
                         data2: "",
                         data3: "",
                         data4: "",
-                        Overall:[]
+                        Overall: []
 
                     })
                 }
@@ -193,8 +193,8 @@ const Tradehistory = () => {
                 console.log("Error in finding the All TradeData", err)
             })
 
-         
-        
+
+
         //GET PNL DATA
         await get_PnL_Data(data)
             .then((response) => {
@@ -316,8 +316,8 @@ const Tradehistory = () => {
             })
 
 
-       // Get Trade Report 
-       await get_Trade_Data(data)
+        // Get Trade Report 
+        await get_Trade_Data(data)
 
             .then((response) => {
                 if (response.Status) {
@@ -326,7 +326,7 @@ const Tradehistory = () => {
                         data1: response.Data1,
                         data2: response.Data2
                     })
-                    
+
                 }
                 else {
                     Swal.fire({
@@ -346,7 +346,7 @@ const Tradehistory = () => {
             .catch((err) => {
                 console.log("Error in finding the All TradeData", err)
             })
-    
+
     }
 
 
@@ -453,7 +453,7 @@ const Tradehistory = () => {
                             <div className="was-validated ">
                                 <div className='row'>
 
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setStrategyType(e.target.value)}
@@ -464,14 +464,14 @@ const Tradehistory = () => {
 
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-3 ">
+                                    <div className="form-group col-lg-4 ">
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select custom-date" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -526,7 +526,7 @@ const Tradehistory = () => {
 
 
                                     {/* cp */}
- 
+
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns7()}
@@ -537,7 +537,7 @@ const Tradehistory = () => {
                                     </div>
 
 
-                                     
+
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns8()}
