@@ -187,17 +187,17 @@ const Pannel = () => {
                         <div className="iq-card-body">
                             <div>
                                 <div className='row'>
-                                    <div className="form-group col-lg-3 ">
+                                    <div className="form-group col-lg-4">
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select" selected={fromDate == '' ? formattedDate : fromDate} onChange={(date) => setFromData(date)} />
                                     </div>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Select To Date</label>
                                         <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToData(date)} />
                                     </div>
-                                    <div className="form-group col-md-4">
+                                    <div className="form-group col-lg-4">
                                         <label htmlFor="email">Activity</label>
-                                        <select className="form-select my-2" required=""
+                                        <select className="form-select" required=""
                                             onChange={(e) => setActivity(e.target.value)}
                                             value={getActivity}>
                                             <option value="">All Activity</option>

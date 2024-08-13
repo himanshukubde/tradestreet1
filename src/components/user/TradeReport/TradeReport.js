@@ -165,7 +165,7 @@ const TradeReport = () => {
                             <div className="was-validated ">
                                 <div className='row'>
 
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Select Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setStrategyType(e.target.value)}
@@ -176,12 +176,12 @@ const TradeReport = () => {
 
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-3 ">
+                                    <div className="form-group col-lg-4">
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
-                                    <div className="form-group col-lg-3">
+                                    <div className="form-group col-lg-4">
                                         <label>Select To Date</label>
                                         <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
