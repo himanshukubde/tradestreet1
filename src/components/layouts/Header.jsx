@@ -243,7 +243,7 @@ const Header = () => {
                         <div className="top-logo">
                             <a href="index.html" className="logo">
                                 <img src="assets/images/logo.png" className="img-fluid" alt="" />
-                                <span>XRay</span>
+                                {/* <span>XRay</span> */}
                             </a>
                         </div>
                     </div>
@@ -293,7 +293,7 @@ const Header = () => {
                                     <li className="nav-item">
                                         <button
                                             type="button"
-                                            className="btn btn-primary mt-3 btn1"
+                                            className="btn btn-primary mt-3 mx-3 btn1"
                                             onClick={(e) => setIsModalVisible(true)}
                                         >
                                             Set API Key

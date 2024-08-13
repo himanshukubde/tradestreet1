@@ -11,7 +11,7 @@ const Strategygroup = () => {
         data: []
     });
     const [showModal, setShowModal] = useState(false);
-    const [refresh , setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const columns = [
         {
@@ -277,8 +277,8 @@ const Strategygroup = () => {
 
             {showModal && (
                 <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
-                    <div className="modal-dialog modal-dialog-centered modal-xl">
-                        <div className="modal-content" style={{ width: '40rem', marginLeft:"12rem" }}>
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+                        <div className="modal-content">
                             <div className="modal-header border-0 pb-0">
                                 <div className="form-header modal-header-title text-start mb-0">
                                     <h4 className="mb-0">Add New Group</h4>
