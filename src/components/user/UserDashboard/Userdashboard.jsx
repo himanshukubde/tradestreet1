@@ -492,7 +492,7 @@ const Userdashboard = () => {
                             <div className='row'>
                                 {activeTab1 === 'CurrentPosition' && (
                                     <div className='d-flex'>
-                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
                                             <div className='px-3'>
 
                                                 <label>Type</label>
@@ -505,7 +505,7 @@ const Userdashboard = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-md-6' : 'col-md-4' }`}>
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
                                             <div className='px-3'>
                                                 <label>Strategy Type</label>
                                                 <select className="form-select" required=""

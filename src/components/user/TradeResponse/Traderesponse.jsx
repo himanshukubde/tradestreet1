@@ -179,7 +179,7 @@ const TradeResponse = () => {
                                             <option value={"Pattern"}>Pattern Script</option>
                                         </select>
                                     </div>
-                                    <div className="form-group col-lg-4 ">
+                                    <div className="form-group col-lg-4">
                                         <label>Select form Date</label>
                                         <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
                                     </div>

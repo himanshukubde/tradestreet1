@@ -3,7 +3,7 @@ import { GetGroupNames, Get_All_Service, get_User_Data } from '../../CommonAPI/A
 import { Eye, Trash2 } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
-import {ReportColumns5 , ReportColumns4 , ReportColumns3} from './UserAllColumn'
+import { ReportColumns5, ReportColumns4, ReportColumns3 } from './UserAllColumn'
 
 const Userlog = () => {
 
@@ -135,7 +135,7 @@ const Userlog = () => {
                 filter: true,
                 sort: true,
             }
-        }, 
+        },
         {
             name: "SingleScript",
             label: "Multi Directional",
@@ -144,8 +144,8 @@ const Userlog = () => {
                 sort: true,
             }
         },
-       
-       
+
+
     ];
 
     const columns1 = [
@@ -549,7 +549,7 @@ const Userlog = () => {
                             <div className="was-validated ">
                                 <div className='d-flex'>
 
-                                    <div className="form-group col-md-4s ms-2">
+                                    <div className="form-group col-md-4 ms-2">
                                         <label>Strategy Type</label>
                                         <select className="form-select" required=""
                                             onChange={(e) => setStrategyType(e.target.value)}

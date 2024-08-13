@@ -5379,3 +5379,15 @@ body.sidebar-main .iq-sidebar {
 button.btn.btn-primary.btn1 {
   margin-top: 21px !important;
 }
+
+.react-datepicker-wrapper {
+  width: 100% !important;
+}
+
+@media (max-width: 767px) {
+
+.col-md-2.ms-3.mt-4.strategy {
+    margin-bottom: 10px;
+  }
+
+}

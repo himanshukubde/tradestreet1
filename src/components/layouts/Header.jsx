@@ -315,7 +315,7 @@ const Header = () => {
                         <div className="top-logo">
                             <a href="index.html" className="logo">
                                 <img src="assets/images/logo.png" className="img-fluid" alt="" />
-                                <span>XRay</span>
+                                {/* <span>XRay</span> */}
                             </a>
                         </div>
                     </div>
@@ -325,7 +325,7 @@ const Header = () => {
 
                             <button className='btn btn-primary mx-4' onClick={() => setShowModal(true)}>Auto Login</button>
                             <button
-                                className="navbar-toggler ms-3 mt-3"
+                                className="navbar-toggler ms-3"
                                 type="button"
                                 data-bs-toggle="collapse"
                                 href="#navbarSupportedContent"
@@ -335,7 +335,7 @@ const Header = () => {
                             >
                                 <i className="ri-menu-3-line" />
                             </button>
-                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                            <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
 
@@ -366,7 +366,7 @@ const Header = () => {
                                     <li className="nav-item">
                                         <button
                                             type="button"
-                                            className="btn btn-primary mt-3 btn1"
+                                            className="btn btn-primary mt-3 mx-3 btn1"
                                             onClick={(e) => setIsModalVisible(true)}
                                         >
                                             Set API Key
@@ -438,7 +438,7 @@ const Header = () => {
                                 <i className="ri-menu-3-line" />
                             </button>
 
-                            <button className='me-3 mt-2 menusidebar' onClick={toggleSidebar}>
+                            <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
 

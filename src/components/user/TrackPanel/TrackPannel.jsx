@@ -47,7 +47,7 @@ const Pannel = () => {
         }
     };
 
- 
+
     const GetSortTypeName = async () => {
         const data = { userName: userName }
         await GetName(data)
@@ -123,71 +123,138 @@ const Pannel = () => {
         }
 
 
-await Get_Panle_Logs(data)
-    .then((response) => {
-        if (response.Status) {
-            const filterData = response.PanelDetails.filter((item) => {
-                const matchedData  = getActivity=='' || item.Activity.toLowerCase()== getActivity.toLowerCase();
+        await Get_Panle_Logs(data)
+            .then((response) => {
+                if (response.Status) {
+                    const filterData = response.PanelDetails.filter((item) => {
+                        const matchedData = getActivity == '' || item.Activity.toLowerCase() == getActivity.toLowerCase();
 
-                return matchedData
-                // if (getActivity == '') {
-                //     return item
-                // }
-                // else if (getActivity == 1) {
-                //     return item.Activity == 'Login'
-                // }
-                // else if (getActivity == 2) {
-                //     return item.Activity == 'Broker Update'
-                // }
-                // else if (getActivity == 3) {
-                //     return item.Activity == 'Add Script'
-                // }
-                // else if (getActivity == 4) {
-                //     return item.Activity == 'Continue Script'
-                // }
-                // else if (getActivity == 5) {
-                //     return item.Activity == 'Connect with Broker'
-                // }
-                // else if (getActivity == 6) {
-                //     return item.Activity == 'Update Script'
-                // }
-                // else if (getActivity == 7) {
-                //     return item.Activity == 'Square Script'
-                // }
-                // else return item
-            })
+                        return matchedData
+                        // if (getActivity == '') {
+                        //     return item
+                        // }
+                        // else if (getActivity == 1) {
+                        //     return item.Activity == 'Login'
+                        // }
+                        // else if (getActivity == 2) {
+                        //     return item.Activity == 'Broker Update'
+                        // }
+                        // else if (getActivity == 3) {
+                        //     return item.Activity == 'Add Script'
+                        // }
+                        // else if (getActivity == 4) {
+                        //     return item.Activity == 'Continue Script'
+                        // }
+                        // else if (getActivity == 5) {
+                        //     return item.Activity == 'Connect with Broker'
+                        // }
+                        // else if (getActivity == 6) {
+                        //     return item.Activity == 'Update Script'
+                        // }
+                        // else if (getActivity == 7) {
+                        //     return item.Activity == 'Square Script'
+                        // }
+                        // else return item
+                    })
 
 
-            setPanleData({
-                loading: false,
-                data: getActivity!='' ?  filterData : response.PanelDetails
+                    setPanleData({
+                        loading: false,
+                        data: getActivity != '' ? filterData : response.PanelDetails
+                    })
+                }
+                else {
+                    setPanleData({
+                        loading: false,
+                        data: []
+                    })
+                }
             })
-        }
-        else {
-            setPanleData({
-                loading: false,
-                data: []
+            .catch((err) => {
+                console.log("Error in finding the panle details", err)
             })
-        }
-    })
-    .catch((err) => {
-        console.log("Error in finding the panle details", err)
-    })
     }
-useEffect(() => {
-    GetAllPanleData()
-}, [ToDate, fromDate, getActivity])
+    useEffect(() => {
+        GetAllPanleData()
+    }, [ToDate, fromDate, getActivity])
 
 
 
-return (
-    <>
-        <div>
-            <div className="col-sm-12 col-lg-12">
-                <div className="iq-card">
-                    <div className="iq-card-header d-flex justify-content-between">
-                        <div className="iq-header-title">
-                            <h4 className="card-title">Panel Track</h4>
+    return (
+        <>
+            <div>
+                <div className="col-sm-12 col-lg-12">
+                    <div className="iq-card">
+                        <div className="iq-card-header d-flex justify-content-between">
+                            <div className="iq-header-title">
+                                <h4 className="card-title">Panel Track</h4>
+                            </div>
+                        </div>
+                        <div className="iq-card-body">
+                            <div>
+                                <div className='row'>
+                                    <div className="form-group col-lg-4">
+                                        <label>Select form Date</label>
+                                        <DatePicker className="form-select" selected={fromDate == '' ? formattedDate : fromDate} onChange={(date) => setFromData(date)} />
+                                    </div>
+                                    <div className="form-group col-lg-4">
+                                        <label>Select To Date</label>
+                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToData(date)} />
+                                    </div>
+                                    <div className="form-group col-lg-4">
+                                        <label htmlFor="email">Activity</label>
+                                        <select className="form-select" required=""
+                                            onChange={(e) => setActivity(e.target.value)}
+                                            value={getActivity}>
+                                            <option value="">All Activity</option>
+                                            <option value={1}>Login</option>
+                                            <option value={2}>Broker Update</option>
+                                            <option value={3}>Add Script</option>
+                                            <option value={4}>Continue Script</option>
+                                            <option value={5}>Square Script</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="table-responsive">
+                                <FullDataTable
+                                    columns={columns}
+                                    data={getPanleData.data}
+                                    checkBox={false}
+                                />
+                            </div >
+                        </div>
+                    </div >
+                </div >
+            </div>
+
+            {showModal && (
+                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
+                        <div className="modal-content">
+                            <div className="modal-header border-0 pb-0">
+                                <div className="form-header modal-header-title text-start mb-0">
+                                    <h4 className="mb-0">Message</h4>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(!showModal)}
+                                >
+                                </button>
+                            </div>
+                            <form action="#">
+                                <div className="modal-body">
+                                    <div className="row">
+                                        {
+                                            getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div className="iq-card-body">
@@ -213,7 +280,7 @@ return (
                                             })
 
                                         }
-                                         
+
                                     </select>
                                 </div>
                             </div>
@@ -227,42 +294,43 @@ return (
                         </div >
                     </div>
                 </div >
-            </div >
-        </div>
+            )}
 
-        {showModal && (
-            <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
-                <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
-                    <div className="modal-content">
-                        <div className="modal-header border-0 pb-0">
-                            <div className="form-header modal-header-title text-start mb-0">
-                                <h4 className="mb-0">Message</h4>
-                            </div>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                onClick={() => setShowModal(!showModal)}
-                            >
-                            </button>
-                        </div>
-                        <form action="#">
-                            <div className="modal-body">
-                                <div className="row">
-                                    {
-                                        getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
-                                    }
+
+
+            {showModal && (
+                <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered modal-md custom-width-modal">
+                        <div className="modal-content">
+                            <div className="modal-header border-0 pb-0">
+                                <div className="form-header modal-header-title text-start mb-0">
+                                    <h4 className="mb-0">Message</h4>
                                 </div>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(!showModal)}
+                                >
+                                </button>
                             </div>
-                        </form>
+                            <form action="#">
+                                <div className="modal-body">
+                                    <div className="row">
+                                        {
+                                            getActivity === 2 ? <span>{getMsg && getMsg.APIPassword}</span> : <p>{getMsg}</p>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
+            )}
 
-    </>
-)
+        </>
+    )
 }
 export default Pannel
 

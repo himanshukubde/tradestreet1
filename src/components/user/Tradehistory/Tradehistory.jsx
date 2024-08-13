@@ -24,8 +24,8 @@ const Tradehistory = () => {
         data1: [],
         data2: []
     })
- 
 
+  
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
@@ -471,7 +471,7 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-lg-4">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select custom-date" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -527,119 +527,8 @@ const Tradehistory = () => {
 
 
                                     {/* cp */}
-                                    <div className="container-fluid">
-                                        <div className="row">
-                                            <div className="col-lg-6">
-                                                <div className="iq-card">
-                                                    <div className="iq-card-body p-0 mt-4">
-                                                        <table className="table">
-                                                            <thead className="table-dark">
-                                                                <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Value</th>
-                                                                    
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th scope="row">Current Price</th>
-                                                                    <td>{report.loading==false && report.data1[0]['Current Price']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Max Drawdown</th>
-                                                                    <td>{report.loading==false && report.data1[0]['Max Drawdown']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Max Open Trade</th>
-                                                                    <td>{report.loading==false && report.data1[0]['Max Open Trade']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Max Profit</th>
-                                                                    <td>{report.loading==false && report.data1[0]['Max Profit']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">profit at Max Draw Down</th>
-                                                                    <td>{report.loading==false && report.data1[0]['profit at Max Draw Down']}</td>
-                                                                    
-                                                                </tr>
-                                                                 
-                                                                
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6">
-                                                <div className="iq-card">
-                                                    <div className="iq-card-body p-0 mt-4">
-                                                        <table className="table">
-                                                            <thead className="table-dark  btn-primary">
-                                                                <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Value</th>
-                                                                    
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th scope="row">Current Runing loss</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Current open Trade</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Current open Trade']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Last trade open price</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Last trade open price']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Max Involved fund</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Max Involved fund']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Max Price of Trade Execution</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Max Price of Trade Execution']}</td>
-                                                                    
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">Min Price of Trade Execution</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Min Price of Trade Execution']}</td>
-                                                                    
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <th scope="row">Current Runing loss</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
-                                                                    
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <th scope="row">Current Runing loss</th>
-                                                                    <td>{report.loading==false && report.data2[0]['Current Runing loss']}</td>
-                                                                    
-                                                                </tr>
-                                                                
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                                
-
-                                            </div>
-                                        </div>
-
-
+ 
+                                    <div className='mt-3'>
                                         <GridExample
                                             columns={columns7()}
                                             data={report.data1}
@@ -647,6 +536,21 @@ const Tradehistory = () => {
                                             checkBox={false}
                                         />
                                     </div>
+
+
+                                     
+                                    <div className='mt-3'>
+                                        <GridExample
+                                            columns={columns8()}
+                                            data={report.data2}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={false}
+                                        />
+                                    </div>
+
+
+
+
 
                                     {/* PnL Graph show */}
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
