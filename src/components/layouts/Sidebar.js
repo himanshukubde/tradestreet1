@@ -72,8 +72,8 @@ const Sidebar = () => {
         <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="#">
-                    <img src="/assets/images/trade-logo2.png" className="img-fluid" alt="Logo" />
-                    <span><img src="/assets/images/trade-logo1.png" className="img-fluid" alt="Logo" /></span>
+                    <img src="/assets/images/ext1.png" className="img-fluid" alt="Logo" />
+                    <span><img src="/assets/images/ext.png" className="img-fluid" alt="Logo" /></span>
                 </a>
                 <div className="iq-menu-bt-sidebar">
                     <div className="iq-menu-bt align-self-center">
