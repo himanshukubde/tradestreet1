@@ -419,8 +419,8 @@ const Clientservice = () => {
 
             {showModal && (
                 <div className='modal custom-modal d-flex' id='add_vendor' role='dialog'>
-                    <div className='modal-dialog modal-dialog-centered modal-xl'>
-                        <div className='modal-content' style={{ width: '50rem' }}>
+                    <div className='modal-dialog modal-dialog-centered modal-lg'>
+                        <div className='modal-content'>
                             <div className='modal-header border-0 pb-0'>
                                 <div className='form-header modal-header-title text-start mb-0'>
                                     <h4 className='mb-0'>Edit Client</h4>
