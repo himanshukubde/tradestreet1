@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
 import Swal from 'sweetalert2';
-import {ClientServiceColumn} from './UserAllColumn'
+import { ClientServiceColumn } from './UserAllColumn'
 
 const Clientservice = () => {
     const [clientService, setClientService] = useState({ loading: true, data: [] });
@@ -22,7 +22,7 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
 
-     
+
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -30,7 +30,7 @@ const Clientservice = () => {
                 const response = await Get_Broker_Name();
                 if (response.Status) {
 
-                  
+
                     const brokerList = response.Brokernamelist.filter(item => item.BrokerName !== 'DEMO');
                     setBrokers({ loading: false, data: brokerList });
                 } else {
@@ -86,7 +86,7 @@ const Clientservice = () => {
     }, []);
 
 
-    
+
     const formik = useFormik({
         initialValues: {
             User: "",
@@ -114,7 +114,7 @@ const Clientservice = () => {
         onSubmit: async (values) => {
             const req = {
                 User: showModal ? clientService.data[selectedIndex].Username : '',
-                ser : values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
+                ser: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
                 Broker: values.Select_Broker,
                 Day: showModal && clientService.data[selectedIndex].BrokerName === 'Demo' ? values.Select_Day : '',
                 SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && clientService.data[selectedIndex].BrokerName !== "Demo" ? getDate : form_Date,
@@ -125,7 +125,7 @@ const Clientservice = () => {
             try {
                 const response = await EditClientPanle(req);
                 if (response.Status) {
-                  
+
                     setRefresh(!refresh)
                     Swal.fire({
                         title: "Updated",
@@ -216,11 +216,11 @@ const Clientservice = () => {
     ];
 
 
-    useEffect(()=>{
+    useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")
         formik.setFieldValue('Select_Broker', showModal && clientService.data[selectedIndex].BrokerName)
         formik.setFieldValue('Service_Count', 0)
-    },[showModal])
+    }, [showModal])
 
     const Service_Count = async () => {
         if (showModal && clientService.data[selectedIndex].Username) {
@@ -288,41 +288,41 @@ const Clientservice = () => {
                 ),
             },
         },
-        { 
-            name: 'Username', 
-            label: 'Username', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'Username',
+            label: 'Username',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'Mobile_No', 
-            label: 'Mobile Number', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'Mobile_No',
+            label: 'Mobile Number',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'BrokerName', 
-            label: 'Broker Name', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'BrokerName',
+            label: 'Broker Name',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'EmailId', 
-            label: 'Email ID', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'EmailId',
+            label: 'Email ID',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
         {
             name: 'Group',
@@ -331,51 +331,51 @@ const Clientservice = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta) => (
-                    
+
                     <span>{Array.isArray(value) ? value.join(' , ') : value ? "-" : value || '-'}</span>
                 ),
             }
         },
-        { 
-            name: 'CreateDate', 
-            label: 'Account Create Date', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'CreateDate',
+            label: 'Account Create Date',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'ServiceStartDate', 
-            label: 'Service Start Date', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'ServiceStartDate',
+            label: 'Service Start Date',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'ServiceEndDate', 
-            label: 'Service End Date', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'ServiceEndDate',
+            label: 'Service End Date',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
-        { 
-            name: 'Total Service Count', 
-            label: 'Total Service Count', 
-            options: { 
-                filter: true, 
-                sort: true, 
-                customBodyRender: (value) => value || '-' 
-            } 
+        {
+            name: 'Total Service Count',
+            label: 'Total Service Count',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => value || '-'
+            }
         },
     ];
-    
-  
-     
+
+
+
     const currentDate = new Date();
     currentDate.setDate(
         currentDate.getDate() +
@@ -391,12 +391,12 @@ const Clientservice = () => {
     const form_Date = fromDate.toISOString().split('T')[0];
 
 
-   
- 
-    useEffect(()=>{
-        if(showModal)
-        setSelectedOptions(showModal && clientService.data[selectedIndex].Group)
-    },[showModal])
+
+
+    useEffect(() => {
+        if (showModal)
+            setSelectedOptions(showModal && clientService.data[selectedIndex].Group)
+    }, [showModal])
     return (
         <>
             <div className='row'>
@@ -419,8 +419,8 @@ const Clientservice = () => {
 
             {showModal && (
                 <div className='modal custom-modal d-flex' id='add_vendor' role='dialog'>
-                    <div className='modal-dialog modal-dialog-centered modal-xl'>
-                        <div className='modal-content' style={{ width: '50rem' }}>
+                    <div className='modal-dialog modal-dialog-centered modal-lg'>
+                        <div className='modal-content'>
                             <div className='modal-header border-0 pb-0'>
                                 <div className='form-header modal-header-title text-start mb-0'>
                                     <h4 className='mb-0'>Edit Client</h4>
