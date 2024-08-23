@@ -299,7 +299,7 @@ const Register = () => {
                                         <span className="dark-color d-inline-block line-height-2">
                                             Already have an account? <Link to="/login">Sign in</Link>
                                         </span>
-                                        <ul className="iq-social-media">
+                                        {/* <ul className="iq-social-media">
                                             <li>
                                                 <a href="#">
                                                     <i className="ri-facebook-box-line" />
@@ -315,7 +315,7 @@ const Register = () => {
                                                     <i className="ri-instagram-line" />
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </div>
                                 </div>
                             </div>

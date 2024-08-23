@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AdminRoute from './Routes/Admin.Routes'
 import UserRoute from './Routes/User.Routes'
@@ -17,8 +17,8 @@ const App = () => {
       return;
     }
 
-  
-  
+
+
 
     if (location.pathname === "/register") {
       navigate("/register");
@@ -50,22 +50,22 @@ const App = () => {
   }, [navigate, location.pathname, Role]);
 
 
-   
+
 
   return (
     <>
 
       {/* <div className='wrapper'> */}
-        {/* <div id="content-page" className="content-page"> */}
-          <Routes>
-            <Route path="/admin/*" element={(Role === "Admin") ? <AdminRoute /> : <Login />} />
-            <Route path="/user/*" element={(Role === "User") ? <UserRoute /> : <Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+      {/* <div id="content-page" className="content-page"> */}
+      <Routes>
+        <Route path="/admin/*" element={(Role === "Admin") ? <AdminRoute /> : <Login />} />
+        <Route path="/user/*" element={(Role === "User") ? <UserRoute /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-          </Routes>
+      </Routes>
 
-        {/* </div> */}
+      {/* </div> */}
       {/* </div> */}
 
     </>

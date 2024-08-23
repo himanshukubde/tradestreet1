@@ -336,7 +336,7 @@ const Login = () => {
                                     <span className="dark-color d-inline-block line-height-2">
                                         Don't have an account? <Link to={'/register'}>Sign up</Link>
                                     </span>
-                                    <ul className="iq-social-media">
+                                    {/* <ul className="iq-social-media">
                                         <li>
                                             <a href="#">
                                                 <i className="ri-facebook-box-line" />
@@ -352,7 +352,7 @@ const Login = () => {
                                                 <i className="ri-instagram-line" />
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> */}
                                 </div>
                             </div>
                         </div>
@@ -364,7 +364,7 @@ const Login = () => {
             {showModal && (
                 <div className="modal custom-modal d-flex" id="add_vendor" role="dialog">
                     <div className="modal-dialog modal-dialog-centered modal-md">
-                        <div className="modal-content" style={{ width: "600px" }}>
+                        <div className="modal-content forgett">
                             <div className="modal-header border-0 pb-0">
                                 <div className="form-header modal-header-title text-start mb-0">
                                     <h4 className="mb-0">Forgot Password</h4>
