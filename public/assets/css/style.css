@@ -5304,7 +5304,7 @@ button.btn.btn-primary.btn1 {
 
 }
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
 
   [class^="ri-"],
   [class*=" ri-"] {
@@ -5312,7 +5312,7 @@ button.btn.btn-primary.btn1 {
     color: #fff !important;
   }
 
-}
+} */
 
 @media (max-width: 381px) {
   .forgett {
