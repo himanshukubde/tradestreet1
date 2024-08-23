@@ -465,7 +465,7 @@ body.sidebar-main .iq-sidebar:hover+div.content-page .iq-top-navbar.fixed-header
 	}
 
 	body.sidebar-main-menu .iq-top-navbar {
-		width: 85%;
+		width: 100%;
 	}
 
 	body.sidebar-main-menu .iq-top-navbar.fixed-header {
