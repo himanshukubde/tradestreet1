@@ -8,3 +8,4 @@ export const base_url = `${window.location.origin}/backend/`
 // export const base_url = `https://tools.tradestreet.in/backend/`;
 // export const base_url = `https://tools.nextbrand.tech/backend/`;
  
+
