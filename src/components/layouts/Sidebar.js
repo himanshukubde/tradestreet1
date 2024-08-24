@@ -8,7 +8,28 @@ const Sidebar = () => {
     const [activeItem, setActiveItem] = useState(''); // State to track active item
     const sidebarRef = useRef(null);
 
+    const closeSidebarOnSmallScreen = () => {
+        if (window.innerWidth <= 991) {
+            document.body.classList.remove('sidebar-main');
+        }
+    };
+
     useEffect(() => {
+        const sidebar = sidebarRef.current;
+        const handleAnchorClick = (event) => {
+            closeSidebarOnSmallScreen(); // Remove classes on anchor click for small screens
+        };
+
+        const anchors = sidebar.querySelectorAll('a');
+        anchors.forEach((anchor) => {
+            anchor.addEventListener('click', handleAnchorClick);
+        });
+
+        return () => {
+            anchors.forEach((anchor) => {
+                anchor.removeEventListener('click', handleAnchorClick);
+            });
+        };
         if (isActive) {
             document.body.classList.add('sidebar-main');
         } else {

@@ -5386,8 +5386,48 @@ button.btn.btn-primary.btn1 {
 
 @media (max-width: 767px) {
 
-.col-md-2.ms-3.mt-4.strategy {
+  .col-md-2.ms-3.mt-4.strategy {
     margin-bottom: 10px;
   }
 
+}
+
+/* @media (min-width: 992px) {
+
+  [class^="ri-"],
+  [class*=" ri-"] {
+
+    color: #fff !important;
+  }
+
+} */
+
+@media (max-width: 381px) {
+  .forgett {
+    width: 367px !important;
+  }
+
+}
+
+@media (min-width: 400px) and (max-width: 575px) {
+  .forgett {
+    width: 534px !important;
+  }
+
+}
+
+@media (min-width: 575px) {
+  .forgett {
+    width: 600px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .clientheader {
+    margin-top: 75px;
+  }
+}
+
+.customtable table tbody tr td div:last-child {
+  width: 100px !important;
 }

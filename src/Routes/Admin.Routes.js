@@ -21,6 +21,8 @@ import PatternScript from '../components/admin/AdminScript/AddScript.Pattern'
 
 
 const AdminRoute = () => {
+
+
   return (
     <>
       <div className='wrapper'>

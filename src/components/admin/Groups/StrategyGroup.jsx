@@ -72,6 +72,7 @@ const Strategygroup = () => {
             options: {
                 filter: true,
                 sort: true,
+                width: "300px",
             }
         },
     ];
@@ -263,7 +264,7 @@ const Strategygroup = () => {
                         </div>
 
                         <div className="iq-card-body">
-                            <div className="table-responsive">
+                            <div className="table-responsive customtable">
                                 <GridExample
                                     columns={columns}
                                     data={getGroupData.data}
