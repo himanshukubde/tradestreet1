@@ -8,7 +8,7 @@ import { AdminAddBrokerCredential, Get_Broker_Details } from '../CommonAPI/Admin
 
 const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");
-    
+
 
     const [refresh, setRefresh] = useState(false);
     const [userDetails, setUserDetails] = useState({ loading: true, data: {} });
@@ -19,7 +19,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
 
     const fetchData = async () => {
-        if(Role=='User'){
+        if (Role == 'User') {
             const requestData = { userName };
             const response = await GetBrokerData(requestData);
             if (response && response.BrokerDetail && response.BrokerDetail[0]) {
@@ -201,10 +201,11 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 DOB: values.DOB
             };
             try {
-                console.log("Ram")
+               
                 const response = await AdminAddBrokerCredential(data);
                 if (response.Status) {
                     setUpDateData({ data: response.Data });
+                    
                     Swal.fire({
                         title: "Updated successfully!",
                         text: "Broker Credential Updated successfully!",
@@ -215,7 +216,9 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                         closeModal(false);
                     });
 
-                } else {
+                }
+                 else {
+                   
                     Swal.fire({
                         title: "Error",
                         text: response.message,
@@ -399,7 +402,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
     useEffect(() => {
         if (upDateData.data && upDateData.data[0]) {
-            
+
             formik2.setFieldValue('api_key', upDateData.data && upDateData.data[0].api_key || '')
             formik2.setFieldValue('Pwd', upDateData.data && upDateData.data[0].Pwd || '')
             formik2.setFieldValue("Userid", upDateData && upDateData.data[0].username || '')
@@ -408,10 +411,47 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
 
     }, [upDateData.data])
 
+    
     return (
         <div>
 
-            {Role == "Admin" ? !userDetails.loading && isVisible &&
+
+            {Role == "Admin" && isVisible ?
+
+                <div className="modal show" id="exampleModal" style={{ display: "block" }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">
+                                    Update Broker Key : - {userDetails.data && userDetails.data.BrokerName}
+                                </h5>
+
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => closeModal(false)}
+                                />
+                            </div>
+
+                            <Formikform
+                                fields={fields1.filter(
+                                    (fields1) => !fields1.showWhen || fields1.showWhen(formik2.values)
+                                )}
+
+                                btn_name="Update"
+                                formik={formik2}
+
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                : ""}
+
+
+            {Role == "User" && !userDetails.loading && isVisible && (
                 <div className="modal show" id="exampleModal" style={{ display: "block" }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -428,48 +468,17 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                                 />
                             </div>
                             <Formikform
-                                fields={fields1.filter(
-                                    (fields1) => !fields1.showWhen || fields1.showWhen(formik2.values)
+                                fields={fields.filter(
+                                    (field) => !field.showWhen || field.showWhen(formik.values)
                                 )}
 
                                 btn_name="Update"
-                                formik={formik2}
-
+                                formik={formik}
                             />
                         </div>
                     </div>
                 </div>
-
-                :
-
-                !userDetails.loading && isVisible && (
-                    <div className="modal show" id="exampleModal" style={{ display: "block" }}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">
-                                        Update Broker Key : - {userDetails.data && userDetails.data.BrokerName}
-                                    </h5>
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                        onClick={() => closeModal(false)}
-                                    />
-                                </div>
-                                <Formikform
-                                    fields={fields.filter(
-                                        (field) => !field.showWhen || field.showWhen(formik.values)
-                                    )}
-
-                                    btn_name="Update"
-                                    formik={formik}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                )}
+            )}
         </div>
     );
 };

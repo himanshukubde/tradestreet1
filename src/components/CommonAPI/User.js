@@ -307,7 +307,7 @@ export const ConnectBroker = async (data) => {
 export const AvailableScript = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${Config.base_url}Script/AvailableScript`, data,
+        const res = await axios.get(`${Config.base_url}Script/AvailableScript`,
             {
                 headers: { 
                   'Content-Type': 'application/json', 
@@ -411,6 +411,60 @@ export const get_Trade_Data = async (data) => {
     var token = localStorage.getItem('token')
     try {
         const res = await axios.post(`${Config.base_url}ScalpingData`, data , 
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const UpdateUserScript = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}Updatescript`, data , 
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const CheckPnL = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}MaxPnlStrike`, data , 
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
+ 
+export const GetName = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}ClientTaskStatus/${data.userName}`,
             {
                 headers: { 
                   'Content-Type': 'application/json', 

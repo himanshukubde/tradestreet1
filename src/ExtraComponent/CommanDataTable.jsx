@@ -4,8 +4,6 @@ import MUIDataTable from "mui-datatables";
 
 const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
     const [selectedRowData, setSelectedRowData] = useState(null);
- 
-
 
     const NoDataIndication = () => (
         <div className="d-flex justify-content-start">
@@ -13,13 +11,12 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 src='../../../../assets/images/norecordfound.png' 
                 alt="No data found"
                 style={{marginLeft:'23rem'}}
-                // className='mx-auto'
             />
         </div>
     );
     
-
     const options = {
+        responsive: "vertical",  // Improved responsive behavior for mobile view
         filterType: false,
         selectableRowsHeader: false,
         selectableRows: checkBox ? "single" : "none",
@@ -28,7 +25,7 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 const selectedIndex = allRowsSelected[0].index;
                 const rowData = data[selectedIndex];
                 setSelectedRowData(rowData);
-                onRowSelect(rowData); // Call the callback function
+                onRowSelect(rowData); // Call the callback function with selected row data
             } else {
                 setSelectedRowData(null);
                 onRowSelect(null); // Call the callback function with null
@@ -48,7 +45,7 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 displayRows: "of",
             },
             selectedRows: {
-                text: "row (s) selected",
+                text: "row(s) selected",
             },
         },
         download: false,
@@ -61,9 +58,8 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
                 textAlign: 'center',
             }
         }),
-        rowsPerPageOptions: [10, 25, 50, 100]
+        rowsPerPageOptions: [10, 25, 50, 100],
     };
-
 
     const customizedColumns = columns.map(column => ({
         ...column,
@@ -71,7 +67,8 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
             ...column.options,
             setCellProps: () => ({
                 style: {
-                    width: column.width || 'auto', 
+                    width: column.width || 'auto',
+                    minWidth: '100px', // Ensures better handling of checkboxes on smaller screens
                 }
             })
         }

@@ -101,6 +101,22 @@ export const getColumns = (handleAddScript1) => [
         }
     },
     {
+        name: "LowerRange",
+        label: "Lower Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HigherRange",
+        label: "Higher Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "TType",
         label: "Trade Type",
         options: {
@@ -174,7 +190,15 @@ export const getColumns = (handleAddScript1) => [
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -345,22 +369,7 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    {
-        name: "DepthofStrike",
-        label: "Depth of Strike",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Spread",
-        label: "Spread",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+  
     {
         name: "SSDate",
         label: "SSDate",
@@ -372,6 +381,22 @@ export const getColumns1 = (handleAddScript2) => [
     {
         name: "StrikeType",
         label: "Strike Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DepthofStrike",
+        label: "Strike Value",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DeepStrike",
+        label: "Deep Strike",
         options: {
             filter: true,
             sort: true,
@@ -404,6 +429,14 @@ export const getColumns1 = (handleAddScript2) => [
     {
         name: "TaskTime",
         label: "TaskTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -605,6 +638,7 @@ export const getColumns2 = (handleAddScript3) => [
         }
     },
 
+
 ];
 
 export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinuty) => [
@@ -741,6 +775,22 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
         }
     },
     {
+        name: "LowerRange",
+        label: "Lower Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "HigherRange",
+        label: "Higher Range",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "TType",
         label: "Trade Type",
         options: {
@@ -814,7 +864,15 @@ export const getColumns3 = (handleDelete, handleEdit, handleContinutyDiscontinut
     },
     {
         name: "GroupN",
-        label: "GroupN",
+        label: "Unique ID",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,
@@ -967,7 +1025,7 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     },
     {
         name: "Target value",
-        label: "Target value",
+        label: "Target",
         options: {
             filter: true,
             sort: true,
@@ -1021,22 +1079,8 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
             sort: true,
         }
     },
-    {
-        name: "DepthofStrike",
-        label: "Depth of Strike",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Spread",
-        label: "Spread",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
+    
     {
         name: "SSDate",
         label: "SSDate",
@@ -1048,6 +1092,22 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "StrikeType",
         label: "Strike Type",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DepthofStrike",
+        label: "Strike Value",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "DeepStrike",
+        label: "Deep Strike",
         options: {
             filter: true,
             sort: true,
@@ -1080,6 +1140,14 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "TaskTime",
         label: "TaskTime",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "TradeCount",
+        label: "Trade Count",
         options: {
             filter: true,
             sort: true,

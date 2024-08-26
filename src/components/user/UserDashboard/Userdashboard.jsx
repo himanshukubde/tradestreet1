@@ -26,6 +26,7 @@ const Userdashboard = () => {
         Option: [],
         Pattern: []
     })
+
     const getUserAllGroup = async () => {
         const data = { User: userName }
         await GetAllUserGroup(data)
@@ -51,8 +52,6 @@ const Userdashboard = () => {
     useEffect(() => {
         getUserAllGroup()
     }, [activeTab])
-
-
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
@@ -206,7 +205,7 @@ const Userdashboard = () => {
         },
         {
             name: "GroupN",
-            label: "GroupN",
+            label: "Unique ID",
             options: {
                 filter: true,
                 sort: true,
@@ -332,7 +331,7 @@ const Userdashboard = () => {
         },
         {
             name: "GroupN",
-            label: "GroupN",
+            label: "Unique ID",
             options: {
                 filter: true,
                 sort: true,
@@ -450,7 +449,6 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-
     ];
 
 
@@ -497,7 +495,7 @@ const Userdashboard = () => {
                                         <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
                                             <div className='px-3'>
 
-                                                <label>Type</label>
+                                                <label>Add Via</label>
                                                 <select className="form-select" required=""
                                                     onChange={(e) => { setActiveTab(e.target.value) }}
                                                     value={activeTab}>
@@ -507,19 +505,6 @@ const Userdashboard = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
-                                            <div className='px-3'>
-                                                <label>Strategy Type</label>
-                                                <select className="form-select" required=""
-                                                    onChange={(e) => { setSubTab(e.target.value) }}
-                                                    value={subTab}>
-                                                    <option value="Scalping">Scalping</option>
-                                                    <option value="Option Strategy">Option Strategy</option>
-                                                    <option value="Pattern">Pattern Script</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
                                         {activeTab == "group" && (
                                             <div className={`form-group col-md-4`}>
                                                 <div className='px-3'>
@@ -537,6 +522,20 @@ const Userdashboard = () => {
                                                 </div>
                                             </div>
                                         )}
+                                        <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
+                                            <div className='px-3'>
+                                                <label>Strategy Type</label>
+                                                <select className="form-select" required=""
+                                                    onChange={(e) => { setSubTab(e.target.value) }}
+                                                    value={subTab}>
+                                                    <option value="Scalping">Scalping</option>
+                                                    <option value="Option Strategy">Option Strategy</option>
+                                                    <option value="Pattern">Pattern Script</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                       
                                     </div>
                                 )}
                             </div>

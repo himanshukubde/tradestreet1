@@ -55,7 +55,6 @@ const Register = () => {
 
 
 
-
     return (
         <div>
             <section className="sign-in-page">
@@ -105,7 +104,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 {/* <div className="item">
                                                     <img
-                                                        src="assets/images/login/3.png"
+                                                      src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -119,7 +118,7 @@ const Register = () => {
                                             <div className="owl-item" style={{ width: 358 }}>
                                                 {/* <div className="item">
                                                     <img
-                                                        src="assets/images/login/1.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -133,7 +132,7 @@ const Register = () => {
                                             <div className="owl-item" style={{ width: 358 }}>
                                                 {/* <div className="item">
                                                     <img
-                                                        src="assets/images/login/2.png"
+                                                       src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -162,7 +161,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 {/* <div className="item">
                                                     <img
-                                                        src="assets/images/login/1.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />
@@ -176,7 +175,7 @@ const Register = () => {
                                             <div className="owl-item cloned" style={{ width: 358 }}>
                                                 <div className="item">
                                                     <img
-                                                        src="assets/images/login/2.png"
+                                                        src="assets/images/tradstreet.jpeg"
                                                         className="img-fluid mb-4"
                                                         alt="logo"
                                                     />

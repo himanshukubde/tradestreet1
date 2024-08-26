@@ -46,6 +46,17 @@ const AddClient = () => {
 
     const [serviceEndDate, setServiceEndDate] = useState('')
 
+
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+          title: "Error",
+          text: text,
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+    
+      }
     const formik = useFormik({
 
         initialValues: {
@@ -104,6 +115,12 @@ const AddClient = () => {
             if (!values.Instrument && values.Exchange == "NFO") {
                 errors.Instrument = "Please Enter Instrument Type.";
             }
+            if (!values.Trade_Execution || values.Trade_Execution==0) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count==0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
+            }
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
@@ -144,17 +161,25 @@ const AddClient = () => {
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select Exit Day.";
             }
-            if (!values.ExitTime) {
-                errors.ExitTime = "Please Select An Exit Time.";
-            } else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Please Select An Entry Time.";
-            } else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
-            }
+            if (values.ExitTime=='') {
+                errors.ExitTime = "Please Select Exit Time.";
+              } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+              }
+              else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+              }
+              if (values.EntryTime=='') {
+                errors.EntryTime = "Please Select Entry Time.";
+              } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+              }
+              else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
+              }
 
+
+              console.log("values " , errors)
             return errors;
         },
 
@@ -205,7 +230,9 @@ const AddClient = () => {
             }
 
 
-
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+              }
             await AddScript(req)
                 .then((response) => {
                     if (response.Status) {
@@ -238,15 +265,16 @@ const AddClient = () => {
         },
     });
 
+    
+    console.log("location.state.data :", location.state.data)
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
         formik.setFieldValue('Instrument', location.state.data['Instrument Type'])
-        formik.setFieldValue('Symbol', location.state.data['Instrument Name'])
+        formik.setFieldValue('Symbol', location.state.data.MainSymbol)
         formik.setFieldValue('Strategy', location.state.data.TradePattern)
         formik.setFieldValue('Timeframe', location.state.data.TimeFrame)
         formik.setFieldValue('ETPattern', location.state.data.Pattern)
-        
         formik.setFieldValue('TStype', location.state.data.TStype)
         formik.setFieldValue('Slvalue', location.state.data['SL value'])
         formik.setFieldValue('Targetvalue', location.state.data['Target value'])
@@ -257,6 +285,8 @@ const AddClient = () => {
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
         formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('expirydata1', location.state.data['Expiry Date'])
+
     }, [])
 
 
@@ -296,7 +326,7 @@ const AddClient = () => {
             hiding: false,
             label_size: 12,
             col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
-            disable: false,
+            disable: true,
         },
         {
             name: "Instrument",
@@ -448,7 +478,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target",
-            type: "number",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -458,7 +488,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "Stoploss",
-            type: "number",
+            type: "text3",
 
 
             label_size: 12,
@@ -716,7 +746,7 @@ const AddClient = () => {
         GetPatternCharting()
     }, [])
 
-    console.log("serviceEndDate :", serviceEndDate)
+    
 
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
@@ -749,7 +779,6 @@ const AddClient = () => {
         }
         if (formik.values.Exchange == "NSE") {
             formik.setFieldValue('Instrument', "")
-
         }
 
     }, [formik.values.Instrument, formik.values.Exchange])

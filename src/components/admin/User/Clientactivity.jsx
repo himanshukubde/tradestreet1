@@ -25,7 +25,7 @@ const Clientactivity = () => {
 
     // set Defult Date 
     const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 7);
+    currentDate.setDate(currentDate.getDate() );
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
@@ -36,7 +36,7 @@ const Clientactivity = () => {
     // from date
     const DefultToDate = new Date();
 
-    DefultToDate.setDate(DefultToDate.getDate());
+    DefultToDate.setDate(DefultToDate.getDate()+1);
     const year1 = DefultToDate.getFullYear();
     const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
     const day1 = String(DefultToDate.getDate()).padStart(2, '0');
@@ -135,16 +135,16 @@ const Clientactivity = () => {
 
                                                          
 
-                                                        
+                                                    
                                                     )}
                                                 </select>
                                             </div>
-                                            <div className="form-group col-lg-3 ">
+                                            <div className="form-group col-lg-4 ">
                                                 <label>Select form Date</label>
                                                 <DatePicker className="form-select" selected={FromDate=="" ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                             </div>
-                                            <div className="form-group col-lg-3">
+                                            <div className="form-group col-lg-4">
                                                 <label>Select To Date</label>
                                                 <DatePicker className="form-select" selected={ToDate=="" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 

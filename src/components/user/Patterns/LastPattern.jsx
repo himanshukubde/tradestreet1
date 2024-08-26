@@ -5,7 +5,7 @@ import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
-
+import {columns2 , columns3} from './PatternsColumns'
 const LastPattern = () => {
     const [showCandle, setShowCandle] = useState(false)
     const [getLastPatternData, setLastPatternData] = useState({
@@ -49,93 +49,7 @@ const LastPattern = () => {
         getLastPattern()
     }, [getPatternType, selectPattern])
 
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "Date",
-            label: "Date",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        
-    ];
-
-    const columns1 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "pattern",
-            label: "pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "start_pattern",
-            label: "start pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End_pattern",
-            label: "End pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Symbol",
-            label: "Symbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
-
+    
     const GetPatternCharting = async () => {
         const data = { selectPattern: selectPattern == "Candlestick Patterns" ? "CandleStick" : "Charting" }
         await Get_Pattern_Name2(data)
@@ -261,7 +175,7 @@ const LastPattern = () => {
                                 <div className="table-responsive">
                                     {getLastPatternData.loading ? <Loader /> :
                                         <FullDataTable
-                                            columns={selectPattern == 'Candlestick Patterns' ? columns : columns1}
+                                            columns={selectPattern == 'Candlestick Patterns' ? columns2() : columns3()}
                                             data={getLastPatternData.data}
                                             onRowSelect={handleRowSelect}
                                             checkBox={selectPattern == 'Candlestick Patterns' ? false : true}
@@ -278,7 +192,7 @@ const LastPattern = () => {
                                 {
                                     showCandle && <div className="row">
                                         <div className='shadow p-3 mb-5 mt-3 bg-white rounded'>
-                                            <AgChartsReact ChartData={getCandleData && getCandleData.data} />
+                                            <AgChartsReact ChartData={getCandleData && getCandleData.data} type={'lastpattern'} />
                                         </div>
                                     </div>
                                 }

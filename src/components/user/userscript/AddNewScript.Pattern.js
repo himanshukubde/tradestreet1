@@ -46,6 +46,17 @@ const AddClient = () => {
     
     const [serviceEndDate, setServiceEndDate] = useState('')
 
+
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+          title: "Error",
+          text: text,
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+    
+      }
     const formik = useFormik({
  
         initialValues: {
@@ -107,6 +118,12 @@ const AddClient = () => {
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
+            if (!values.Trade_Execution || values.Trade_Execution==0) {
+                errors.Trade_Execution = "Please Select Trade Execution.";
+            }
+            if (!values.Trade_Count || values.Trade_Count==0) {
+                errors.Trade_Count = "Please Enter Trade Count.";
+            }
             if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
                 errors.Optiontype = "Enter Option Type.";
             }
@@ -145,15 +162,21 @@ const AddClient = () => {
                 errors.ExitDay = "Please Select Exit Day.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Please Select An Exit Time.";
-            } else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Please Select An Entry Time.";
-            } else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
-            }
+                errors.ExitTime = "Please Select Exit Time.";
+              } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+              }
+              else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+              }
+              if (!values.EntryTime) {
+                errors.EntryTime = "Please Select Entry Time.";
+              } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+              }
+              else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
+              }
         
             return errors;
         },
@@ -205,7 +228,9 @@ const AddClient = () => {
                 PEDeepHigher: 0.0,
             }   
              
-            
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+              }
            
             await AddScript(req)
                 .then((response) => {
@@ -440,7 +465,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target",
-            type: "number",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -450,7 +475,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "Stoploss",
-            type: "number",
+            type: "text3",
 
 
             label_size: 12,

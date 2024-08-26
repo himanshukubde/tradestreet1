@@ -25,7 +25,7 @@ const Tradehistory = () => {
         data2: []
     })
 
-
+  
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
@@ -491,6 +491,7 @@ const Tradehistory = () => {
                             }
                             <button className='btn btn-primary mt-2' onClick={handleSubmit}>Submit</button>
                             {
+                                //getAllTradeData.loading && getPnLData.loading  <Loader/> 
                                 showTable && <>
                                     <div>
                                         <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
@@ -526,7 +527,7 @@ const Tradehistory = () => {
 
 
                                     {/* cp */}
-
+ 
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns7()}
@@ -537,7 +538,7 @@ const Tradehistory = () => {
                                     </div>
 
 
-
+                                     
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns8()}
@@ -651,8 +652,8 @@ const Tradehistory = () => {
                                                                     <div className="col-sm-12">
                                                                         <div className="iq-card">
                                                                             <div className="iq-card-body">
-                                                                                <p>Profitconsistant : <spam>{getAllTradeData.data1}</spam></p>
-                                                                                <p>Profitconcount : <spam>{getAllTradeData.data2}</spam></p>
+                                                                                <p>Consistant Profit : <spam>{getAllTradeData.data1}</spam></p>
+                                                                                <p>Count Consistant Profit : <spam>{getAllTradeData.data2}</spam></p>
 
                                                                             </div>
                                                                         </div>
@@ -667,8 +668,8 @@ const Tradehistory = () => {
                                                                     <div className="col-sm-12">
                                                                         <div className="iq-card">
                                                                             <div className="iq-card-body">
-                                                                                <p>Lossconsistant : <spam>{getAllTradeData.data4}</spam></p>
-                                                                                <p>Lossconcount : <spam>{getAllTradeData.data3}</spam></p>
+                                                                                <p>Consistant Loss : <spam>{getAllTradeData.data4}</spam></p>
+                                                                                <p>Count Consistant Loss : <spam>{getAllTradeData.data3}</spam></p>
 
                                                                             </div>
                                                                         </div>

@@ -38,7 +38,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.ScalpingData[selectedRowIndex];
-            const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", ...selectedRow };
+            const data = { selectGroup: selectGroup, selectStrategyType: "Scalping", type : "copy" , ...selectedRow };
             navigate('/user/addscript/scalping', { state: { data } });
         }
 
@@ -60,7 +60,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.OptionData[selectedRowIndex];
-            const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy', ...selectedRow };
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Option Strategy',type : "copy" ,  ...selectedRow };
             navigate('/user/addscript/option', { state: { data } });
         }
     }
@@ -80,7 +80,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
 
             const selectedRowIndex = data1.rowIndex;
             const selectedRow = getAllService.PatternData[selectedRowIndex];
-            const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern', ...selectedRow };
+            const data = { selectGroup: selectGroup, selectStrategyType: 'Pattern',type : "copy" , ...selectedRow };
             navigate('/user/addscript/pattern', { state: { data } });
         }
     }

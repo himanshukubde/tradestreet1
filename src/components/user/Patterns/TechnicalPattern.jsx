@@ -3,7 +3,7 @@ import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../CommonAPI/Admin'
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../CommonAPI/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
-
+import {columns , columns1} from './PatternsColumns'
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
 
@@ -17,6 +17,8 @@ const LastPattern = () => {
     const [chartPattern, setChartPattern] = useState('');
     const [patternNames, setPatternNames] = useState([]);
     const [allSymbols, setAllSymbols] = useState([]);
+    const [showCandle, setShowCandle] = useState(false)
+
     const [availableScripts, setAvailableScripts] = useState([]);
     const [getCandlestickTable, setCandlestickTable] = useState({
         loading: true,
@@ -31,250 +33,7 @@ const LastPattern = () => {
         loading: true,
         data: []
     });
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta) => tableMeta.rowIndex + 1
-            }
-        },
-        {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trend before pattern",
-            label: "Trend before pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Previous trend price",
-            label: "Previous trend price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Start Time",
-            label: "Start Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Start Price",
-            label: "Start Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End Time",
-            label: "End Time",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "End Price",
-            label: "End Price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "After trend price",
-            label: "After trend price",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Trend after pattern",
-            label: "Trend after pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
-    const columns1 = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta) => tableMeta.rowIndex + 1
-            }
-        },
-        {
-            name: "open",
-            label: "open",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "close",
-            label: "close",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "high",
-            label: "high",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "low",
-            label: "low",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreOpen",
-            label: "PreOpen",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreHigh",
-            label: "PreHigh",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreLow",
-            label: "PreLow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreClose",
-            label: "PreClose",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreOpen2",
-            label: "PreOpen2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "PreHigh2",
-            label: "PreHigh2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreLow2",
-            label: "PreLow2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreClose2",
-            label: "PreClose2",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreOpen3",
-            label: "PreOpen3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreLow3",
-            label: "PreLow3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "PreClose3",
-            label: "PreClose3",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "total",
-            label: "total",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "body_length",
-            label: "body_length",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "upper_shadow",
-            label: "upper_shadow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "lower_shadow",
-            label: "lower_shadow",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        }, {
-            name: "Pattern",
-            label: "Pattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-    ];
+   
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
     };
@@ -282,7 +41,7 @@ const LastPattern = () => {
     const fetchAvailableScripts = async () => {
         await AvailableScript()
             .then((response) => {
-            
+
                 if (response.Status) {
                     setAvailableScripts(response.Symbol);
                 } else {
@@ -295,11 +54,11 @@ const LastPattern = () => {
     };
 
     const fetchAllSymbols = async () => {
-        const data = { Username : Username , Strategy : selectedPatternType && selectedPatternType=="Candlestick Patterns" ? "CandlestickPattern" : "ChartingPattern" };
+        const data = { Username: Username, Strategy: selectedPatternType && selectedPatternType == "Candlestick Patterns" ? "CandlestickPattern" : "ChartingPattern" };
         await GetSymbolIp(data)
-        .then((response) => {
-            
-            if (response.Status) {
+            .then((response) => {
+
+                if (response.Status) {
                     setAllSymbols(response.Data);
                 } else {
                     setAllSymbols([]);
@@ -313,7 +72,7 @@ const LastPattern = () => {
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
-    }, [selectedPatternType , scriptType ]);
+    }, [selectedPatternType, scriptType]);
 
     const fetchPatternTimeFrames = async () => {
         await Get_Pattern_Time_Frame()
@@ -350,6 +109,7 @@ const LastPattern = () => {
                         loading: false,
                         data: response.Data
                     });
+                    setShowCandle(true)
                 } else {
                     setChartPatternTableData({
                         loading: false,
@@ -374,6 +134,7 @@ const LastPattern = () => {
                         data1: response.Data.CandleData,
                         data2: response.Data.PatternData
                     });
+                    setShowCandle(true)
                 } else {
                     setCandlestickTable({
                         loading: false,
@@ -419,7 +180,12 @@ const LastPattern = () => {
         fetchPatternNames();
     }, []);
 
-  
+
+    useEffect(()=>{
+        setShowCandle(false)
+
+    },[selectedPatternType , candlestickPattern , scriptType , selectedTimeFrame , chartPattern])
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -472,7 +238,7 @@ const LastPattern = () => {
                                         <label>Time Frame</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedTimeFrame(e.target.value)} value={selectedTimeFrame}>
                                             <option value="">Please Select Time Frame</option>
-                                            {timeFrameData.data.length>0 && timeFrameData.data.map((item) => (
+                                            {timeFrameData.data.length > 0 && timeFrameData.data.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}
                                         </select>
@@ -500,44 +266,38 @@ const LastPattern = () => {
                                 </div>
                             </div>
                         </div>
+
+
                         <div className="table-responsive">
                             {selectedPatternType == 'Candlestick Patterns' ?
                                 <>
-                                    {/* {getCandlestickTable.loading ? <Loader /> : ( */}
                                     <FullDataTable
-                                        columns={columns1}
+                                        columns={columns1()}
                                         data={getCandlestickTable && getCandlestickTable.data2}
                                         checkBox={false}
                                     />
-                                    {/* )} */}
                                 </>
                                 : <>
-                                    {/* {ChartPatternTableData.loading ? <Loader /> : ( */}
+
                                     <FullDataTable
-                                        columns={columns}
+                                        columns={columns()}
                                         data={ChartPatternTableData && ChartPatternTableData.data}
                                         onRowSelect={handleRowSelect}
                                         checkBox={true}
                                     />
-                                     {/* )}  */}
                                 </>
                             }
                         </div>
-
-                        <div className="row">
-
+                        {showCandle && <div className="row">
                             <div className="">
                                 {
-                                    getCandlestickTable.loading == false || ChartPatternTableData.loading==false ? <div className='shadow p-3  bg-white rounded m-4'>
-                                        <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} />
+                                    getCandlestickTable.loading == false || ChartPatternTableData.loading == false ? <div className='shadow p-3 bg-white rounded m-4'>
+                                        <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} />
                                     </div>
                                         : ""
                                 }
-
-
-
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

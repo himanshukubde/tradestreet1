@@ -118,15 +118,14 @@ export const AddBrokerCredential = async (data) => {
 
 export const AdminAddBrokerCredential = async (data) => {
     const token = localStorage.getItem('token')
+   
     try {
-        const res = await axios.post(`${Config.base_url}AdmBroker`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-
-
+        const res = await axios.post(`${Config.base_url}AdmBroker`,data, {
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+        }})
+ 
         return res?.data
     }
     catch (err) {
@@ -715,8 +714,7 @@ export const Get_Broker_Details = async (data) => {
         return err
     }
 }
-
-
+ 
 export const AdmindashboardGraph = async (data) => {
     const token = localStorage.getItem('token')
     try {
@@ -754,7 +752,61 @@ export const AdmindashboardData = async (data) => {
         return err
     }
 }
-
-
+ 
+ 
+export const DataStart = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}Datastart`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+ 
+export const AutoLogin = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}AutoLogin`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+ 
+export const LastPattern = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        
+        const res = await axios.get(`${Config.base_url}Last_Pattern`,
+            {
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `Bearer ${token}`
+            }}
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+ 
 
 

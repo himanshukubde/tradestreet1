@@ -40,7 +40,16 @@ const AddClient = () => {
         data: []
     })
 
-
+    const SweentAlertFun = (text) => {
+        Swal.fire({
+          title: "Error",
+          text: text,
+          icon: "error",
+          timer: 1500,
+          timerProgressBar: true
+        });
+    
+      }
 
     const formik = useFormik({
 
@@ -140,15 +149,21 @@ const AddClient = () => {
                 errors.ExitDay = "Please Select Exit Day.";
             }
             if (!values.ExitTime) {
-                errors.ExitTime = "Please Select An Exit Time.";
-            } else if (values.ExitTime > maxTime) {
-                errors.ExitTime = "Exit Time Must Be Before 15:29:59.";
-            }
-            if (!values.EntryTime) {
-                errors.EntryTime = "Please Select An Entry Time.";
-            } else if (values.EntryTime < minTime) {
-                errors.EntryTime = "Entry Time Must Be After 09:15:00.";
-            }
+                errors.ExitTime = "Please Select Exit Time.";
+              } else if (values.ExitTime > maxTime) {
+                errors.ExitTime = "Exit Time Must be Before 15:29:59.";
+              }
+              else if (values.ExitTime < minTime) {
+                errors.ExitTime = "Exit Time Must be After 09:15:00.";
+              }
+              if (!values.EntryTime) {
+                errors.EntryTime = "Please Select Entry Time.";
+              } else if (values.EntryTime < minTime) {
+                errors.EntryTime = "Entry Time Must be After 09:15:00.";
+              }
+              else if (values.EntryTime > maxTime) {
+                errors.EntryTime = "Entry Time Must be Before 15:29:59.";
+              }
 
             return errors;
         },
@@ -195,13 +210,16 @@ const AddClient = () => {
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
             }
+            if (values.EntryTime >= values.ExitTime) {
+                return SweentAlertFun("Exit Time should be greater than Entry Time")
+              }
 
             await AddAdminScript(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Script Added !",
-                            text: "New Script Added successfully..!",
+                            text: response.massage,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -435,7 +453,7 @@ const AddClient = () => {
         {
             name: "Targetvalue",
             label: "Target",
-            type: "number",
+            type: "text3",
 
             label_size: 12,
             hiding: false,
@@ -445,7 +463,7 @@ const AddClient = () => {
         {
             name: "Slvalue",
             label: "Stoploss",
-            type: "number",
+            type: "text3",
 
 
             label_size: 12,

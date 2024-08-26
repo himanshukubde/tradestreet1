@@ -6,6 +6,7 @@ import * as Config from "../../Utils/Config";
 import axios from "axios";
 import { TradingStatus } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
+import {LastPattern , DataStart , AutoLogin} from '../CommonAPI/Admin'
 
 
 const Header = () => {
@@ -42,7 +43,7 @@ const Header = () => {
     const [getBrokerName, setBrokerName] = useState("");
 
 
-    console.log("cPP", getTradingStatus)
+
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
 
@@ -78,7 +79,7 @@ const Header = () => {
                         }
                     });
 
-                console.log("response.data :", response.data)
+                
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({
@@ -95,9 +96,9 @@ const Header = () => {
                 } else {
 
                     Swal.fire({
-                        title: 'Error!',
-                        text: 'Trading Off successfully cppp.',
-                        icon: 'error',
+                        title: 'Success!',
+                        text: 'Trading Off successfully.',
+                        icon: 'success',
                         confirmButtonText: 'OK',
                         timer: 1000
                     }).then(() => {
@@ -233,7 +234,78 @@ const Header = () => {
         fetchData();
     }, []);
 
+    const handleAutoLoginbtn = async () => {
+        await AutoLogin()
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Auto Login On !",
+                        text: response.massage,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.massage,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
+    }
 
+    const handleDataStart = async() => {
+        await DataStart()
+        .then((response)=>{
+            if (response.Status) {
+                Swal.fire({
+                    title: "Data Start !",
+                    text: response.Message,
+                    icon: "success",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+            else {
+                Swal.fire({
+                    title: "Error !",
+                    text: response.Message,
+                    icon: "error",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+        })
+
+    }
+    const handleLastPattern = async() => {
+        await LastPattern()
+        .then((response)=>{
+            if (response.Status) {
+                Swal.fire({
+                    title: "Last Pattern On !",
+                    text: response.massage,
+                    icon: "success",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+            else {
+                Swal.fire({
+                    title: "Error !",
+                    text: response.massage,
+                    icon: "error",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+        })
+
+    }
 
     return (
         <>
@@ -250,6 +322,8 @@ const Header = () => {
                     {role === 'Admin' ? (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
 
+
+                            <button className='btn btn-primary mx-4' onClick={() => setShowModal(true)}>Auto Login</button>
                             <button
                                 className="navbar-toggler ms-3"
                                 type="button"
@@ -289,7 +363,6 @@ const Header = () => {
                             </div> */}
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
-
                                     <li className="nav-item">
                                         <button
                                             type="button"
@@ -541,6 +614,56 @@ const Header = () => {
                 </div>
 
             </div>
+
+            {
+                showModal && <div className="modal show" id="exampleModal" style={{ display: "block" }}>
+                    <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">
+                                    Auto Login
+                                </h5>
+
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => setShowModal(false)}
+                                />
+                            </div>
+                            <div className=''>
+                                <div className='d-flex justify-content-center'>
+                                    <div className='m-4'>
+                                        <button className='btn btn-primary' onClick={handleAutoLoginbtn}>Auto Login</button>
+                                    </div>
+
+                                </div>
+                                <div className='d-flex justify-content-center'>
+
+                                    <div className='m-4'>
+
+                                        <button className='btn btn-primary' onClick={handleDataStart}>Data Start</button>
+                                    </div>
+                                </div>
+
+                                <div className='d-flex justify-content-center'>
+                                    <div className='m-4'>
+                                        <button className='btn btn-primary' onClick={handleLastPattern}>Last Pattern</button>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            }
 
 
             <UpdateBrokerKey isVisible={isModalVisible} closeModal={handleCloseModal} Role={role} />

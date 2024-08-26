@@ -112,38 +112,44 @@ const Adduser = () => {
         validate: (values) => {
             let errors = {};
             if (!values.UserName) {
-                errors.UserName = "Enter User Name"
+                errors.UserName = "Please Enter Username"
             }
             else if (!Name_regex(values.UserName)) {
-                errors.UserName = "Enter Valid Username"
+                errors.UserName = "Please Enter Valid Username"
             }
 
             if (!values.Email) {
-                errors.Email = "Enter Email ID";
+                errors.Email = "Please Enter Email ID";
             } else {
                 const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|ymail|rediffmail|hotmail|outlook|aol|icloud|protonmail|example).(com|co.in|in|net|org|edu|gov|uk|us|info|biz|io|...)[a-zA-Z]{0,}$/;
                 if (!emailRegex.test(values.Email)) {
-                    errors.Email = "Enter a valid Email ID";
+                    errors.Email = "Please Enter valid Email ID";
                 }
             }
             if (!values.Password) {
-                errors.Password = "Enter Password"
+                errors.Password = "Please Enter Password"
             }
             if (!values.Confirm_Password) {
-                errors.Confirm_Password = "Enter Confirm Password"
+                errors.Confirm_Password = "Please Enter Confirm Password"
             }
             if (!values.PhoneNo) {
-                errors.PhoneNo = "Enter Phone Number"
+                errors.PhoneNo = "Please Enter Mobile Number"
             }
             if (!values.Select_License) {
-                errors.Select_License = "Enter Select License"
+                errors.Select_License = "Please Select License"
             }
             if (!values.Select_License_Type) {
-                errors.Select_License_Type = "Enter Select License Type"
+                errors.Select_License_Type = "Please Select Days"
             }
 
             if (!values.Service_Count) {
-                errors.Service_Count = "Enter Service Count"
+                errors.Service_Count = "Please Select Service Count"
+            }
+            if (!values.Service_Count) {
+                errors.Service_Count = "Please Select Service Count"
+            }
+            if(!values.Select_Broker && formik.values.Select_License == '2'){
+                errors.Select_Broker="Please Select Broker"
             }
 
             return errors;
@@ -244,7 +250,7 @@ const Adduser = () => {
 
             name: "Select_License",
             name: "Select_License",
-            label: "Select License Type",
+            label: "License Type",
             type: "select1",
             options: [
                 { label: "Demo", value: "1" },
@@ -259,16 +265,16 @@ const Adduser = () => {
         {
 
             name: "Select_License_Type",
-            label: "Select Days",
+            label: "Days",
             type: "select1",
             options: formik.values.Select_License == '1' ? [
                 { label: "2 Days Demo", value: "11" },
                 { label: "1 Week Demo", value: "21" },
-            ] :
+            ] : formik.values.Select_License == '2' ? 
                 [
                     { label: "2 Days Live", value: "12" },
                     { label: "1 Month Live", value: "22" },
-                ],
+                ] : [],
             label_size: 12,
             hiding: false,
             col_size: 6,
@@ -294,7 +300,7 @@ const Adduser = () => {
         },
         {
             name: "Select_Broker",
-            label: "Select Broker",
+            label: "Broker",
             type: "select1",
             options: getBroker.data && getBroker.data.map((item) => ({
                 label: item.BrokerName,
@@ -311,7 +317,7 @@ const Adduser = () => {
             label: "Service Count",
             type: "select",
             options: [
-                { label: "0", value: "0" },
+                
                 { label: "1", value: "1" },
                 { label: "2", value: "2" },
                 { label: "5", value: "5" },

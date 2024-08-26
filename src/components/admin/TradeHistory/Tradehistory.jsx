@@ -470,12 +470,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-md-3 col-sm-6">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select"   selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-md-3 col-sm-6">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select"  selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -561,8 +561,7 @@ const Tradehistory = () => {
                                             type="pie"
                                             width={options1.chart.width}
                                         />
-                                    </div>
-
+                                    </div> 
                                 </div>
 
                                 {/*  Consistent Loss & Profit-Making Trades: */}

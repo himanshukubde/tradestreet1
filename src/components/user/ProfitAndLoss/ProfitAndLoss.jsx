@@ -4,7 +4,8 @@ import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
 import { columns, columns1, columns2, columns3, columns4, columns5 } from './PnLColumn'
- 
+import Swal from 'sweetalert2';
+
 const Tradehistory = () => {
 
     const [selectStrategyType, setStrategyType] = useState('')
@@ -21,24 +22,24 @@ const Tradehistory = () => {
     const Username = localStorage.getItem('name')
 
 
-    
-      // set Defult Date 
-      const currentDate = new Date();
-      currentDate.setDate(currentDate.getDate());
-      const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
-      const formattedDate = `${year}.${month}.${day}`;
-  
-  
- 
-      // from date
-      const DefultToDate = new Date();
-      DefultToDate.setDate(DefultToDate.getDate()+1);
-      const year1 = DefultToDate.getFullYear();
-      const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
-      const day1 = String(DefultToDate.getDate()).padStart(2, '0');
-      const Defult_To_Date = `${year1}.${month1}.${day1}`;
+
+    // set Defult Date 
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate());
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}.${month}.${day}`;
+
+
+
+    // from date
+    const DefultToDate = new Date();
+    DefultToDate.setDate(DefultToDate.getDate() + 1);
+    const year1 = DefultToDate.getFullYear();
+    const month1 = String(DefultToDate.getMonth() + 1).padStart(2, '0');
+    const day1 = String(DefultToDate.getDate()).padStart(2, '0');
+    const Defult_To_Date = `${year1}.${month1}.${day1}`;
 
 
     // Date Formetor
@@ -57,15 +58,15 @@ const Tradehistory = () => {
 
 
 
- 
+
 
     const handleSubmit = async () => {
-        
+
         const data = {
             MainStrategy: selectStrategyType,
             Username: Username,
-            From_date: convertDateFormat(FromDate=='' ? formattedDate : FromDate),
-            To_date: convertDateFormat(ToDate=='' ? Defult_To_Date : ToDate),
+            From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
+            To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
         }
 
 
@@ -73,6 +74,13 @@ const Tradehistory = () => {
         await getNetPnLData(data)
             .then((response) => {
                 if (response.Status) {
+                    Swal.fire({
+                        title: "Success",
+                        icon: "success",
+                        text: response.massage,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setPnlData({
                         loading: false,
                         data: response.data,
@@ -82,6 +90,13 @@ const Tradehistory = () => {
                     setShowTable(true)
                 }
                 else {
+                    Swal.fire({
+                        title: "No Records found",
+                        icon: "info",
+                        text: response.massage,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
                     setPnlData({
                         loading: false,
                         data: [],
@@ -113,7 +128,7 @@ const Tradehistory = () => {
                     <div className="iq-card">
                         <div className="iq-card-header d-flex justify-content-between">
                             <div className="iq-header-title">
-                                <h4 className="card-title">Net P&N</h4>
+                                <h4 className="card-title">Net P&L</h4>
                             </div>
                         </div>
                         <div className="iq-card-body">
@@ -133,12 +148,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-lg-4">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select" selected={FromDate=='' ? formattedDate : FromDate } onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-lg-4">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select" selected={ToDate=='' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate == '' ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
                                     </div>
                                 </div>
                             </div>
@@ -156,10 +171,12 @@ const Tradehistory = () => {
                                         />
                                     </div>
 
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Total Profit and Loss: {getPnLData.data2}
-                                    </p>
+                                    <div>
+                                        <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Total Profit and Loss : <span style={{ color: getPnLData.data2 < 0 ? 'red' : 'green' }}>{getPnLData.data2}</span>
+                                        </p>
 
+                                    </div>
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={selectStrategyType == 'Scalping' ? columns() : selectStrategyType == 'Pattern' ? columns2() : columns4()}

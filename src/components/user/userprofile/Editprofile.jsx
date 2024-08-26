@@ -21,9 +21,7 @@ const Editprofile = () => {
     const handleSubmit = async () => {
 
         if (getVeryfyError == '' && getNewError == '' && getCurrentPassError == ''){
-            
             const data = { User: userName, new_password: newPass, old_password: currPass, confirm_password: verifyPass }
-    
             await PasswordChange(data)
                 .then((response) => {
                     if (response.Status) {

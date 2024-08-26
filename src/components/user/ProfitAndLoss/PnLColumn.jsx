@@ -21,24 +21,8 @@
             }
         },
         {
-            name: "MainSymbol",
-            label: "MainSymbol",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SN",
-            label: "SN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "ETime",
-            label: "ETime",
+            label: "Entry Time",
             options: {
                 filter: true,
                 sort: true,
@@ -46,7 +30,7 @@
         },
         {
             name: "EPrice",
-            label: "EPrice",
+            label: "Entry Price",
             options: {
                 filter: true,
                 sort: true,
@@ -54,7 +38,7 @@
         },
         {
             name: "ExitTime",
-            label: "ExitTime",
+            label: "Exit Time",
             options: {
                 filter: true,
                 sort: true,
@@ -62,23 +46,16 @@
         },
         {
             name: "ExitPrice",
-            label: "ExitPrice",
+            label: "Exit Price",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "MOTrade",
-            label: "MOTrade",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TradeType",
-            label: "TradeType",
+            label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
@@ -92,22 +69,7 @@
                 sort: true,
             }
         },
-        {
-            name: "MOPnL",
-            label: "MOPnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "MCPnL",
-            label: "MCPnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "Trade",
             label: "Trade",
@@ -126,7 +88,7 @@
         },
         {
             name: "Targettype",
-            label: "Targettype",
+            label: "Target Type",
             options: {
                 filter: true,
                 sort: true,
@@ -134,20 +96,13 @@
         },
         {
             name: "SL",
-            label: "SL",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "Token",
             label: "Token",
@@ -156,14 +111,7 @@
                 sort: true,
             }
         },
-        {
-            name: "GroupN",
-            label: "GroupN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "Spot Price",
             label: "Spot Price",
@@ -198,7 +146,7 @@
         },
         {
             name: "STG",
-            label: "STG",
+            label: "Strategy",
             options: {
                 filter: true,
                 sort: true,
@@ -244,14 +192,7 @@
                 sort: true,
             }
         },
-        {
-            name: "Strategy",
-            label: "Strategy",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "PnL",
             label: "PnL",
@@ -260,14 +201,7 @@
                 sort: true,
             }
         },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
     ];
 
 
@@ -288,6 +222,22 @@
             },
         },
         {
+            name: "TradePattern",
+            label: "Pattern Type",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
+            name: "SPattern",
+            label: "Pattern Name",
+            options: {
+                filter: true,
+                sort: true,
+            }
+        },
+        {
             name: "Symbol",
             label: "Symbol",
             options: {
@@ -295,17 +245,10 @@
                 sort: true,
             }
         },
-        {
-            name: "SN",
-            label: "SN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
         {
             name: "ETime",
-            label: "ETime",
+            label: "Entry Time",
             options: {
                 filter: true,
                 sort: true,
@@ -313,7 +256,7 @@
         },
         {
             name: "EPrice",
-            label: "EPrice",
+            label: "Entry Price",
             options: {
                 filter: true,
                 sort: true,
@@ -321,7 +264,7 @@
         },
         {
             name: "ExitTime",
-            label: "ExitTime",
+            label: "Exit Time",
             options: {
                 filter: true,
                 sort: true,
@@ -329,23 +272,16 @@
         },
         {
             name: "ExitPrice",
-            label: "ExitPrice",
+            label: "Exit Price",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "MOTrade",
-            label: "MOTrade",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TradeType",
-            label: "TradeType",
+            label: "Trade Type",
             options: {
                 filter: true,
                 sort: true,
@@ -359,22 +295,7 @@
                 sort: true,
             }
         },
-        {
-            name: "MOPnL",
-            label: "MOPnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "MCPnL",
-            label: "MCPnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "Trade",
             label: "Trade",
@@ -393,39 +314,16 @@
         },
         {
             name: "SL",
-            label: "SL",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradePattern",
-            label: "TradePattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "SPattern",
-            label: "SPattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+         
         {
             name: "TimeFrame",
-            label: "TimeFrame",
+            label: "Time Frame",
             options: {
                 filter: true,
                 sort: true,
@@ -433,7 +331,7 @@
         },
         {
             name: "PatternTime",
-            label: "PatternTime",
+            label: "Pattern Time",
             options: {
                 filter: true,
                 sort: true,
@@ -479,24 +377,8 @@
             }
         },
         {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradePattern",
-            label: "TradePattern",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "SPattern",
-            label: "SPattern",
+            label: "Pattern Name",
             options: {
                 filter: true,
                 sort: true,
@@ -504,7 +386,7 @@
         },
         {
             name: "TimeFrame",
-            label: "TimeFrame",
+            label: "Time Frame",
             options: {
                 filter: true,
                 sort: true,
@@ -553,14 +435,6 @@
             }
         },
         {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
             name: "PnL",
             label: "PnL",
             options: {
@@ -592,17 +466,10 @@
                 sort: true,
             }
         },
-        {
-            name: "SN",
-            label: "SN",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "ETime",
-            label: "ETime",
+            label: "Entry Time",
             options: {
                 filter: true,
                 sort: true,
@@ -610,7 +477,7 @@
         },
         {
             name: "EPrice",
-            label: "EPrice",
+            label: "Entry Price",
             options: {
                 filter: true,
                 sort: true,
@@ -618,7 +485,7 @@
         },
         {
             name: "ExitTime",
-            label: "ExitTime",
+            label: "Exit Time",
             options: {
                 filter: true,
                 sort: true,
@@ -626,20 +493,13 @@
         },
         {
             name: "ExitPrice",
-            label: "ExitPrice",
+            label: "Exit Price",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "MOTrade",
-            label: "MOTrade",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TradeType",
             label: "TradeType",
@@ -651,22 +511,6 @@
         {
             name: "Quantity",
             label: "Quantity",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "MOPnL",
-            label: "MOPnL",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "MCPnL",
-            label: "MCPnL",
             options: {
                 filter: true,
                 sort: true,
@@ -690,31 +534,16 @@
         },
         {
             name: "SL",
-            label: "SL",
+            label: "Stoploss",
             options: {
                 filter: true,
                 sort: true,
             }
         },
-        {
-            name: "Username",
-            label: "Username",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "ScalpType",
             label: "ScalpType",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "GroupN",
-            label: "GroupN",
             options: {
                 filter: true,
                 sort: true,

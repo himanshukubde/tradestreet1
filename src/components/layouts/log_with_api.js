@@ -4,13 +4,9 @@ import * as Config from "../../Utils/Config";
 
 const loginWithApi = async (UserDetails) => {
     const token = localStorage.getItem('token');
-
-    
     if (UserDetails) {
-
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
             try {
-               
                 const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username,
                     {
                         headers: {
@@ -19,9 +15,7 @@ const loginWithApi = async (UserDetails) => {
                         }
                     }
                 );
-
-                console.log(response)
-                if (response.data.Status) { // Assuming the status is in response.data.Status
+                if (response.data.Status) { 
 
                     Swal.fire({
                         title: 'Success!',
@@ -38,15 +32,15 @@ const loginWithApi = async (UserDetails) => {
 
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Trading Off successfully.',
+                        text: response.data.massage,
                         icon: 'error',
                         confirmButtonText: 'OK',
-                        timer: 1000
+                        timer: 3000
                     }).then(() => {
                         setTimeout(() => {
                             window.location.reload();
 
-                        }, 1000);
+                        }, 3000);
                     });
                 }
             } catch (err) {
@@ -280,7 +274,7 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response);
+                   
 
                     let swalOptions = {
                         confirmButtonText: 'OK',
@@ -361,7 +355,7 @@ const loginWithApi = async (UserDetails) => {
 
             axios.request(config)
                 .then((response) => {
-                    console.log("response", response.data);
+                    
 
                     let swalOptions = {
                         confirmButtonText: 'OK',
