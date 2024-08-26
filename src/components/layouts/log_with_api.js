@@ -4,13 +4,9 @@ import * as Config from "../../Utils/Config";
 
 const loginWithApi = async (UserDetails) => {
     const token = localStorage.getItem('token');
-
-    
     if (UserDetails) {
-
         if (UserDetails.BrokerName.toUpperCase() === "Aliceblue".toUpperCase()) {
             try {
-               
                 const response = await axios.get(Config.base_url + 'Aliceblue/' + UserDetails.Username,
                     {
                         headers: {
@@ -19,9 +15,7 @@ const loginWithApi = async (UserDetails) => {
                         }
                     }
                 );
-
-               
-                if (response.data.Status) { // Assuming the status is in response.data.Status
+                if (response.data.Status) { 
 
                     Swal.fire({
                         title: 'Success!',

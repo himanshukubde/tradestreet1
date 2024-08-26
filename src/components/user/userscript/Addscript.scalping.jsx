@@ -206,8 +206,8 @@ const AddClient = () => {
                 TStype: values.TStype,
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
-                EntryPrice: values.EntryPrice,
-                EntryRange: values.EntryRange,
+                EntryPrice: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryPrice,
+                EntryRange: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryRange,
                 LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
                 HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
                 HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
@@ -308,6 +308,8 @@ const AddClient = () => {
 
     const result = extractDetails(location.state.data.Symbol);
 
+ console.log("location.state.data", location.state.data)
+
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -315,7 +317,7 @@ const AddClient = () => {
         formik.setFieldValue('Symbol', location.state.data.MainSymbol)
         formik.setFieldValue('expirydata1', location.state.data.ExpiryDate)
         formik.setFieldValue('TType', location.state.data.TType)
-        formik.setFieldValue('Lotsize', location.state.data.Lotsize)
+        formik.setFieldValue('Quantity', location.state.data.Quantity)
         formik.setFieldValue('Set_First_Trade_Range', location.state.data.EntryPrice == 0 || location.state.data.EntryRange == 0 ? false : true)
         formik.setFieldValue('EntryPrice', location.state.data.EntryPrice)
         formik.setFieldValue('EntryRange', location.state.data.EntryRange)
@@ -342,14 +344,14 @@ const AddClient = () => {
             formik.setFieldValue('LowerRange', 0)
             formik.setFieldValue('HigherRange', 0)
         }
-        if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
-            formik.setFieldValue('EntryPrice', 0)
-            formik.setFieldValue('EntryRange', 0)
-        }
+            // if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
+            //     formik.setFieldValue('EntryPrice', 0)
+            //     formik.setFieldValue('EntryRange', 0)
+            // }
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")
-            formik.setFieldValue('Symbol', "")
+            // formik.setFieldValue('Symbol', "")
 
         }
 }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument])

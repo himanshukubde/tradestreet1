@@ -94,6 +94,14 @@ export const columns1 =()=> [
         }
     },
     {
+        name: "_id",
+        label: "Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "open",
         label: "open",
         options: {

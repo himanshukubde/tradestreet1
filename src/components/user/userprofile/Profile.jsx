@@ -3,7 +3,10 @@ import { Get_Profile_Data } from '../../CommonAPI/User'
 
 const Profile = () => {
     var username = localStorage.getItem('name')
-    const [data, setData] = useState({})
+    const [data, setData] = useState({
+        loading: false,
+        data: []
+    })
 
     const getprofiledata = async () => {
         const data = {
@@ -12,8 +15,16 @@ const Profile = () => {
         }
         await Get_Profile_Data(data).then((response) => {
             if (response.Data) {
-
-                setData(response.Data[0])
+                setData({
+                    loading: true,
+                    data: response.Data[0]
+                })
+            }
+            else {
+                setData({
+                    loading: true,
+                    data: []
+                })
             }
         })
     }
@@ -22,7 +33,9 @@ const Profile = () => {
     useEffect(() => {
         getprofiledata()
     }, []);
- 
+
+    console.log(data)
+
     return (
         <div>
             <div className="container-fluid">
@@ -68,21 +81,23 @@ const Profile = () => {
                                 <div className="about-info m-0 p-0">
                                     <div className="row">
                                         <div className="col-4">Username:</div>
-                                        <div className="col-8">{data && data.Username} </div>
+                                        <div className="col-8">{data && data.data.Username} </div>
                                         <div className="col-4">Mobile No :</div>
-                                        <div className="col-8">{data && data.Mobile_No} </div>
+                                        <div className="col-8">{data && data.data.Mobile_No} </div>
                                         <div className="col-4">Email Id:</div>
-                                        <div className="col-8">{data && data.EmailId}</div>
+                                        <div className="col-8">{data && data.data.EmailId}</div>
                                         <div className="col-4">BrokerName :</div>
-                                        <div className="col-8">{data && data.BrokerName}</div>
+                                        <div className="col-8">{data && data.data.BrokerName}</div>
                                         <div className="col-4">Services :</div>
                                         <div className="col-8">
-                                            {data && data.ServiceCount}
+                                            {data && data.data.ServiceCount}
                                         </div>
                                         <div className="col-4">Group :</div>
-                                        <div className="col-8">
-                                            {data && Array.isArray(data.Group) && data.Group.join(' , ')}
-                                        </div>
+                                        {data.loading && data && data.data.Group.length > 0 ? <div className="col-8">{data && data.Group.join(' , ')}</div> :
+                                            <div className="col-8">
+                                                No Group Available
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

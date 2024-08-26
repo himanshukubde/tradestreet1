@@ -777,8 +777,6 @@ const AddClient = () => {
           formik.setFieldValue('EntryRange', 0)
         }
     
-    
-    
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
           formik.setFieldValue('Optiontype', "")
           formik.setFieldValue('Strike', "")
@@ -789,9 +787,7 @@ const AddClient = () => {
           formik.setFieldValue('Strike', "")
           formik.setFieldValue('Optiontype', "")
         }
-        if (formik.values.Exchange == "NFO") {
-          formik.setFieldValue('Symbol', "")
-      }
+        
     
       }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 

@@ -231,7 +231,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
                 Strategy: values.Strategy,
-                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : "",
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : values.Strategy=="ShortShifting" || values.Strategy=="LongShifting" ? "Future" : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
