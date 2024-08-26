@@ -126,6 +126,7 @@ const Pannel = () => {
         await Get_Panle_Logs(data)
             .then((response) => {
                 if (response.Status) {
+                    
                     const filterData = response.PanelDetails.filter((item) => {
                         const matchedData = getActivity == '' || item.Activity.toLowerCase() == getActivity.toLowerCase();
 
@@ -207,11 +208,11 @@ const Pannel = () => {
                                             onChange={(e) => setActivity(e.target.value)}
                                             value={getActivity}>
                                             <option value="">All Activity</option>
-                                            <option value={1}>Login</option>
-                                            <option value={2}>Broker Update</option>
-                                            <option value={3}>Add Script</option>
-                                            <option value={4}>Continue Script</option>
-                                            <option value={5}>Square Script</option>
+                                            <option value={'Login'}>Login</option>
+                                            <option value={'Broker Update'}>Broker Update</option>
+                                            <option value={'Add Script'}>Add Script</option>
+                                            <option value={'Continue Script'}>Continue Script</option>
+                                            <option value={'Square Script'}>Square Script</option>
 
                                         </select>
                                     </div>
