@@ -93,7 +93,7 @@ const Profile = () => {
                                             {data && data.data.ServiceCount}
                                         </div>
                                         <div className="col-4">Group :</div>
-                                        {data.loading && data && data.data.Group.length > 0 ? <div className="col-8">{data && data.Group.join(' , ')}</div> :
+                                        {data.loading && data && data.data.Group.length > 0 ? <div className="col-8">{data && data.data.Group.join(' , ')}</div> :
                                             <div className="col-8">
                                                 No Group Available
                                             </div>

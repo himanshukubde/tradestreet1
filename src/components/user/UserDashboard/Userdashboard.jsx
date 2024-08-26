@@ -147,22 +147,7 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-        {
-            name: "TradeExecution",
-            label: "Trade Execution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeCount",
-            label: "Trade Count",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TradeType",
             label: "Trade Type",

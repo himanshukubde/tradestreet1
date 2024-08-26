@@ -293,6 +293,7 @@ const Strategygroup = () => {
                                 ></button>
                             </div>
                             <hr />
+                            
                             <AddForm
                                 fields={fields.filter(
                                     field => !field.showWhen || field.showWhen(formik.values)
