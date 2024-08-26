@@ -5431,3 +5431,12 @@ button.btn.btn-primary.btn1 {
 .customtable table tbody tr td div:last-child {
   width: 100px !important;
 }
+
+@media (max-width: 768px) {
+  .MuiTableCell-root {
+    padding: 8px !important;  
+  }
+  .MuiCheckbox-root {
+    width: 40px;  
+  }
+}
