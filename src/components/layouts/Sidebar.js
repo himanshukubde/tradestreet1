@@ -30,20 +30,50 @@ const Sidebar = () => {
                 anchor.removeEventListener('click', handleAnchorClick);
             });
         };
-        if (isActive) {
-            document.body.classList.add('sidebar-main');
-        } else {
-            document.body.classList.remove('sidebar-main');
-        }
+        // if (isActive) {
+        //     document.body.classList.add('sidebar-main');
+        // } else {
+        //     document.body.classList.remove('sidebar-main');
+        // }
     }, [isActive]);
 
-    const handleClick = () => {
-        setIsActive(prevState => !prevState);
-    };
+    // const handleClick = () => {
+    //     setIsActive(prevState => !prevState);
+    // };
 
-    const handleSidebarClick = (event, item) => {
+    // const handleSidebarClick = (event, item) => {
+    //     setActiveItem(item);
+    // };
+
+    useEffect(() => {
+        document.body.classList.toggle('sidebar-main', isActive);
+    }, [isActive]);
+
+    const handleClick = () => setIsActive(prevState => !prevState);
+
+    const handleSidebarClick = (item) => {
         setActiveItem(item);
     };
+
+    useEffect(() => {
+        const sidebar = sidebarRef.current;
+        const handleSidebarItemClick = (event) => {
+            const li = event.currentTarget;
+            const submenu = li.querySelector('.iq-submenu');
+
+            if (submenu) {
+                submenu.style.display = li.classList.toggle('menu-open') ? 'block' : 'none';
+            }
+        };
+
+        const sidebarItems = sidebar?.querySelectorAll('.iq-sidebar-menu li') || [];
+        sidebarItems.forEach(item => item.addEventListener('click', handleSidebarItemClick));
+
+        return () => {
+            sidebarItems.forEach(item => item.removeEventListener('click', handleSidebarItemClick));
+        };
+    }, []);
+
 
     useEffect(() => {
         const sidebar = sidebarRef.current;
