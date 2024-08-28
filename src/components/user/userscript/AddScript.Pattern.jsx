@@ -266,7 +266,7 @@ const AddClient = () => {
     });
 
     
-    console.log("location.state.data :", location.state.data)
+     
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -787,7 +787,9 @@ const AddClient = () => {
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
-                page_title="Add Script pattern"
+                // page_title="Add Script pattern"
+                page_title= {`Add Script - pattern , Group Name : ${location.state.data.Username}`}
+                
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

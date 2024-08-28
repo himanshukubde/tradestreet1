@@ -76,7 +76,27 @@ const Userlog = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+
+
+                    // setShowModal(true); 
+                    // const rowDataWithKeys = {};
+                    // columns.forEach((column, index) => {
+                    //     rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                    // }); 
+                    // setSelectedIndex(rowDataWithKeys);
+
+                    return <Eye onClick={(e) => {
+
+                        setShowModal(!showModal);
+                        const rowDataWithKeys = {};
+                        columns.forEach((column, index) => {
+                            rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                        });
+
+                        // setSelectedIndex(rowDataWithKeys);
+
+                        handleModal(rowDataWithKeys)
+                    }} />
                 }
             }
         },
@@ -509,9 +529,8 @@ const Userlog = () => {
     }, []);
 
 
-    const handleModal = async (rowIndex) => {
-        const index = rowIndex.rowIndex;
-        const data = { Data: selectStrategyType, Username: getServiceDetails.data[index].Username }
+    const handleModal = async (rowIndex) => { 
+        const data = { Data: selectStrategyType, Username: rowIndex.Username }
 
         await get_User_Data(data)
             .then((response) => {

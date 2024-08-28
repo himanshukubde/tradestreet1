@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GetClientService, Get_Broker_Name, GetGroupNames, ExtendEndDate, EditClientPanle, ServiceCount } from '../../CommonAPI/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import { Link } from 'react-router-dom';
-import { SquarePen   } from 'lucide-react';
+import { SquarePen } from 'lucide-react';
 import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
@@ -21,8 +21,9 @@ const Clientservice = () => {
     const [getExtendDate, setExtendDate] = useState([]);
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
+    const [searchInput, setSearchInput] = useState('')
 
-
+    
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -45,12 +46,25 @@ const Clientservice = () => {
     }, []);
 
 
+
     const fetchClientService = async () => {
         try {
             const response = await GetClientService();
             if (response.Status) {
+                const filteredData = response.Data.filter(item => {
+                    const searchInputMatch =
+                        searchInput === '' ||
+                        item.Username.toLowerCase().includes(searchInput.toLowerCase()) ||
+                        item.Mobile_No.toLowerCase().includes(searchInput.toLowerCase()) ||
+                        item.EmailId.toLowerCase().includes(searchInput.toLowerCase()) ||
+                        item.BrokerName.toLowerCase().includes(searchInput.toLowerCase())
+                    return searchInputMatch
+                })
 
-                setClientService({ loading: false, data: response.Data });
+                setClientService({
+                    loading: false,
+                    data: searchInput ? filteredData : response.Data,
+                });
             } else {
                 setClientService({ loading: false, data: [] });
             }
@@ -61,7 +75,7 @@ const Clientservice = () => {
 
     useEffect(() => {
         fetchClientService();
-    }, [refresh]);
+    }, [refresh, searchInput]);
 
     useEffect(() => {
         const fetchGroupDetails = async () => {
@@ -100,24 +114,24 @@ const Clientservice = () => {
         },
         validate: values => {
             const errors = {};
-            if (showModal && clientService.data[selectedIndex].BrokerName != "Demo" && !values.Select_Product_Type) {
+            if (showModal && selectedIndex.BrokerName != "Demo" && !values.Select_Product_Type) {
                 errors.Select_Product_Type = "Select Edit Type"
             }
             if (!values.Select_Broker) {
                 errors.Select_Broker = "Select Broker Type"
             }
-            if (showModal && clientService.data[selectedIndex].BrokerName === "Demo" && !values.Select_Day) {
+            if (showModal && selectedIndex.BrokerName === "Demo" && !values.Select_Day) {
                 errors.Select_Day = "Select Days"
             }
             return errors;
         },
         onSubmit: async (values) => {
             const req = {
-                User: showModal ? clientService.data[selectedIndex].Username : '',
-                ser: values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" ? 1 : values.Service_Count,
+                User: showModal ? selectedIndex.Username : '',
+                ser: values.Select_Day === 'todays' && showModal && selectedIndex.BrokerName === "Demo" ? 1 : values.Service_Count,
                 Broker: values.Select_Broker,
-                Day: showModal && clientService.data[selectedIndex].BrokerName === 'Demo' ? values.Select_Day : '',
-                SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && clientService.data[selectedIndex].BrokerName !== "Demo" ? getDate : form_Date,
+                Day: showModal && selectedIndex.BrokerName === 'Demo' ? values.Select_Day : '',
+                SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && selectedIndex.BrokerName !== "Demo" ? getDate : form_Date,
                 SEDate: formattedDate,
                 GroupName: selectedOptions,
                 select: values.Select_Product_Type
@@ -154,6 +168,7 @@ const Clientservice = () => {
         },
     });
 
+ 
     const fields = [
         {
             name: 'Select_Product_Type',
@@ -163,7 +178,7 @@ const Clientservice = () => {
                 { label: 'Add New Service', value: 'Add New Services' },
                 { label: 'Extend Service Count', value: 'Extend Service Count' },
             ],
-            showWhen: () => showModal && clientService.data[selectedIndex].BrokerName !== 'Demo',
+            showWhen: () => showModal && selectedIndex.BrokerName !== 'Demo',
             label_size: 12,
             col_size: 12,
         },
@@ -186,7 +201,7 @@ const Clientservice = () => {
                 { value: 'todays', label: 'Two Days' },
                 { value: 'onemonth', label: 'One Month' },
             ],
-            showWhen: () => showModal && clientService.data[selectedIndex].BrokerName === 'Demo',
+            showWhen: () => showModal && selectedIndex.BrokerName === 'Demo',
             label_size: 12,
             col_size: 6,
         },
@@ -194,7 +209,7 @@ const Clientservice = () => {
             name: 'Service_Count',
             label: 'Service Count',
             type: 'select1',
-            options: showModal && clientService.data[selectedIndex].BrokerName !== 'Demo' &&
+            options: showModal && selectedIndex.BrokerName !== 'Demo' &&
                 formik.values.Select_Product_Type === 'Extend Service Count'
                 ? getServiceCount.map(item => ({
                     label: item,
@@ -208,23 +223,24 @@ const Clientservice = () => {
                 ],
             showWhen: () =>
                 showModal &&
-                (clientService.data[selectedIndex].BrokerName !== 'Demo' ||
+                (selectedIndex.BrokerName !== 'Demo' ||
                     formik.values.Select_Day === 'onemonth'),
             label_size: 12,
             col_size: 6,
         },
     ];
 
+    console.log("selec", formik.values.Service_Count)
 
     useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")
-        formik.setFieldValue('Select_Broker', showModal && clientService.data[selectedIndex].BrokerName)
+        formik.setFieldValue('Select_Broker', showModal && selectedIndex.BrokerName)
         formik.setFieldValue('Service_Count', 0)
     }, [showModal])
 
     const Service_Count = async () => {
-        if (showModal && clientService.data[selectedIndex].Username) {
-            const data = { Username: showModal && clientService.data[selectedIndex].Username };
+        if (showModal && selectedIndex.Username) {
+            const data = { Username: showModal && selectedIndex.Username };
             try {
                 const response = await ServiceCount(data);
                 if (response.Status) {
@@ -239,8 +255,8 @@ const Clientservice = () => {
     };
 
     const ExtendDate = async () => {
-        if (showModal && clientService.data[selectedIndex].Username && showModal && clientService.data[selectedIndex].ServiceCount) {
-            const data = { Username: showModal ? clientService.data[selectedIndex].Username : '', ser: showModal ? clientService.data[selectedIndex].ServiceCount : '' };
+        if (showModal && selectedIndex.Username && showModal && selectedIndex.ServiceCount) {
+            const data = { Username: showModal ? selectedIndex.Username : '', ser: showModal ? selectedIndex.ServiceCount : '' };
             try {
                 const response = await ExtendEndDate(data);
                 if (response.Status) {
@@ -281,8 +297,12 @@ const Clientservice = () => {
                 customBodyRender: (value, tableMeta) => (
                     <SquarePen
                         onClick={() => {
-                            setShowModal(true);
-                            setSelectedIndex(tableMeta.rowIndex);
+                            setShowModal(true); 
+                            const rowDataWithKeys = {};
+                            columns.forEach((column, index) => {
+                                rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                            }); 
+                            setSelectedIndex(rowDataWithKeys);
                         }}
                     />
                 ),
@@ -380,7 +400,7 @@ const Clientservice = () => {
     currentDate.setDate(
         currentDate.getDate() +
         (formik.values.Select_Day === 'onemonth' ||
-            (showModal && clientService.data[selectedIndex].BrokerName !== 'Demo')
+            (showModal && selectedIndex.BrokerName !== 'Demo')
             ? 30
             : formik.values.Select_Day === 'todays'
                 ? 2
@@ -395,7 +415,7 @@ const Clientservice = () => {
 
     useEffect(() => {
         if (showModal)
-            setSelectedOptions(showModal && clientService.data[selectedIndex].Group)
+            setSelectedOptions(showModal && selectedIndex.Group)
     }, [showModal])
     return (
         <>
@@ -411,6 +431,10 @@ const Clientservice = () => {
                             </Link>
                         </div>
                         <div className='iq-card-body'>
+                            <div className='mb-3 col-lg-3'>
+                                <input type="text" className=' form-control rounded p-1 px-2' placeholder="Search..." onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
+
+                            </div>
                             <FullDataTable columns={columns} data={clientService.data} checkBox={false} />
                         </div>
                     </div>
@@ -448,19 +472,32 @@ const Clientservice = () => {
                                 additional_field={
                                     <div className='mt-2'>
                                         <div className='row'>
-                                            {formik.values.Select_Day === 'todays' && showModal && clientService.data[selectedIndex].BrokerName === "Demo" && (
+                                        <div className='col-lg-6'>
+                                                <h6>Select Group</h6>
+                                                <DropdownMultiselect
+                                                    options={optionsArray}
+                                                    name='groupName'
+                                                    handleOnChange={(selected) => setSelectedOptions(selected)}
+                                                    selected={showModal ? selectedIndex.Group : ''}
+                                                />
+                                            </div>
+
+                                            {formik.values.Select_Day === 'todays' && showModal && selectedIndex.BrokerName === "Demo" && (
                                                 <div className='col-lg-6'>
                                                     <h6>Service Count</h6>
                                                     <h4>1</h4>
                                                 </div>
                                             )}
-                                            {(formik.values.Select_Product_Type === "Add New Services" || showModal && clientService.data[selectedIndex].BrokerName === "Demo") ? (
+                                            {(formik.values.Select_Product_Type === "Add New Services" || showModal && selectedIndex.BrokerName === "Demo") ? (
                                                 <div className='col-lg-3'>
                                                     <h6>Service Start Date</h6>
                                                     <h6>{form_Date}</h6>
                                                 </div>
                                             ) : (
+                                                
+                                        
                                                 <div className='col-lg-3'>
+                                                     
                                                     <h6>Service Start Date</h6>
                                                     <select
                                                         value={getDate}
@@ -478,15 +515,7 @@ const Clientservice = () => {
                                                 <h6>Service End Date:</h6>
                                                 <h6>{formattedDate}</h6>
                                             </div>
-                                            <div className='col-lg-6'>
-                                                <h6>Select Group</h6>
-                                                <DropdownMultiselect
-                                                    options={optionsArray}
-                                                    name='groupName'
-                                                    handleOnChange={(selected) => setSelectedOptions(selected)}
-                                                    selected={showModal ? clientService.data[selectedIndex].Group : ''}
-                                                />
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 }

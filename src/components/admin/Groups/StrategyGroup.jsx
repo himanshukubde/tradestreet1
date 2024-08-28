@@ -4,6 +4,7 @@ import { Add_Group, GetGroupNames } from '../../CommonAPI/Admin';
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import AddForm from '../../../ExtraComponent/FormData'
 import { useFormik } from 'formik';
+import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 
 const Strategygroup = () => {
     const [getGroupData, setGroupData] = useState({
@@ -58,6 +59,7 @@ const Strategygroup = () => {
                 sort: true,
             }
         },
+        
         {
             name: "PRtype",
             label: "Product Type",
@@ -72,7 +74,7 @@ const Strategygroup = () => {
             options: {
                 filter: true,
                 sort: true,
-                width: "300px",
+                width: '20%'
             }
         },
     ];

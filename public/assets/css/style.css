@@ -5166,7 +5166,7 @@ body.sidebar-main .iq-sidebar {
 }
 
 @media (max-width: 900px) {
-  .MuiTable-root td :first-child {
+  /* .MuiTable-root td :first-child {
     display: none !important;
   }
 
@@ -5176,7 +5176,7 @@ body.sidebar-main .iq-sidebar {
 
   .MUIDataTableBodyCell-root td :first-child {
     display: none;
-  }
+  } */
 
 }
 
@@ -5429,7 +5429,8 @@ button.btn.btn-primary.btn1 {
 }
 
 .customtable table tbody tr td div:last-child {
-  width: 100px !important;
+  /* width: 100px !important; */
+  white-space: normal;
 }
 
 @media (max-width: 768px) {
@@ -5440,3 +5441,5 @@ button.btn.btn-primary.btn1 {
     width: 40px;  
   }
 }
+
+ 

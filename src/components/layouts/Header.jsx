@@ -378,28 +378,7 @@ const Header = () => {
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                    <li className={`nav-item ${activeElement === 'notifications' ? 'iq-show' : ''}`}>
-                                        <a
-                                            href="#"
-                                            className={`search-toggle iq-waves-effect ${activeElement === 'notifications' ? 'active' : ''}`}
-                                            onClick={(e) => handleClick(e, 'notifications')}
-                                        >
-                                            <i className="ri-notification-3-fill" />
-                                            <span className="bg-danger dots" />
-                                        </a>
-
-                                    </li>
-                                    <li className={`nav-item ${activeElement === 'mail' ? 'iq-show' : ''}`}>
-                                        <a
-                                            href="#"
-                                            className={`search-toggle iq-waves-effect ${activeElement === 'mail' ? 'active' : ''}`}
-                                            onClick={(e) => handleClick(e, 'mail')}
-                                        >
-                                            <i className="ri-mail-open-fill" />
-                                            <span className="bg-primary count-mail" />
-                                        </a>
-
-                                    </li>
+                                   
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
@@ -522,31 +501,7 @@ const Header = () => {
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                    <li className={`nav-item ${activeElement === 'notifications' ? 'iq-show' : ''}`}>
-                                        <a
-                                            href="#"
-                                            className={`search-toggle iq-waves-effect ${activeElement === 'notifications' ? 'active' : ''}`}
-                                            onClick={(e) => handleClick(e, 'notifications')}
-                                        >
-                                            <i className="ri-notification-3-fill" />
-                                            <span className="bg-danger dots" />
-                                        </a>
-                                        {/* <div className="iq-sub-dropdown">
-                                            <div className="iq-card shadow-none m-0">
-                                                <div className="iq-card-body p-0 ">
-                                                    <div className="bg-primary p-3"> */}
-                                        {/* <h5 className="mb-0 text-white d-flex justify-content-between">
-                                                            All Notifications
-                                                            <small className="badge  badge-dark float-end pt-1">
-                                                                4
-                                                            </small>
-                                                        </h5> */}
-                                        {/* </div>
-                                                      
-                                                </div>
-                                            </div>
-                                        </div> */}
-                                    </li>
+                                   
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 

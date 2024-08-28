@@ -3,7 +3,7 @@ import { GetClientService, get_User_Data, get_Trade_History, get_PnL_Data, get_E
 import Loader from '../../../ExtraComponent/Loader'
 import GridExample from '../../../ExtraComponent/CommanDataTable'
 import DatePicker from "react-datepicker";
-import {columns , columns1 , columns2 , columns3 , columns4 , columns5 ,columns6} from './TradeHistoryColumn'
+import { columns, columns1, columns2, columns3, columns4, columns5, columns6 } from './TradeHistoryColumn'
 import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
 import ApexCharts from 'react-apexcharts';
@@ -161,7 +161,7 @@ const Tradehistory = () => {
 
 
 
-     
+
 
 
     const handleRowSelect = (rowData) => {
@@ -179,7 +179,7 @@ const Tradehistory = () => {
             Timeframe: selectStrategyType == "Pattern" ? selectedRowData && selectedRowData.TimeFrame : '',
             From_date: convertDateFormat(FromDate == '' ? formattedDate : FromDate),
             To_date: convertDateFormat(ToDate == '' ? Defult_To_Date : ToDate),
-            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN  : "",
+            Group: selectStrategyType == "Scalping" || selectStrategyType == "Option Strategy" ? selectedRowData && selectedRowData.GroupN : "",
             TradePattern: "",
             PatternName: ""
         }
@@ -356,7 +356,7 @@ const Tradehistory = () => {
         setStrategyType('Scalping')
     }, [getGroupData]);
 
- 
+
 
     const chartOptions = {
         zoom: { enabled: true },
@@ -470,12 +470,12 @@ const Tradehistory = () => {
                                     </div>
                                     <div className="form-group col-md-3 col-sm-6">
                                         <label>Select form Date</label>
-                                        <DatePicker className="form-select"   selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
+                                        <DatePicker className="form-select" selected={FromDate == '' ? formattedDate : FromDate} onChange={(date) => setFromDate(date)} />
 
                                     </div>
                                     <div className="form-group col-md-3 col-sm-6">
                                         <label>Select To Date</label>
-                                        <DatePicker className="form-select"  selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
+                                        <DatePicker className="form-select" selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
 
                                     </div>
                                 </div>
@@ -514,8 +514,41 @@ const Tradehistory = () => {
                                 </div>
 
 
-                                {/* PnL Graph Table */}
+                                {/* EquityCurve  Graph show */}
                                 <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    Drawdown Graph
+                                </p>
+                                <div style={{ width: '100%', height: '500px' }}>
+                                    <AgChartsReact options={chartOptions2} />
+                                </div>
+
+
+
+                                <div className='mb-3 mt-3'>
+                                    <div className="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                    Drawdown Table
+                                                </button>
+
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <GridExample
+                                                        columns={columns6()}
+                                                        data={getDropDownData.data}
+                                                        onRowSelect={handleRowSelect}
+                                                        checkBox={false}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* PnL Graph Table */}
+                                {/* <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                     Profit and Loss Table
                                 </p>
                                 <div className=''>
@@ -525,7 +558,7 @@ const Tradehistory = () => {
                                         onRowSelect={handleRowSelect}
                                         checkBox={false}
                                     />
-                                </div>
+                                </div> */}
 
 
                                 {/* PnL Graph show */}
@@ -561,152 +594,65 @@ const Tradehistory = () => {
                                             type="pie"
                                             width={options1.chart.width}
                                         />
-                                    </div> 
+                                    </div>
                                 </div>
 
                                 {/*  Consistent Loss & Profit-Making Trades: */}
+
                                 <div>
                                     <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                         Consistent Loss & Profit-Making Trades:
                                     </p>
                                 </div>
 
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <div className="iq-card">
-                                                <div className="iq-card-body p-0">
-                                                    <div className="iq-edit-list">
-                                                        <ul
-                                                            className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
-                                                            role="tablist"
-                                                        >
-                                                            <li className="col-md-6 p-0">
-                                                                <a
-                                                                    className="nav-link active"
-                                                                    data-bs-toggle="pill"
-                                                                    href="#personal-information"
-                                                                    aria-selected="true"
-                                                                    role="tab"
-                                                                >
-                                                                    Consistent Profit-Making
-                                                                </a>
-                                                            </li>
-                                                            <li className="col-md-6 p-0">
-                                                                <a
-                                                                    className="nav-link"
-                                                                    data-bs-toggle="pill"
-                                                                    href="#chang-pwd"
-                                                                    aria-selected="false"
-                                                                    tabIndex={-1}
-                                                                    role="tab"
-                                                                >
-                                                                    Consistent Loss Making
+                                <div className='row'>
+                                    <div className='col-lg-6'>
+                                        <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
+                                        <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p>
 
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="iq-edit-list-data">
-                                                <div className="tab-content">
-                                                    <div
-                                                        className="tab-pane fade active show"
-                                                        id="personal-information"
-                                                        role="tabpanel"
-                                                    >
-                                                        <div className="container-fluid">
-                                                            <div className="row">
-                                                                <div className="col-sm-12">
-                                                                    <div className="iq-card">
-                                                                        <div className="iq-card-body">
-                                                                            <p>Profit Consistant : <spam>{getAllTradeData.data1}</spam></p>
-                                                                            <p>Profit Consistant Count : <spam>{getAllTradeData.data2}</spam></p>
+                                    </div>
+                                    <div className='col-lg-6'>
+                                        <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
+                                        <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p>
 
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                    </div>
 
-                                                    </div>
-                                                    <div className="tab-pane fade" id="chang-pwd" role="tabpanel">
-                                                        <div className="container-fluid">
-                                                            <div className="row">
-                                                                <div className="col-sm-12">
-                                                                    <div className="iq-card">
-                                                                        <div className="iq-card-body">
-                                                                            <p>Loss Consistant : <spam>{getAllTradeData.data4}</spam></p>
-                                                                            <p>Loss Consistant Count : <spam>{getAllTradeData.data3}</spam></p>
+                                </div>
 
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                {/* EquityCurve */}
 
+                                <div>
+
+                                    {/* EquityCurve  Graph show */}
+                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        EquityCurve
+                                    </p>
+                                    <div style={{ width: '100%', height: '500px' }}>
+                                        <AgChartsReact options={chartOptions1} />
+                                    </div>
+
+                                    <div>
+                                        <div className="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingTwo">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                        Equity Curve Table
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <GridExample
+                                                            columns={columns5(selectStrategyType)}
+                                                            data={getEquityCurveDetails.data}
+                                                            onRowSelect={handleRowSelect}
+                                                            checkBox={false}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-                                {/* EquityCurve */}
-
-                                <div>
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Equity Curve
-                                    </p>
-
-                                    <GridExample
-                                        columns={columns5(selectStrategyType)}
-                                        data={getEquityCurveDetails.data}
-                                        onRowSelect={handleRowSelect}
-                                        checkBox={false}
-                                    />
-                                </div>
-
-
-                                {/* EquityCurve  Graph show */}
-                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                    EquityCurve
-                                </p>
-                                <div style={{ width: '100%', height: '500px' }}>
-                                    <AgChartsReact options={chartOptions1} />
-                                </div>
-
-
-
-                                <div>
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Drawdown Table
-                                    </p>
-
-                                    <GridExample
-                                        columns={columns6()}
-                                        data={getDropDownData.data}
-                                        onRowSelect={handleRowSelect}
-                                        checkBox={false}
-                                    />
-                                </div>
-
-
-                                {/* EquityCurve  Graph show */}
-                                <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                    Drawdown Graph
-                                </p>
-                                <div style={{ width: '100%', height: '500px' }}>
-                                    <AgChartsReact options={chartOptions2} />
-                                </div>
-
-
                             </>}
 
                         </div>

@@ -68,7 +68,7 @@ const FullDataTable = ({ data, columns, onRowSelect, checkBox }) => {
             setCellProps: () => ({
                 style: {
                     width: column.width || 'auto',
-                    minWidth: '100px', // Ensures better handling of checkboxes on smaller screens
+                    minWidth: '100px',  
                 }
             })
         }

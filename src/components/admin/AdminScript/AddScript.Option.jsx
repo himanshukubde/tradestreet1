@@ -798,7 +798,8 @@ const AddClient = () => {
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
-                page_title="Add Script - Option Strategy"
+                 
+                page_title={`Add Script - Option Strategy  , Group Name : ${location.state.data.selectGroup}`}
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

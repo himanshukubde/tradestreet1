@@ -131,31 +131,7 @@ const Pannel = () => {
                         const matchedData = getActivity == '' || item.Activity.toLowerCase() == getActivity.toLowerCase();
 
                         return matchedData
-                        // if (getActivity == '') {
-                        //     return item
-                        // }
-                        // else if (getActivity == 1) {
-                        //     return item.Activity == 'Login'
-                        // }
-                        // else if (getActivity == 2) {
-                        //     return item.Activity == 'Broker Update'
-                        // }
-                        // else if (getActivity == 3) {
-                        //     return item.Activity == 'Add Script'
-                        // }
-                        // else if (getActivity == 4) {
-                        //     return item.Activity == 'Continue Script'
-                        // }
-                        // else if (getActivity == 5) {
-                        //     return item.Activity == 'Connect with Broker'
-                        // }
-                        // else if (getActivity == 6) {
-                        //     return item.Activity == 'Update Script'
-                        // }
-                        // else if (getActivity == 7) {
-                        //     return item.Activity == 'Square Script'
-                        // }
-                        // else return item
+                         
                     })
 
 
@@ -213,6 +189,8 @@ const Pannel = () => {
                                             <option value={'Add Script'}>Add Script</option>
                                             <option value={'Continue Script'}>Continue Script</option>
                                             <option value={'Square Script'}>Square Script</option>
+                                            <option value={'Discontinue Script'}>Discontinue Script</option>
+
 
                                         </select>
                                     </div>

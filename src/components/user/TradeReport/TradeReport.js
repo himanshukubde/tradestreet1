@@ -90,6 +90,7 @@ const TradeReport = () => {
 
 
     const handleRowSelect = (rowData) => {
+        console.log("Row Data", rowData)
         setSelectedRowData(rowData);
     };
 

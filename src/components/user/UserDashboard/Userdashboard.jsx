@@ -455,7 +455,7 @@ const Userdashboard = () => {
                                         aria-selected={activeTab1 === 'CurrentPosition'}
                                         onClick={() => setActiveTab1('CurrentPosition')}
                                     >
-                                        Current Position
+                                        Current Script
                                     </a>
                                 </li>
                                 <li className="nav-item" role="presentation">

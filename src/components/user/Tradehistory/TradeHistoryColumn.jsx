@@ -19,14 +19,14 @@ export const columns =()=> [
             sort: true,
         }
     },
-    {
-        name: "Exchange",
-        label: "Exchange",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Exchange",
+    //     label: "Exchange",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "Symbol",
         label: "Symbol",
@@ -35,9 +35,25 @@ export const columns =()=> [
             sort: true,
         }
     },
+    // {
+    //     name: "Token",
+    //     label: "Token",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
-        name: "Token",
-        label: "Token",
+        name: "Booking Point",
+        label: "Target",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Re-entry Point",
+        label: "Stoploss",
         options: {
             filter: true,
             sort: true,
@@ -60,14 +76,14 @@ export const columns =()=> [
         }
     },
      
-    {
-        name: "ExpiryDate",
-        label: "Expiry Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "ExpiryDate",
+    //     label: "Expiry Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "TradeExecution",
         label: "Trade Execution",
@@ -101,14 +117,14 @@ export const columns =()=> [
         }
     },
      
-    {
-        name: "SSDate",
-        label: "SS Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "SSDate",
+    //     label: "SS Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "SEDate",
         label: "SE Date",
@@ -118,30 +134,30 @@ export const columns =()=> [
         }
     },
      
-    {
-        name: "TaskStatus",
-        label: "Task Status",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "TaskTime",
-        label: "Task Time",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "TradeCount",
-        label: "Trade Count",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "TaskStatus",
+    //     label: "Task Status",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
+    // {
+    //     name: "TaskTime",
+    //     label: "Task Time",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
+    // {
+    //     name: "TradeCount",
+    //     label: "Trade Count",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
 ];
 
 export const columns1 =()=> [
@@ -187,22 +203,22 @@ export const columns1 =()=> [
     },
      
     
-    {
-        name: "Expirydate",
-        label: "Expiry Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        name: "Token",
-        label: "Token",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Expirydate",
+    //     label: "Expiry Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
+    // {
+    //     name: "Token",
+    //     label: "Token",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
    
     
     {
@@ -294,14 +310,14 @@ export const columns1 =()=> [
         }
     },
    
-    {
-        name: "SSDate",
-        label: "SS Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "SSDate",
+    //     label: "SS Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "SEDate",
         label: "SE Date",
@@ -400,14 +416,14 @@ export const columns1 =()=> [
         }
     },
     
-    {
-        name: "TradeCount",
-        label: "Trade Count",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "TradeCount",
+    //     label: "Trade Count",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
 ];
 
 export const columns2 =()=> [
@@ -439,14 +455,14 @@ export const columns2 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Exchange",
-        label: "Exchange",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Exchange",
+    //     label: "Exchange",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "Symbol",
         label: "Symbol",
@@ -455,14 +471,14 @@ export const columns2 =()=> [
             sort: true,
         }
     },
-    {
-        name: "Token",
-        label: "Token",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Token",
+    //     label: "Token",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "TType",
         label: "Trade Type",
@@ -481,7 +497,7 @@ export const columns2 =()=> [
     },
     {
         name: "Target value",
-        label: "Target value",
+        label: "Target",
         options: {
             filter: true,
             sort: true,
@@ -504,14 +520,14 @@ export const columns2 =()=> [
         }
     },
     
-    {
-        name: "Expiry Date",
-        label: "Expiry Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "Expiry Date",
+    //     label: "Expiry Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "TradeExecution",
         label: "Trade Execution",
@@ -553,14 +569,14 @@ export const columns2 =()=> [
             sort: true,
         }
     },
-    {
-        name: "SEDate",
-        label: "SE Date",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "SEDate",
+    //     label: "SE Date",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
     {
         name: "SSDate",
         label: "SS Date",
@@ -570,14 +586,14 @@ export const columns2 =()=> [
         }
     },
      
-    {
-        name: "TradeCount",
-        label: "Trade Count",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    // {
+    //     name: "TradeCount",
+    //     label: "Trade Count",
+    //     options: {
+    //         filter: true,
+    //         sort: true,
+    //     }
+    // },
 
 ];
 
