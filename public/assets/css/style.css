@@ -5166,12 +5166,16 @@ body.sidebar-main .iq-sidebar {
 }
 
 @media (max-width: 900px) {
-  .MuiTable-root td :nth-last-of-type(2) {
+  .MuiTable-root .MuiTableBody-root td :nth-last-of-type(2) {
     display: none !important;
   }
 
   .MuiTable-root td :last-child {
     display: block !important;
+  }
+
+  .MuiTable-root .MuiTableFooter-root td :last-child {
+    display: flex !important;
   }
 
 
