@@ -43,7 +43,6 @@ const AddClient = () => {
         });
     }
 
-
     const formik = useFormik({
 
         initialValues: {
@@ -186,12 +185,13 @@ const AddClient = () => {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
 
-            console.log("error : ", errors)
+            // console.log("error : ", errors)
             return errors;
         },
 
         onSubmit: async (values) => {
 
+            console.log("getExpiryDate.data[0] : ", getExpiryDate)
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
@@ -287,11 +287,6 @@ const AddClient = () => {
         },
     });
 
-
-
-  
-
- 
     // Symbol Break
     const extractDetails = (inputString) => {
         const regex = /([PC])(?!.*[PC])(\d+)/;
@@ -308,7 +303,8 @@ const AddClient = () => {
 
     const result = extractDetails(location.state.data.Symbol);
 
- console.log("location.state.data", location.state.data)
+
+     
 
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
@@ -340,21 +336,20 @@ const AddClient = () => {
 
 
     useEffect(() => {
-        if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-            formik.setFieldValue('LowerRange', 0)
-            formik.setFieldValue('HigherRange', 0)
-        }
-            // if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
-            //     formik.setFieldValue('EntryPrice', 0)
-            //     formik.setFieldValue('EntryRange', 0)
-            // }
-        if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-            formik.setFieldValue('Optiontype', "")
-            formik.setFieldValue('Strike', "")
-            // formik.setFieldValue('Symbol', "")
-
-        }
-}, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument])
+    if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
+        formik.setFieldValue('LowerRange', 0)
+        formik.setFieldValue('HigherRange', 0)
+    }
+        // if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
+        //     formik.setFieldValue('EntryPrice', 0)
+        //     formik.setFieldValue('EntryRange', 0)
+        // }
+    if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
+        formik.setFieldValue('Optiontype', "")
+        formik.setFieldValue('Strike', "")
+        // formik.setFieldValue('Symbol', "")
+    }
+    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument])
 
 
 
@@ -693,10 +688,6 @@ const AddClient = () => {
     ];
 
 
-
-
-
-
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
@@ -714,6 +705,7 @@ const AddClient = () => {
     }
 
 
+  
     useEffect(() => {
         GetExpriyEndDate()
     }, [])
@@ -798,7 +790,10 @@ const AddClient = () => {
 
 
     const getExpiry = async () => {
+       
+
         if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
+            console.log("formik.values.Exchange : ")
             const data = {
                 Exchange: formik.values.Exchange,
                 Instrument: formik.values.Exchange == "NSE" ? "" : formik.values.Instrument,
@@ -829,12 +824,22 @@ const AddClient = () => {
 
     }
 
+ 
     useEffect(() => {
         getExpiry()
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
 
-
+    // useEffect(() => {
+    //     if (formik.values.Symbol && formik.values.Symbol !== location.state.data.MainSymbol) {
+    //         formik.setFieldValue('expirydata1', "")
+    //     }
+    //     if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
+    //         formik.setFieldValue('LowerRange', 0)
+    //         formik.setFieldValue('HigherRange', 0)
+    //     } 
+         
+    // }, [formik.values.Symbol, formik.values.Strategy, formik.values.set_Range])
 
 
     return (
@@ -843,7 +848,8 @@ const AddClient = () => {
                 fields={fields.filter(
                     (field) => !field.showWhen || field.showWhen(formik.values)
                 )}
-                page_title="Add Script scalping"
+                page_title= {`Add Script - scalping , Group Name : ${location.state.data.Username}`}
+                
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

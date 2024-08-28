@@ -25,7 +25,7 @@ const Tradehistory = () => {
         data2: []
     })
 
-  
+
     const [getAllTradeData, setAllTradeData] = useState({
         loading: true,
         data: [],
@@ -493,13 +493,14 @@ const Tradehistory = () => {
                             {
                                 //getAllTradeData.loading && getPnLData.loading  <Loader/> 
                                 showTable && <>
+
+{/* parseFloat(getAllTradeData.data4).toFixed(4) */}
                                     <div>
                                         <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && getAllTradeData.Overall[0].PnL}</span>
+                                            Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && parseFloat(getAllTradeData.Overall[0].PnL).toFixed(4)}</span>
                                         </p>
 
                                     </div>
-
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns3(selectStrategyType)}
@@ -508,10 +509,62 @@ const Tradehistory = () => {
                                             checkBox={false}
                                         />
                                     </div>
+                                   
+
+
+                                    {/* EquityCurve  Graph show */}
+                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        Drawdown Graph
+                                    </p>
+                                    <div style={{ width: '100%', height: '500px' }}>
+                                        <AgChartsReact options={chartOptions2} />
+                                    </div>
+
+
+
+                                    {/* <div>
+                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Drawdown Table
+                                        </p>
+
+                                        <GridExample
+                                            columns={columns6()}
+                                            data={getDropDownData.data}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={false}
+                                        />
+                                    </div> */}
+
+
+                                    <div className='mb-3 mt-3'>
+                                    <div className="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                    Drawdown Table
+                                                </button>
+
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <GridExample
+                                                        columns={columns6()}
+                                                        data={getDropDownData.data}
+                                                        onRowSelect={handleRowSelect}
+                                                        checkBox={false}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
 
 
                                     {/* PnL Graph Table */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    {/* <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                         Profit and Loss Table
                                     </p>
                                     <div className=''>
@@ -521,13 +574,13 @@ const Tradehistory = () => {
                                             onRowSelect={handleRowSelect}
                                             checkBox={false}
                                         />
-                                    </div>
+                                    </div> */}
 
 
 
 
                                     {/* cp */}
- 
+
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns7()}
@@ -538,7 +591,7 @@ const Tradehistory = () => {
                                     </div>
 
 
-                                     
+
                                     <div className='mt-3'>
                                         <GridExample
                                             columns={columns8()}
@@ -596,100 +649,24 @@ const Tradehistory = () => {
                                         </p>
                                     </div>
 
-                                    <div className="container-fluid">
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="iq-card">
-                                                    <div className="iq-card-body p-0">
-                                                        <div className="iq-edit-list">
-                                                            <ul
-                                                                className="iq-edit-profile nav nav-pills list-inline mb-0 flex-md-row flex-column"
-                                                                role="tablist"
-                                                            >
-                                                                <li className="col-md-6 p-0">
-                                                                    <a
-                                                                        className="nav-link active"
-                                                                        data-bs-toggle="pill"
-                                                                        href="#personal-information"
-                                                                        aria-selected="true"
-                                                                        role="tab"
-                                                                        style={{ height: "52px" }}
-                                                                    >
-                                                                        Consistent Profit-Making
-                                                                    </a>
-                                                                </li>
-                                                                <li className="col-md-6 p-0">
-                                                                    <a
-                                                                        className="nav-link"
-                                                                        data-bs-toggle="pill"
-                                                                        href="#chang-pwd"
-                                                                        aria-selected="false"
-                                                                        tabIndex={-1}
-                                                                        role="tab"
-                                                                        style={{ height: "52px" }}
-                                                                    >
-                                                                        Consistent Loss Making
+                                    <div className='row'>
+                                        <div className='col-lg-6'>
+                                            <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
+                                            <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p>
 
-                                                                    </a>
-                                                                </li>
-
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-12">
-                                                <div className="iq-edit-list-data">
-                                                    <div className="tab-content">
-                                                        <div
-                                                            className="tab-pane fade active show"
-                                                            id="personal-information"
-                                                            role="tabpanel"
-                                                        >
-                                                            <div className="container-fluid">
-                                                                <div className="row">
-                                                                    <div className="col-sm-12">
-                                                                        <div className="iq-card">
-                                                                            <div className="iq-card-body">
-                                                                                <p>Consistant Profit : <spam>{getAllTradeData.data1}</spam></p>
-                                                                                <p>Count Consistant Profit : <spam>{getAllTradeData.data2}</spam></p>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div className="tab-pane fade" id="chang-pwd" role="tabpanel">
-                                                            <div className="container-fluid">
-                                                                <div className="row">
-                                                                    <div className="col-sm-12">
-                                                                        <div className="iq-card">
-                                                                            <div className="iq-card-body">
-                                                                                <p>Consistant Loss : <spam>{getAllTradeData.data4}</spam></p>
-                                                                                <p>Count Consistant Loss : <spam>{getAllTradeData.data3}</spam></p>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
+                                        <div className='col-lg-6'>
+                                            <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
+                                            <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p>
+
+                                        </div>
+
                                     </div>
 
-
-
-
+                                    
                                     {/* EquityCurve */}
 
-                                    <div>
+                                    {/* <div>
                                         <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                             EquityCurve
                                         </p>
@@ -700,7 +677,7 @@ const Tradehistory = () => {
                                             onRowSelect={handleRowSelect}
                                             checkBox={false}
                                         />
-                                    </div>
+                                    </div> */}
 
 
                                     {/* EquityCurve  Graph show */}
@@ -711,29 +688,31 @@ const Tradehistory = () => {
                                         <AgChartsReact options={chartOptions1} />
                                     </div>
 
-
-
                                     <div>
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Drawdown Table
-                                        </p>
-
-                                        <GridExample
-                                            columns={columns6()}
-                                            data={getDropDownData.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
+                                        <div className="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingTwo">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                        Equity Curve Table
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <GridExample
+                                                            columns={columns5(selectStrategyType)}
+                                                            data={getEquityCurveDetails.data}
+                                                            onRowSelect={handleRowSelect}
+                                                            checkBox={false}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
-                                    {/* EquityCurve  Graph show */}
-                                    <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                        Drawdown Graph
-                                    </p>
-                                    <div style={{ width: '100%', height: '500px' }}>
-                                        <AgChartsReact options={chartOptions2} />
-                                    </div>
+
+
 
 
                                 </>

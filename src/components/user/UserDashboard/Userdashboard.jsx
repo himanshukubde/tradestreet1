@@ -147,22 +147,7 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-        {
-            name: "TradeExecution",
-            label: "Trade Execution",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "TradeCount",
-            label: "Trade Count",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
+        
         {
             name: "TradeType",
             label: "Trade Type",
@@ -470,7 +455,7 @@ const Userdashboard = () => {
                                         aria-selected={activeTab1 === 'CurrentPosition'}
                                         onClick={() => setActiveTab1('CurrentPosition')}
                                     >
-                                        Current Position
+                                        Current Script
                                     </a>
                                 </li>
                                 <li className="nav-item" role="presentation">

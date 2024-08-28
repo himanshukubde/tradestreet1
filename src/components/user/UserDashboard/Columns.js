@@ -247,14 +247,7 @@ export const getColumns1 = (handleAddScript2) => [
             sort: true,
         }
     },
-    {
-        name: "Username",
-        label: "Username",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Targettype",
         label: "Target Type",
@@ -371,6 +364,14 @@ export const getColumns1 = (handleAddScript2) => [
     },
   
     {
+        name: "SEDate",
+        label: "SEDate",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "SSDate",
         label: "SSDate",
         options: {
@@ -468,14 +469,7 @@ export const getColumns2 = (handleAddScript3) => [
             }
         }
     },
-    {
-        name: "Username",
-        label: "Username",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "TradePattern",
         label: "Trade Pattern",
@@ -957,14 +951,7 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
             sort: true,
         }
     },
-    {
-        name: "Username",
-        label: "Username",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+     
     {
         name: "Targettype",
         label: "Target Type",
@@ -1084,6 +1071,14 @@ export const getColumns4 = (handleDelete, handleEdit, handleContinutyDiscontinut
     {
         name: "SSDate",
         label: "SSDate",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "SEDate",
+        label: "SEDate",
         options: {
             filter: true,
             sort: true,
@@ -1217,14 +1212,7 @@ export const getColumns5 = (handleDelete, handleEdit, handleContinutyDiscontinut
             }
         }
     },
-    {
-        name: "Username",
-        label: "Username",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "TradePattern",
         label: "Trade Pattern",

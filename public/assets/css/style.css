@@ -5450,7 +5450,8 @@ button.btn.btn-primary.btn1 {
 }
 
 .customtable table tbody tr td div:last-child {
-  width: 100px !important;
+  /* width: 100px !important; */
+  white-space: normal;
 }
 
 @media (max-width: 768px) {
@@ -5462,3 +5463,5 @@ button.btn.btn-primary.btn1 {
     width: 40px;
   }
 }
+
+ 

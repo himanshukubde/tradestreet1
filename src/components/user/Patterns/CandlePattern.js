@@ -9,13 +9,12 @@ const ChartExample = ({ ChartData }) => {
   useEffect(() => {
     const adjustTime = (date) => {
       const dateObj = new Date(date);
-       
-      return new Date(dateObj.getTime() - (5 * 60 * 60 * 1000));
+      return new Date(dateObj.getTime() - 5 * 60 * 60 * 1000); // Adjust time by subtracting 5 hours
     };
 
     const processedData = ChartData.map((item) => ({
       ...item,
-      date: adjustTime(item.date), // Adjust time by subtracting 5 hours
+      date: adjustTime(item.date),
     }));
 
     const chartOptions = {
@@ -33,32 +32,19 @@ const ChartExample = ({ ChartData }) => {
           openKey: "open",
           closeKey: "close",
           item: {
-            width: 5, // Adjust candle width if needed
-            gap: 10,  // Increase gap between candlesticks
+            width: 5,
+            gap: 10,
             up: {
               fill: "#006400",
               stroke: "#003300",
-              wick: {
-                strokeWidth: 1,
-              },
             },
             down: {
               fill: "#FF0000",
               stroke: "#8B0000",
-              wick: {
-                strokeWidth: 1,
-              },
             },
           },
           tooltip: {
-            renderer: ({
-              datum,
-              xKey,
-              openKey,
-              highKey,
-              lowKey,
-              closeKey,
-            }) => {
+            renderer: ({ datum, xKey, openKey, highKey, lowKey, closeKey }) => {
               const date = new Date(datum[xKey]).toLocaleString("en-IN", {
                 day: "numeric",
                 month: "short",
@@ -93,7 +79,14 @@ const ChartExample = ({ ChartData }) => {
             },
           },
           tick: {
-            count: d3.timeMinute.every(5), // Initial tick interval of 5 minutes
+            count: d3.timeMinute.every(5),
+          },
+          // Enable zooming for the x-axis
+          crosshair: {
+            enabled: true,
+          },
+          zoom: {
+            enabled: true,
           },
         },
         {
@@ -107,22 +100,22 @@ const ChartExample = ({ ChartData }) => {
               format: ",f",
             },
           },
+          zoom: {
+            enabled: true,
+          },
         },
       ],
       zoom: {
         enabled: true,
-        rescaleAxes: true, // Ensures axes are rescaled on zoom
+        rescaleAxes: true,
+        mode: "x", // You can change to 'x', 'y', or 'xy'
       },
     };
 
     setOptions(chartOptions);
   }, [ChartData]);
 
-  return (
-    <div style={{ height: "500px" }}>
-      {options && <AgChartsReact options={options} />}
-    </div>
-  );
+  return <div style={{height:'500px'}}>{options && <AgChartsReact options={options} />}</div>;
 };
 
 export default ChartExample;
