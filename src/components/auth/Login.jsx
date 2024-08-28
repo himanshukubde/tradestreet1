@@ -152,7 +152,7 @@ const Login = () => {
                     <div className="col-md-6 text-center">
                         <div className="sign-in-detail text-white">
                             <a className="sign-in-logo mb-5" href="index.html">
-                                <img src="assets/images/ext.png" className="img-fluid" alt="logo" />
+                                <img src="assets/images/trade-logo.png" className="img-fluid" alt="logo" />
                             </a>
                             <div
                                 className="owl-carousel owl-loaded owl-drag"
