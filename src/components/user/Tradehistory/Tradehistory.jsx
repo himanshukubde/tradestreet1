@@ -494,9 +494,10 @@ const Tradehistory = () => {
                                 //getAllTradeData.loading && getPnLData.loading  <Loader/> 
                                 showTable && <>
 
+{/* parseFloat(getAllTradeData.data4).toFixed(4) */}
                                     <div>
                                         <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && getAllTradeData.Overall[0].PnL}</span>
+                                            Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && parseFloat(getAllTradeData.Overall[0].PnL).toFixed(4)}</span>
                                         </p>
 
                                     </div>
@@ -508,18 +509,7 @@ const Tradehistory = () => {
                                             checkBox={false}
                                         />
                                     </div>
-                                    <div>
-                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                                            Drawdown Table
-                                        </p>
-
-                                        <GridExample
-                                            columns={columns6()}
-                                            data={getDropDownData.data}
-                                            onRowSelect={handleRowSelect}
-                                            checkBox={false}
-                                        />
-                                    </div>
+                                   
 
 
                                     {/* EquityCurve  Graph show */}
@@ -531,6 +521,43 @@ const Tradehistory = () => {
                                     </div>
 
 
+
+                                    {/* <div>
+                                        <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Drawdown Table
+                                        </p>
+
+                                        <GridExample
+                                            columns={columns6()}
+                                            data={getDropDownData.data}
+                                            onRowSelect={handleRowSelect}
+                                            checkBox={false}
+                                        />
+                                    </div> */}
+
+
+                                    <div className='mb-3 mt-3'>
+                                    <div className="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                    Drawdown Table
+                                                </button>
+
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <GridExample
+                                                        columns={columns6()}
+                                                        data={getDropDownData.data}
+                                                        onRowSelect={handleRowSelect}
+                                                        checkBox={false}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -639,7 +666,7 @@ const Tradehistory = () => {
                                     
                                     {/* EquityCurve */}
 
-                                    <div>
+                                    {/* <div>
                                         <p className='bold mt-3' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                             EquityCurve
                                         </p>
@@ -650,7 +677,7 @@ const Tradehistory = () => {
                                             onRowSelect={handleRowSelect}
                                             checkBox={false}
                                         />
-                                    </div>
+                                    </div> */}
 
 
                                     {/* EquityCurve  Graph show */}
@@ -659,6 +686,28 @@ const Tradehistory = () => {
                                     </p>
                                     <div style={{ width: '100%', height: '500px' }}>
                                         <AgChartsReact options={chartOptions1} />
+                                    </div>
+
+                                    <div>
+                                        <div className="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingTwo">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                        Equity Curve Table
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <GridExample
+                                                            columns={columns5(selectStrategyType)}
+                                                            data={getEquityCurveDetails.data}
+                                                            onRowSelect={handleRowSelect}
+                                                            checkBox={false}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
