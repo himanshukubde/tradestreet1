@@ -51,7 +51,8 @@ const Sidebar = () => {
 
     const handleClick = () => setIsActive(prevState => !prevState);
 
-    const handleSidebarClick = (item) => {
+    const handleSidebarClick = (event, item) => {
+  
         setActiveItem(item);
     };
 
@@ -250,6 +251,7 @@ const Sidebar = () => {
                                             <i className="la la-palette" />
                                             <span>Trade History</span>
                                         </Link>
+                                        {console.log("activeItem", activeItem)}
                                     </li>
                                     <li className={activeItem === 'traderesponse' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'traderesponse')}>
                                         <Link to="traderesponse" className="iq-waves-effect">

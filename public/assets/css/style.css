@@ -5464,4 +5464,7 @@ button.btn.btn-primary.btn1 {
   }
 }
 
- 
+.dropdownuser .dropdown .dropdown-menu.show {
+  display: block !important;
+  top: -149px !important;
+}

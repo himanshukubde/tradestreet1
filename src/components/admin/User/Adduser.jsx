@@ -450,9 +450,10 @@ const Adduser = () => {
                         formik={formik}
                         btn_name1_route={"/admin/clientservice"}
                         additional_field={
-                            <div className='col-lg-6 mt-2' >
+                            <div className='col-lg-6 mt-2 dropdownuser' >
                                 <h6>Select Group</h6>
                                 <DropdownMultiselect
+                                   
                                     options={optionsArray}
                                     name="groupName"
                                     handleOnChange={(selected) => {
