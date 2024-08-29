@@ -246,10 +246,10 @@ const Clientservice = () => {
             try {
                 const response = await ServiceCount(data);
                 if (response.Status) {
-                    console.log("response.ServiceCount", response.ServiceCount)
+                     
                     setServiceCount(response.ServiceCount);
                 } else {
-                    setServiceCount('');
+                    setServiceCount([]);
                 }
             } catch (err) {
                 console.log("Error in finding the service count", err);
