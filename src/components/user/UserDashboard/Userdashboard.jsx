@@ -59,7 +59,7 @@ const Userdashboard = () => {
             .then((response) => {
                 setServiceStatus({
                     status: response.Status,
-                    msg: response.massage
+                    msg:  response.message,
                 })
             })
             .catch((err) => {

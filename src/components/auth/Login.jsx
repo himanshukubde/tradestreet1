@@ -24,7 +24,7 @@ const Login = () => {
             .then((response) => {
 
                 if (response.Status) {
-                    console.log(response)
+                     
                     localStorage.setItem("Role", response.Role)
                     localStorage.setItem("name", Username)
                     localStorage.setItem("token", response.access_token)

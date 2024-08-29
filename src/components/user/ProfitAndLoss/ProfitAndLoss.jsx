@@ -77,7 +77,7 @@ const Tradehistory = () => {
                     Swal.fire({
                         title: "Success",
                         icon: "success",
-                        text: response.massage,
+                        text:  response.message,
                         timer: 1500,
                         timerProgressBar: true
                     });
@@ -93,7 +93,7 @@ const Tradehistory = () => {
                     Swal.fire({
                         title: "No Records found",
                         icon: "info",
-                        text: response.massage,
+                        text:  response.message,
                         timer: 1500,
                         timerProgressBar: true
                     });

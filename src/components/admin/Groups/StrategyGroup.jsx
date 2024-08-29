@@ -153,7 +153,7 @@ const Strategygroup = () => {
                         setRefresh(!refresh)
                         Swal.fire({
                             title: 'Created successfully!',
-                            text: 'Group created successfully!',
+                            text:  response.message,
                             icon: 'success',
                             timer: 1500,
                             timerProgressBar: true
@@ -165,7 +165,7 @@ const Strategygroup = () => {
                     } else {
                         Swal.fire({
                             title: 'Error',
-                            text: 'Group name already exists',
+                            text: response.message,
                             icon: 'error',
                             timer: 1500,
                             timerProgressBar: true

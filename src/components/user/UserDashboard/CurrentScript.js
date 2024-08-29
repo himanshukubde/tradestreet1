@@ -101,7 +101,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         if (response.Status) {
                             Swal.fire({
                                 title: "Square off Successfully!",
-                                text: response.massage,
+                                text:  response.message,
                                 icon: "success",
                                 timer: 1500,
                                 timerProgressBar: true,
@@ -115,7 +115,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                         } else {
                             Swal.fire({
                                 title: "Error !",
-                                text: response.massage,
+                                text:  response.message,
                                 icon: "error",
                                 timer: 1500,
                                 timerProgressBar: true
@@ -224,7 +224,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                             if (response.Status) {
                                 Swal.fire({
                                     title: "Success",
-                                    text: response.massage,
+                                    text:  response.message,
                                     icon: "success",
                                     timer: 2000,
                                     timerProgressBar: true
@@ -234,7 +234,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                             else {
                                 Swal.fire({
                                     title: "Error !",
-                                    text: response.massage,
+                                    text:  response.message,
                                     icon: "error",
                                     timer: 2000,
                                     timerProgressBar: true
@@ -312,7 +312,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                     setRefresh(!refresh)
                                     Swal.fire({
                                         title: "Success",
-                                        text: response.massage,
+                                        text:  response.message,
                                         icon: "success",
                                         timer: 1500,
                                         timerProgressBar: true
@@ -321,7 +321,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                                 else {
                                     Swal.fire({
                                         title: "Error !",
-                                        text: response.massage,
+                                        text: response.message,
                                         icon: 'error',
                                         timer: 1500,
                                         timerProgressBar: true
@@ -534,7 +534,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Updated",
-                            text: response.massage,
+                            text:  response.message,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true,
@@ -546,7 +546,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     } else {
                         Swal.fire({
                             title: "Error !",
-                            text: response.massage,
+                            text:  response.message,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -672,7 +672,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Updated",
-                            text: response.massage,
+                            text:  response.message,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true,
@@ -684,7 +684,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     } else {
                         Swal.fire({
                             title: "Error !",
-                            text: response.massage,
+                            text:  response.message,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -808,7 +808,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Updated",
-                            text: response.massage,
+                            text: response.message,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true,
@@ -820,7 +820,7 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                     } else {
                         Swal.fire({
                             title: "Error !",
-                            text: response.massage,
+                            text:  response.message,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true

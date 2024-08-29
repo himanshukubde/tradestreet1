@@ -50,7 +50,7 @@ const Addscript = () => {
                     setRefresh(!refresh)
                     Swal.fire({
                         title: "Deleted",
-                        text: "Script Deleted successfully",
+                        text: response.message,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
@@ -59,7 +59,7 @@ const Addscript = () => {
                 else {
                     Swal.fire({
                         title: "Error !",
-                        text: "error in script delete",
+                        text: response.message,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true

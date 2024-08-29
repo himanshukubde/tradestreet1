@@ -24,7 +24,7 @@ const Smtp = () => {
             if (response.Status) {
                 Swal.fire({
                     title: "Data Saved!",
-                    text: "SMTP detail saved Successfully",
+                    text:  response.message,
                     icon: "success",
                     timer: 1500,
                     timerProgressBar: true
@@ -32,7 +32,7 @@ const Smtp = () => {
             } else {
                 Swal.fire({
                     title: "Error!",
-                    text: "SMTP detail can't be reflected",
+                    text:  response.message,
                     icon: "error",
                     timer: 1500,
                     timerProgressBar: true

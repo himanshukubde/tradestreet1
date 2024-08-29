@@ -32,7 +32,7 @@ const loginWithApi = async (UserDetails) => {
 
                     Swal.fire({
                         title: 'Error!',
-                        text: response.data.massage,
+                        text: response.data.message,
                         icon: 'error',
                         confirmButtonText: 'OK',
                         timer: 3000
@@ -222,7 +222,7 @@ const loginWithApi = async (UserDetails) => {
                 });
 
 
-                if (response.data.Status) { // Assuming the status is in response.data.Status
+                if (response.data.Status) {
 
                     Swal.fire({
                         title: 'Success!',
@@ -368,7 +368,7 @@ const loginWithApi = async (UserDetails) => {
                         swalOptions.icon = 'success';
                     } else {
                         swalOptions.title = 'Error!';
-                        swalOptions.text = response.data.massage;
+                        swalOptions.text = response.data.message;
                         swalOptions.icon = 'error';
                     }
 

@@ -23,7 +23,7 @@ const Clientservice = () => {
     const [refresh, setRefresh] = useState(false)
     const [searchInput, setSearchInput] = useState('')
 
-    
+    console.log("getServiceCount", getServiceCount)
 
     useEffect(() => {
         const fetchBrokerName = async () => {
@@ -143,7 +143,7 @@ const Clientservice = () => {
                     setRefresh(!refresh)
                     Swal.fire({
                         title: "Updated",
-                        text: response.massage,
+                        text: response.message,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
@@ -156,7 +156,7 @@ const Clientservice = () => {
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text: response.massage,
+                        text:response.message,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -168,6 +168,8 @@ const Clientservice = () => {
         },
     });
 
+
+    console.log("selectedIndex", selectedIndex.BrokerName)
  
     const fields = [
         {
@@ -230,7 +232,7 @@ const Clientservice = () => {
         },
     ];
 
-    console.log("selec", formik.values.Service_Count)
+    
 
     useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")
@@ -244,6 +246,7 @@ const Clientservice = () => {
             try {
                 const response = await ServiceCount(data);
                 if (response.Status) {
+                    console.log("response.ServiceCount", response.ServiceCount)
                     setServiceCount(response.ServiceCount);
                 } else {
                     setServiceCount('');
@@ -260,7 +263,7 @@ const Clientservice = () => {
             try {
                 const response = await ExtendEndDate(data);
                 if (response.Status) {
-                    setExtendDate(response.ServiceStartDate);
+                    setExtendDate(response.ServiceStartDate ? response.ServiceStartDate : []);
                 } else {
                     setExtendDate([]);
                 }
