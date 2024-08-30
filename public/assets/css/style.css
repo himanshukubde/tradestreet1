@@ -5468,3 +5468,9 @@ button.btn.btn-primary.btn1 {
   display: block !important;
   top: -149px !important;
 }
+
+@media (max-width: 400px){
+  .iq-card-body {
+      padding: 0px !important;
+    }
+}
