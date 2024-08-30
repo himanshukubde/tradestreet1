@@ -55,6 +55,7 @@ const LastPattern = () => {
 
     const fetchAllSymbols = async () => {
         const data = { Username: Username, Strategy: selectedPatternType && selectedPatternType == "Candlestick Patterns" ? "CandlestickPattern" : "ChartingPattern" };
+        console.log("response", data)
         await GetSymbolIp(data)
             .then((response) => {
 
@@ -245,6 +246,7 @@ const LastPattern = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-3">
+                                    {console.log("allSymbols", allSymbols)}
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
