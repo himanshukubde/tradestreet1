@@ -314,7 +314,7 @@ const Header = () => {
                     <div className="iq-sidebar-logo">
                         <div className="top-logo">
                             <a href="index.html" className="logo">
-                                <img src="assets/images/logo.png" className="img-fluid" alt="" />
+                                <img src="assets/images/inalgo.png" className="img-fluid" alt="" />
                                 {/* <span>XRay</span> */}
                             </a>
                         </div>
