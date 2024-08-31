@@ -22,8 +22,7 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
     const [searchInput, setSearchInput] = useState('')
-
-    console.log("getServiceCount", getServiceCount)
+ 
 
     useEffect(() => {
         const fetchBrokerName = async () => {

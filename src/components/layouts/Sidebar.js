@@ -166,6 +166,13 @@ const Sidebar = () => {
                                             <span>Strategy Group</span>
                                         </Link>
                                     </li>
+                                    <li className={activeItem === 'system' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'system')}>
+                                        <Link to="/admin/system" className="iq-waves-effect">
+                                            <i className="la la-cog" />
+                                            <span>System</span>
+                                        </Link>
+                                    </li>
+
                                     <li className={activeItem === 'clientservice' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'clientservice')}>
                                         <Link to="/admin/clientservice" className="iq-waves-effect">
                                             <i className="ri-group-fill" />

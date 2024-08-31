@@ -488,8 +488,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 HoldExit: showEditModal && EditDataScalping.ScalpType != "Fixed Price" ? EditDataScalping.HoldExit : values.HoldExit,
                 EntryPrice: Number(values.EntryPrice),
                 EntryRange: Number(values.EntryRange),
-                EntryTime: Number(values.EntryTime),
-                ExitTime: Number(values.ExitTime),
+                EntryTime: values.EntryTime,
+                ExitTime: values.ExitTime,
                 ExitDay: EditDataScalping.ExitDay,
                 TradeExecution: EditDataScalping.TradeExecution,
                 Group: EditDataScalping.GroupN,
@@ -647,8 +647,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
                 HoldExit: "",
                 EntryPrice: 0.0,
                 EntryRange: 0.0,
-                EntryTime: Number(values.EntryTime),
-                ExitTime: Number(values.ExitTime),
+                EntryTime: values.EntryTime,
+                ExitTime: values.ExitTime,
                 ExitDay: EditDataOption['Product Type'],
                 TradeExecution: EditDataOption.TradeExecution,
                 Group: EditDataOption.GroupN,
@@ -831,8 +831,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     });
 
     const fields = [
-
-
         {
             name: "Targetvalue",
             label: showEditModal && EditDataScalping.ScalpType == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",

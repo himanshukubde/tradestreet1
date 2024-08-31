@@ -476,7 +476,6 @@ const Tradehistory = () => {
                                     <div className="form-group col-md-3 col-sm-6">
                                         <label>Select To Date</label>
                                         <DatePicker className="form-select" selected={ToDate == "" ? Defult_To_Date : ToDate} onChange={(date) => setToDate(date)} />
-
                                     </div>
                                 </div>
                             </div>

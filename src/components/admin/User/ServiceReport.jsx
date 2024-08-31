@@ -77,14 +77,6 @@ const Userlog = () => {
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-
-                    // setShowModal(true); 
-                    // const rowDataWithKeys = {};
-                    // columns.forEach((column, index) => {
-                    //     rowDataWithKeys[column.name] = tableMeta.rowData[index];
-                    // }); 
-                    // setSelectedIndex(rowDataWithKeys);
-
                     return <Eye onClick={(e) => {
 
                         setShowModal(!showModal);
@@ -92,8 +84,6 @@ const Userlog = () => {
                         columns.forEach((column, index) => {
                             rowDataWithKeys[column.name] = tableMeta.rowData[index];
                         });
-
-                        // setSelectedIndex(rowDataWithKeys);
 
                         handleModal(rowDataWithKeys)
                     }} />
@@ -187,8 +177,17 @@ const Userlog = () => {
             options: {
                 filter: true,
                 sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                customBodyRender: (value, tableMeta, updateValue) => { 
+                    return <Eye onClick={(e) => {
+                        setShowModal(!showModal);
+                        const rowDataWithKeys = {};
+                        columns.forEach((column, index) => {
+                            rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                        });
+                        handleModal(rowDataWithKeys)
+                    }} />
+
+                        
                 }
             }
         },
@@ -430,7 +429,14 @@ const Userlog = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                    return <Eye onClick={(e) => {
+                        setShowModal(!showModal);
+                        const rowDataWithKeys = {};
+                        columns.forEach((column, index) => {
+                            rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                        });
+                        handleModal(rowDataWithKeys)
+                    }} />
                 }
             }
         },
@@ -530,7 +536,9 @@ const Userlog = () => {
 
 
     const handleModal = async (rowIndex) => { 
-        const data = { Data: selectStrategyType, Username: rowIndex.Username }
+        console.log("Data", rowIndex)
+        const data = { Data: selectStrategyType, Username: rowIndex?.Username }
+
 
         await get_User_Data(data)
             .then((response) => {
