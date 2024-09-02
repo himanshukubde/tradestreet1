@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Get_Pattern_Name2, Get_Pattern_Charting } from '../../CommonAPI/Admin'
-import { Get_Last_Pattern_Data, AvailableScript, LastPatternCandleData } from '../../CommonAPI/User'
+import { Get_Last_Pattern_Data, LastPatternCandleData, Get_Pattern_Name2 } from '../../CommonAPI/User'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
 import "ag-charts-enterprise";
 import AgChartsReact from "./CandlePattern";
-import {columns2 , columns3} from './PatternsColumns'
+import { columns2, columns3 } from './PatternsColumns'
 const LastPattern = () => {
     const [showCandle, setShowCandle] = useState(false)
-    const [getLastPatternData, setLastPatternData] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getCandleData, setCandleData] = useState({
-        loading: true,
-        data: []
-    })
+    const [getLastPatternData, setLastPatternData] = useState({ loading: true, data: [] })
+    const [getCandleData, setCandleData] = useState({ loading: true, data: [] })
     const [getPatternType, setPatternType] = useState('')
     const [selectPattern, setSelectPattern] = useState('')
     const [getChartPattern, setChartPattern] = useState('')
     const [selectedRowData, setSelectedRowData] = useState('');
 
+
+    const handleRowSelect = (rowData) => {
+        setSelectedRowData(rowData);
+    };
 
     const getLastPattern = async () => {
         const data = { Pattern1: selectPattern, PatternName: getPatternType }
@@ -45,11 +41,6 @@ const LastPattern = () => {
             })
     }
 
-    useEffect(() => {
-        getLastPattern()
-    }, [getPatternType, selectPattern])
-
-    
     const GetPatternCharting = async () => {
         const data = { selectPattern: selectPattern == "Candlestick Patterns" ? "CandleStick" : "Charting" }
         await Get_Pattern_Name2(data)
@@ -71,19 +62,6 @@ const LastPattern = () => {
             })
 
     };
-
-    useEffect(() => {
-        GetPatternCharting()
-    }, [selectPattern])
-
-    useEffect(() => {
-        setSelectPattern('Candlestick Patterns')
-    }, [])
-
-    const handleRowSelect = (rowData) => {
-        setSelectedRowData(rowData);
-    };
-
 
     const HandleSubmit = async () => {
         setShowCandle(true)
@@ -109,26 +87,21 @@ const LastPattern = () => {
             })
     }
 
+
     useEffect(() => {
         setShowCandle(false)
     }, [selectedRowData])
 
-
-
-    useEffect(()=>{
-        if( getChartPattern && getChartPattern.data.length>0){
-            setPatternType(getChartPattern.data[0])
-        }
-    },[])
-
+    useEffect(() => {
+        GetPatternCharting()
+    }, [selectPattern])
 
     useEffect(() => {
-        setSelectPattern('Candlestick Patterns')
-    }, [])
+        getLastPattern()
+    }, [getPatternType, selectPattern])
 
 
-
-
+     
     return (
         <div>
             <div className="container-fluid">
@@ -139,7 +112,6 @@ const LastPattern = () => {
                                 <div className="iq-header-title">
                                     <h4 className="card-title">Last Pattern</h4>
                                 </div>
-
                             </div>
                             <div className="iq-card-body">
                                 <div className='row'>

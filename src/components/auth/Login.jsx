@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom'
 import { LoginPage, ForgotPassword } from '../CommonAPI/Common'
+import { GetHeaderImg2, GetLogo, GetPanleName, GetHeaderImg1, Getfaviconimage } from '../CommonAPI/Admin'
 
 const Login = () => {
     const [Username, setUserName] = useState('');
@@ -14,6 +15,8 @@ const Login = () => {
     const [forgotPassusername, setForgotPassusername] = useState('')
     const [userNameError, setUserNameError] = useState('');
 
+
+
     const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
 
@@ -24,10 +27,15 @@ const Login = () => {
             .then((response) => {
 
                 if (response.Status) {
-                     
+
                     localStorage.setItem("Role", response.Role)
                     localStorage.setItem("name", Username)
                     localStorage.setItem("token", response.access_token)
+                    get_header_img2();
+                    get_header_img1();
+                    Getfaviconimg();
+                    GetPanel_Name();
+                    GetLogoimage();
 
 
                     Swal.fire({
@@ -71,10 +79,6 @@ const Login = () => {
             setChangeType("password");
         }
     };
-
-
-
-
 
 
     const handleForgotPass = async () => {
@@ -145,6 +149,97 @@ const Login = () => {
         }
     }
 
+
+
+
+
+
+    const GetLogoimage = async () => {
+        await GetLogo()
+            .then((response) => {
+                if (response.status) {
+
+                    document.getElementById('imglogo').src = "data:image/png;base64," + response.image_data
+                    localStorage.setItem("logo", "data:image/png;base64," + response.image_data)
+                } else {
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    const get_header_img1 = async () => {
+        await GetHeaderImg1()
+            .then((response) => {
+                if (response.status) {
+                    document.getElementById('header_img1').src = "data:image/png;base64," + response.image_data
+                    localStorage.setItem("header_img1", "data:image/png;base64," + response.image_data)
+                } else {
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    const get_header_img2 = async () => {
+        await GetHeaderImg2()
+            .then((response) => {
+                if (response.status) {
+                    document.getElementById('header_img2').src = "data:image/png;base64," + response.image_data
+                    localStorage.setItem("header_img2", "data:image/png;base64," + response.image_data)
+                } else {
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    const Getfaviconimg = async () => {
+        await Getfaviconimage()
+            .then((response) => {
+                if (response.status) {
+                    document.getElementsByClassName("set_favicon")[0].href = "data:image/png;base64," + response.image_data;
+                    localStorage.setItem("fevicon", "data:image/png;base64," + response.image_data)
+                } else {
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+
+    const GetPanel_Name = async () => {
+        await GetPanleName()
+            .then((response) => {
+                if (response.Status) {
+                    document.getElementsByClassName("title_name")[0].innerText = response.CompanyName;
+                    localStorage.setItem("pannel_name", "data:image/png;base64," + response.image_data)
+
+                } else {
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+
+
+    useEffect(() => {
+        get_header_img2();
+        get_header_img1();
+        Getfaviconimg();
+        GetPanel_Name();
+        GetLogoimage();
+
+    }, [])
+
     return (
         <section className="sign-in-page">
             <div className="container sign-in-page-bg mt-5 mb-md-5 mb-0 p-0">
@@ -152,7 +247,7 @@ const Login = () => {
                     <div className="col-md-6 text-center">
                         <div className="sign-in-detail text-white">
                             <a className="sign-in-logo mb-5" href="index.html">
-                                <img src="assets/images/inalgologo.png" className="img-fluid" alt="logo" />
+                                <img src="assets/images/inalgologo.png" className="img-fluid" alt="logo" id="imglogo" />
                             </a>
                             <div
                                 className="owl-carousel owl-loaded owl-drag"
@@ -317,7 +412,7 @@ const Login = () => {
                                             value={Username}
                                             onChange={(e) => setUserName(e.target.value)}
                                             onKeyPress={handleKeyPress}
-                                          
+
                                         />
                                     </div>
                                     <div className="d-flex justify-content-between my-2">
@@ -350,7 +445,7 @@ const Login = () => {
                                         ></i>
                                     </div>
                                     <div className="d-flex w-100 justify-content-end align-items-center mt-3">
-                                        <button type="submit" className="btn btn-primary float-end "   onKeyPress={handleKeyPress} onClick={handleLogin}>
+                                        <button type="submit" className="btn btn-primary float-end " onKeyPress={handleKeyPress} onClick={handleLogin}>
                                             Sign in
                                         </button>
                                     </div>

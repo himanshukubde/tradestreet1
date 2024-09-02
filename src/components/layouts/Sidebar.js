@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
+import { GetLogo, GetHeaderImg2, GetHeaderImg1 } from '../CommonAPI/Admin';
 
 const Sidebar = () => {
     const role = localStorage.getItem("Role");
@@ -13,6 +13,61 @@ const Sidebar = () => {
             document.body.classList.remove('sidebar-main');
         }
     };
+
+
+    const GetPanleLogo = async () => {
+        await GetLogo()
+            .then((response) => {
+                if (response.status) {
+                    document.getElementsByClassName("set_favicon")[0].href = "data:image/png;base64," + response.image_data;
+                } else {
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    const get_header_img1 = async () => {
+        await GetHeaderImg1()
+            .then((response) => {
+                if (response.status) {
+                    console.log("response", response)
+                    document.getElementById("header_img1").src = "data:image/png;base64," + response.image_data;
+                } else {
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    const get_header_img2 = async () => {
+        await GetHeaderImg2()
+            .then((response) => {
+                if (response.status) {
+                    console.log("response", response)
+                    document.getElementById("header_img2").src = "data:image/png;base64," + response.image_data;
+                } else {
+
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+ 
+   
+
+    useEffect(() => {
+        get_header_img1()
+        GetPanleLogo()
+        get_header_img2()
+         
+    }, []);
 
 
 
@@ -126,8 +181,8 @@ const Sidebar = () => {
         <div className="iq-sidebar">
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="#">
-                    <img src="/assets/images/inalgo.png" className="img-fluid" alt="Logo" />
-                    <span><img src="/assets/images/inalgo1.png" className="img-fluid" alt="Logo" /></span>
+                    <img className="img-fluid" alt="Logo" id="header_img1" />
+                    <span><img src="/assets/images/inalgo1.png" className="img-fluid" alt="Logo" id='header_img2' /></span>
                 </a>
                 <div className="iq-menu-bt-sidebar">
                     <div className="iq-menu-bt align-self-center">

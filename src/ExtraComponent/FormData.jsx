@@ -53,11 +53,8 @@ const DynamicForm = ({
       const newPreviews = [...previews];
       newPreviews[index] = URL.createObjectURL(file);
       setPreviews(newPreviews);
-      const reader = new FileReader();
-      reader.onload = () => {
-        formik.setFieldValue(name, reader.result);
-      };
-      reader.readAsDataURL(file);
+      formik.setFieldValue(name, file);
+
     }
   };
 
@@ -139,7 +136,7 @@ const DynamicForm = ({
                                 placeholder={`Enter ${field.label}`}
                                 readOnly={field.disable}
                                 id={field.name}
-                                  autoComplete="new-password" 
+                                autoComplete="new-password"
                                 name={field.name}
                                 defaultValue={""}
                                 value={formik.values[field.name] || ""}
@@ -170,7 +167,7 @@ const DynamicForm = ({
                                 className="form-control"
                                 placeholder={`Enter ${field.label}`}
                                 readOnly={field.disable}
-                                
+
                                 id={field.name}
                                 name={field.name}
                                 value={inputValue}
@@ -256,25 +253,13 @@ const DynamicForm = ({
                                   } // Pass the index to the handler
                                   className={`form-control`}
                                 />
+                                {formik.touched[field.name] && formik.errors[field.name] ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors[field.name]}
+                                  </div>
+                                ) : null}
                               </div>
-                              {formik.getFieldProps(field.name).value ? (
-                                <img
-                                  src={formik.getFieldProps(field.name).value}
-                                  name={field.name}
-                                  id={field.name}
-                                  alt={`Preview ${index}`}
-                                  className={`col-lg-11 ms-3 ${field.label_size} mb-3 border border-2`}
-                                  style={{
-                                    height: formik.getFieldProps(field.name)
-                                      .value
-                                      ? "150px"
-                                      : "",
-                                    width: "95%",
-                                  }}
-                                />
-                              ) : (
-                                ""
-                              )}
+
                             </div>
                           </div>
                         </>

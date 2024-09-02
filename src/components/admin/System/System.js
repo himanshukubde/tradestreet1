@@ -1,228 +1,204 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { Add_Group, GetGroupNames } from '../../CommonAPI/Admin';
-import GridExample from '../../../ExtraComponent/CommanDataTable'
 import { SquarePen } from 'lucide-react';
+import { UploadImage, GetPanleName, GetHeaderImg2, GetHeaderImg1, GetLogo, Getfaviconimage } from '../../CommonAPI/Admin';
 import AddForm from '../../../ExtraComponent/FormData';
 import { useFormik } from 'formik';
 
 const Strategygroup = () => {
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    });
     const [showModal, setShowModal] = useState(false);
-  
+    const [panleName, setPanleName] = useState('');
+    const [panleLogo, setPanleLogo] = useState('');
+    const [HeaderImg1, setHeaderImg1] = useState('');
+    const [HeaderImg2, setHeaderImg2] = useState('');
+    const [getfaviconImage, setFaviconImage] = useState('');
 
-    const columns = [
-        {
-            name: "S.No",
-            label: "S.No",
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    const rowIndex = tableMeta.rowIndex;
-                    return rowIndex + 1;
-                }
-            },
-        },
-        {
-            name: "GroupName",
-            label: "Favicon",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Fund_Requierment",
-            label: "Logo",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        {
-            name: "Risk",
-            label: "login Image",
-            options: {
-                filter: true,
-                sort: true,
-            }
-        },
-        
-        {
-            name: 'Edit',
-            label: 'Action',
-            options: {
-                filter: true,
-                sort: true,
-                customBodyRender: (value, tableMeta) => (
-                    <SquarePen
-                        onClick={() => {
-                            setShowModal(true);
-                            
-                        }}
-                    />
-                ),
-            },
-        },
-    ];
 
-    const GetAllGroupDetails = async () => {
+ 
+
+    const fetchPanelDetails = async () => {
         try {
-            await GetGroupNames()
-                .then((response) => {
-                    if (response.Status) {
-                        setGroupData({
-                            loading: false,
-                            data: response.Data
-                        });
-                    } else {
-                        setGroupData({
-                            loading: false,
-                            data: []
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error Group data fetch error", err);
-                });
-        } catch {
-            console.log("Error Group data fetch error");
+            const panelNameRes = await GetPanleName();
+            setPanleName(panelNameRes.Status ? panelNameRes.CompanyName : '');
+
+            const headerimage1 = await GetHeaderImg1();
+            setHeaderImg1(headerimage1.status ? headerimage1.image_data : '');
+
+            const logoRes = await GetLogo();
+            setPanleLogo(logoRes.status ? logoRes.image_data : '');
+
+            const headerimage2 = await GetHeaderImg2();
+            setHeaderImg2(headerimage2.status ? headerimage2.image_data : '');
+
+            const faviconImage = await Getfaviconimage();
+            setFaviconImage(faviconImage.status ? faviconImage.image_data : '');
+
+        } catch (err) {
+            console.log("Error fetching panel details", err);
         }
     };
 
     useEffect(() => {
-        GetAllGroupDetails();
-    }, [ ]);
+        fetchPanelDetails();
+    }, []);
 
-   
     const fields = [
         {
-            name: 'Panelname',
+            name: 'PanelName',
             label: 'Panel Name',
             type: 'text',
             label_size: 12,
-            col_size: 6,
+            col_size: 12,
         },
         {
-            name: 'Logo',
+            name: 'logo',
             label: 'Logo',
             type: 'file1',
             label_size: 12,
             col_size: 6,
         },
         {
-            name: 'Favicon',
-            label: 'Favicon',
+            name: 'header_img1',
+            label: 'Header Img1',
             type: 'file1',
             label_size: 12,
             col_size: 6,
         },
         {
-            name: 'loginImg',
-            label: 'Broker',
+            name: 'header_img2',
+            label: 'Header Img2',
+            type: 'file1',
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'favicon',
+            label: 'Favicon',
             type: 'file1',
             label_size: 12,
             col_size: 6,
         },
     ];
 
-
     const formik = useFormik({
         initialValues: {
-            User: "",
-            Service_Count: "",
-            Broker: "",
-            Day: "",
-            SSDate: "",
-            SEDate: "",
-            GroupName: "",
-            select: ""
+            header_img2: "",
+            header_img1: "",
+            logo: "",
+            PanelName: "",
+            favicon: "",
         },
         validate: values => {
             const errors = {};
-             
+            if (!values.header_img1) errors.header_img1 = 'Please Select header img1';
+            if (!values.header_img2) errors.header_img2 = 'Please Select header img2';
+            if (!values.logo) errors.logo = 'Please Select Logo';
+            if (!values.PanelName) errors.PanelName = 'Please Enter Panel Name';
+            if (!values.favicon) errors.favicon = 'Please Select Favicon';
             return errors;
         },
         onSubmit: async (values) => {
-            const data  = {
-                Panelname: values.Panelname,
-                Logo: values.Logo,
-                Favicon: values.Favicon,
-                loginImg: values.loginImg,
+            const data = {
+                icon: values.header_img1,
+                frontimage: values.header_img2,
+                logo: values.logo,
+                company_name: values.PanelName,
+                favicon: values.favicon,
             };
-
+            try {
+                const response = await UploadImage(data);
+                if (response.Status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Data Added Successfully',
+                    });
+                    setShowModal(false);
+                    formik.resetForm();
+                    fetchPanelDetails();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Data Not Added',
+                    });
+                }
+            } catch (err) {
+                console.error("Error in Adding Data", err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while adding data.',
+                });
             }
-             
-        },
-    );
-  
+        }
+    });
 
     return (
         <>
             <div className="container-fluid">
                 <div className="row">
-                    <div className="iq-card">
-                        <div className="iq-card-header d-flex justify-content-between">
-                            <div className="iq-header-title">
-                                <h4 className="card-title">System</h4>
-                            </div>
-                            
+                    <div className="card h-100">
+                        <div className="card-header d-flex justify-content-between">
+                            <h4 className="card-title">System</h4>
                         </div>
 
-                        <div className="iq-card-body">
-                            <div className="table-responsive customtable">
-
-                                <GridExample
-                                    columns={columns}
-                                    data={getGroupData.data}
-                                    checkBox={false}
-                                />
-                            </div>
+                        <div className="table-responsive">
+                            <table className="table">
+                                <thead className="table-dark">
+                                    <tr>
+                                        <th scope="col">SR. No</th>
+                                        <th scope="col">Panel Name</th>
+                                        <th scope="col">Favicon</th>
+                                        <th scope="col">Header Image1</th>
+                                        <th scope="col">Header Image2</th>
+                                        <th scope="col">Login Image</th>
+                                        <th scope="col">Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>{panleName}</td>
+                                        <td>{getfaviconImage && <img src={`data:image/png;base64,${getfaviconImage}`}className='api_img' alt="Panel Front Image" style={{ width: '70px', height: '70px' }} />}</td>
+                                        <td>{HeaderImg1 && <img src={`data:image/png;base64,${HeaderImg1}`} className='api_img' alt="Panel Icon" style={{ width: '70px', height: '70px' }} />}</td>
+                                        <td>{HeaderImg2 && <img src={`data:image/png;base64,${HeaderImg2}`} className='api_img' alt="Panel Front Image" style={{ width: '70px', height: '70px' }} />}</td>
+                                        <td>{panleLogo && <img src={`data:image/png;base64,${panleLogo}`} className='api_img' alt="Panel Logo" style={{ width: '70px', height: '70px' }} />}</td>
+                                        <td><SquarePen onClick={() => setShowModal(true)} /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
             {showModal && (
-                <div className='modal custom-modal d-flex' id='add_vendor' role='dialog'>
-                    <div className='modal-dialog modal-dialog-centered modal-lg'>
-                        <div className='modal-content'>
-                            <div className='modal-header clientheader border-0 pb-0'>
-                                <div className='form-header modal-header-title text-start mb-0'>
-                                    <h4 className='mb-0'>Update</h4>
-                                </div>
+                <div className="modal fade show d-flex" role="dialog" style={{ display: 'block' }}>
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="modal-title">Update Panel</h4>
                                 <button
-                                    type='button'
-                                    className='btn-close'
-                                    data-bs-dismiss='modal'
-                                    aria-label='Close'
+                                    type="button"
+                                    className="btn-close"
                                     onClick={() => {
                                         setShowModal(false);
                                         formik.resetForm();
-                                        
                                     }}
                                 ></button>
                             </div>
-                            <hr />
-                            <AddForm
-                                fields={fields.filter(
-                                    field => !field.showWhen || field.showWhen(formik.values)
-                                )}
-                                btn_name='Update'
-                                formik={formik}
-                                btn_name1_route='/admin/clientservice'
-                                
-                            />
+                            <div className="modal-body">
+                                <AddForm
+                                    fields={fields}
+                                    btn_name="Update"
+                                    formik={formik}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             )}
-
-             
         </>
     );
 };

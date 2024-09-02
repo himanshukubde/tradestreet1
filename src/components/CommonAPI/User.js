@@ -7,10 +7,11 @@ export const Get_Last_Pattern_Data = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}CCLPattern`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
 
         return res?.data
@@ -26,10 +27,11 @@ export const Get_Profile_Data = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}Profile/${data.username}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
 
         return res?.data
@@ -45,10 +47,11 @@ export const getNetPnLData = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}NetPnL`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -62,12 +65,13 @@ export const getNetPnLData = async (data) => {
 export const get_Trade_Response = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Traderesponse`, data, 
+        const res = await axios.post(`${Config.base_url}Traderesponse`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -80,13 +84,14 @@ export const GetAllUserScript = async (data) => {
     try {
 
         var token = localStorage.getItem('token')
-       
+
         const res = await axios.get(`${Config.base_url}Dashboard/${data.userName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -100,10 +105,11 @@ export const GetAllUserGroup = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}clientalotgroupname`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -117,10 +123,11 @@ export const AddScript = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Addscript`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -134,10 +141,11 @@ export const get_Trade_Report = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Tradereport`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -149,12 +157,13 @@ export const get_Trade_Report = async (data) => {
 export const Get_Panle_Logs = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}PanelTrackAll`, data, 
+        const res = await axios.post(`${Config.base_url}PanelTrackAll`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -168,10 +177,11 @@ export const DeleteUserScript = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Squareoff`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -185,10 +195,11 @@ export const Continue = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Continue`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -202,10 +213,11 @@ export const Discontinue = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}Discontinue`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -219,10 +231,11 @@ export const OpenPosition = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}DashboardOpen/${data.userName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -236,32 +249,34 @@ export const GetBrokerData = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}Brokername/${data.userName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
-        ) 
-        
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+
         return res?.data
 
 
 
-        
+
     }
     catch (err) {
         return err
     }
 }
- 
+
 export const UpdateBrokerData = async (data) => {
     var token = localStorage.getItem('token')
     try {
         const res = await axios.post(`${Config.base_url}Broker`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -275,10 +290,11 @@ export const TradingStatus = async (data) => {
     try {
         const res = await axios.get(`${Config.base_url}TradingStatus/${data.userName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -292,10 +308,11 @@ export const ConnectBroker = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}ConnectBroker`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -304,15 +321,35 @@ export const ConnectBroker = async (data) => {
     }
 }
 
+
+export const Get_Pattern_Name2 = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}Pattern/${data.selectPattern}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+
+    }
+    catch (err) {
+        return err
+    }
+}
 export const AvailableScript = async (data) => {
     var token = localStorage.getItem('token')
     try {
         const res = await axios.get(`${Config.base_url}Script/AvailableScript`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -326,10 +363,11 @@ export const GetSymbolIp = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}SymbolP`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -343,10 +381,11 @@ export const ChartPatternAPI = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}ChartPattern`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -360,10 +399,11 @@ export const Candlestick_Pattern = async (data) => {
     try {
         const res = await axios.post(`${Config.base_url}CandlestickPattern`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -375,13 +415,14 @@ export const Candlestick_Pattern = async (data) => {
 export const LastPatternCandleData = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        
+
         const res = await axios.get(`${Config.base_url}DailyData/${data.CartName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -393,12 +434,13 @@ export const LastPatternCandleData = async (data) => {
 export const SortPattern = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}CCLPattern`, data ,
+        const res = await axios.post(`${Config.base_url}CCLPattern`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -410,12 +452,13 @@ export const SortPattern = async (data) => {
 export const get_Trade_Data = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}ScalpingData`, data , 
+        const res = await axios.post(`${Config.base_url}ScalpingData`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -427,12 +470,13 @@ export const get_Trade_Data = async (data) => {
 export const UpdateUserScript = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}Updatescript`, data , 
+        const res = await axios.post(`${Config.base_url}Updatescript`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -444,12 +488,13 @@ export const UpdateUserScript = async (data) => {
 export const CheckPnL = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        const res = await axios.post(`${Config.base_url}MaxPnlStrike`, data , 
+        const res = await axios.post(`${Config.base_url}MaxPnlStrike`, data,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -458,18 +503,17 @@ export const CheckPnL = async (data) => {
     }
 }
 
-
- 
 export const GetName = async (data) => {
     var token = localStorage.getItem('token')
     try {
-        
+
         const res = await axios.get(`${Config.base_url}ClientTaskStatus/${data.userName}`,
             {
-                headers: { 
-                  'Content-Type': 'application/json', 
-                  'Authorization': `Bearer ${token}`
-            }}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
         )
         return res?.data
     }
@@ -477,6 +521,9 @@ export const GetName = async (data) => {
         return err
     }
 }
+
+
+
 
 
 

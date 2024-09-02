@@ -281,24 +281,7 @@ export const Get_Pattern_Name = async () => {
     }
 }
 
-export const Get_Pattern_Name2 = async (data) => {
-    const token = localStorage.getItem('token')
-    try {
-        const res = await axios.get(`${Config.base_url}CCPattern/${data.selectPattern}`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            }
-        )
-        return res?.data
 
-    }
-    catch (err) {
-        return err
-    }
-}
 
 export const Get_Pattern_Charting = async () => {
     const token = localStorage.getItem('token')
@@ -807,6 +790,123 @@ export const LastPattern = async (data) => {
         return err
     }
 }
- 
 
+export const GetLogo = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
 
+        const res = await axios.get(`${Config.base_url}logo`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetHeaderImg1 = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+
+        const res = await axios.get(`${Config.base_url}icon`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetHeaderImg2 = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+
+        const res = await axios.get(`${Config.base_url}frontimage`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const Getfaviconimage = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+
+        const res = await axios.get(`${Config.base_url}favicon`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const GetPanleName = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+
+        const res = await axios.get(`${Config.base_url}Companyname`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const UploadImage = async (data) => {
+    var token = localStorage.getItem('token');
+
+    try {
+        const formData = new FormData();
+        formData.append('icon', data.icon);
+        formData.append('frontimage', data.frontimage);
+        formData.append('logo', data.logo);
+        formData.append('company_name', data.company_name);
+        formData.append('faviconimage', data.favicon);
+
+        const res = await axios.post(`${Config.base_url}uploadimagefile`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',  
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        return res?.data;
+    } catch (err) {
+        console.error("Error uploading image", err);
+        return err;
+    }
+};
