@@ -13,10 +13,7 @@ const Login = () => {
     const [showModal, setShowModal] = useState(false)
     const [forgotPassEmail, setForgotPassEmail] = useState('')
     const [forgotPassusername, setForgotPassusername] = useState('')
-    const [userNameError, setUserNameError] = useState('');
-
-
-
+    const [userNameError, setUserNameError] = useState('')
     const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
 
@@ -31,11 +28,7 @@ const Login = () => {
                     localStorage.setItem("Role", response.Role)
                     localStorage.setItem("name", Username)
                     localStorage.setItem("token", response.access_token)
-                    get_header_img2();
-                    get_header_img1();
-                    Getfaviconimg();
-                    GetPanel_Name();
-                    GetLogoimage();
+                   
 
 
                     Swal.fire({
@@ -149,11 +142,6 @@ const Login = () => {
         }
     }
 
-
-
-
-
-
     const GetLogoimage = async () => {
         await GetLogo()
             .then((response) => {
@@ -172,8 +160,7 @@ const Login = () => {
     const get_header_img1 = async () => {
         await GetHeaderImg1()
             .then((response) => {
-                if (response.status) {
-                    document.getElementById('header_img1').src = "data:image/png;base64," + response.image_data
+                if (response.status) { 
                     localStorage.setItem("header_img1", "data:image/png;base64," + response.image_data)
                 } else {
                 }
@@ -187,7 +174,6 @@ const Login = () => {
         await GetHeaderImg2()
             .then((response) => {
                 if (response.status) {
-                    document.getElementById('header_img2').src = "data:image/png;base64," + response.image_data
                     localStorage.setItem("header_img2", "data:image/png;base64," + response.image_data)
                 } else {
                 }
@@ -212,14 +198,12 @@ const Login = () => {
             });
     };
 
-
     const GetPanel_Name = async () => {
         await GetPanleName()
             .then((response) => {
                 if (response.Status) {
                     document.getElementsByClassName("title_name")[0].innerText = response.CompanyName;
-                    localStorage.setItem("pannel_name", "data:image/png;base64," + response.image_data)
-
+                    localStorage.setItem("pannel_name", response.CompanyName)
                 } else {
 
                 }
@@ -228,8 +212,6 @@ const Login = () => {
                 console.log("Error Group data fetch error", err);
             });
     };
-
-
 
     useEffect(() => {
         get_header_img2();

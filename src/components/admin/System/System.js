@@ -14,25 +14,35 @@ const Strategygroup = () => {
     const [getfaviconImage, setFaviconImage] = useState('');
 
 
- 
+
 
     const fetchPanelDetails = async () => {
         try {
+            localStorage.removeItem('pannel_name');
+            localStorage.removeItem('header_img1');
+            localStorage.removeItem('logo');
+            localStorage.removeItem('header_img2');
+            localStorage.removeItem('fevicon');
+
             const panelNameRes = await GetPanleName();
             setPanleName(panelNameRes.Status ? panelNameRes.CompanyName : '');
+            localStorage.setItem('pannel_name', panelNameRes.CompanyName);
 
             const headerimage1 = await GetHeaderImg1();
             setHeaderImg1(headerimage1.status ? headerimage1.image_data : '');
+            localStorage.setItem('header_img1', "data:image/png;base64," + headerimage1.image_data);
 
             const logoRes = await GetLogo();
             setPanleLogo(logoRes.status ? logoRes.image_data : '');
+            localStorage.setItem('logo', "data:image/png;base64," + logoRes.image_data);
 
             const headerimage2 = await GetHeaderImg2();
             setHeaderImg2(headerimage2.status ? headerimage2.image_data : '');
+            localStorage.setItem('header_img2', "data:image/png;base64," + headerimage2.image_data);
 
             const faviconImage = await Getfaviconimage();
             setFaviconImage(faviconImage.status ? faviconImage.image_data : '');
-
+            localStorage.setItem('fevicon', "data:image/png;base64," + faviconImage.image_data);
         } catch (err) {
             console.log("Error fetching panel details", err);
         }
@@ -41,6 +51,15 @@ const Strategygroup = () => {
     useEffect(() => {
         fetchPanelDetails();
     }, []);
+
+    
+    const ReloadFun = () => {
+        setTimeout(() => {
+            console.log('Reload');
+            window.location.reload();
+
+        }, 2000);
+    }
 
     const fields = [
         {
@@ -112,10 +131,13 @@ const Strategygroup = () => {
                         icon: 'success',
                         title: 'Success',
                         text: 'Data Added Successfully',
+                        
                     });
                     setShowModal(false);
                     formik.resetForm();
                     fetchPanelDetails();
+                    // window.location.reload();
+                    ReloadFun()
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -160,7 +182,7 @@ const Strategygroup = () => {
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>{panleName}</td>
-                                        <td>{getfaviconImage && <img src={`data:image/png;base64,${getfaviconImage}`}className='api_img' alt="Panel Front Image" style={{ width: '70px', height: '70px' }} />}</td>
+                                        <td>{getfaviconImage && <img src={`data:image/png;base64,${getfaviconImage}`} className='api_img' alt="Panel Front Image" style={{ width: '70px', height: '70px' }} />}</td>
                                         <td>{HeaderImg1 && <img src={`data:image/png;base64,${HeaderImg1}`} className='api_img' alt="Panel Icon" style={{ width: '70px', height: '70px' }} />}</td>
                                         <td>{HeaderImg2 && <img src={`data:image/png;base64,${HeaderImg2}`} className='api_img' alt="Panel Front Image" style={{ width: '70px', height: '70px' }} />}</td>
                                         <td>{panleLogo && <img src={`data:image/png;base64,${panleLogo}`} className='api_img' alt="Panel Logo" style={{ width: '70px', height: '70px' }} />}</td>
