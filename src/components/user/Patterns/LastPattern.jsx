@@ -3,7 +3,7 @@ import { Get_Last_Pattern_Data, LastPatternCandleData, Get_Pattern_Name2 } from 
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
 import Loader from '../../../ExtraComponent/Loader'
 import "ag-charts-enterprise";
-import AgChartsReact from "./CandlePattern";
+import AgChartsReact from "./LastPatternCandle";
 import { columns2, columns3 } from './PatternsColumns'
 const LastPattern = () => {
     const [showCandle, setShowCandle] = useState(false)

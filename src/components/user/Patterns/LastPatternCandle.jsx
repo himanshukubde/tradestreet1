@@ -9,8 +9,10 @@ const ChartExample = ({ ChartData }) => {
   useEffect(() => {
     const adjustTime = (date) => {
       const dateObj = new Date(date);
-      return new Date(dateObj.getTime() - 5 * 60 * 60 * 1000);  
+      return new Date(dateObj.getTime());
     };
+
+    console.log("ChartData", ChartData);
 
     const processedData = ChartData.map((item) => ({
       ...item,
