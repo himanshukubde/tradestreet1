@@ -168,7 +168,7 @@ const Clientservice = () => {
     });
 
 
-    console.log("selectedIndex", selectedIndex.BrokerName)
+    
  
     const fields = [
         {
@@ -232,6 +232,7 @@ const Clientservice = () => {
     ];
 
     
+    console.log("formik", formik.values.Service_Count)
 
     useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")
@@ -257,20 +258,26 @@ const Clientservice = () => {
     };
 
     const ExtendDate = async () => {
-        if (showModal && selectedIndex.Username && showModal && selectedIndex.ServiceCount) {
-            const data = { Username: showModal ? selectedIndex.Username : '', ser: showModal ? selectedIndex.ServiceCount : '' };
+        if (showModal && selectedIndex.Username && formik.values.Service_Count) {
+            const data = { 
+                Username: selectedIndex.Username, 
+                ser: formik.values.Service_Count || 0 
+            };
+    
             try {
                 const response = await ExtendEndDate(data);
+                
                 if (response.Status) {
-                    setExtendDate(response.ServiceStartDate ? response.ServiceStartDate : []);
+                    setExtendDate(response.ServiceStartDate || []);  // Use fallback directly
                 } else {
                     setExtendDate([]);
                 }
             } catch (err) {
-                console.log("Error in finding the service count", err);
+                console.error("Error in ExtendDate function while fetching the service count:", err);
             }
         }
     };
+    
 
     useEffect(() => {
         ExtendDate();

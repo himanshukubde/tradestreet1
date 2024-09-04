@@ -28,6 +28,8 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     const [EditDataOption, setEditDataOption] = useState({})
     const [EditDataPattern, setEditDataPattern] = useState({})
 
+
+    console.log("EditDataOption", EditDataOption)
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
@@ -634,13 +636,13 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
             const req = {
                 MainStrategy: data,
                 Strategy: EditDataOption.STG,
-                Symbol: EditDataOption.Symbol,
+                Symbol: EditDataOption.MainSymbol,
                 Username: userName,
                 ETPattern: EditDataOption.Targettype,
                 Timeframe: "",
                 Targetvalue: values.Targetvalue,
                 Slvalue: Number(values.Slvalue),
-                TStype: Number(values.TStype),
+                TStype:  values.TStype,
                 Quantity: Number(values.Quantity),
                 LowerRange: EditDataOption.LowerRange,
                 HigherRange: EditDataOption.HigherRange,
