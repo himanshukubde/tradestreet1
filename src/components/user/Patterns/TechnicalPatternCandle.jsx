@@ -8,17 +8,17 @@ const ChartExample = ({ ChartData }) => {
 
   useEffect(() => {
     // Parse date strings into Date objects
-    const formattedData = ChartData
-    .filter(item => item.date !== null) 
-    .map(({ volume, ...rest }) => ({
+    const formattedData = ChartData.filter(item => item.date !== null).map(({ volume, ...rest }) => ({
       ...rest,
       date: new Date(rest.date) 
     }));
   
+
+    console.log(formattedData);
   
 
     const chartOptions = {
-      data: formattedData.slice(0, 370),
+      data: formattedData,
       footnote: {
         text: "1 Minute Intervals",
       },
