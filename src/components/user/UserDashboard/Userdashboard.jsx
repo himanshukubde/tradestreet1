@@ -59,7 +59,7 @@ const Userdashboard = () => {
             .then((response) => {
                 setServiceStatus({
                     status: response.Status,
-                    msg:  response.message,
+                    msg: response.message,
                 })
             })
             .catch((err) => {
@@ -147,7 +147,7 @@ const Userdashboard = () => {
                 sort: true,
             }
         },
-        
+
         {
             name: "TradeType",
             label: "Trade Type",
@@ -479,13 +479,12 @@ const Userdashboard = () => {
                                     <div className='d-flex'>
                                         <div className={`form-group ${activeTab == "currentScript" || activeTab == "copyScript" ? 'col-sm-6' : 'col-md-4'}`}>
                                             <div className='px-3'>
-
                                                 <label>Add Via</label>
                                                 <select className="form-select" required=""
                                                     onChange={(e) => { setActiveTab(e.target.value) }}
                                                     value={activeTab}>
                                                     <option value="currentScript">Current Script</option>
-                                                    <option value="copyScript">Copy Script</option>
+                                                    {/* <option value="copyScript">Copy Script</option> */}
                                                     <option value="group">Group Script</option>
                                                 </select>
                                             </div>
@@ -498,6 +497,7 @@ const Userdashboard = () => {
                                                         onChange={(e) => { setGroup(e.target.value) }}
                                                         value={getGroup}>
                                                         <option value=''>Select Group Name</option>
+                                                        <option value="copyScript">Copy Script</option>
                                                         {
                                                             getGroupName && getGroupName.data.map((item) => {
                                                                 return <option value={item}>{item}</option>
@@ -520,26 +520,30 @@ const Userdashboard = () => {
                                             </div>
                                         </div>
 
-                                       
+
                                     </div>
                                 )}
                             </div>
-
                             <div className="tab-content">
                                 {activeTab1 === 'CurrentPosition' && (
                                     <>
-                                        {activeTab === 'copyScript' && (
+                                        {/* {activeTab === 'copyScript' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
                                                     {subTab && <Coptyscript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />}
                                                 </div>
                                             </div>
-                                        )}
+                                        )} */}
 
                                         {activeTab === 'group' && (
                                             <div className="tab-pane fade show active" id="home-justify" role="tabpanel">
                                                 <div className="tab-content mt-3">
-                                                    {subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus} />}
+                                                    {getGroup == "copyScript" ? subTab && <Coptyscript data={subTab} selectedType={activeTab} data2={serviceStatus && serviceStatus} />
+                                                        :
+                                                        subTab && <GroupScript data={subTab} selectedType={activeTab} GroupName={getGroup} data2={serviceStatus && serviceStatus} />
+
+                                                    }
+
                                                 </div>
                                             </div>
                                         )}

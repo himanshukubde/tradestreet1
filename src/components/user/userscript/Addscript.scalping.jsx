@@ -166,7 +166,7 @@ const AddClient = () => {
                 errors.HigherRange = "Please Enter The Higher Range.";
             }
             if (!values.Group && values.Strategy === "Fixed Price") {
-                errors.Group = "Please Select A Unique ID.";
+                errors.Group = "Please Select Unique ID.";
             }
             if (!values.HoldExit && values.set_Range) {
                 errors.HoldExit = "Please Select Whether To Hold Or Exit.";
@@ -178,6 +178,8 @@ const AddClient = () => {
             // console.log("error : ", errors)
             return errors;
         },
+
+
 
         onSubmit: async (values) => {
             const req = {
@@ -196,8 +198,8 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 EntryPrice: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryPrice,
                 EntryRange: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryRange,
-                LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
-                HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : Number(values.LowerRange),
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : Number(values.HigherRange),
                 HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
@@ -291,6 +293,7 @@ const AddClient = () => {
 
     const result = extractDetails(location.state.data.Symbol);
 
+
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -319,32 +322,6 @@ const AddClient = () => {
         formik.setFieldValue('Strike', result ? result.number : "")
         setinitialvalue(true)
     }, [location.state.data])
-
-
-    useEffect(() => {
-        if (initialvalue) {
-
-            if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-                formik.setFieldValue('LowerRange', 0)
-                formik.setFieldValue('HigherRange', 0)
-            }
-            if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
-                formik.setFieldValue('EntryPrice', 0)
-                formik.setFieldValue('EntryRange', 0)
-            }
-            if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-                formik.setFieldValue('Optiontype', "")
-                formik.setFieldValue('Strike', "")
-                // formik.setFieldValue('Symbol', "")
-            }
-            if (formik.values.Symbol !== location.state.data.MainSymbol) {
-                formik.setFieldValue('expirydata1', "");
-            }
-
-        }
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Symbol])
-
-
 
 
     const fields = [
@@ -550,7 +527,6 @@ const AddClient = () => {
             hiding: false,
             disable: false,
         },
-
         {
             name: "set_Range",
             label: "Trade Range",
@@ -582,7 +558,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "HoldExit",
             label: "Hold/Exit",
@@ -597,7 +572,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "Group",
             label: "Unique ID",
@@ -633,7 +607,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "Trade_Execution",
             label: "Trade Execution",
@@ -657,7 +630,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -677,6 +649,26 @@ const AddClient = () => {
             hiding: false,
         },
     ];
+
+
+    useEffect(() => {
+        if (initialvalue) {
+            if (formik.values.Symbol !== location.state.data.MainSymbol) {
+                formik.setFieldValue('expirydata1', "");
+                formik.setFieldValue('Strike', "")
+            }
+            if(formik.values.Strategy !== location.state.data.ScalpType){
+                formik.setFieldValue('Group', "")
+                formik.setFieldValue('HoldExit', "")
+                formik.setFieldValue('HigherRange', 0)
+                formik.setFieldValue('LowerRange', 0) 
+                formik.setFieldValue('TStype', "")
+                formik.setFieldValue('EntryRange', 0)
+                formik.setFieldValue('EntryPrice', 0) 
+            }
+        }
+    }, [formik.values.Strategy, formik.values.Symbol])
+
 
 
     const GetExpriyEndDate = async () => {
@@ -781,10 +773,7 @@ const AddClient = () => {
 
 
     const getExpiry = async () => {
-
-
-        if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
-            console.log("formik.values.Exchange : ")
+        if (formik.values.Symbol) {
             const data = {
                 Exchange: formik.values.Exchange,
                 Instrument: formik.values.Exchange == "NSE" ? "" : formik.values.Instrument,
@@ -820,17 +809,7 @@ const AddClient = () => {
         getExpiry()
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
-
-    // useEffect(() => {
-    //     if (formik.values.Symbol && formik.values.Symbol !== location.state.data.MainSymbol) {
-    //         formik.setFieldValue('expirydata1', "")
-    //     }
-    //     if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-    //         formik.setFieldValue('LowerRange', 0)
-    //         formik.setFieldValue('HigherRange', 0)
-    //     } 
-
-    // }, [formik.values.Symbol, formik.values.Strategy, formik.values.set_Range])
+ 
 
 
     return (

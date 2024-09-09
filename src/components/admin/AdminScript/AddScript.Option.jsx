@@ -192,7 +192,7 @@ const AddClient = () => {
                     errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
                 }
             }
-            console.log("errors", errors)
+            
             return errors;
         },
 

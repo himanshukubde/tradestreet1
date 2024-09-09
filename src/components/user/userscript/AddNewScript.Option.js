@@ -221,7 +221,7 @@ const AddClient = () => {
 
             }
 
-            console.log("errors", errors)
+    
 
 
             return errors;
@@ -970,9 +970,7 @@ const AddClient = () => {
                         }
 
                         {
-
                             showPnl && <div>
-
                                 <div>
                                     <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
                                         <thead>
@@ -1017,8 +1015,6 @@ const AddClient = () => {
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             </div>
                         }
                     </div>

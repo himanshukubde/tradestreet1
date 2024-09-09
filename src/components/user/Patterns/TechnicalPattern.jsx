@@ -190,7 +190,7 @@ const LastPattern = () => {
                                 <div className="">
                                     {(!getCandlestickTable.loading || !ChartPatternTableData.loading) && (
                                         <div className='shadow p-3 bg-white rounded m-4'>
-                                            <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} />
+                                            <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'}  timeFrame={selectedTimeFrame} />
                                         </div>
                                     )}
                                 </div>

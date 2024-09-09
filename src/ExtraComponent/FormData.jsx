@@ -471,28 +471,35 @@ const DynamicForm = ({
                         </>
                       ) : field.type === "radio1" ? (
                         <>
+                          <div className={` col-lg-${field.col_size} mt-4`}>
+                            <div className="d-flex">
 
-
-                          <div className={`d-flex  col-lg-${field.col_size}`}>
-                            {field.title && field.title.map((item) => (
-                              <div className={`form-check custom-checkbox d-flex align-items-center col-lg-3`} key={item.title}>
-                                <input
-                                  type="radio"
-                                  name={field.name} // Ensure the name is consistent for all options
-                                  value={item.value}
-                                  className="form-check-input"
-                                  id={item.title}
-                                  onChange={formik.handleChange} // Use formik's handleChange to capture the value
-                                  checked={formik.values[field.name] === item.value} // Set the checked attribute based on formik values
-                                />
-                                <label
-                                  className={`col-lg-${field.label_size} col-form-label mx-2`}
-                                  htmlFor={item.title}
-                                >
-                                  {item.title}
-                                </label>
-                              </div>
-                            ))}
+                              {field.title && field.title.map((item) => (
+                                <div className={`form-check custom-checkbox d-flex align-items-center col-lg-3`} key={item.title}>
+                                  <input
+                                    type="radio"
+                                    name={field.name} // Ensure the name is consistent for all options
+                                    value={item.value}
+                                    className="form-check-input"
+                                    id={item.title}
+                                    onChange={formik.handleChange} // Use formik's handleChange to capture the value
+                                    checked={formik.values[field.name] === item.value} // Set the checked attribute based on formik values
+                                  />
+                                  <label
+                                    className={`col-lg-${field.label_size} col-form-label mx-2`}
+                                    htmlFor={item.title}
+                                  >
+                                    {item.title}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          {formik.touched[field.name] &&
+                            formik.errors[field.name] ? (
+                            <div style={{ color: "red" }}>
+                              {formik.errors[field.name]}
+                            </div>
+                          ) : null}
                           </div>
                         </>
                       ) : field.type === "radio2" ? (

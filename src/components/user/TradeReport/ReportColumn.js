@@ -227,6 +227,9 @@ export const getColumns1 = () => [
         options: {
             filter: true,
             sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => { 
+                return parseFloat(value).toFixed(4);
+            },
         }
     },
     {
@@ -235,6 +238,9 @@ export const getColumns1 = () => [
         options: {
             filter: true,
             sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => { 
+                return parseFloat(value).toFixed(4);
+            },
         }
     },
     {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetGroupNames, Get_All_Service, get_User_Data } from '../../CommonAPI/Admin'
+import { Get_All_Service, get_User_Data } from '../../CommonAPI/Admin'
 import { Eye, Trash2 } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
@@ -7,10 +7,7 @@ import { ReportColumns5, ReportColumns4, ReportColumns3 } from './UserAllColumn'
 
 const Userlog = () => {
 
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    })
+    
     const [showModal, setShowModal] = useState(false)
     const [getServiceDetails, setServiceDetails] = useState({
         loading: true,
@@ -498,37 +495,6 @@ const Userlog = () => {
         },
 
     ];
-
-    const GetAllGroupDetails = async () => {
-        try {
-            await GetGroupNames()
-                .then((response) => {
-                    if (response.Status) {
-                        setGroupData({
-                            loading: false,
-                            data: response.StrGroupdf
-                        })
-                    }
-                    else {
-                        setGroupData({
-                            loading: false,
-                            data: []
-                        })
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error group data fetch", err)
-                })
-        }
-        catch {
-            console.log("Error group data fetch")
-        }
-    }
-
-    useEffect(() => {
-        GetAllGroupDetails()
-    }, [])
-
 
     useEffect(() => {
         setStrategyType('Scalping')

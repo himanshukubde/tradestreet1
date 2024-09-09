@@ -97,7 +97,7 @@ const Pannel = () => {
             }
         },
         {
-            name: "Message",
+            name: "message",
             label: "Message",
             options: {
                 filter: true,

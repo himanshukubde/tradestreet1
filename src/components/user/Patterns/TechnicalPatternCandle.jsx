@@ -3,24 +3,43 @@ import { AgChartsReact } from "ag-charts-react";
 import "ag-charts-enterprise";
 import * as d3 from "d3";
 
-const ChartExample = ({ ChartData }) => {
+const ChartExample = ({ ChartData , timeFrame }) => {
   const [options, setOptions] = useState(null);
 
-  useEffect(() => {
-    // Parse date strings into Date objects
-    const formattedData = ChartData.filter(item => item.date !== null).map(({ volume, ...rest }) => ({
-      ...rest,
-      date: new Date(rest.date) 
-    }));
-  
 
-    console.log(formattedData);
+  useEffect(() => { 
+    const formattedData = ChartData.filter(item => item.date2 !== null)
+      .map(({ volume, ...rest }) => ({
+        ...rest,
+        date: new Date(rest.date2),
+      }))
+      .filter(item => {
+        const dayOfWeek = item.date.getDay();  
+        return dayOfWeek !== 0 && dayOfWeek !== 6;  
+      });
   
+      const filterDataBetween9_15And15_30 = (data) => {
+        return data.filter(item => {
+          const time = item.date2.split(' ')[1];
+          const [hours, minutes] = time.split(':').map(Number);  
+       
+          if ((hours === 9 && minutes >= 15) || (hours > 9 && hours < 15)) {
+            return true;  
+          } else if (hours === 15 && minutes <= 30) {
+            return true;  
+          }
+      
+          return false;  
+        });
+      };
+ 
 
+  
+    const newData = filterDataBetween9_15And15_30(formattedData);
     const chartOptions = {
-      data: formattedData,
+      data: newData,
       footnote: {
-        text: "1 Minute Intervals",
+        text: `${timeFrame.slice(0,-1)} Minute Intervals`,
       },
       series: [
         {
@@ -69,15 +88,23 @@ const ChartExample = ({ ChartData }) => {
           position: "bottom",
           label: {
             format: (params) => {
-              const date = new Date(params.value).toLocaleString("en-IN", {
+              console.log(params)
+              const date = new Date(params.value);
+              const dayOfWeek = date.getDay();  
+          
+              if (dayOfWeek === 0 || dayOfWeek === 6) {
+                return ''; // Return an empty string to skip Saturday and Sunday
+              }
+          
+              return date.toLocaleString("en-IN", {
                 hour: "2-digit",
                 minute: "2-digit",
                 hour12: true,
                 timeZone: "Asia/Kolkata",
               });
-              return date;
             },
           },
+          
           tick: {
             count: d3.timeMinute.every(5),
           },
@@ -87,8 +114,6 @@ const ChartExample = ({ ChartData }) => {
           zoom: {
             enabled: true,
             mode: "x",
-            // Set initial zoom level if necessary
-            // initialRange: { start: new Date(2000, 0, 1), end: new Date() },
           },
         },
         {
@@ -104,8 +129,6 @@ const ChartExample = ({ ChartData }) => {
           },
           zoom: {
             enabled: true,
-            // Set initial zoom level if necessary
-            // initialRange: { start: 0, end: 100 },
           },
         },
       ],
@@ -116,8 +139,6 @@ const ChartExample = ({ ChartData }) => {
       },
     };
     
-  
-
     setOptions(chartOptions);
   }, [ChartData]);
 
