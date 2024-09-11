@@ -831,14 +831,7 @@ const AddClient = () => {
 
 
 
-
-
-   
-
-
     useEffect(() => {
-       
-
         if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
             formik.setFieldValue('Striketype', "Depth_of_Strike")
         }
