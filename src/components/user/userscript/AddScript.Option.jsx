@@ -213,6 +213,8 @@ const AddClient = () => {
                     errors.Shifting_Value = "Please Enter Number of Shifts Between 1-5.";
                 }
             }
+
+            console.log("Errors", errors)
  
             return errors;
         },
@@ -340,6 +342,8 @@ const AddClient = () => {
 
   
 
+
+
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
             location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
@@ -366,7 +370,7 @@ const AddClient = () => {
         formik.setFieldValue('Lower_Range', location.state.data.LowerRange)
         formik.setFieldValue('Higher_Range', location.state.data.HigherRange)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
-        formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount || 1)
         formik.setFieldValue('Unique_ID', location.state.data.GroupN)
         formik.setFieldValue('Shifting_Value', (location.state.data.Measurment_Type == "Shifting/FourLeg" && location.state.data.Strategy != 'ShortFourLegStretegy' && location.state.data.Strategy != 'LongFourLegStretegy') ? location.state.data.DepthofStrike : "")
         formik.setFieldValue('CEDepthLower', location.state.data.CEDepthLower)

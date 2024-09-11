@@ -316,7 +316,7 @@ const AddClient = () => {
         formik.setFieldValue('EntryTime', location.state.data.EntryTime)
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
-        formik.setFieldValue('Trade_Count', location.state.data.type == "group" ? "1" : location.state.data.TradeCount)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount || 1)
         formik.setFieldValue('Group', location.state.data.GroupN)
         formik.setFieldValue('Optiontype', result ? result.type : "")
         formik.setFieldValue('Strike', result ? result.number : "")

@@ -285,7 +285,12 @@ const AddClient = () => {
     }
 };
 
+
+
 const result = extractDetails(location.state.data.Symbol);
+
+console.log("Formik",location.state.data)
+console.log("Formik", formik.values.Trade_Count)
 
     useEffect(() => {
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -303,7 +308,7 @@ const result = extractDetails(location.state.data.Symbol);
         formik.setFieldValue('EntryTime', location.state.data.EntryTime)
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
-        formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount || 1)
         formik.setFieldValue('expirydata1', location.state.data['Expiry Date'])
         formik.setFieldValue('Optiontype', result ? result.type : "")
         formik.setFieldValue('Strike', result ? result.number : "")
