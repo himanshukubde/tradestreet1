@@ -703,9 +703,9 @@ export const columns3 = (selectStrategyType)=> [
         label: "PnL",
         
         options: {
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
             filter: true,
             sort: true,
         }
@@ -743,9 +743,9 @@ export const columns4 = ()=> [
         options: {
             filter: true,
             sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     },
 
@@ -779,9 +779,9 @@ export const columns5 =(selectStrategyType)=> [
         name: selectStrategyType == "Scalping" ? "EquityCurve" : "PnL",
         label: "Equity Curve",
         options: {
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
             filter: true,
             sort: true,
         }

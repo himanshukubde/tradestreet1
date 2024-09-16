@@ -489,9 +489,16 @@ const Tradehistory = () => {
                                 showTable && <>
  
                                     <div>
-                                        <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        {/* <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                             Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && parseFloat(getAllTradeData.Overall[0].PnL).toFixed(4)}</span>
+                                        </p> */}
+
+                                         <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && getAllTradeData.Overall[0].PnL}</span>
                                         </p>
+
+
+                                        
 
                                     </div>
                                     <div className='mt-3'>
@@ -629,13 +636,19 @@ const Tradehistory = () => {
 
                                     <div className='row'>
                                         <div className='col-lg-6'>
-                                            <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
-                                            <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p>
+                                            {/* <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
+                                            <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p> */}
+
+                                            <p>Consistant Profit : <spam>{getAllTradeData.data1}</spam></p>
+                                            <p>Count Consistant Profit : <spam>{getAllTradeData.data2}</spam></p>
 
                                         </div>
                                         <div className='col-lg-6'>
-                                            <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
-                                            <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p>
+                                            {/* <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
+                                            <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p> */}
+
+                                            <p>Consistant Loss : <spam>{getAllTradeData.data4}</spam></p>
+                                            <p>Count Consistant Loss : <spam>{getAllTradeData.data3}</spam></p>
 
                                         </div>
 

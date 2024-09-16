@@ -221,9 +221,9 @@ export const columns1 =()=> [
         options: {
             filter: true,
             sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "body_length",
@@ -231,9 +231,9 @@ export const columns1 =()=> [
         options: {
             filter: true,
             sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "upper_shadow",
@@ -241,9 +241,9 @@ export const columns1 =()=> [
         options: {
             filter: true,
             sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "lower_shadow",
@@ -251,9 +251,9 @@ export const columns1 =()=> [
         options: {
             filter: true,
             sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => { 
-                return parseFloat(value).toFixed(4);
-            },
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "Pattern",

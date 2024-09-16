@@ -169,7 +169,8 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
-                                            <option value="">Please Select Specific Script</option>
+                                            {allSymbols.length === 0 ?  <option value="">No Pattern Script Subscribed</option> :  <option value="">Please Select Specific Script</option>}
+                                            {/* <option value="">Please Select Specific Script</option> */}
                                             {allSymbols.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}

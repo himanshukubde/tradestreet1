@@ -77,7 +77,7 @@ const Tradehistory = () => {
                     Swal.fire({
                         title: "Success",
                         icon: "success",
-                        text:  response.message,
+                        text: response.message,
                         timer: 1500,
                         timerProgressBar: true
                     });
@@ -93,7 +93,7 @@ const Tradehistory = () => {
                     Swal.fire({
                         title: "No Records found",
                         icon: "info",
-                        text:  response.message,
+                        text: response.message,
                         timer: 1500,
                         timerProgressBar: true
                     });
@@ -172,8 +172,12 @@ const Tradehistory = () => {
                                     </div>
 
                                     <div>
-                                        <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        {/* <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                             Total Profit and Loss : <span style={{ color: getPnLData.data2 < 0 ? 'red' : 'green' }}>{parseFloat(getPnLData.data2).toFixed(4)}</span>
+                                        </p> */}
+
+                                        <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                            Total Profit and Loss : <span style={{ color: getPnLData.data2 < 0 ? 'red' : 'green' }}>{getPnLData.data2}</span>
                                         </p>
 
                                     </div>

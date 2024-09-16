@@ -497,9 +497,15 @@ const Tradehistory = () => {
                             {showTable && <>
 
                                 <div>
-                                    <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                    {/* <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
                                         Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && parseFloat(getAllTradeData.Overall[0].PnL).toFixed(4)}</span>
+                                    </p> */}
+
+                                    <p className='bold mt-4' style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
+                                        Total Profit and Loss : <span style={{ color: getAllTradeData && getAllTradeData.Overall[0].PnL < 0 ? 'red' : 'green' }}>{getAllTradeData && getAllTradeData.Overall[0].PnL}</span>
                                     </p>
+
+                                    
 
                                 </div>
 
@@ -527,7 +533,7 @@ const Tradehistory = () => {
                                     <div className="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingTwo">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style={{fontWeight: 'bold'}}>
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style={{ fontWeight: 'bold' }}>
                                                     Drawdown Table
                                                 </button>
 
@@ -606,13 +612,22 @@ const Tradehistory = () => {
 
                                 <div className='row'>
                                     <div className='col-lg-6'>
-                                        <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
-                                        <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p>
+                                        {/* <p>Consistant Profit : <spam>{parseFloat(getAllTradeData.data1).toFixed(4)}</spam></p>
+                                        <p>Count Consistant Profit : <spam>{parseFloat(getAllTradeData.data2).toFixed(4)}</spam></p> */}
+
+                                        <p>Consistant Profit : <spam>{getAllTradeData.data1}</spam></p>
+                                        <p>Count Consistant Profit : <spam>{getAllTradeData.data2}</spam></p>
+
+
 
                                     </div>
                                     <div className='col-lg-6'>
-                                        <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
-                                        <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p>
+                                        {/* <p>Consistant Loss : <spam>{parseFloat(getAllTradeData.data4).toFixed(4)}</spam></p>
+                                        <p>Count Consistant Loss : <spam>{parseFloat(getAllTradeData.data3).toFixed(4)}</spam></p> */}
+
+
+                                        <p>Consistant Loss : <spam>{getAllTradeData.data4}</spam></p>
+                                        <p>Count Consistant Loss : <spam>{getAllTradeData.data3}</spam></p>
 
                                     </div>
 
@@ -634,7 +649,7 @@ const Tradehistory = () => {
                                         <div className="accordion" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingTwo">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{fontWeight: 'bold'}}>
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={{ fontWeight: 'bold' }}>
                                                         Equity Curve Table
                                                     </button>
                                                 </h2>
