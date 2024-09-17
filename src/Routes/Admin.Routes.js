@@ -17,6 +17,7 @@ import AddscriptScalping from '../components/admin/AdminScript/Addscript.Scalpin
 import AddScriptOption from '../components/admin/AdminScript/AddScript.Option'
 import PatternScript from '../components/admin/AdminScript/AddScript.Pattern'
 import System from '../components/admin/System/System';
+import AllPlan from '../components/admin/Plan/AllPlan';
 
 
 
@@ -46,7 +47,8 @@ const AdminRoute = () => {
             <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
-            <Route path="/system" element={<System />} />
+            <Route path="/system" element={<System />} /> 
+            <Route path="/allplan" element={<AllPlan />} />   
           </Routes>
         </div>
       </div>
