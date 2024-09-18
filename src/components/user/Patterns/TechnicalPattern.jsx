@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../CommonAPI/Admin';
-import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern } from '../../CommonAPI/User';
+import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern, GetSingleChart } from '../../CommonAPI/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
 import { columns, columns1 } from './PatternsColumns';
@@ -22,6 +22,7 @@ const LastPattern = () => {
     const [getCandlestickTable, setCandlestickTable] = useState({ loading: true, data1: [], data2: [] });
     const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, data: [] });
     const [timeFrameData, setTimeFrameData] = useState({ loading: true, data: [] });
+    const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: [] });
 
     useEffect(() => {
         fetchAllSymbols();
@@ -32,6 +33,11 @@ const LastPattern = () => {
         fetchPatternTimeFrames();
         fetchPatternNames();
     }, []);
+
+    useEffect(() => {
+        GetSingleChartPattern()
+    }, [candlestickPattern]);
+
 
     useEffect(() => {
         fetchChartingData();
@@ -109,6 +115,23 @@ const LastPattern = () => {
         }
     };
 
+    const GetSingleChartPattern = async () => {
+        const data = { patternName: candlestickPattern };
+        await GetSingleChart(data)
+            .then((response) => {
+                if (response.status) {
+                    setSingleChartImg({ loading: false, data: response.image_data });
+                }
+                else {
+                    setSingleChartImg({ loading: false, data: [] });
+                }
+            })
+            .catch((err) => {
+                console.error("Error in fetching single chart image", err);
+            });
+    }
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -169,8 +192,7 @@ const LastPattern = () => {
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
-                                            {allSymbols.length === 0 ?  <option value="">No Pattern Script Subscribed</option> :  <option value="">Please Select Specific Script</option>}
-                                            {/* <option value="">Please Select Specific Script</option> */}
+                                            {allSymbols.length === 0 ? <option value="">No Pattern Script Subscribed</option> : <option value="">Please Select Specific Script</option>}
                                             {allSymbols.map((item) => (
                                                 <option value={item} key={item}>{item}</option>
                                             ))}
@@ -179,6 +201,12 @@ const LastPattern = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <div>
+                            <td>{getSingleChartImg && <img src={`data:image/png;base64,${getSingleChartImg?.data}`} className='api_img' alt="Panel Front Image" style={{ width: '350px', height: '350px' }} />}</td>
+                        </div>
+
+
                         <div className="table-responsive">
                             {selectedPatternType === 'Candlestick Patterns' ? (
                                 <FullDataTable columns={columns1()} data={getCandlestickTable.data2} checkBox={false} />
@@ -191,7 +219,7 @@ const LastPattern = () => {
                                 <div className="">
                                     {(!getCandlestickTable.loading || !ChartPatternTableData.loading) && (
                                         <div className='shadow p-3 bg-white rounded m-4'>
-                                            <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'}  timeFrame={selectedTimeFrame} />
+                                            <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} timeFrame={selectedTimeFrame} />
                                         </div>
                                     )}
                                 </div>

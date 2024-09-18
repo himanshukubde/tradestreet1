@@ -1288,6 +1288,14 @@ export const getColumns8 = () => [
         }
     },
     {
+        name: "PatternTime",
+        label: "Pattern Time",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "ETime",
         label: "Entry Time",
         options: {
@@ -1371,14 +1379,7 @@ export const getColumns8 = () => [
             sort: true,
         }
     },
-    {
-        name: "PatternTime",
-        label: "Pattern Time",
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
+    
     {
         name: "Token",
         label: "Token",

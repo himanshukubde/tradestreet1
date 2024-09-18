@@ -395,9 +395,25 @@ const loginWithApi = async (UserDetails) => {
             };
             axios.request(config)
                 .then((response) => {
-                    if (response.data.Status == true) {
-                        window.location.href = response.data.Api;
+
+                    let swalOptions = {
+                        confirmButtonText: 'OK',
+                        timer: 2000
+                    };
+
+                    if (response.data.Status) {
+                        swalOptions.title = 'Success!';
+                        swalOptions.text = 'Trading On successfully.';
+                        swalOptions.icon = 'success';
+                    } else {
+                        swalOptions.title = 'Error!';
+                        swalOptions.text = 'Trading Off successfully.';
+                        swalOptions.icon = 'error';
                     }
+                    Swal.fire(swalOptions).then(() => {
+                        // window.location.reload();
+                    });
+                    
                 })
                 .catch((error) => {
                     console.log("Error", error);

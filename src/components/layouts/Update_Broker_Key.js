@@ -373,7 +373,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
         {
             name: "APIPassword",
             type: "text",
-            label: formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Encription Key" : 
+            label: formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Encryption Key" : 
             formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Api Password" : 
             "API Password",
 
