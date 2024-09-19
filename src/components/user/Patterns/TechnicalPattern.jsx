@@ -22,7 +22,7 @@ const LastPattern = () => {
     const [getCandlestickTable, setCandlestickTable] = useState({ loading: true, data1: [], data2: [] });
     const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, data: [] });
     const [timeFrameData, setTimeFrameData] = useState({ loading: true, data: [] });
-    const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: [] });
+    const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: "" });
 
     useEffect(() => {
         fetchAllSymbols();
@@ -130,7 +130,7 @@ const LastPattern = () => {
                 console.error("Error in fetching single chart image", err);
             });
     }
-
+ 
 
     return (
         <div className="container-fluid">
@@ -202,9 +202,15 @@ const LastPattern = () => {
                             </div>
                         </div>
 
-                        <div>
-                            <td>{getSingleChartImg && <img src={`data:image/png;base64,${getSingleChartImg?.data}`} className='api_img' alt="Panel Front Image" style={{ width: '350px', height: '350px' }} />}</td>
+
+
+                        <div className='d-flex'>
+                            {
+                                getSingleChartImg.data == "" ? "" : <div className=''>{<img src={`data:image/png;base64,${getSingleChartImg?.data}`} className='api_img' alt="Panel Front Image" style={{ width: '350px', height: '350px' }} />}</div>
+                            }
                         </div>
+
+
 
 
                         <div className="table-responsive">

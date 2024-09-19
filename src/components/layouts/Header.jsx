@@ -6,7 +6,8 @@ import * as Config from "../../Utils/Config";
 import axios from "axios";
 import { TradingStatus } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
-import {LastPattern , DataStart , AutoLogin} from '../CommonAPI/Admin'
+import { Wallet } from 'lucide-react';
+import { LastPattern, DataStart, AutoLogin } from '../CommonAPI/Admin'
 
 
 const Header = () => {
@@ -59,7 +60,6 @@ const Header = () => {
             };
             Loginwihapi(requestData)
         } else {
-            console.log("----Trading Of")
             var data = {
                 Username: Username,
                 session: "",
@@ -79,7 +79,7 @@ const Header = () => {
                         }
                     });
 
-                
+
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({
@@ -240,7 +240,7 @@ const Header = () => {
                 if (response.Status) {
                     Swal.fire({
                         title: "Auto Login On !",
-                        text:  response.message,
+                        text: response.message,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
@@ -249,7 +249,7 @@ const Header = () => {
                 else {
                     Swal.fire({
                         title: "Error !",
-                        text:  response.message,
+                        text: response.message,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -258,52 +258,52 @@ const Header = () => {
             })
     }
 
-    const handleDataStart = async() => {
+    const handleDataStart = async () => {
         await DataStart()
-        .then((response)=>{
-            if (response.Status) {
-                Swal.fire({
-                    title: "Data Start !",
-                    text:  response.message,
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-            else {
-                Swal.fire({
-                    title: "Error !",
-                    text:  response.message,
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        })
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Data Start !",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
 
     }
-    const handleLastPattern = async() => {
+    const handleLastPattern = async () => {
         await LastPattern()
-        .then((response)=>{
-            if (response.Status) {
-                Swal.fire({
-                    title: "Last Pattern On !",
-                    text:  response.message,
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-            else {
-                Swal.fire({
-                    title: "Error !",
-                    text:  response.message,
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        })
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Last Pattern On !",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
 
     }
 
@@ -378,7 +378,7 @@ const Header = () => {
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                   
+
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
@@ -420,38 +420,9 @@ const Header = () => {
                             <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
-
-                            {/* <div className="iq-menu-bt align-self-center">
-                                <div className="wrapper-menu">
-                                    <div className="main-circle">
-                                        <i className="ri-more-fill" />
-                                    </div>
-                                    <div className="hover-circle">
-                                        <i className="ri-more-2-fill" />
-                                    </div>
-                                </div>
-                            </div> */}
-
-
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
                                     <div className="custom-switch-inner">
-
-
-                                        {/* <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="customSwitch-11"
-                                                                checked={getTradingStatus}
-                                                                onChange={handleToggle}
-                                                            />
-                                                            <label
-                                                                className="custom-control-label"
-                                                                htmlFor="customSwitch-11"
-                                                                data-on-label="On"
-                                                                data-off-label="Off"
-                                                            ></label> */}
-
 
                                         <input
                                             type="checkbox"
@@ -483,7 +454,6 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
-
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
@@ -496,12 +466,23 @@ const Header = () => {
 
                                             </>
                                     }
+                                    <li className="nav-item mx-3">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary mt-4 btn1"
+                                        >
+                                            <Wallet />1000
+                                        </button>
+
+                                    </li>
+
+
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                   
+
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 

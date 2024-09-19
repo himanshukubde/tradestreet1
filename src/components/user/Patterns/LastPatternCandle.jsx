@@ -120,4 +120,5 @@ const ChartExample = ({ ChartData }) => {
   return <div style={{height:'500px'}}>{options && <AgChartsReact options={options} />}</div>;
 };
 
+
 export default ChartExample;

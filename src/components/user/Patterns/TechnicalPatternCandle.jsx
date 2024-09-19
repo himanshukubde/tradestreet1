@@ -36,6 +36,7 @@ const ChartExample = ({ ChartData , timeFrame }) => {
 
   
     const newData = filterDataBetween9_15And15_30(formattedData);
+    console.log(newData)
     const chartOptions = {
       data: newData,
       footnote: {
