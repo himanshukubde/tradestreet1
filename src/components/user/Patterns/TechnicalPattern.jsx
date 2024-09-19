@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Get_Pattern_Time_Frame, Get_Pattern_Name } from '../../CommonAPI/Admin';
+import { Get_Pattern_Time_Frame, Get_Pattern_Name, Get_Pattern_Charting } from '../../CommonAPI/Admin';
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern, GetSingleChart } from '../../CommonAPI/User';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Loader from '../../../ExtraComponent/Loader';
@@ -23,7 +23,11 @@ const LastPattern = () => {
     const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, data: [] });
     const [timeFrameData, setTimeFrameData] = useState({ loading: true, data: [] });
     const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: "" });
+    const [chartingPatternNames, setChartingPatternNames] = useState({ loading: true, data: [] });
+    const [chartingPattern, setChartingPattern] = useState('');
 
+
+    console.log("chartingPatternNames", chartingPatternNames);
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
@@ -32,6 +36,7 @@ const LastPattern = () => {
     useEffect(() => {
         fetchPatternTimeFrames();
         fetchPatternNames();
+        fetchChartingPatternNames();
     }, []);
 
     useEffect(() => {
@@ -88,6 +93,15 @@ const LastPattern = () => {
         }
     };
 
+    const fetchChartingPatternNames = async () => {
+        try {
+            const response = await Get_Pattern_Charting();
+            setChartingPatternNames({ loading: false, data: response.Status ? response.PatternName : [] });
+        } catch (err) {
+            console.error("Error in fetching pattern names", err);
+        }
+    };
+
     const fetchChartingData = async () => {
         try {
             if (scriptType && selectedTimeFrame && chartPattern) {
@@ -130,7 +144,7 @@ const LastPattern = () => {
                 console.error("Error in fetching single chart image", err);
             });
     }
- 
+
 
     return (
         <div className="container-fluid">
@@ -166,18 +180,44 @@ const LastPattern = () => {
                                                     ))}
                                                 </select>
                                             </>
-                                        ) : (
-                                            <>
-                                                <label>Script</label>
-                                                <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
-                                                    <option value="">Please Select Script</option>
-                                                    <option value="AvailableScript">Available Script</option>
-                                                    <option value="MyScript">My Script</option>
-                                                </select>
-                                            </>
-                                        )}
+                                        ) :
+                                            (
+                                                <>
+                                                    <label>Pattern</label>
+                                                    <select className="form-control form-control-lg mt-2" onChange={(e) => setChartingPattern(e.target.value)} value={chartingPattern}>
+                                                        <option value="">Please Select Pattern</option>
+                                                        {chartingPatternNames.data.map((item) => (
+                                                            <option value={item} key={item}>{item}</option>
+                                                        ))}
+                                                    </select>
+
+                                                </>
+                                            )
+                                            // (
+                                            //     <>
+                                            //         <label>Script</label>
+                                            //         <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
+                                            //             <option value="">Please Select Script</option>
+                                            //             <option value="AvailableScript">Available Script</option>
+                                            //             <option value="MyScript">My Script</option>
+                                            //         </select>
+                                            //     </>
+                                            // )
+
+                                        }
                                     </div>
                                 </div>
+                                <div className="col-md-3">
+                                    <div className="form-group">
+                                        <label>Script</label>
+                                        <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
+                                            <option value="">Please Select Script</option>
+                                            <option value="AvailableScript">Available Script</option>
+                                            <option value="MyScript">My Script</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div className="col-md-3">
                                     <div className="form-group">
                                         <label>Time Frame</label>

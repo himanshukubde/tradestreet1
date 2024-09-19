@@ -281,7 +281,7 @@ export const Get_Pattern_Name = async () => {
     }
 }
 
-
+  
 
 export const Get_Pattern_Charting = async () => {
     const token = localStorage.getItem('token')
