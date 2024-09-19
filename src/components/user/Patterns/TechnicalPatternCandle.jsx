@@ -19,20 +19,26 @@ const ChartExample = ({ ChartData , timeFrame }) => {
       });
   
       const filterDataBetween9_15And15_30 = (data) => {
+        const today = new Date();
+        const todayDateString = today.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    
         return data.filter(item => {
-          const time = item.date2.split(' ')[1];
-          const [hours, minutes] = time.split(':').map(Number);  
-       
-          if ((hours === 9 && minutes >= 15) || (hours > 9 && hours < 15)) {
-            return true;  
-          } else if (hours === 15 && minutes <= 30) {
-            return true;  
-          }
-      
-          return false;  
+            const [date, time] = item.date2.split(' ');
+             
+            if (date !== todayDateString) {
+                return false;
+            }
+             
+            const [hours, minutes] = time.split(':').map(Number);
+     
+            if ((hours === 9 && minutes >= 15) || (hours > 9 && hours < 15) || (hours === 15 && minutes <= 30)) {
+                return true;
+            }
+            
+            return false;
         });
-      };
- 
+    };
+    
 
   
     const newData = filterDataBetween9_15And15_30(formattedData);
