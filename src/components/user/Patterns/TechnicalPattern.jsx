@@ -150,6 +150,7 @@ const LastPattern = () => {
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedPatternType(e.target.value)} value={selectedPatternType}>
                                             <option value="">Please Select Pattern</option>
                                             <option value="Candlestick Patterns">Candlestick Patterns</option>
+                                            <option value="Charting Patterns">Charting Patterns</option>
                                         </select>
                                     </div>
                                 </div>
