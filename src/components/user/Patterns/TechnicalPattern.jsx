@@ -192,22 +192,27 @@ const LastPattern = () => {
                                                     </select>
 
                                                 </>
-                                            )
-                                            // (
-                                            //     <>
-                                            //         <label>Script</label>
-                                            //         <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
-                                            //             <option value="">Please Select Script</option>
-                                            //             <option value="AvailableScript">Available Script</option>
-                                            //             <option value="MyScript">My Script</option>
-                                            //         </select>
-                                            //     </>
-                                            // )
-
+                                            ) 
                                         }
                                     </div>
                                 </div>
-                                <div className="col-md-3">
+
+                                {
+                                    selectedPatternType === "Candlestick Patterns" ? "" : (
+                                        <div className="col-md-3">
+                                            <div className="form-group">
+                                                <label>Script</label>
+                                                <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
+                                                    <option value="">Please Select Script</option>
+                                                    <option value="AvailableScript">Available Script</option>
+                                                    <option value="MyScript">My Script</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    )
+
+                                }
+                                {/* <div className="col-md-3">
                                     <div className="form-group">
                                         <label>Script</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
@@ -216,7 +221,7 @@ const LastPattern = () => {
                                             <option value="MyScript">My Script</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-md-3">
                                     <div className="form-group">
