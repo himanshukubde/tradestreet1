@@ -19,6 +19,7 @@ import PatternScript from '../components/admin/AdminScript/AddScript.Pattern'
 import System from '../components/admin/System/System';
 import AllPlan from '../components/admin/Plan/AllPlan';
 import CPP from '../components/user/Patterns/CPP';
+import AddPlan from '../components/admin/Plan/AddPlan';
 
 
 
@@ -50,7 +51,9 @@ const AdminRoute = () => {
             <Route path="/addscript/option" element={<AddScriptOption />} />
             <Route path="/system" element={<System />} /> 
             <Route path="/allplan" element={<AllPlan />} />  
-            <Route path="/cpp" element={<CPP />} /> 
+            <Route path="/cpp" element={<CPP />} />
+            <Route path="/addplan" element={<AddPlan />} />
+             
           </Routes>
         </div>
       </div>

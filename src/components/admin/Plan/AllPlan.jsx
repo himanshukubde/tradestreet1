@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FaRupeeSign, FaEye, FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
+import { Link } from 'react-router-dom'
 
 import { useEffect } from "react";
 
@@ -213,69 +214,90 @@ const ServicesList = () => {
 
   return (
     <>
-    
-      <div style={styles.container}>
-          {data.map((plan, index) => (
-              <Card key={index}>
-                <img src={plan.image} alt={plan.name} style={styles.image} />
-                <h2 style={styles.title}>
-                  {plan.name} {SetPlan(index)}
-                </h2>
-                <h4 style={styles.subtitle}>{plan.title}</h4>
-                <p style={styles.description}>{plan.description}</p>
-                <div style={styles.prices}>
-                  <p style={styles.priceItem}>
-                    Monthly <FaRupeeSign /> {plan.prices.monthly}
-                  </p>
-                  <p style={styles.priceItem}>
-                    Quarterly <FaRupeeSign /> {plan.prices.quarterly}
-                  </p>
-                  <p style={styles.priceItem}>
-                    Half-Yearly <FaRupeeSign /> {plan.prices.halfYearly}
-                  </p>
-                  <p style={styles.priceItem}>
-                    Yearly <FaRupeeSign /> {plan.prices.yearly}
-                  </p>
-                </div>
 
-                <div style={styles.buttonContainer}>
-                  <Button primary onClick={() => handleViewClick(plan)}>
-                    <FaEye /> View
-                  </Button>
-                </div>
-              </Card>
-            ))}
-        </div>
-
-      {selectedPlan && (
-        <Modal open={!!selectedPlan} onClick={handleModalClose}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <CloseButton onClick={handleModalClose}>×</CloseButton>
-            <img
-              src={selectedPlan.image}
-              alt={selectedPlan.name}
-              style={modalStyles.image}
-            />
-            <h2>{selectedPlan.name}</h2>
-            <h4>{selectedPlan.title}</h4>
-            <p>{selectedPlan.description}</p>
-            <div style={modalStyles.prices}>
-              <p>
-                Monthly <FaRupeeSign /> {selectedPlan.prices.monthly}
-              </p>
-              <p>
-                Quarterly <FaRupeeSign /> {selectedPlan.prices.quarterly}
-              </p>
-              <p>
-                Half-Yearly <FaRupeeSign /> {selectedPlan.prices.halfYearly}
-              </p>
-              <p>
-                Yearly <FaRupeeSign /> {selectedPlan.prices.yearly}
-              </p>
+      <div className='row'>
+        <div className='col-sm-12'>
+          <div className='iq-card'>
+            <div className='iq-card-header d-flex justify-content-between'>
+              <div className='iq-header-title'>
+                <h4 className='card-title'>Client Service</h4>
+              </div>
+              <Link to='/admin/addplan' className='btn btn-primary rounded'>
+                Add Plan
+              </Link>
             </div>
-          </ModalContent>
-        </Modal>
-      )} 
+            <div className='iq-card-body'>
+              <div style={styles.container}>
+                {data.map((plan, index) => (
+                  <Card key={index}>
+                    <img src={plan.image} alt={plan.name} style={styles.image} />
+                    <h2 style={styles.title}>
+                      {plan.name} {SetPlan(index)}
+                    </h2>
+                    <h4 style={styles.subtitle}>{plan.title}</h4>
+                    <p style={styles.description}>{plan.description}</p>
+                    <div style={styles.prices}>
+                      <p style={styles.priceItem}>
+                        Monthly <FaRupeeSign /> {plan.prices.monthly}
+                      </p>
+                      <p style={styles.priceItem}>
+                        Quarterly <FaRupeeSign /> {plan.prices.quarterly}
+                      </p>
+                      <p style={styles.priceItem}>
+                        Half-Yearly <FaRupeeSign /> {plan.prices.halfYearly}
+                      </p>
+                      <p style={styles.priceItem}>
+                        Yearly <FaRupeeSign /> {plan.prices.yearly}
+                      </p>
+                    </div>
+
+                    <div style={styles.buttonContainer}>
+                      <Button primary onClick={() => handleViewClick(plan)}>
+                        <FaEye /> View
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              {selectedPlan && (
+                <Modal open={!!selectedPlan} onClick={handleModalClose}>
+                  <ModalContent onClick={(e) => e.stopPropagation()}>
+                    <CloseButton onClick={handleModalClose}>×</CloseButton>
+                    <img
+                      src={selectedPlan.image}
+                      alt={selectedPlan.name}
+                      style={modalStyles.image}
+                    />
+                    <h2>{selectedPlan.name}</h2>
+                    <h4>{selectedPlan.title}</h4>
+                    <p>{selectedPlan.description}</p>
+                    <div style={modalStyles.prices}>
+                      <p>
+                        Monthly <FaRupeeSign /> {selectedPlan.prices.monthly}
+                      </p>
+                      <p>
+                        Quarterly <FaRupeeSign /> {selectedPlan.prices.quarterly}
+                      </p>
+                      <p>
+                        Half-Yearly <FaRupeeSign /> {selectedPlan.prices.halfYearly}
+                      </p>
+                      <p>
+                        Yearly <FaRupeeSign /> {selectedPlan.prices.yearly}
+                      </p>
+                    </div>
+                  </ModalContent>
+                </Modal>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
     </>
   );
 };
