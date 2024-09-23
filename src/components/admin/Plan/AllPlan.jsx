@@ -368,6 +368,7 @@ const styles = {
   },
   priceItem: {
     margin: "5px 0",
+    textAlign:"left",
   },
   buttonContainer: {
     marginTop: "15px",

@@ -147,10 +147,10 @@ const LastPattern = () => {
         setScriptType('');
         setSelectedTimeFrame('');
         setChartPattern('');
-        setSelectedRowData(''); 
+        setSelectedRowData('');
     }, [selectedPatternType]);
 
-  
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -180,7 +180,7 @@ const LastPattern = () => {
                                             <>
                                                 <label>Pattern</label>
                                                 <select className="form-control form-control-lg mt-2"
-                                                 onChange={(e) => setCandlestickPattern(e.target.value)} value={candlestickPattern}>
+                                                    onChange={(e) => setCandlestickPattern(e.target.value)} value={candlestickPattern}>
                                                     <option value="">Please Select Pattern</option>
                                                     {patternNames.data && patternNames.data.map((item) => (
                                                         <option value={item} key={item}>{item}</option>
@@ -196,7 +196,7 @@ const LastPattern = () => {
                                                         {chartingPatternNames.data.map((item) => (
                                                             <option value={item} key={item}>{item}</option>
                                                         ))}
-                                                    </select> 
+                                                    </select>
                                                 </>
                                             )
                                         }
@@ -241,7 +241,7 @@ const LastPattern = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='d-flex'>
+                        <div className='d-flex justify-content-center'>
                             {
                                 getSingleChartImg.data == "" ? "" : <div className=''>{<img src={`data:image/png;base64,${getSingleChartImg?.data}`} className='api_img' alt="Panel Front Image" style={{ width: '350px', height: '350px' }} />}</div>
                             }
