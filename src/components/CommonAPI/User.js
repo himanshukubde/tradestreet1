@@ -541,6 +541,44 @@ export const GetSingleChart = async (data) => {
     }
 }
 
+export const GetAllTransection = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+
+        const res = await axios.get(`${Config.base_url}ClienttransactionDetails/${data.Name}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AddBalance = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}Clienttransaction`, data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
 
 
 

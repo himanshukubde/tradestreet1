@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Get_Pattern_Time_Frame, Get_Pattern_Name, Get_Pattern_Charting } from '../../CommonAPI/Admin';
 import { AvailableScript, GetSymbolIp, ChartPatternAPI, Candlestick_Pattern, GetSingleChart } from '../../CommonAPI/User';
-import FullDataTable from '../../../ExtraComponent/CommanDataTable'; 
+import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import { columns, columns1 } from './PatternsColumns';
 import "ag-charts-enterprise";
 import AgChartsReact from "./TechnicalPatternCandle";
 
 const LastPattern = () => {
     const Username = localStorage.getItem('name');
-    const [selectedPatternType, setSelectedPatternType] = useState('');
+    const [selectedPatternType, setSelectedPatternType] = useState('Candlestick Patterns');
     const [selectedRowData, setSelectedRowData] = useState('');
     const [scriptType, setScriptType] = useState('');
     const [candlestickPattern, setCandlestickPattern] = useState('');
@@ -39,7 +39,6 @@ const LastPattern = () => {
     useEffect(() => {
         GetSingleChartPattern()
     }, [candlestickPattern]);
-
 
     useEffect(() => {
         fetchChartingData();
@@ -142,22 +141,16 @@ const LastPattern = () => {
             });
     }
 
-     
-        
     useEffect(() => {
         setCandlestickPattern('');
         setChartingPattern('');
         setScriptType('');
         setSelectedTimeFrame('');
-        setChartPattern(''); 
-        setSelectedRowData('');
-       
+        setChartPattern('');
+        setSelectedRowData(''); 
     }, [selectedPatternType]);
 
-
-        
-        
-        
+  
     return (
         <div className="container-fluid">
             <div className="row">
@@ -170,12 +163,13 @@ const LastPattern = () => {
                         </div>
                         <div className="iq-card-body">
                             <div className="row">
-                            <div className={`col-md-3`}>
+                                <div className={`col-md-3`}>
                                     <div className="form-group">
                                         <label>Select Technical pattern</label>
-                                        <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedPatternType(e.target.value)} value={selectedPatternType}>
-                                            <option value="">Please Select Pattern</option>
-                                            <option value="Candlestick Patterns">Candlestick Patterns</option>
+                                        <select className="form-control form-control-lg mt-2"
+                                            onChange={(e) => setSelectedPatternType(e.target.value)}
+                                            value={selectedPatternType}>
+                                            <option value="Candlestick Patterns" selected>Candlestick Patterns</option>
                                             <option value="Charting Patterns">Charting Patterns</option>
                                         </select>
                                     </div>
@@ -185,9 +179,10 @@ const LastPattern = () => {
                                         {selectedPatternType === "Candlestick Patterns" ? (
                                             <>
                                                 <label>Pattern</label>
-                                                <select className="form-control form-control-lg mt-2" onChange={(e) => setCandlestickPattern(e.target.value)} value={candlestickPattern}>
+                                                <select className="form-control form-control-lg mt-2"
+                                                 onChange={(e) => setCandlestickPattern(e.target.value)} value={candlestickPattern}>
                                                     <option value="">Please Select Pattern</option>
-                                                    {patternNames.data.map((item) => (
+                                                    {patternNames.data && patternNames.data.map((item) => (
                                                         <option value={item} key={item}>{item}</option>
                                                     ))}
                                                 </select>
@@ -201,29 +196,28 @@ const LastPattern = () => {
                                                         {chartingPatternNames.data.map((item) => (
                                                             <option value={item} key={item}>{item}</option>
                                                         ))}
-                                                    </select>
-
+                                                    </select> 
                                                 </>
-                                            ) 
+                                            )
                                         }
                                     </div>
                                 </div>
 
                                 {
                                     selectedPatternType === "Candlestick Patterns" ? "" : (
-                                        <div className={`${selectedPatternType== "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
+                                        <div className={`${selectedPatternType == "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
                                             <div className="form-group">
                                                 <label>Script</label>
                                                 <select className="form-control form-control-lg mt-2" onChange={(e) => setScriptType(e.target.value)} value={scriptType}>
                                                     <option value="">Please Select Script</option>
                                                     <option value="AvailableScript">Available Script</option>
-                                                    <option value="My Script">My Script</option>
+                                                    <option value="MyScript">My Script</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    ) 
-                                } 
-                                <div className={`${selectedPatternType== "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
+                                    )
+                                }
+                                <div className={`${selectedPatternType == "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
                                     <div className="form-group">
                                         <label>Time Frame</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setSelectedTimeFrame(e.target.value)} value={selectedTimeFrame}>
@@ -234,7 +228,7 @@ const LastPattern = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className={`${selectedPatternType== "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
+                                <div className={`${selectedPatternType == "Charting Patterns" ? "col-md-2" : "col-md-3"}`}>
                                     <div className="form-group">
                                         <label>Select Specific Pattern</label>
                                         <select className="form-control form-control-lg mt-2" onChange={(e) => setChartPattern(e.target.value)} value={chartPattern}>
@@ -246,7 +240,7 @@ const LastPattern = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                         <div className='d-flex'>
                             {
                                 getSingleChartImg.data == "" ? "" : <div className=''>{<img src={`data:image/png;base64,${getSingleChartImg?.data}`} className='api_img' alt="Panel Front Image" style={{ width: '350px', height: '350px' }} />}</div>

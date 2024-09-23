@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-import { CreateAccount, Get_Broker_Name, GetGroupNames } from '../../CommonAPI/Admin'
+import { AddPlan, GetAllStratgy } from '../../CommonAPI/Admin'
 import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
@@ -9,178 +9,86 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../ExtraComponent/Loader';
 
 
-const AddPlan = () => {
+const AddPlanPage = () => {
     const navigate = useNavigate()
-    const [getBroker, setBroker] = useState({
-        loading: true,
-        data: []
-    })
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    })
+    const [selecteOptions, setSelectedOptions] = useState([])
+    const [selecteScalping, setSelecteScalping] = useState([])
+    const [selectePattern, setSelectePattern] = useState([])
+    const [scalpingStratgy, setScalpingStratgy] = useState([])
+    const [OptionStratgy, setOptionStratgy] = useState([])
+    const [PatternStratgy, setPatternStratgy] = useState([])
 
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [optionsArray, setoptionsArray] = useState([]);
 
-    const getBrokerName = async () => {
-        await Get_Broker_Name()
+ 
+
+    useEffect(() => {
+        GetScalpingStratgy()
+    }, [])
+
+    const GetScalpingStratgy = async () => {
+        await GetAllStratgy()
             .then((response) => {
                 if (response.Status) {
-                    const filterOutBroker = response.Brokernamelist.filter((item) => {
-                        return item.BrokerName != 'DEMO'
-                    })
-                    setBroker({
-                        loading: false,
-                        data: filterOutBroker
-                    })
+                    setScalpingStratgy(Object.values(response.Scalping))
+                    setPatternStratgy(Object.values(response.Pattern))
+                    setOptionStratgy(Object.values(response.Option))
+
                 }
                 else {
-                    setBroker({
-                        loading: false,
-                        data: []
-                    })
+                    setScalpingStratgy([])
                 }
             })
             .catch((err) => {
-                console.log("Error in finding the broker", err)
+                console.log("Error in getting the Scalping Stratgy", err)
             })
     }
-
-    useEffect(() => {
-        getBrokerName()
-    }, [])
-
-    const Name_regex = (name) => {
-        const nameRegex = /^[a-zA-Z]+$/;
-        return nameRegex.test(name);
-    };
-
-
-    const GetAllGroupDetails = async () => {
-        try {
-            await GetGroupNames()
-                .then((response) => {
-                    if (response.Status) {
-                        const arr = response.Data.map(item => ({
-                            label: item.GroupName,
-                            key: item.GroupName
-                        }));
-                        setoptionsArray(arr);
-
-
-                        setGroupData({
-                            loading: false,
-                            data: response.Data
-                        })
-                    }
-                    else {
-                        setGroupData({
-                            loading: false,
-                            data: []
-                        })
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error in data fetch", err)
-                })
-        }
-        catch {
-            console.log("Error group data fetch")
-        }
-    }
-
-    useEffect(() => {
-        GetAllGroupDetails()
-    }, [])
 
 
     const formik = useFormik({
         initialValues: {
-            UserName: null,
-            Email: null,
-            Password: null,
-            Confirm_Password: null,
-            PhoneNo: null,
-            Select_License: '',
-            Select_License_Type: '',
-            From_Date: '',
-            To_Date: '',
-            Service_Count: '',
-            Select_Broker: ''
+            NumberofScript: "",
+            payment: "",
+            planname: "",
+            Duration: "",
         },
         validate: (values) => {
             let errors = {};
-            if (!values.UserName) {
-                errors.UserName = "Please Enter Username"
+            if (!values.NumberofScript) {
+                errors.UserName = "Please Enter Number of Script"
             }
-            else if (!Name_regex(values.UserName)) {
-                errors.UserName = "Please Enter Valid Username"
+            if (!values.payment) {
+                errors.payment = "Please Enter Payment"
             }
-
-            if (!values.Email) {
-                errors.Email = "Please Enter Email ID";
-            } else {
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|ymail|rediffmail|hotmail|outlook|aol|icloud|protonmail|example).(com|co.in|in|net|org|edu|gov|uk|us|info|biz|io|...)[a-zA-Z]{0,}$/;
-                if (!emailRegex.test(values.Email)) {
-                    errors.Email = "Please Enter valid Email ID";
-                }
+            if (!values.planname) {
+                errors.planname = "Please Enter Plan Name"
             }
-            if (!values.Password) {
-                errors.Password = "Please Enter Password"
+            if (!values.Duration) {
+                errors.Duration = "Please Select Duration"
             }
-            if (!values.Confirm_Password) {
-                errors.Confirm_Password = "Please Enter Confirm Password"
-            }
-            if (!values.PhoneNo) {
-                errors.PhoneNo = "Please Enter Mobile Number"
-            }
-            if (!values.Select_License) {
-                errors.Select_License = "Please Select License"
-            }
-            if (!values.Select_License_Type) {
-                errors.Select_License_Type = "Please Select Days"
-            }
-
-            if (!values.Service_Count) {
-                errors.Service_Count = "Please Select Service Count"
-            }
-            if (!values.Service_Count) {
-                errors.Service_Count = "Please Select Service Count"
-            }
-            if(!values.Select_Broker && formik.values.Select_License == '2'){
-                errors.Select_Broker="Please Select Broker"
-            }
-
             return errors;
         },
         onSubmit: async (values) => {
             const req = {
-                username: values.UserName,
-                password: values.Password,
-                cpassword: values.Confirm_Password,
-                email: values.Email,
-                mobile_no: values.PhoneNo,
-                ltype: values.Select_License_Type == '11' ? "Two Days" : values.Select_License_Type == '21' ? "One Week" : values.Select_License_Type == '12' ? "Two Days" : values.Select_License_Type == '22' ? "One Month" : '',
-                scount: values.Select_License == '1' ? 2 : Number(values.Service_Count),
-                ssdate: values.From_Date,
-                sedate: values.To_Date,
-                bname: values.Select_License == '1' ? "Demo" : values.Select_Broker,
-                group: selectedOptions && selectedOptions
+                NumberofScript: values.NumberofScript,
+                payment: values.payment,
+                planname: values.planname,
+                Duration: values.Duration,
+                Scalping: selecteScalping,
+                Option: selecteOptions,
+                PatternS: selectePattern
             }
-             
-            await CreateAccount(req)
+            await AddPlan(req)
                 .then((response) => {
                     if (response.Status) {
                         Swal.fire({
-                            title: "User Created!",
+                            title: "Success!",
                             text: response.message,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
                         });
                         setTimeout(() => {
-                            navigate('/admin/clientservice')
+                            navigate('/admin/allplan')
                         }, 1500)
                     }
                     else {
@@ -202,44 +110,8 @@ const AddPlan = () => {
 
     const fields = [
         {
-            name: "UserName",
-            label: "Username",
-            type: "text",
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name: "Email",
-            label: "Email ID",
-            type: "text",
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name: "Password",
-            label: "Password",
-            type: "password",
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name: "Confirm_Password",
-            label: "Confirm Password",
-            type: "password",
-            label_size: 12,
-            hiding: false,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name: "PhoneNo",
-            label: "Mobile Number",
+            name: "NumberofScript",
+            label: "Number of Script",
             type: "text3",
             label_size: 12,
             hiding: false,
@@ -247,122 +119,99 @@ const AddPlan = () => {
             disable: false,
         },
         {
-
-            name: "Select_License",
-            name: "Select_License",
-            label: "License Type",
-            type: "select1",
-            options: [
-                { label: "Demo", value: "1" },
-                { label: "Live", value: "2" },
-
-            ],
+            name: "payment",
+            label: "Payment",
+            type: "text3",
             label_size: 12,
             hiding: false,
             col_size: 6,
             disable: false,
         },
         {
-
-            name: "Select_License_Type",
-            label: "Days",
-            type: "select1",
-            options: formik.values.Select_License == '1' ? [
-                { label: "2 Days Demo", value: "11" },
-                { label: "1 Week Demo", value: "21" },
-            ] : formik.values.Select_License == '2' ? 
-                [
-                    { label: "2 Days Live", value: "12" },
-                    { label: "1 Month Live", value: "22" },
-                ] : [],
+            name: "planname",
+            label: "Plan Name",
+            type: "text",
             label_size: 12,
             hiding: false,
             col_size: 6,
             disable: false,
         },
         {
-            name: "From_Date",
-            label: "Service StartDate",
-            type: "date",
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: true,
-        },
-        {
-            name: "To_Date",
-            label: "Service EndDate",
-            type: "date",
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: true,
-        },
-        {
-            name: "Select_Broker",
-            label: "Broker",
+            name: "Duration",
+            label: "Duration",
             type: "select1",
-            options: getBroker.data && getBroker.data.map((item) => ({
-                label: item.BrokerName,
-                value: item.BrokerName
-            })),
-            showWhen: (values) => formik.values.Select_License == '2',
-            label_size: 12,
-            hiding: false,
-            col_size: 3,
-            disable: false,
-        },
-        {
-            name: "Service_Count",
-            label: "Service Count",
-            type: "select",
             options: [
-                
-                { label: "1", value: "1" },
-                { label: "2", value: "2" },
-                { label: "5", value: "5" },
+                { value: "1", label: "One Month" },
+                { value: "2", label: "Quarterly" },
+                { value: "3", label: "Half Yearly" },
+                { value: "4", label: "Yearly" },
             ],
             label_size: 12,
-            showWhen: (values) => formik.values.Select_License == '2',
             hiding: false,
-            col_size: 3,
+            col_size: 6,
             disable: false,
         },
-
     ];
 
 
-   
     return (
         <>
-            {getGroupData.loading ? <Loader /> :
-                (
-                    <AddForm
-                        fields={fields.filter(
-                            (field) => !field.showWhen || field.showWhen(formik.values)
-                        )}
-                        page_title="Add Plan"
-                        btn_name="Add"
-                        btn_name1="Cancel"
-                        formik={formik}
-                        btn_name1_route={"/admin/clientservice"}
-                        additional_field={
-                            <div className='col-lg-6 mt-2 dropdownuser' >
-                                <h6>Select Group</h6>
+            <AddForm
+                fields={fields.filter(
+                    (field) => !field.showWhen || field.showWhen(formik.values)
+                )}
+                page_title="Add Plan"
+                btn_name="Add"
+                btn_name1="Cancel"
+                formik={formik}
+                btn_name1_route={"/admin/clientservice"}
+                additional_field={
+                    <>
+                        {scalpingStratgy && scalpingStratgy.length > 0 && (
+                            <div className="col-lg-6 mt-2 ">
+                                <h6>Scalping</h6>
                                 <DropdownMultiselect
-                                   
-                                    options={optionsArray}
+                                    options={scalpingStratgy}
                                     name="groupName"
                                     handleOnChange={(selected) => {
-                                        setSelectedOptions(selected)
+                                        setSelecteScalping(selected);
                                     }}
                                 />
                             </div>
-                        }
-                    />
-                )}
+                        )}
+
+                        {OptionStratgy && OptionStratgy.length > 0 && (
+                            <div className="col-lg-6 mt-2 ">
+                                <h6>Option</h6>
+                                <DropdownMultiselect
+                                    options={OptionStratgy}
+                                    name="groupName"
+                                    handleOnChange={(selected) => {
+                                        setSelectedOptions(selected);
+                                    }}
+                                />
+                            </div>
+                        )}
+
+                        {PatternStratgy && PatternStratgy.length > 0 && (
+                            <div className="col-lg-6 mt-2  ">
+                                <h6>Patterm</h6>
+                                <DropdownMultiselect
+                                    options={PatternStratgy}
+                                    name="groupName"
+                                    handleOnChange={(selected) => {
+                                        setSelectePattern(selected);
+                                    }}
+                                />
+                            </div>
+
+                        )}
+                    </>
+                }
+            />
+
         </>
     );
 };
 
-export default AddPlan;
+export default AddPlanPage;

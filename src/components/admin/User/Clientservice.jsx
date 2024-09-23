@@ -231,8 +231,7 @@ const Clientservice = () => {
         },
     ];
 
-    
-    console.log("formik", formik.values.Service_Count)
+     
 
     useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")

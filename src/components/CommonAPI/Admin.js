@@ -281,8 +281,6 @@ export const Get_Pattern_Name = async () => {
     }
 }
 
-  
-
 export const Get_Pattern_Charting = async () => {
     const token = localStorage.getItem('token')
     try {
@@ -910,3 +908,40 @@ export const UploadImage = async (data) => {
         return err;
     }
 };
+
+export const GetAllStratgy = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}Stretegy`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const AddPlan = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}AddPlan`, data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
