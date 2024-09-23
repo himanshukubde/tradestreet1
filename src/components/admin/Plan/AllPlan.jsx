@@ -3,6 +3,7 @@ import { FaRupeeSign, FaEye, FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { Link } from 'react-router-dom'
+import { Get_All_Plans } from "../../CommonAPI/User";
 
 import { useEffect } from "react";
 
@@ -99,6 +100,7 @@ const ServicesList = () => {
   const [editPlan, setEditPlan] = useState(null);
   const [GetAllPlans, setAllPlans] = useState({ loading: true, data: [] });
 
+
   useEffect(() => {
     GetAllPlansData();
   }, []);
@@ -113,17 +115,24 @@ const ServicesList = () => {
   };
 
   const GetAllPlansData = async () => {
-    // await dispatch(Get_All_Plans())
-    //   .unwrap()
-    //   .then((response) => {
-    //     if (response.status) {
-    //       setAllPlans({
-    //         loading: false,
-    //         data: response.data,
-    //       });
-    //     }
-    //   });
+    await Get_All_Plans()
+      .then((response) => {
+        if (response.Status) {
+          setAllPlans({
+            loading: false,
+            data: response.Admin,
+          });
+        }
+      });
   };
+
+
+  const imgArr = [
+    "https://cdn.pixabay.com/photo/2024/05/31/05/24/trading-8799817_640.png",
+    "https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_640.jpg",
+    "https://cdn.pixabay.com/photo/2020/04/16/15/40/stock-5051155_640.jpg",
+    "https://cdn.pixabay.com/photo/2023/07/28/08/06/finance-8154775_640.jpg",
+  ];
 
   const data = [
     {
@@ -186,8 +195,6 @@ const ServicesList = () => {
   console.log(servicegivenmonth);
 
   const SetPlan = (index) => {
-    console.log(servicegivenmonth, "-", index);
-
     if (servicegivenmonth === 0) {
       return null;
     }
@@ -228,33 +235,32 @@ const ServicesList = () => {
             </div>
             <div className='iq-card-body'>
               <div style={styles.container}>
-                {data.map((plan, index) => (
-                  <Card key={index}>
-                    <img src={plan.image} alt={plan.name} style={styles.image} />
-                    <h2 style={styles.title}>
-                      {plan.name} {SetPlan(index)}
-                    </h2>
-                    <h4 style={styles.subtitle}>{plan.title}</h4>
-                    <p style={styles.description}>{plan.description}</p>
-                    <div style={styles.prices}>
-                      <p style={styles.priceItem}>
-                        Monthly <FaRupeeSign /> {plan.prices.monthly}
-                      </p>
-                      <p style={styles.priceItem}>
-                        Quarterly <FaRupeeSign /> {plan.prices.quarterly}
-                      </p>
-                      <p style={styles.priceItem}>
-                        Half-Yearly <FaRupeeSign /> {plan.prices.halfYearly}
-                      </p>
-                      <p style={styles.priceItem}>
-                        Yearly <FaRupeeSign /> {plan.prices.yearly}
-                      </p>
-                    </div>
+                {GetAllPlans?.data.map((plan, index) => (
+                  <Card key={index} style={styles.card}>
+                    <img src={imgArr[index]} alt={plan.PlanName} style={styles.image} />
 
-                    <div style={styles.buttonContainer}>
-                      <Button primary onClick={() => handleViewClick(plan)}>
-                        <FaEye /> View
-                      </Button>
+                    <div style={styles.content}>
+                      <h2 style={styles.title}>
+                        {plan.PlanName} {SetPlan(index)}
+                      </h2>
+
+                      <h4 style={styles.subtitle}>No of Scripts: {plan.NumberofScript}</h4>
+                      <div style={styles.prices}>
+                        <p style={styles.priceItem}>
+                          <strong>Scalping Strategy:</strong> {plan.Scalping.join(", ")}
+                        </p>
+                        <p style={styles.priceItem}>
+                          <strong>Option Strategy:</strong> {plan['Option Strategy'].join(", ")}
+                        </p>
+                        <p style={styles.priceItem}>
+                          <strong>Pattern Strategy:</strong> {plan?.Pattern?.join(", ")}
+                        </p>
+                      </div>
+                      <div style={styles.buttonContainer}>
+                        <Button primary onClick={() => handleViewClick(plan)} style={styles.button}>
+                          BUY <FaRupeeSign className="m-1" />{plan.payment}
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 ))}
