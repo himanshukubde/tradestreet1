@@ -3,7 +3,7 @@ import { FaRupeeSign, FaEye, FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { Link } from 'react-router-dom'
-import { Get_All_Plans } from "../../CommonAPI/User";
+import { Get_All_Plans , Get_All_Buyed_Plans } from "../../CommonAPI/User";
 
 import { useEffect } from "react";
 
@@ -96,13 +96,18 @@ const Button = styled.button`
 `;
 const ServicesList = () => {
 
+   const username= localStorage.getItem("name")
+
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [editPlan, setEditPlan] = useState(null);
   const [GetAllPlans, setAllPlans] = useState({ loading: true, data: [] });
+    const [BuyedPlan, setBuyedPlan] = useState({ loading: true, data: [] });
 
+    console.log(BuyedPlan)
 
   useEffect(() => {
     GetAllPlansData();
+    AllBuyedPlans();
   }, []);
 
   const handleViewClick = (plan) => {
@@ -126,6 +131,32 @@ const ServicesList = () => {
       });
   };
 
+  const AllBuyedPlans = async() => {
+    const req = {userName : username }
+    await Get_All_Buyed_Plans(req)
+    .then((response) => {
+      if (response.Status) {
+        setBuyedPlan({
+          loading: false,
+          data: response.Allotplan,
+        })
+      }
+      else{
+        setBuyedPlan({
+          loading: false,
+          data: [],
+        })
+      }
+    })
+    .catch((error) => {
+        console.log(error)
+        }
+    )
+
+
+  }
+
+
 
   const imgArr = [
     "https://cdn.pixabay.com/photo/2024/05/31/05/24/trading-8799817_640.png",
@@ -136,7 +167,6 @@ const ServicesList = () => {
 
   
   let servicegivenmonth = localStorage.getItem("servicegivenmonth");
-  console.log(servicegivenmonth);
 
   const SetPlan = (index) => {
     if (servicegivenmonth === 0) {
@@ -176,20 +206,14 @@ const ServicesList = () => {
           <div className='iq-card'>
             <div className='iq-card-header d-flex justify-content-between'>
               <div className='iq-header-title'>
-                <h4 className='card-title'>Client Service</h4>
+                <h4 className='card-title'>All Plans</h4>
               </div>
-              <Link to='/admin/addplan' className='btn btn-primary rounded'>
-                Add Plan
-              </Link>
             </div>
             <div className='iq-card-body'>
               <div style={styles.container}>
                 {GetAllPlans?.data.map((plan, index) => (
                   <Card key={index} style={styles.card}>
-                  
-                  
                     <img src={imgArr[getRandomNumber()]} alt={plan.PlanName} style={styles.image} />
-
                     <div style={styles.content}>
                       <h2 style={styles.title}>
                         {plan.PlanName} {SetPlan(index)}

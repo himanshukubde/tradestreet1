@@ -32,6 +32,7 @@ import AddNewScalpingPattern from '../components/user/UserScript/AddNewScript.Pa
 
 import TechnicalPattern from '../components/user/Patterns/TechnicalPattern'
 import Transection from '../components/user/Transection/AllTransection'
+import AllPlan from '../components/user/Plan/AllPlan'
 
 const UserRoute = () => {
 
@@ -60,6 +61,8 @@ const UserRoute = () => {
             <Route path="/newscript/pattern" element={<AddNewScalpingPattern />} />
             <Route path="/technical/pattern" element={<TechnicalPattern />} />
             <Route path="all/transection" element={<Transection />} />
+            <Route path="all/plan" element={<AllPlan />} />
+
           </Routes>
 
         </div>

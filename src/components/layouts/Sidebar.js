@@ -284,6 +284,12 @@ const Sidebar = () => {
                                             <span>Last Patterns</span>
                                         </Link>
                                     </li> 
+                                    <li className={activeItem === 'allpaln' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allpaln')}>
+                                        <Link to="all/plan" className="iq-waves-effect">
+                                            <i className="lab la-ioxhost" />
+                                            <span>All Plans</span>
+                                        </Link>
+                                    </li>
                                     <li className={activeItem === 'tradereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradereport')}>
                                         <Link to="tradereport" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
