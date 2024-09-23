@@ -415,6 +415,7 @@ export const columns =()=> [
         }
     },
      
+    
     {
         name: "SSDate",
         label: "SSDate",
@@ -431,6 +432,7 @@ export const columns =()=> [
             sort: true,
         }
     },
+  
     {
         name: "TaskStatus",
         label: "TaskStatus",
@@ -467,7 +469,6 @@ export const columns =()=> [
 
 
 ];
-
 
 export const columns1 = ()=>[
     {
@@ -639,6 +640,7 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
+   
     {
         name: "SSDate",
         label: "SSDate",
@@ -655,6 +657,7 @@ export const columns1 = ()=>[
             sort: true,
         }
     },
+   
     {
         name: "StrikeType",
         label: "StrikeType",
@@ -789,7 +792,6 @@ export const columns1 = ()=>[
     },
 
 ];
-
 
 export const columns2 = ()=>[
     {
@@ -961,6 +963,7 @@ export const columns2 = ()=>[
             sort: true,
         }
     },
+    
     {
         name: "SSDate",
         label: "SSDate",
@@ -969,6 +972,7 @@ export const columns2 = ()=>[
             sort: true,
         }
     },
+   
     {
         name: "SEDate",
         label: "SEDate",
@@ -1004,7 +1008,6 @@ export const columns2 = ()=>[
     },
 
 ];
-
 
 //User Report Column
 export const ReportColumns3 =()=> [

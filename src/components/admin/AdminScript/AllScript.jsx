@@ -42,33 +42,48 @@ const Addscript = () => {
             Tradepattern: selectStrategyType == 'Pattern' ? getAllService.data[index].TradePattern : ''
         }
 
-
-
-        await DeleteScript(data)
-            .then((response) => {
-                if (response.Status) {
-                    setRefresh(!refresh)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await DeleteScript(data);
+                    if (response.Status) {
+                        setRefresh(!refresh);
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: response.message,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: response.message,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error in delete script", err);
                     Swal.fire({
-                        title: "Deleted",
-                        text: response.message,
-                        icon: "success",
-                        timer: 1500,
-                        timerProgressBar: true
-                    });
-                }
-                else {
-                    Swal.fire({
-                        title: "Error !",
-                        text: response.message,
+                        title: "Error!",
+                        text: "Something went wrong while deleting.",
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
                     });
                 }
-            })
-            .catch((err) => {
-                console.log("Error in delete script", err)
-            })
+            }
+        });
     }
 
     // 1

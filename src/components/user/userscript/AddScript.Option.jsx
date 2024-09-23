@@ -214,7 +214,8 @@ const AddClient = () => {
                 }
             }
 
-            console.log("errors", errors)
+            console.log("Errors", errors)
+ 
             return errors;
         },
         onSubmit: async (values) => {
@@ -339,7 +340,9 @@ const AddClient = () => {
     });
 
 
- 
+  
+
+
 
     useEffect(() => {
         formik.setFieldValue('Measurment_Type',
@@ -367,7 +370,7 @@ const AddClient = () => {
         formik.setFieldValue('Lower_Range', location.state.data.LowerRange)
         formik.setFieldValue('Higher_Range', location.state.data.HigherRange)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
-        formik.setFieldValue('Trade_Count', location.state.data.TradeCount)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount || 1)
         formik.setFieldValue('Unique_ID', location.state.data.GroupN)
         formik.setFieldValue('Shifting_Value', (location.state.data.Measurment_Type == "Shifting/FourLeg" && location.state.data.Strategy != 'ShortFourLegStretegy' && location.state.data.Strategy != 'LongFourLegStretegy') ? location.state.data.DepthofStrike : "")
         formik.setFieldValue('CEDepthLower', location.state.data.CEDepthLower)
@@ -379,8 +382,6 @@ const AddClient = () => {
         formik.setFieldValue('PEDeepLower', location.state.data.PEDeepLower)
         formik.setFieldValue('PEDeepHigher', location.state.data.PEDeepHigher)
         formik.setFieldValue('Shifting_Point', location.state.data['Target value'])
-
-
 
 
     }, [])
@@ -422,7 +423,7 @@ const AddClient = () => {
                             [{ title: "Bull Call Ladder", value: "BullCallLadder" }, { title: "Bull Put Ladder", value: "BullPutLadder" }, { title: "Covered Call", value: "CoveredCall" }, { title: "Covered Put", value: "CoveredPut" }] :
 
                             formik.values.Measurment_Type == "Collar/Ratio" ?
-                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "Ratio Put Spread" }] :
+                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "RatioPutSpread" }] :
 
                                 formik.values.Measurment_Type == "Shifting/FourLeg" ?
                                     [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
@@ -833,8 +834,8 @@ const AddClient = () => {
     }, [])
 
 
-    useEffect(() => {
 
+    useEffect(() => {
         if (formik.values.Strategy == "LongStraddle" || formik.values.Strategy == "ShortStraddle") {
             formik.setFieldValue('Striketype', "Depth_of_Strike")
         }
@@ -842,16 +843,13 @@ const AddClient = () => {
             formik.setFieldValue('Higher_Range', 1)
             formik.setFieldValue('Lower_Range', 1)
         }
-
         if (((formik.values.Measurment_Type == "Ladder/Coverd" && formik.values.Measurment_Type != "Shifting/FourLeg" && (formik.values.Strategy == 'BullCallLadder' || formik.values.Strategy == "BullPutLadder")) || formik.values.Strategy == "LongIronCondor" || formik.values.Strategy == "ShortIronCondor")) {
             formik.setFieldValue('DeepStrike', 2)
         }
 
         if (!(formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortShifting' || formik.values.Strategy == 'LongShifting'))) {
             formik.setFieldValue('Shifting_Value', 1)
-
         }
-
         if (!(formik.values.Measurment_Type != "Shifting/FourLeg" || (formik.values.Measurment_Type == "Shifting/FourLeg" && (formik.values.Strategy == 'ShortFourLegStretegy' || formik.values.Strategy == 'LongFourLegStretegy')))) {
             formik.setFieldValue('TStype', "Point")
             formik.setFieldValue('Targetvalue', 0)
@@ -860,15 +858,27 @@ const AddClient = () => {
         if (formik.values.Measurment_Type == "Shifting/FourLeg") {
             formik.setFieldValue('ETPattern', "Future")
         }
-
-        if(formik.values.Strategy!= location.state.data.Strategy)
-            console.log("Strategy", "")
-        
-
+ 
+ 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
 
+    useEffect(() => {
 
+        const temp =  location.state.data.STG == 'ShortStrangle' || location.state.data.STG == 'LongStrangle' || location.state.data.STG == 'LongStraddle' || location.state.data.STG == 'ShortStraddle' ? "Straddle/Strangle" :
+        location.state.data.STG == 'LongIronButterfly' || location.state.data.STG == 'ShortIronButterfly' || location.state.data.STG == 'LongIronCondor' || location.state.data.STG == 'ShortIronCondor' ? "Butterfly/Condor" :
+            location.state.data.STG == 'BearCallSpread' || location.state.data.STG == 'BearPutSpread' || location.state.data.STG == 'BullCallSpread' || location.state.data.STG == 'BullPutSpread' ? 'Spread' :
+                location.state.data.STG == 'BullCallLadder' || location.state.data.STG == 'BullPutLadder' || location.state.data.STG == 'CoveredCall' || location.state.data.STG == 'CoveredPut' ? "Ladder/Coverd" :
+                    location.state.data.STG == 'LongCollar' || location.state.data.STG == 'ShortCollar' || location.state.data.STG == 'RatioCallSpread' || location.state.data.STG == 'RatioPutSpread' ? "Collar/Ratio" :
+                        location.state.data.STG == 'LongFourLegStretegy' || location.state.data.STG == 'ShortShifting' || location.state.data.STG == 'LongShifting' || location.state.data.STG == 'ShortFourLegStretegy' ? "Shifting/FourLeg" : ""
+
+        
+        if(formik.values.Measurment_Type && formik.values.Measurment_Type != temp ){ 
+            console.log("inside")
+            formik.setFieldValue('Strategy', "")
+        }
+
+    }, [formik.values.Measurment_Type])
 
 
     return (

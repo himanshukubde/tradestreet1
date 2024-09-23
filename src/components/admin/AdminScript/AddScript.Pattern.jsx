@@ -697,15 +697,28 @@ const AddClient = () => {
 
 
     useEffect(() => {
+        formik.setFieldValue('expirydata1', "");
+        formik.setFieldValue('Optiontype', "");
+        formik.setFieldValue('Strike', "");
+    }, [formik.values.Symbol])
+
+    useEffect(() => {
+        formik.setFieldValue('ETPattern', "");
+    }, [formik.values.Strategy])
+    
+    useEffect(() => {
+        formik.setFieldValue('Symbol', "");
+    }, [formik.values.Instrument ])
+
+
+    useEffect(() => {
         if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
             formik.setFieldValue('Optiontype', "")
             formik.setFieldValue('Strike', "")
         }
         if (formik.values.Exchange == "NSE") {
-            formik.setFieldValue('Instrument', "FUTIDX")
-
+            formik.setFieldValue('Instrument', "")
         }
-
     }, [formik.values.Instrument, formik.values.Exchange])
 
 

@@ -16,6 +16,10 @@ import ServiceReport from '../components/admin/User/ServiceReport';
 import AddscriptScalping from '../components/admin/AdminScript/Addscript.Scalping';
 import AddScriptOption from '../components/admin/AdminScript/AddScript.Option'
 import PatternScript from '../components/admin/AdminScript/AddScript.Pattern'
+import System from '../components/admin/System/System';
+import AllPlan from '../components/admin/Plan/AllPlan';
+import CPP from '../components/user/Patterns/CPP';
+import AddPlan from '../components/admin/Plan/AddPlan';
 
 
 
@@ -44,6 +48,12 @@ const AdminRoute = () => {
             <Route path="/strategygroup" element={<StrategyGroup />} />
             <Route path="/servicerepor" element={<ServiceReport />} />
             <Route path="/addscript/option" element={<AddScriptOption />} />
+            <Route path="/addscript/option" element={<AddScriptOption />} />
+            <Route path="/system" element={<System />} /> 
+            <Route path="/allplan" element={<AllPlan />} />  
+            <Route path="/cpp" element={<CPP />} />
+            <Route path="/addplan" element={<AddPlan />} />
+             
           </Routes>
         </div>
       </div>

@@ -139,8 +139,6 @@ const AddClient = () => {
                 errors.EntryTime = "Entry Time Must be Before 15:29:59.";
               }
 
-
-              
             if (!values.TStype && values.Strategy!='Fixed Price') {
                 errors.TStype = "Please Select Measurement Type.";
               }
@@ -172,8 +170,8 @@ const AddClient = () => {
             if (!values.Slvalue) {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
+          
            
-
             return errors;
         },
 
@@ -190,7 +188,6 @@ const AddClient = () => {
                 Strike: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Strike : "",
                 expirydata1: values.Exchange=="NSE" ? getExpiryDate.data[0] :  values.expirydata1,
                 TType: values.TType == 0 ? "" : values.TType,
-                
                 TStype: values.Strategy != "Fixed Price" ?  values.TStype : '',
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
@@ -198,11 +195,10 @@ const AddClient = () => {
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
-                EntryPrice: values.EntryPrice,
-                EntryRange: values.EntryRange,
-                LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
-                HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
-
+                EntryPrice: Number(values.EntryPrice),
+                EntryRange: Number(values.EntryRange),
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : Number(values.LowerRange),
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : Number(values.HigherRange),
                 ETPattern: "",
                 Timeframe: "",
                 Quantity: values.Quantity,
@@ -287,8 +283,6 @@ const AddClient = () => {
         formik.setFieldValue("Instrument", "FUTIDX")
         formik.setFieldValue("HoldExit", "Hold")
         formik.setFieldValue("TStype", "Point")
-
-
       }, [])
 
 
@@ -626,9 +620,6 @@ const AddClient = () => {
     ];
 
 
-
-
-
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
@@ -728,7 +719,7 @@ const AddClient = () => {
     }, [])
 
     const getExpiry = async () => {
-        if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
+        if (formik.values.Symbol) {
             const data = {
                 Exchange: formik.values.Exchange,
                 Instrument: formik.values.Exchange=="NSE" ? "" :  formik.values.Instrument,
@@ -766,13 +757,11 @@ const AddClient = () => {
 
    
     useEffect(() => {
-
         if (formik.values.set_Range == false) {
           formik.setFieldValue('LowerRange', 0)
           formik.setFieldValue('HigherRange', 0)
-    
         }
-        if (formik.values.Set_First_Trade_Range) {
+        if (formik.values.Set_First_Trade_Range==false) {
           formik.setFieldValue('EntryPrice', 0)
           formik.setFieldValue('EntryRange', 0)
         }
@@ -781,17 +770,30 @@ const AddClient = () => {
           formik.setFieldValue('Optiontype', "")
           formik.setFieldValue('Strike', "")
         }
+
         if (formik.values.Exchange == "NSE") {
           formik.setFieldValue('Instrument', "FUTIDX")
           formik.setFieldValue('expirydata1', "")
           formik.setFieldValue('Strike', "")
           formik.setFieldValue('Optiontype', "")
         }
-        
-    
       }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
 
 
+
+      useEffect(() => {
+        formik.setFieldValue('Group', "")
+        formik.setFieldValue('HoldExit', "")
+        formik.setFieldValue('HigherRange', 0)
+        formik.setFieldValue('LowerRange', 0) 
+        formik.setFieldValue('TStype', "")
+        formik.setFieldValue('EntryRange', 0)
+        formik.setFieldValue('EntryPrice', 0) 
+      }, [formik.values.Strategy])
+
+      useEffect(() => {
+        formik.setFieldValue('expirydata1', "")
+      }, [formik.values.Symbol])
 
     return (
         <>

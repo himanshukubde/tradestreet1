@@ -3,8 +3,8 @@ import AddForm from "../../../ExtraComponent/FormData";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
-import {GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name , GetExchange , ExpriyEndDate } from '../../CommonAPI/Admin'
-import { AddScript} from '../../CommonAPI/User'
+import { GET_EXPIRY_DATE, Get_StrikePrice, Get_Symbol, Get_Pattern_Time_Frame, Get_Pattern_Charting, Get_Pattern_Name, GetExchange, ExpriyEndDate } from '../../CommonAPI/Admin'
+import { AddScript } from '../../CommonAPI/User'
 
 const AddClient = () => {
 
@@ -28,7 +28,7 @@ const AddClient = () => {
     })
 
 
-  
+
     const [getExpiryDate, setExpiryDate] = useState({
         loading: true,
         data: []
@@ -43,22 +43,22 @@ const AddClient = () => {
         loading: true,
         data: []
     })
-    
+
     const [serviceEndDate, setServiceEndDate] = useState('')
 
 
     const SweentAlertFun = (text) => {
         Swal.fire({
-          title: "Error",
-          text: text,
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
+            title: "Error",
+            text: text,
+            icon: "error",
+            timer: 1500,
+            timerProgressBar: true
         });
-    
-      }
+
+    }
     const formik = useFormik({
- 
+
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
             Username: location.state.data.selectGroup,
@@ -103,34 +103,34 @@ const AddClient = () => {
             Trade_Execution: "Paper Trade",
         },
 
-     
+
         validate: (values) => {
             let errors = {};
             const maxTime = "15:29:59";
             const minTime = "09:15:00";
-        
+
             if (!values.Exchange) {
                 errors.Exchange = "Please Select Exchange Type.";
             }
-            if (!values.Instrument && values.Exchange=="NFO") {
+            if (!values.Instrument && values.Exchange == "NFO") {
                 errors.Instrument = "Please Enter Instrument Type.";
             }
             if (!values.Symbol) {
                 errors.Symbol = "Please Enter Symbol Type.";
             }
-            if (!values.Trade_Execution || values.Trade_Execution==0) {
+            if (!values.Trade_Execution || values.Trade_Execution == 0) {
                 errors.Trade_Execution = "Please Select Trade Execution.";
             }
-            if (!values.Trade_Count || values.Trade_Count==0) {
+            if (!values.Trade_Count || values.Trade_Count == 0) {
                 errors.Trade_Count = "Please Enter Trade Count.";
             }
-            if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+            if (!values.Optiontype && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange == "NFO") {
                 errors.Optiontype = "Enter Option Type.";
             }
-            if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange=="NFO") {
+            if (!values.Strike && (values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK") && values.Exchange == "NFO") {
                 errors.Strike = "Enter Strike Price.";
             }
-            if (!values.expirydata1 && values.Exchange=="NFO") {
+            if (!values.expirydata1 && values.Exchange == "NFO") {
                 errors.expirydata1 = "Enter Expiry Date.";
             }
             if (!values.Strategy) {
@@ -142,47 +142,47 @@ const AddClient = () => {
             if (!values.ETPattern) {
                 errors.ETPattern = "Please Select Pattern Name.";
             }
-           
+
             if (!values.TStype) {
                 errors.TStype = "Please Enter Measurement Type.";
             }
-            if (!values.Slvalue || values.Slvalue==0 || Number(values.Slvalue)<0) {
-                errors.Slvalue = values.Slvalue==0 ? "Stoploss can not be Zero" : Number(values.Slvalue)<0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
+            if (!values.Slvalue || values.Slvalue == 0 || Number(values.Slvalue) < 0) {
+                errors.Slvalue = values.Slvalue == 0 ? "Stoploss can not be Zero" : Number(values.Slvalue) < 0 ? "Stoploss can not be Negative" : "Please Enter Stoploss Value.";
             }
-            if (!values.Targetvalue || values.Targetvalue==0 || Number(values.Targetvalue)<0) {
-                errors.Targetvalue = values.Targetvalue==0 ? "Target can not be Zero" : Number(values.Targetvalue)<0 ? "Target can not be Negative"  : "Please Enter Target Value.";
+            if (!values.Targetvalue || values.Targetvalue == 0 || Number(values.Targetvalue) < 0) {
+                errors.Targetvalue = values.Targetvalue == 0 ? "Target can not be Zero" : Number(values.Targetvalue) < 0 ? "Target can not be Negative" : "Please Enter Target Value.";
             }
             if (!values.TType) {
                 errors.TType = "Please Enter Transaction Type.";
             }
             if (!values.Quantity) {
-                errors.Quantity = formik.values.Exchange =="NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
+                errors.Quantity = formik.values.Exchange == "NFO" ? "Please Enter Lot Value" : "Please Enter Quantity Value";
             }
             if (!values.ExitDay) {
                 errors.ExitDay = "Please Select Exit Day.";
             }
             if (!values.ExitTime) {
                 errors.ExitTime = "Please Select Exit Time.";
-              } else if (values.ExitTime > maxTime) {
+            } else if (values.ExitTime > maxTime) {
                 errors.ExitTime = "Exit Time Must be Before 15:29:59.";
-              }
-              else if (values.ExitTime < minTime) {
+            }
+            else if (values.ExitTime < minTime) {
                 errors.ExitTime = "Exit Time Must be After 09:15:00.";
-              }
-              if (!values.EntryTime) {
+            }
+            if (!values.EntryTime) {
                 errors.EntryTime = "Please Select Entry Time.";
-              } else if (values.EntryTime < minTime) {
+            } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must be After 09:15:00.";
-              }
-              else if (values.EntryTime > maxTime) {
+            }
+            else if (values.EntryTime > maxTime) {
                 errors.EntryTime = "Entry Time Must be Before 15:29:59.";
-              }
-        
+            }
+
             return errors;
         },
-        
-        
-        
+
+
+
         onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
@@ -194,7 +194,7 @@ const AddClient = () => {
                 Symbol: values.Symbol,
                 Instrument: values.Instrument,
                 Strike: values.Strike,
-                Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ?   values.Optiontype : "",
+                Optiontype: values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK" ? values.Optiontype : "",
                 Targetvalue: values.Targetvalue,
                 Slvalue: values.Slvalue,
                 TStype: values.TStype,
@@ -207,7 +207,8 @@ const AddClient = () => {
                 EntryTime: values.EntryTime,
                 ExitTime: values.ExitTime,
                 ExitDay: values.ExitDay,
-                TradeCount: values.Trade_Count,
+
+                TradeCount: Number(values.Trade_Count),
                 TradeExecution: values.Trade_Execution,
                 FixedSM: "",
                 TType: values.TType,
@@ -226,12 +227,12 @@ const AddClient = () => {
                 CEDeepHigher: 0.0,
                 PEDeepLower: 0.0,
                 PEDeepHigher: 0.0,
-            }   
-             
+            }
+
             if (values.EntryTime >= values.ExitTime) {
                 return SweentAlertFun("Exit Time should be greater than Entry Time")
-              }
-           
+            }
+
             await AddScript(req)
                 .then((response) => {
                     if (response.Status) {
@@ -270,12 +271,12 @@ const AddClient = () => {
         formik.setFieldValue('Timeframe', "1M")
         formik.setFieldValue('EntryTime', "09:15:00")
         formik.setFieldValue('ExitTime', "15:25:00")
-        formik.setFieldValue('Optiontype',  "CE" )
-        formik.setFieldValue('TStype',  "Point" )
-        formik.setFieldValue('ExitDay',  "Intraday" )
-        formik.setFieldValue('TType',  "BUY" )
+        formik.setFieldValue('Optiontype', "CE")
+        formik.setFieldValue('TStype', "Point")
+        formik.setFieldValue('ExitDay', "Intraday")
+        formik.setFieldValue('TType', "BUY")
         formik.setFieldValue('Trade_Count', 1)
-        
+
     }, [])
 
 
@@ -312,7 +313,7 @@ const AddClient = () => {
             })),
             hiding: false,
             label_size: 12,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -342,7 +343,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -356,7 +357,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size:formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4: 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -398,7 +399,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 4,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 4,
             disable: false,
         },
         {
@@ -632,12 +633,12 @@ const AddClient = () => {
 
 
     const getExpiry = async () => {
-        if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol && formik.values.Exchange != 'NSE') {
+        if (formik.values.Symbol) {
             const data = {
                 Exchange: formik.values.Exchange,
-                Instrument: formik.values.Instrument,
-                Symbol: formik.values.Symbol,
-                Strike: formik.values.Strike
+                Instrument: formik.values.Exchange == "NSE" ? "" : formik.values.Instrument,
+                Symbol: formik.values.Exchange == "NSE" ? "" : formik.values.Symbol,
+                Strike: formik.values.Exchange == "NSE" ? "" : formik.values.Strike
             }
 
             await GET_EXPIRY_DATE(data)
@@ -663,10 +664,10 @@ const AddClient = () => {
 
     }
 
+
     useEffect(() => {
         getExpiry()
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
-
 
     const GetPatternTimeFrame = async () => {
 
@@ -730,13 +731,13 @@ const AddClient = () => {
     }, [])
 
 
-    
+
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
             .then((response) => {
                 if (response.Status) {
-                    
+
                     setServiceEndDate(response.Data[0].ExpiryDate)
                 }
                 else {
@@ -751,6 +752,22 @@ const AddClient = () => {
     useEffect(() => {
         GetExpriyEndDate()
     }, [])
+
+
+
+    useEffect(() => {
+        formik.setFieldValue('expirydata1', "");
+        formik.setFieldValue('Optiontype', "");
+        formik.setFieldValue('Strike', "");
+    }, [formik.values.Symbol])
+
+    useEffect(() => {
+        formik.setFieldValue('ETPattern', "");
+    }, [formik.values.Strategy])
+    
+    useEffect(() => {
+        formik.setFieldValue('Symbol', "");
+    }, [formik.values.Instrument ])
 
 
     useEffect(() => {

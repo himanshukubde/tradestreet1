@@ -6,11 +6,14 @@ import * as Config from "../../Utils/Config";
 import axios from "axios";
 import { TradingStatus } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
-import {LastPattern , DataStart , AutoLogin} from '../CommonAPI/Admin'
+import { IndianRupee, Eye } from 'lucide-react';
+import { LastPattern, DataStart, AutoLogin  } from '../CommonAPI/Admin'
+import { GetUserBalence } from '../CommonAPI/User'
 
 
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [showFunds, setShowFunds] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -27,8 +30,6 @@ const Header = () => {
         }
     }, [isSidebarOpen]);
 
-
-
     const navigate = useNavigate();
     const role = localStorage.getItem("Role");
     const Username = localStorage.getItem("name");
@@ -41,8 +42,12 @@ const Header = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [getTradingStatus, setTradingStatus] = useState(false);
     const [getBrokerName, setBrokerName] = useState("");
+    const [walletBalance, setWalletBalance] = useState('');
 
-
+     
+    useEffect(() => {
+        GetBalence()
+    }, [])
 
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
@@ -59,7 +64,6 @@ const Header = () => {
             };
             Loginwihapi(requestData)
         } else {
-            console.log("----Trading Of")
             var data = {
                 Username: Username,
                 session: "",
@@ -79,7 +83,7 @@ const Header = () => {
                         }
                     });
 
-                
+
                 if (response.data.Status) { // Assuming the status is in response.data.Status
 
                     Swal.fire({
@@ -121,8 +125,6 @@ const Header = () => {
 
         }
     };
-
-
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
@@ -240,7 +242,7 @@ const Header = () => {
                 if (response.Status) {
                     Swal.fire({
                         title: "Auto Login On !",
-                        text:  response.message,
+                        text: response.message,
                         icon: "success",
                         timer: 1500,
                         timerProgressBar: true
@@ -249,7 +251,7 @@ const Header = () => {
                 else {
                     Swal.fire({
                         title: "Error !",
-                        text:  response.message,
+                        text: response.message,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -258,54 +260,106 @@ const Header = () => {
             })
     }
 
-    const handleDataStart = async() => {
+    const handleDataStart = async () => {
         await DataStart()
-        .then((response)=>{
-            if (response.Status) {
-                Swal.fire({
-                    title: "Data Start !",
-                    text:  response.message,
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-            else {
-                Swal.fire({
-                    title: "Error !",
-                    text:  response.message,
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        })
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Data Start !",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
 
     }
-    const handleLastPattern = async() => {
+    const handleLastPattern = async () => {
         await LastPattern()
-        .then((response)=>{
-            if (response.Status) {
-                Swal.fire({
-                    title: "Last Pattern On !",
-                    text:  response.message,
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-            else {
-                Swal.fire({
-                    title: "Error !",
-                    text:  response.message,
-                    icon: "error",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        })
+            .then((response) => {
+                if (response.Status) {
+                    Swal.fire({
+                        title: "Last Pattern On !",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error !",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
 
     }
+
+    const GetBalence = async () => {
+      const req = {userName: Username}
+      await GetUserBalence(req)
+        .then((response) => {
+            if (response.Status) {
+                setWalletBalance(response.Balance)
+            }
+            else {
+                setWalletBalance('')
+            }
+        })
+        .catch((error) => {
+            console.error("Error in GetUserBalence request", error);
+        });   
+    }
+
+
+
+
+
+    function formatNumber(value) {
+        if (value < 1000) {
+            return value.toString();
+        } else if (value < 10000) {
+            return (value / 1000).toFixed(0) + "k";
+        } else if (value < 1000000) {
+            return (value / 1000).toFixed(0) + "k";
+        } else if (value < 10000000) {
+            return (value / 1000000).toFixed(0) + "M";
+        } else if (value < 1000000000) {
+            return (value / 1000000).toFixed(0) + "M";
+        } else if (value < 10000000000) {
+            return (value / 1000000000).toFixed(0) + "B";
+        } else if (value < 1000000000000) {
+            return (value / 1000000000).toFixed(0) + "B";
+        } else if (value < 10000000000000) {
+            return (value / 1000000000000).toFixed(0) + "T";
+        } else {
+            return (value / 1000000000000).toFixed(0) + "T";
+        }
+    }
+
+    const walletmodal = () => { 
+            navigate('/user/all/transection') 
+    };
+
+    const toggleFundsVisibility = () => {
+        setShowFunds(!showFunds);
+        walletmodal(showFunds);
+
+    };
 
     return (
         <>
@@ -314,7 +368,7 @@ const Header = () => {
                     <div className="iq-sidebar-logo">
                         <div className="top-logo">
                             <a href="index.html" className="logo">
-                                <img src="assets/images/logo.png" className="img-fluid" alt="" />
+                                <img src="assets/images/inalgo.png" className="img-fluid" alt="" />
                                 {/* <span>XRay</span> */}
                             </a>
                         </div>
@@ -378,7 +432,7 @@ const Header = () => {
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                   
+
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 
@@ -420,38 +474,9 @@ const Header = () => {
                             <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
-
-                            {/* <div className="iq-menu-bt align-self-center">
-                                <div className="wrapper-menu">
-                                    <div className="main-circle">
-                                        <i className="ri-more-fill" />
-                                    </div>
-                                    <div className="hover-circle">
-                                        <i className="ri-more-2-fill" />
-                                    </div>
-                                </div>
-                            </div> */}
-
-
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
                                     <div className="custom-switch-inner">
-
-
-                                        {/* <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="customSwitch-11"
-                                                                checked={getTradingStatus}
-                                                                onChange={handleToggle}
-                                                            />
-                                                            <label
-                                                                className="custom-control-label"
-                                                                htmlFor="customSwitch-11"
-                                                                data-on-label="On"
-                                                                data-off-label="Off"
-                                                            ></label> */}
-
 
                                         <input
                                             type="checkbox"
@@ -483,7 +508,6 @@ const Header = () => {
                                                 </button>
                                             </li> :
                                             <>
-
                                                 <li className="nav-item">
                                                     <button
                                                         type="button"
@@ -496,12 +520,37 @@ const Header = () => {
 
                                             </>
                                     }
+
+                                    <li className="nav-item mx-3" onClick={toggleFundsVisibility}>
+                                        <button
+                                            type="button"
+                                            data-bs-dismiss="modal"
+                                            className="btn btn-primary mt-4 btn1"
+                                        >
+                                            {showFunds ? (
+                                                <span>
+                                                    <IndianRupee
+                                                        style={{ height: "24px", marginRight: "10px" }}
+                                                    />
+                                                    <strong>
+                                                        {formatNumber(walletBalance && walletBalance) || "-"}
+                                                    </strong>
+                                                </span>
+                                            ) : (
+                                                <span>
+                                                    <Eye />
+                                                    <strong>*****</strong>
+                                                </span>
+                                            )}
+                                        </button>
+                                    </li>
+
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
                                             <i className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
                                         </a>
                                     </li>
-                                   
+
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
 

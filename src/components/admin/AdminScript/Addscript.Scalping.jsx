@@ -706,34 +706,45 @@ const AddClient = () => {
     getExpiry()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
+ 
   useEffect(() => {
-
     if (formik.values.set_Range == false) {
       formik.setFieldValue('LowerRange', 0)
       formik.setFieldValue('HigherRange', 0)
-
     }
-    if (formik.values.Set_First_Trade_Range) {
+    if (formik.values.Set_First_Trade_Range==false) {
       formik.setFieldValue('EntryPrice', 0)
       formik.setFieldValue('EntryRange', 0)
     }
-
-
 
     if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
       formik.setFieldValue('Optiontype', "")
       formik.setFieldValue('Strike', "")
     }
+
     if (formik.values.Exchange == "NSE") {
       formik.setFieldValue('Instrument', "FUTIDX")
       formik.setFieldValue('expirydata1', "")
       formik.setFieldValue('Strike', "")
       formik.setFieldValue('Optiontype', "")
-      formik.setFieldValue('Symbol', "")
     }
-     
-
   }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument, formik.values.Exchange])
+
+
+
+  useEffect(() => {
+    formik.setFieldValue('Group', "")
+    formik.setFieldValue('HoldExit', "")
+    formik.setFieldValue('HigherRange', 0)
+    formik.setFieldValue('LowerRange', 0) 
+    formik.setFieldValue('TStype', "")
+    formik.setFieldValue('EntryRange', 0)
+    formik.setFieldValue('EntryPrice', 0) 
+  }, [formik.values.Strategy])
+
+  useEffect(() => {
+    formik.setFieldValue('expirydata1', "")
+  }, [formik.values.Symbol])
 
   return (
     <>

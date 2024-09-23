@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { RegistorUser } from '../CommonAPI/Common'
 import Swal from 'sweetalert2'
 import { Eye, EyeOff } from 'lucide-react'
+import { GetLogo } from '../CommonAPI/Admin'
 
 
 const Register = () => {
@@ -53,6 +54,20 @@ const Register = () => {
             })
     }
 
+    const GetLogoimage = async () => {
+        await GetLogo()
+            .then((response) => {
+                if (response.status) { 
+                    document.getElementById('imglogo1').src = "data:image/png;base64," + response.image_data
+                } else { 
+                }
+            })
+            .catch((err) => {
+                console.log("Error Group data fetch error", err);
+            });
+    };
+
+    useEffect(() => { GetLogoimage() }, [])
 
 
     return (
@@ -63,7 +78,7 @@ const Register = () => {
                         <div className="col-md-6 text-center">
                             <div className="sign-in-detail text-white">
                                 <a className="sign-in-logo mb-5">
-                                    <img src="assets/images/ext.png" className="img-fluid" alt="logo" />
+                                    <img src="assets/images/inalgologo.png" className="img-fluid" alt="logo" id="imglogo1" />
                                 </a>
                                 <div
                                     className="owl-carousel owl-loaded owl-drag"

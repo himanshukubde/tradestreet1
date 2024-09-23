@@ -9,8 +9,10 @@ const ChartExample = ({ ChartData }) => {
   useEffect(() => {
     const adjustTime = (date) => {
       const dateObj = new Date(date);
-      return new Date(dateObj.getTime() - 5 * 60 * 60 * 1000); // Adjust time by subtracting 5 hours
+      return new Date(dateObj.getTime());
     };
+
+    console.log("ChartData", ChartData);
 
     const processedData = ChartData.map((item) => ({
       ...item,
@@ -117,5 +119,6 @@ const ChartExample = ({ ChartData }) => {
 
   return <div style={{height:'500px'}}>{options && <AgChartsReact options={options} />}</div>;
 };
+
 
 export default ChartExample;

@@ -15,19 +15,10 @@ const AddClient = () => {
         loading: true,
         data: []
     })
+    const [initialvalue, setinitialvalue] = useState(false)
+    const [getStricke, setStricke] = useState({ loading: true, data: [] })
 
-    const [initialvalue, setinitialvalue] = useState(0)
-
-
-    const [getStricke, setStricke] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getExpiryDate, setExpiryDate] = useState({
-        loading: true,
-        data: []
-    })
+    const [getExpiryDate, setExpiryDate] = useState({ loading: true, data: [] })
 
     const [serviceEndDate, setServiceEndDate] = useState('')
 
@@ -44,7 +35,6 @@ const AddClient = () => {
     }
 
     const formik = useFormik({
-
         initialValues: {
             MainStrategy: "",
             Username: "",
@@ -176,7 +166,7 @@ const AddClient = () => {
                 errors.HigherRange = "Please Enter The Higher Range.";
             }
             if (!values.Group && values.Strategy === "Fixed Price") {
-                errors.Group = "Please Select A Unique ID.";
+                errors.Group = "Please Select Unique ID.";
             }
             if (!values.HoldExit && values.set_Range) {
                 errors.HoldExit = "Please Select Whether To Hold Or Exit.";
@@ -189,9 +179,9 @@ const AddClient = () => {
             return errors;
         },
 
-        onSubmit: async (values) => {
 
-            console.log("getExpiryDate.data[0] : ", getExpiryDate)
+
+        onSubmit: async (values) => {
             const req = {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
@@ -208,8 +198,8 @@ const AddClient = () => {
                 Slvalue: values.Slvalue,
                 EntryPrice: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryPrice,
                 EntryRange: formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null ? 0 : values.EntryRange,
-                LowerRange: values.Strategy === "Fixed Price" ? 0 : values.LowerRange,
-                HigherRange: values.Strategy === "Fixed Price" ? 0 : values.HigherRange,
+                LowerRange: values.Strategy === "Fixed Price" ? 0 : Number(values.LowerRange),
+                HigherRange: values.Strategy === "Fixed Price" ? 0 : Number(values.HigherRange),
                 HoldExit: (values.Strategy === "Multi Directional" || values.Strategy === "One Directional") ? values.HoldExit : "",
                 ExitDay: values.ExitDay,
                 EntryTime: values.EntryTime,
@@ -274,7 +264,7 @@ const AddClient = () => {
                     else {
                         Swal.fire({
                             title: "Error !",
-                            text:  response.message,
+                            text: response.message,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -304,8 +294,6 @@ const AddClient = () => {
     const result = extractDetails(location.state.data.Symbol);
 
 
-     
-
     useEffect(() => {
         formik.setFieldValue('Strategy', location.state.data.ScalpType)
         formik.setFieldValue('Exchange', location.state.data.Exchange)
@@ -328,30 +316,12 @@ const AddClient = () => {
         formik.setFieldValue('EntryTime', location.state.data.EntryTime)
         formik.setFieldValue('ExitTime', location.state.data.ExitTime)
         formik.setFieldValue('Trade_Execution', location.state.data.TradeExecution)
-        formik.setFieldValue('Trade_Count', location.state.data.type == "group" ? "1" : location.state.data.TradeCount)
+        formik.setFieldValue('Trade_Count', location.state.data.TradeCount || 1)
         formik.setFieldValue('Group', location.state.data.GroupN)
         formik.setFieldValue('Optiontype', result ? result.type : "")
         formik.setFieldValue('Strike', result ? result.number : "")
+        setinitialvalue(true)
     }, [location.state.data])
-
-
-    useEffect(() => {
-    if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-        formik.setFieldValue('LowerRange', 0)
-        formik.setFieldValue('HigherRange', 0)
-    }
-        // if (formik.values.Set_First_Trade_Range == false && formik.values.Set_First_Trade_Range != null) {
-        //     formik.setFieldValue('EntryPrice', 0)
-        //     formik.setFieldValue('EntryRange', 0)
-        // }
-    if (formik.values.Instrument == "FUTIDX" || formik.values.Instrument == "FUTSTK") {
-        formik.setFieldValue('Optiontype', "")
-        formik.setFieldValue('Strike', "")
-        // formik.setFieldValue('Symbol', "")
-    }
-    }, [formik.values.set_Range, formik.values.Set_First_Trade_Range, formik.values.Instrument])
-
-
 
 
     const fields = [
@@ -478,7 +448,6 @@ const AddClient = () => {
             name: "Set_First_Trade_Range",
             label: "Set First Trade Range",
             type: "checkbox",
-
             showWhen: (values) => values.Strategy == "Multi Directional" || values.Strategy == "One Directional",
             label_size: 12,
             col_size: 12,
@@ -518,7 +487,6 @@ const AddClient = () => {
             hiding: false,
             disable: false,
         },
-
         {
             name: "Targetvalue",
             label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
@@ -559,7 +527,6 @@ const AddClient = () => {
             hiding: false,
             disable: false,
         },
-
         {
             name: "set_Range",
             label: "Trade Range",
@@ -591,7 +558,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "HoldExit",
             label: "Hold/Exit",
@@ -606,7 +572,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "Group",
             label: "Unique ID",
@@ -642,7 +607,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "Trade_Execution",
             label: "Trade Execution",
@@ -666,7 +630,6 @@ const AddClient = () => {
             disable: false,
             hiding: false,
         },
-
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -688,6 +651,26 @@ const AddClient = () => {
     ];
 
 
+    useEffect(() => {
+        if (initialvalue) {
+            if (formik.values.Symbol !== location.state.data.MainSymbol) {
+                formik.setFieldValue('expirydata1', "");
+                formik.setFieldValue('Strike', "")
+            }
+            if(formik.values.Strategy !== location.state.data.ScalpType){
+                formik.setFieldValue('Group', "")
+                formik.setFieldValue('HoldExit', "")
+                formik.setFieldValue('HigherRange', 0)
+                formik.setFieldValue('LowerRange', 0) 
+                formik.setFieldValue('TStype', "")
+                formik.setFieldValue('EntryRange', 0)
+                formik.setFieldValue('EntryPrice', 0) 
+            }
+        }
+    }, [formik.values.Strategy, formik.values.Symbol])
+
+
+
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
@@ -705,7 +688,7 @@ const AddClient = () => {
     }
 
 
-  
+
     useEffect(() => {
         GetExpriyEndDate()
     }, [])
@@ -790,10 +773,7 @@ const AddClient = () => {
 
 
     const getExpiry = async () => {
-       
-
-        if (formik.values.Instrument && formik.values.Exchange && formik.values.Symbol) {
-            console.log("formik.values.Exchange : ")
+        if (formik.values.Symbol) {
             const data = {
                 Exchange: formik.values.Exchange,
                 Instrument: formik.values.Exchange == "NSE" ? "" : formik.values.Instrument,
@@ -824,22 +804,12 @@ const AddClient = () => {
 
     }
 
- 
+
     useEffect(() => {
         getExpiry()
     }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol, formik.values.Strike])
 
-
-    // useEffect(() => {
-    //     if (formik.values.Symbol && formik.values.Symbol !== location.state.data.MainSymbol) {
-    //         formik.setFieldValue('expirydata1', "")
-    //     }
-    //     if (!(formik.values.set_Range == true || formik.values.Strategy == "Fixed Price")) {
-    //         formik.setFieldValue('LowerRange', 0)
-    //         formik.setFieldValue('HigherRange', 0)
-    //     } 
-         
-    // }, [formik.values.Symbol, formik.values.Strategy, formik.values.set_Range])
+ 
 
 
     return (
@@ -848,8 +818,8 @@ const AddClient = () => {
                 fields={fields.filter(
                     (field) => !field.showWhen || field.showWhen(formik.values)
                 )}
-                page_title= {`Add Script - scalping , Group Name : ${location.state.data.Username}`}
-                
+                page_title={`Add Script - scalping , Group Name : ${location.state.data.Username}`}
+
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}

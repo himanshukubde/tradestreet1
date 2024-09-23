@@ -11,6 +11,8 @@ const AddClient = () => {
     const location = useLocation()
     const userName = localStorage.getItem('name')
     const navigate = useNavigate()
+
+
     const [getExpiry, setExpiry] = useState({
         loading: true,
         data: []
@@ -28,8 +30,6 @@ const AddClient = () => {
         NoprofitLoss1: "",
         NoprofitLoss2: ""
     })
-
-
 
     const SweentAlertFun = (text) => {
         Swal.fire({
@@ -221,7 +221,7 @@ const AddClient = () => {
 
             }
 
-            console.log("errors", errors)
+
 
 
             return errors;
@@ -231,7 +231,7 @@ const AddClient = () => {
                 MainStrategy: location.state.data.selectStrategyType,
                 Username: userName,
                 Strategy: values.Strategy,
-                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : values.Strategy=="ShortShifting" || values.Strategy=="LongShifting" ? "Future" : "",
+                ETPattern: values.Measurment_Type != "Shifting/FourLeg" ? values.ETPattern : values.Strategy == "ShortShifting" || values.Strategy == "LongShifting" ? "Future" : "",
                 Timeframe: "",
                 Exchange: "NFO",
                 Symbol: values.Symbol,
@@ -318,7 +318,7 @@ const AddClient = () => {
                     if (response.Status) {
                         Swal.fire({
                             title: "Script Added !",
-                            text:  response.message,
+                            text: response.message,
                             icon: "success",
                             timer: 1500,
                             timerProgressBar: true
@@ -330,7 +330,7 @@ const AddClient = () => {
                     else {
                         Swal.fire({
                             title: "Error !",
-                            text:  response.message,
+                            text: response.message,
                             icon: "error",
                             timer: 1500,
                             timerProgressBar: true
@@ -402,7 +402,7 @@ const AddClient = () => {
                             [{ title: "Bull Call Ladder", value: "BullCallLadder" }, { title: "Bull Put Ladder", value: "BullPutLadder" }, { title: "Covered Call", value: "CoveredCall" }, { title: "Covered Put", value: "CoveredPut" }] :
 
                             formik.values.Measurment_Type == "Collar/Ratio" ?
-                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "Ratio Put Spread" }] :
+                                [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "RatioPutSpread" }] :
 
                                 formik.values.Measurment_Type == "Shifting/FourLeg" ?
                                     [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
@@ -433,7 +433,7 @@ const AddClient = () => {
             type: "select",
             options: [
                 { label: "Weekly", value: "Weekly" },
-              
+
                 { label: "Monthly", value: "Monthly" },
 
             ],
@@ -796,8 +796,6 @@ const AddClient = () => {
 
     }, [formik.values.Symbol])
 
-
-
     const GetExpriyEndDate = async () => {
         const data = { Username: userName }
         await ExpriyEndDate(data)
@@ -819,9 +817,6 @@ const AddClient = () => {
     useEffect(() => {
         GetExpriyEndDate()
     }, [])
-
-
-
 
     useEffect(() => {
 
@@ -870,7 +865,19 @@ const AddClient = () => {
 
     }, [formik.values.Strategy, formik.values.Striketype, formik.values.Measurment_Type])
 
+
+
     const handleCheckPnl = async () => {
+
+        const weekend = (new Date()).getDay()
+        const currentDate = new Date()
+        const currentTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
+
+
+        if (weekend == 6 || weekend == 0 || currentTime >= "15:30:00" || currentTime <= "09:15:00") {
+            return SweentAlertFun("Market is off Today")
+        }
+
         const req = {
             MainStrategy: location.state.data.selectStrategyType,
             Strategy: formik.values.Strategy,
@@ -958,7 +965,7 @@ const AddClient = () => {
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
                 page_title="Add Script option"
-                
+
                 btn_name="Add"
                 btn_name1="Cancel"
                 formik={formik}
@@ -970,9 +977,7 @@ const AddClient = () => {
                         }
 
                         {
-
                             showPnl && <div>
-
                                 <div>
                                     <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
                                         <thead>
@@ -983,28 +988,21 @@ const AddClient = () => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumProfit</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>Maximum Profit</td>
                                                 <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumProfit}</td>
                                             </tr>
                                             <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>MaximumLoss</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>Maximum Loss</td>
                                                 <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.MaximumLoss}</td>
                                             </tr>
                                             <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit1</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPrice Maximum Profit</td>
                                                 <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit1}</td>
                                             </tr>
+
                                             <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumProfit2</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumProfit2}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss1</td>
+                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPrice MaximumLoss</td>
                                                 <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss1}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>SpotPriceMaximumLoss2</td>
-                                                <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>{PnlData.SpotPriceMaximumLoss2}</td>
                                             </tr>
                                             <tr>
                                                 <td style={{ borderBottom: '1px solid #ddd', padding: '8px', fontSize: '14px', fontWeight: 'bold', color: 'black' }}>NoprofitLoss1</td>
@@ -1017,8 +1015,6 @@ const AddClient = () => {
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             </div>
                         }
                     </div>

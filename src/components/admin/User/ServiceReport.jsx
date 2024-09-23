@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetGroupNames, Get_All_Service, get_User_Data } from '../../CommonAPI/Admin'
+import { Get_All_Service, get_User_Data } from '../../CommonAPI/Admin'
 import { Eye, Trash2 } from 'lucide-react';
 import Loader from '../../../ExtraComponent/Loader'
 import FullDataTable from '../../../ExtraComponent/CommanDataTable'
@@ -7,10 +7,7 @@ import { ReportColumns5, ReportColumns4, ReportColumns3 } from './UserAllColumn'
 
 const Userlog = () => {
 
-    const [getGroupData, setGroupData] = useState({
-        loading: true,
-        data: []
-    })
+    
     const [showModal, setShowModal] = useState(false)
     const [getServiceDetails, setServiceDetails] = useState({
         loading: true,
@@ -77,14 +74,6 @@ const Userlog = () => {
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-
-                    // setShowModal(true); 
-                    // const rowDataWithKeys = {};
-                    // columns.forEach((column, index) => {
-                    //     rowDataWithKeys[column.name] = tableMeta.rowData[index];
-                    // }); 
-                    // setSelectedIndex(rowDataWithKeys);
-
                     return <Eye onClick={(e) => {
 
                         setShowModal(!showModal);
@@ -92,8 +81,6 @@ const Userlog = () => {
                         columns.forEach((column, index) => {
                             rowDataWithKeys[column.name] = tableMeta.rowData[index];
                         });
-
-                        // setSelectedIndex(rowDataWithKeys);
 
                         handleModal(rowDataWithKeys)
                     }} />
@@ -187,8 +174,17 @@ const Userlog = () => {
             options: {
                 filter: true,
                 sort: true,
-                customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                customBodyRender: (value, tableMeta, updateValue) => { 
+                    return <Eye onClick={(e) => {
+                        setShowModal(!showModal);
+                        const rowDataWithKeys = {};
+                        columns.forEach((column, index) => {
+                            rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                        });
+                        handleModal(rowDataWithKeys)
+                    }} />
+
+                        
                 }
             }
         },
@@ -430,7 +426,14 @@ const Userlog = () => {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
-                    return <Eye onClick={(e) => { setShowModal(!showModal); handleModal(tableMeta) }} />
+                    return <Eye onClick={(e) => {
+                        setShowModal(!showModal);
+                        const rowDataWithKeys = {};
+                        columns.forEach((column, index) => {
+                            rowDataWithKeys[column.name] = tableMeta.rowData[index];
+                        });
+                        handleModal(rowDataWithKeys)
+                    }} />
                 }
             }
         },
@@ -493,44 +496,15 @@ const Userlog = () => {
 
     ];
 
-    const GetAllGroupDetails = async () => {
-        try {
-            await GetGroupNames()
-                .then((response) => {
-                    if (response.Status) {
-                        setGroupData({
-                            loading: false,
-                            data: response.StrGroupdf
-                        })
-                    }
-                    else {
-                        setGroupData({
-                            loading: false,
-                            data: []
-                        })
-                    }
-                })
-                .catch((err) => {
-                    console.log("Error group data fetch", err)
-                })
-        }
-        catch {
-            console.log("Error group data fetch")
-        }
-    }
-
-    useEffect(() => {
-        GetAllGroupDetails()
-    }, [])
-
-
     useEffect(() => {
         setStrategyType('Scalping')
     }, []);
 
 
     const handleModal = async (rowIndex) => { 
-        const data = { Data: selectStrategyType, Username: rowIndex.Username }
+        console.log("Data", rowIndex)
+        const data = { Data: selectStrategyType, Username: rowIndex?.Username }
+
 
         await get_User_Data(data)
             .then((response) => {

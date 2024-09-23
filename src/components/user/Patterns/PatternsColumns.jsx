@@ -221,27 +221,39 @@ export const columns1 =()=> [
         options: {
             filter: true,
             sort: true,
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "body_length",
-        label: "body_length",
+        label: "Body Length",
         options: {
             filter: true,
             sort: true,
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "upper_shadow",
-        label: "upper_shadow",
+        label: "Upper Shadow",
         options: {
             filter: true,
             sort: true,
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "lower_shadow",
-        label: "lower_shadow",
+        label: "Lower Shadow",
         options: {
             filter: true,
             sort: true,
+            // customBodyRender: (value, tableMeta, updateValue) => { 
+            //     return parseFloat(value).toFixed(4);
+            // },
         }
     }, {
         name: "Pattern",
