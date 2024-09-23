@@ -596,6 +596,24 @@ export const GetUserBalence = async (data) => {
     }
 }
 
+export const Get_All_Plans = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}AllPlanDetails`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 
 
 
