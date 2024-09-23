@@ -578,6 +578,25 @@ export const AddBalance = async (data) => {
     }
 }
 
+export const GetUserBalence = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}checkbalance/${data.userName}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+
 
 
 

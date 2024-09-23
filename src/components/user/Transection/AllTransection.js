@@ -65,7 +65,7 @@ const Clientservice = () => {
     }
 
     const handleAddMoney = async () => {
-        const req = { Username: username, transactiontype: 'Debit', money: EnterMoney }
+        const req = { Username: username, transactiontype: 'Deposit', money: EnterMoney }
 
         console.log(validate(EnterMoney))
 

@@ -283,13 +283,7 @@ const Sidebar = () => {
                                             <i className="lab la-ioxhost" />
                                             <span>Last Patterns</span>
                                         </Link>
-                                    </li>
-                                    <li className={activeItem === 'alltransection' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'alltransection')}>
-                                        <Link to="all/transection" className="iq-waves-effect">
-                                            <i className="lab la-ioxhost" />
-                                            <span>Transection</span>
-                                        </Link>
-                                    </li>
+                                    </li> 
                                     <li className={activeItem === 'tradereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradereport')}>
                                         <Link to="tradereport" className="iq-waves-effect">
                                             <i className="la la-sellsy" />
