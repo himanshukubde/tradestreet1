@@ -633,6 +633,23 @@ export const Get_All_Buyed_Plans = async (data) => {
 }
 
 
+export const BuyPlan = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}BuyPlan`, data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
 
 
 

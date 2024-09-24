@@ -3,7 +3,8 @@ import { FaRupeeSign, FaEye, FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { Link } from 'react-router-dom'
-import { Get_All_Plans , Get_All_Buyed_Plans } from "../../CommonAPI/User";
+import { Get_All_Plans, Get_All_Buyed_Plans , BuyPlan } from "../../CommonAPI/User";
+import Swal from "sweetalert2";
 
 import { useEffect } from "react";
 
@@ -95,262 +96,258 @@ const Button = styled.button`
   }
 `;
 const ServicesList = () => {
-
-   const username= localStorage.getItem("name")
-
-  const [selectedPlan, setSelectedPlan] = useState(null);
-  const [editPlan, setEditPlan] = useState(null);
-  const [GetAllPlans, setAllPlans] = useState({ loading: true, data: [] });
+    const username = localStorage.getItem("name")
+    const [GetAllPlans, setAllPlans] = useState({ loading: true, data: [] });
     const [BuyedPlan, setBuyedPlan] = useState({ loading: true, data: [] });
 
-    console.log(BuyedPlan)
 
-  useEffect(() => {
-    GetAllPlansData();
-    AllBuyedPlans();
-  }, []);
-
-  const handleViewClick = (plan) => {
-    setSelectedPlan(plan);
-  };
-
-  const handleModalClose = () => {
-    setSelectedPlan(null);
-    setEditPlan(null);
-  };
-
-  const GetAllPlansData = async () => {
-    await Get_All_Plans()
-      .then((response) => {
-        if (response.Status) {
-          setAllPlans({
-            loading: false,
-            data: response.Admin,
-          });
-        }
-      });
-  };
-
-  const AllBuyedPlans = async() => {
-    const req = {userName : username }
-    await Get_All_Buyed_Plans(req)
-    .then((response) => {
-      if (response.Status) {
-        setBuyedPlan({
-          loading: false,
-          data: response.Allotplan,
-        })
-      }
-      else{
-        setBuyedPlan({
-          loading: false,
-          data: [],
-        })
-      }
-    })
-    .catch((error) => {
-        console.log(error)
-        }
-    )
+    useEffect(() => {
+        GetAllPlansData();
+        AllBuyedPlans();
+    }, []);
 
 
-  }
+    const GetAllPlansData = async () => {
+        await Get_All_Plans()
+            .then((response) => {
+                if (response.Status) {
+                    setAllPlans({
+                        loading: false,
+                        data: response.Admin,
+                    });
+                }
+            });
+    };
+
+    const AllBuyedPlans = async () => {
+        const req = { userName: username }
+        await Get_All_Buyed_Plans(req)
+            .then((response) => {
+                if (response.Status) {
+                    setBuyedPlan({
+                        loading: false,
+                        data: response.Allotplan,
+                    })
+                }
+                else {
+                    setBuyedPlan({
+                        loading: false,
+                        data: [],
+                    })
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            }
+            )
 
 
-
-  const imgArr = [
-    "https://cdn.pixabay.com/photo/2024/05/31/05/24/trading-8799817_640.png",
-    "https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_640.jpg",
-    "https://cdn.pixabay.com/photo/2020/04/16/15/40/stock-5051155_640.jpg",
-    "https://cdn.pixabay.com/photo/2023/07/28/08/06/finance-8154775_640.jpg",
-  ];
-
-  
-  let servicegivenmonth = localStorage.getItem("servicegivenmonth");
-
-  const SetPlan = (index) => {
-    if (servicegivenmonth === 0) {
-      return null;
     }
 
-    // Define the ranges
-    const ranges = [
-      { min: 1, max: 2, index: 0 },
-      { min: 3, max: 5, index: 1 },
-      { min: 6, max: 11, index: 2 },
-      { min: 12, max: 12, index: 3 },
+
+
+    const imgArr = [
+        "https://cdn.pixabay.com/photo/2024/05/31/05/24/trading-8799817_640.png",
+        "https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_640.jpg",
+        "https://cdn.pixabay.com/photo/2020/04/16/15/40/stock-5051155_640.jpg",
+        "https://cdn.pixabay.com/photo/2023/07/28/08/06/finance-8154775_640.jpg",
     ];
 
-    // Find the matching range for the given month and index
-    const matchedRange = ranges.find(
-      (range) =>
-        servicegivenmonth >= range.min &&
-        servicegivenmonth <= range.max &&
-        range.index === index
+
+    const SetPlan = (name) => {
+        console.log(name)
+        if (BuyedPlan?.data.length === 0) {
+            return null;
+        }
+
+        const plan = BuyedPlan?.data.find((plan) => plan.Planname === name);
+        if (plan) {
+            console.log(plan)
+            return <BadgeCheck size={24} color="green" />;
+        }
+        return null;
+
+    };
+
+
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 3) + 1;
+    } 
+
+    const HandleBuyPlan = async(index) => {
+        const planDetails = GetAllPlans?.data[index] 
+
+        const req = {
+            Username: username,
+            Scalping: planDetails.Scalping,
+            Option: planDetails['Option Strategy'],
+            PatternS: planDetails.Pattern,
+            NumberofScript: planDetails.NumberofScript,
+            Duration: planDetails['Plan Validity']==1 ? "One Month" : planDetails['Plan Validity']==2 ? "Quarterly" : planDetails['Plan Validity']==3 ? "Half Yearly" : "Yearly",
+            Planname: planDetails.PlanName,
+            payment: planDetails.payment
+        }
+
+        await BuyPlan(req)
+            .then((response) => {
+                if (response.Status) {
+                    AllBuyedPlans();
+                    Swal.fire({
+                        title: "Success!",
+                        text: response.message,
+                        icon: "success",
+                        timer: 1500,
+                        timerProgressBar: true
+                    }); 
+                }
+                else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: response.message,
+                        icon: "error",
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    return (
+        <>
+
+            <div className='row'>
+                <div className='col-sm-12'>
+                    <div className='iq-card'>
+                        <div className='iq-card-header d-flex justify-content-between'>
+                            <div className='iq-header-title'>
+                                <h4 className='card-title'>All Plans</h4>
+                            </div>
+                        </div>
+                        <div className='iq-card-body'>
+                            <div style={styles.container}>
+                                {GetAllPlans?.data.map((plan, index) => (
+                                    <Card key={index} style={styles.card}>
+                                        <img src={imgArr[getRandomNumber()]} alt={plan.PlanName} style={styles.image} />
+                                        <div style={styles.content}>
+                                            <h2 style={styles.title}>
+                                                {plan.PlanName} {SetPlan(plan.PlanName)}
+                                            </h2>
+
+                                            <h4 style={styles.subtitle}>No of Scripts: {plan.NumberofScript}</h4>
+                                            <div style={styles.prices}>
+                                                <p style={styles.priceItem}>
+                                                    <strong>Scalping Strategy:</strong> {plan.Scalping.join(", ")}
+                                                </p>
+                                                <p style={styles.priceItem}>
+                                                    <strong>Option Strategy:</strong> {plan['Option Strategy'].join(", ")}
+                                                </p>
+                                                <p style={styles.priceItem}>
+                                                    <strong>Pattern Strategy:</strong> {plan?.Pattern?.join(", ")}
+                                                </p>
+                                            </div>
+
+                                            {SetPlan(plan.PlanName) == null ? (
+                                                <div style={styles.buttonContainer}>
+                                                    <Button primary style={styles.button} onClick={() => HandleBuyPlan(index)}>
+                                                        BUY <FaRupeeSign className="m-1" />{plan.payment}
+                                                    </Button>
+                                                </div>
+                                            ) : (
+                                                <div style={styles.buttonContainer}>
+                                                    <Button style={styles.subscribedButton}>
+                                                        Subscribed
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </Card>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </>
     );
-
-    // Return BadgeCheck if the range matches, otherwise return null
-    return matchedRange ? <BadgeCheck style={{ color: "green" }} /> : null;
-  };
-
-
-  function getRandomNumber() {
-    return Math.floor(Math.random() * 3) + 1;
-  }
-
-  return (
-    <>
-
-      <div className='row'>
-        <div className='col-sm-12'>
-          <div className='iq-card'>
-            <div className='iq-card-header d-flex justify-content-between'>
-              <div className='iq-header-title'>
-                <h4 className='card-title'>All Plans</h4>
-              </div>
-            </div>
-            <div className='iq-card-body'>
-              <div style={styles.container}>
-                {GetAllPlans?.data.map((plan, index) => (
-                  <Card key={index} style={styles.card}>
-                    <img src={imgArr[getRandomNumber()]} alt={plan.PlanName} style={styles.image} />
-                    <div style={styles.content}>
-                      <h2 style={styles.title}>
-                        {plan.PlanName} {SetPlan(index)}
-                      </h2>
-
-                      <h4 style={styles.subtitle}>No of Scripts: {plan.NumberofScript}</h4>
-                      <div style={styles.prices}>
-                        <p style={styles.priceItem}>
-                          <strong>Scalping Strategy:</strong> {plan.Scalping.join(", ")}
-                        </p>
-                        <p style={styles.priceItem}>
-                          <strong>Option Strategy:</strong> {plan['Option Strategy'].join(", ")}
-                        </p>
-                        <p style={styles.priceItem}>
-                          <strong>Pattern Strategy:</strong> {plan?.Pattern?.join(", ")}
-                        </p>
-                      </div>
-                      <div style={styles.buttonContainer}>
-                        <Button primary onClick={() => handleViewClick(plan)} style={styles.button}>
-                          BUY <FaRupeeSign className="m-1" />{plan.payment}
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-
-              {selectedPlan && (
-                <Modal open={!!selectedPlan} onClick={handleModalClose}>
-                  <ModalContent onClick={(e) => e.stopPropagation()}>
-                    <CloseButton onClick={handleModalClose}>×</CloseButton>
-                    <img
-                      src={selectedPlan.image}
-                      alt={selectedPlan.name}
-                      style={modalStyles.image}
-                    />
-                    <h2>{selectedPlan.name}</h2>
-                    <h4>{selectedPlan.title}</h4>
-                    <p>{selectedPlan.description}</p>
-                    <div style={modalStyles.prices}>
-                      <p>
-                        Monthly <FaRupeeSign /> {selectedPlan.prices.monthly}
-                      </p>
-                      <p>
-                        Quarterly <FaRupeeSign /> {selectedPlan.prices.quarterly}
-                      </p>
-                      <p>
-                        Half-Yearly <FaRupeeSign /> {selectedPlan.prices.halfYearly}
-                      </p>
-                      <p>
-                        Yearly <FaRupeeSign /> {selectedPlan.prices.yearly}
-                      </p>
-                    </div>
-                  </ModalContent>
-                </Modal>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-    </>
-  );
 };
 
 const modalStyles = {
-  image: {
-    width: "100%",
-    height: "auto",
-    maxWidth: "250px", // Fixed width same as card
-    maxHeight: "150px", // Fixed height same as card
-    objectFit: "cover",
-    borderRadius: "8px",
-    marginBottom: "15px",
-  },
-  prices: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    color: "#555",
-    padding: "0",
-    listStyle: "none",
-  },
+    image: {
+        width: "100%",
+        height: "auto",
+        maxWidth: "250px", // Fixed width same as card
+        maxHeight: "150px", // Fixed height same as card
+        objectFit: "cover",
+        borderRadius: "8px",
+        marginBottom: "15px",
+    },
+    prices: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        color: "#555",
+        padding: "0",
+        listStyle: "none",
+    },
 };
 
 const styles = {
-  container: {
-    display: "flex",
-    flexWrap: "nowrap",
-    overflowX: "auto",
-    padding: "5px",
-    gap: "20px",
-  },
-  image: {
-    width: "100%",
-    height: "150px",
-    objectFit: "cover",
-    borderRadius: "8px",
-    marginBottom: "15px",
-  },
-  title: {
-    fontSize: "1.5rem",
-    margin: "10px 0",
-    color: "#333",
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: "1.2rem",
-    margin: "5px 0",
-  },
-  description: {
-    fontSize: "1rem",
-    margin: "10px 0",
-  },
-  prices: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    margin: "10px 0",
-    color: "#555",
-    padding: "0",
-    listStyle: "none",
-  },
-  priceItem: {
-    margin: "5px 0",
-  },
-  buttonContainer: {
-    marginTop: "15px",
-    display: "flex",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    container: {
+        display: "flex",
+        flexWrap: "nowrap",
+        overflowX: "auto",
+        padding: "5px",
+        gap: "20px",
+    },
+    image: {
+        width: "100%",
+        height: "150px",
+        objectFit: "cover",
+        borderRadius: "8px",
+        marginBottom: "15px",
+    },
+    title: {
+        fontSize: "1.5rem",
+        margin: "10px 0",
+        color: "#333",
+        fontWeight: "bold",
+    },
+    subtitle: {
+        fontSize: "1.2rem",
+        margin: "5px 0",
+    },
+    description: {
+        fontSize: "1rem",
+        margin: "10px 0",
+    },
+    prices: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        margin: "10px 0",
+        color: "#555",
+        padding: "0",
+        listStyle: "none",
+    },
+    priceItem: {
+        margin: "5px 0",
+        textAlign: "left",
+    },
+    buttonContainer: {
+        marginTop: "15px",
+        display: "flex",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 };
 
 export default ServicesList;
