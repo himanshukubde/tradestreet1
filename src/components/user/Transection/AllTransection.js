@@ -1,34 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import { GetAllTransection, AddBalance } from '../../CommonAPI/User';
-import { Link } from 'react-router-dom';
-import { SquarePen } from 'lucide-react';
-import AddForm from '../../../ExtraComponent/FormData';
 import { DollarSign } from 'lucide-react';
 import Swal from 'sweetalert2';
+import { GetUserBalence } from '../../CommonAPI/User'
 
 const Clientservice = () => {
     const username = localStorage.getItem('name')
-    console.log(username)
     const [searchInput, setSearchInput] = useState('')
     const [showAddMoneyModal, setShowAddMoneyModal] = useState(false)
     const [showWithdrawalModal, setShowWithdrawalModal] = useState(false)
     const [EnterMoney, setEnterMoney] = useState('')
     const [AllTransectionData, setAllTransectionData] = useState([])
     const [error, setError] = useState('')
+    const [walletBalance, setWalletBalance] = useState('');
 
 
-    const handleInputChange = (e) => {
+    useEffect(() => {
+        GetBalence()
+        UserAllTransection()
+    }, [])
+
+    const handleInputChange = (e, type) => {
         const value = e.target.value;
         if (/^\d*\.?\d*$/.test(value)) {
             setEnterMoney(value);
         }
-        validate(e.target.value)
+        validate(e.target.value, type)
     }
 
-    const validate = (value) => {
+    const validate = (value, type) => {
         if (value === '') {
             setError('Please Enter the Money')
+            return false
+        }
+        else if (type === 2 && value > walletBalance) {
+            setError('You have Insufficient Balance')
             return false
         }
         else {
@@ -37,17 +44,22 @@ const Clientservice = () => {
         }
     }
 
+    const GetBalence = async () => {
+        const req = { userName: username }
+        await GetUserBalence(req)
+            .then((response) => {
+                if (response.Status) {
+                    setWalletBalance(response.Balance)
+                }
+                else {
+                    setWalletBalance('')
+                }
+            })
+            .catch((error) => {
+                console.error("Error in GetUserBalence request", error);
+            });
+    }
 
-    console.log(AllTransectionData)
-
-
-
-
-    console.log(AllTransectionData)
-
-    useEffect(() => {
-        UserAllTransection()
-    }, [])
     const UserAllTransection = async () => {
         const req = { Name: username }
         await GetAllTransection(req)
@@ -66,10 +78,7 @@ const Clientservice = () => {
 
     const handleAddMoney = async () => {
         const req = { Username: username, transactiontype: 'Deposit', money: EnterMoney }
-
-        console.log(validate(EnterMoney))
-
-        if (!validate(EnterMoney)) {
+        if (!validate(EnterMoney, 1)) {
             return
         }
         await AddBalance(req)
@@ -106,7 +115,7 @@ const Clientservice = () => {
 
     const handleWithdrawal = async () => {
         const req = { Username: username, transactiontype: 'Withdrawal', money: EnterMoney }
-        if (!validate(EnterMoney)) {
+        if (!validate(EnterMoney, 2)) {
             return
         }
         await AddBalance(req)
@@ -140,7 +149,6 @@ const Clientservice = () => {
                 console.log('Error in Adding Money', err)
             })
     }
-
 
     const columns = [
         {
@@ -268,7 +276,7 @@ const Clientservice = () => {
                                                         pattern="^\d*\.?\d*$"
                                                         name="EnterMoney"
                                                         value={EnterMoney}
-                                                        onChange={(e) => { handleInputChange(e) }}
+                                                        onChange={(e) => { handleInputChange(e, 1) }}
                                                     />
                                                     {
                                                         error && (
@@ -345,14 +353,13 @@ const Clientservice = () => {
                                                         pattern="^\d*\.?\d*$"
                                                         name="EnterMoney"
                                                         value={EnterMoney}
-                                                        onChange={(e) => { handleInputChange(e) }}
+                                                        onChange={(e) => { handleInputChange(e, 2) }}
                                                     />
                                                     {
                                                         error && (
                                                             <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>
                                                         )
                                                     }
-
                                                 </div>
                                             </div>
                                         </div>
@@ -381,10 +388,8 @@ const Clientservice = () => {
                             </div>
                         </div>
                     </div>
-
                 )
             }
-
         </>
     );
 };

@@ -652,6 +652,24 @@ export const BuyPlan = async (data) => {
 }
 
 
+export const GetUserScripts = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}AllotStretegy/${data.Username}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
 
 
 

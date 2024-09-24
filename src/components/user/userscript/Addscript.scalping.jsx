@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, GetExchange, ExpriyEndDate } from '../../CommonAPI/Admin'
-import { AddScript } from '../../CommonAPI/User'
+import { AddScript , GetUserScripts } from '../../CommonAPI/User'
 
 const AddClient = () => {
     const userName = localStorage.getItem('name')
@@ -19,8 +19,32 @@ const AddClient = () => {
     const [getStricke, setStricke] = useState({ loading: true, data: [] })
 
     const [getExpiryDate, setExpiryDate] = useState({ loading: true, data: [] })
-
     const [serviceEndDate, setServiceEndDate] = useState('')
+    const [allScripts, setAllScripts] = useState([])
+    
+
+    console.log("allScripts", allScripts.Scalping)
+
+    useEffect(() => {
+        GetUserAllScripts()
+    }, [])
+
+    const GetUserAllScripts = async () => {
+        const data = { Username: userName }
+        await GetUserScripts(data)
+            .then((response) => {
+                if (response.Status) {
+                    setAllScripts(response)
+                }
+                else {
+                    setAllScripts([])
+                }
+            })
+            .catch((err) => {
+                console.log("Error in finding the User Scripts", err)
+            })
+    }
+
 
 
 
@@ -174,8 +198,7 @@ const AddClient = () => {
             if (!values.Slvalue) {
                 errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
             }
-
-            // console.log("error : ", errors)
+ 
             return errors;
         },
 
@@ -323,13 +346,13 @@ const AddClient = () => {
         setinitialvalue(true)
     }, [location.state.data])
 
-
+ 
     const fields = [
         {
             name: "Strategy",
             label: "Scalping Type",
             type: "radio2",
-            title: [{ title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }, { title: "Multi Directional", value: "Multi Directional" }],
+            title: allScripts?.Scalping?.map((item) => ({ title: item, value: item })), 
             hiding: false,
             label_size: 12,
             col_size: 12,

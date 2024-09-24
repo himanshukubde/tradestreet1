@@ -270,11 +270,6 @@ const ServicesList = () => {
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </>
     );
 };
