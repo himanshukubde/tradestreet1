@@ -18,9 +18,6 @@ const AddPlanPage = () => {
     const [OptionStratgy, setOptionStratgy] = useState([])
     const [PatternStratgy, setPatternStratgy] = useState([])
 
-
- 
-
     useEffect(() => {
         GetScalpingStratgy()
     }, [])
@@ -43,7 +40,6 @@ const AddPlanPage = () => {
             })
     }
 
-
     const formik = useFormik({
         initialValues: {
             NumberofScript: "",
@@ -54,7 +50,7 @@ const AddPlanPage = () => {
         validate: (values) => {
             let errors = {};
             if (!values.NumberofScript) {
-                errors.UserName = "Please Enter Number of Script"
+                errors.NumberofScript = "Please Enter Number of Script"
             }
             if (!values.payment) {
                 errors.payment = "Please Enter Payment"
@@ -107,7 +103,6 @@ const AddPlanPage = () => {
         },
     });
 
-
     const fields = [
         {
             name: "NumberofScript",
@@ -152,7 +147,6 @@ const AddPlanPage = () => {
             disable: false,
         },
     ];
-
 
     return (
         <>

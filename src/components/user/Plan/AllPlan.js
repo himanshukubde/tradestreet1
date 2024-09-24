@@ -3,7 +3,7 @@ import { FaRupeeSign, FaEye, FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { Link } from 'react-router-dom'
-import { Get_All_Plans, Get_All_Buyed_Plans , BuyPlan } from "../../CommonAPI/User";
+import { Get_All_Plans, Get_All_Buyed_Plans, BuyPlan, AddBalance } from "../../CommonAPI/User";
 import Swal from "sweetalert2";
 
 import { useEffect } from "react";
@@ -172,52 +172,95 @@ const ServicesList = () => {
 
     function getRandomNumber() {
         return Math.floor(Math.random() * 3) + 1;
-    } 
+    }
 
-    const HandleBuyPlan = async(index) => {
-        const planDetails = GetAllPlans?.data[index] 
+    const HandleBuyPlan = async (index) => {
+        try {
+            // Get plan details
+            const planDetails = GetAllPlans?.data[index];
+            const req = {
+                Username: username,
+                Scalping: planDetails.Scalping,
+                Option: planDetails['Option Strategy'],
+                PatternS: planDetails.Pattern,
+                NumberofScript: planDetails.NumberofScript,
+                Duration: ['One Month', 'Quarterly', 'Half Yearly', 'Yearly'][planDetails['Plan Validity'] - 1],
+                Planname: planDetails.PlanName,
+                payment: planDetails.payment
+            };
+            const req1 = { Username: username, transactiontype: 'Purchase', money: planDetails.payment };
 
-        const req = {
-            Username: username,
-            Scalping: planDetails.Scalping,
-            Option: planDetails['Option Strategy'],
-            PatternS: planDetails.Pattern,
-            NumberofScript: planDetails.NumberofScript,
-            Duration: planDetails['Plan Validity']==1 ? "One Month" : planDetails['Plan Validity']==2 ? "Quarterly" : planDetails['Plan Validity']==3 ? "Half Yearly" : "Yearly",
-            Planname: planDetails.PlanName,
-            payment: planDetails.payment
-        }
+            // Show confirmation alert
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: `Do you want to buy the plan: ${planDetails.PlanName} for ₹${planDetails.payment}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Buy it!',
+                cancelButtonText: 'No, Cancel',
+                reverseButtons: true
+            });
 
-        await BuyPlan(req)
-            .then((response) => {
-                if (response.Status) {
-                    AllBuyedPlans();
-                    Swal.fire({
-                        title: "Success!",
-                        text: response.message,
-                        icon: "success",
-                        timer: 1500,
-                        timerProgressBar: true
-                    }); 
-                }
-                else {
+            if (result.isConfirmed) {
+                // Check balance and proceed with the purchase
+                const CheckBalanceResponse = await AddBalance(req1);
+                if (CheckBalanceResponse.Status) {
+                    const buyPlanResponse = await BuyPlan(req);
+                    if (buyPlanResponse.Status) {
+                        AllBuyedPlans();
+                        Swal.fire({
+                            title: "Success!",
+                            text: buyPlanResponse.message,
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true,
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: buyPlanResponse.message,
+                            icon: "error",
+                            timer: 1500,
+                            timerProgressBar: true,
+                        });
+                    }
+                } else {
                     Swal.fire({
                         title: "Error!",
-                        text: response.message,
+                        text: CheckBalanceResponse.message,
                         icon: "error",
                         timer: 1500,
-                        timerProgressBar: true
+                        timerProgressBar: true,
                     });
                 }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+            } else {
+                Swal.fire({
+                    title: 'Cancelled',
+                    text: 'Your purchase has been cancelled.',
+                    icon: 'info',
+                    timer: 1500,
+                    timerProgressBar: true,
+                });
+            }
+        } catch (error) {
+            console.error('Error in transaction:', error);
+            Swal.fire({
+                title: "Error",
+                text: "An unexpected error occurred",
+                icon: "error",
+                timer: 1500,
+                timerProgressBar: true,
+            });
+        }
+    };
+
+
+
+
+
 
     return (
         <>
-
             <div className='row'>
                 <div className='col-sm-12'>
                     <div className='iq-card'>
@@ -227,15 +270,15 @@ const ServicesList = () => {
                             </div>
                         </div>
                         <div className='iq-card-body'>
-                            <div style={styles.container}>
+                            <div style={styles.container} className="row">
                                 {GetAllPlans?.data.map((plan, index) => (
-                                    <Card key={index} style={styles.card}>
+                                    <Card key={index} style={styles.card} className="col-lg-3 col-md-6 mb-3">
                                         <img src={imgArr[getRandomNumber()]} alt={plan.PlanName} style={styles.image} />
                                         <div style={styles.content}>
                                             <h2 style={styles.title}>
                                                 {plan.PlanName} {SetPlan(plan.PlanName)}
                                             </h2>
-
+                                            <h4 style={styles.subtitle}><FaRupeeSign className="m-1" /><strong>{plan.payment}</strong></h4>
                                             <h4 style={styles.subtitle}>No of Scripts: {plan.NumberofScript}</h4>
                                             <div style={styles.prices}>
                                                 <p style={styles.priceItem}>
@@ -248,11 +291,10 @@ const ServicesList = () => {
                                                     <strong>Pattern Strategy:</strong> {plan?.Pattern?.join(", ")}
                                                 </p>
                                             </div>
-
                                             {SetPlan(plan.PlanName) == null ? (
                                                 <div style={styles.buttonContainer}>
                                                     <Button primary style={styles.button} onClick={() => HandleBuyPlan(index)}>
-                                                        BUY <FaRupeeSign className="m-1" />{plan.payment}
+                                                        BUY NOW
                                                     </Button>
                                                 </div>
                                             ) : (
@@ -296,8 +338,8 @@ const modalStyles = {
 
 const styles = {
     container: {
-        display: "flex",
-        flexWrap: "nowrap",
+        // display: "flex",
+        // flexWrap: "nowrap",
         overflowX: "auto",
         padding: "5px",
         gap: "20px",

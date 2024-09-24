@@ -97,7 +97,6 @@ const Button = styled.button`
 const ServicesList = () => {
 
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [editPlan, setEditPlan] = useState(null);
   const [GetAllPlans, setAllPlans] = useState({ loading: true, data: [] });
 
 
@@ -109,10 +108,7 @@ const ServicesList = () => {
     setSelectedPlan(plan);
   };
 
-  const handleModalClose = () => {
-    setSelectedPlan(null);
-    setEditPlan(null);
-  };
+
 
   const GetAllPlansData = async () => {
     await Get_All_Plans()
@@ -134,7 +130,7 @@ const ServicesList = () => {
     "https://cdn.pixabay.com/photo/2023/07/28/08/06/finance-8154775_640.jpg",
   ];
 
-  
+
   let servicegivenmonth = localStorage.getItem("servicegivenmonth");
   console.log(servicegivenmonth);
 
@@ -183,19 +179,16 @@ const ServicesList = () => {
               </Link>
             </div>
             <div className='iq-card-body'>
-              <div style={styles.container}>
+              <div style={styles.container} className="row">
                 {GetAllPlans?.data.map((plan, index) => (
-                  <Card key={index} style={styles.card}>
-                  
-                  
+                  <Card key={index} style={styles.card} className="col-lg-3 col-md-6 mb-3">
                     <img src={imgArr[getRandomNumber()]} alt={plan.PlanName} style={styles.image} />
-
                     <div style={styles.content}>
                       <h2 style={styles.title}>
                         {plan.PlanName} {SetPlan(index)}
                       </h2>
-
-                      <h4 style={styles.subtitle}>No of Scripts: {plan.NumberofScript}</h4>
+                      <h4 style={styles.subtitle}><FaRupeeSign className="m-1" /><strong>{plan.payment}</strong></h4>
+                      <h5 style={styles.prices}>No of Scripts: {plan.NumberofScript}</h5>
                       <div style={styles.prices}>
                         <p style={styles.priceItem}>
                           <strong>Scalping Strategy:</strong> {plan.Scalping.join(", ")}
@@ -207,54 +200,20 @@ const ServicesList = () => {
                           <strong>Pattern Strategy:</strong> {plan?.Pattern?.join(", ")}
                         </p>
                       </div>
-                      <div style={styles.buttonContainer}>
+                      {/* <div style={styles.buttonContainer}>
                         <Button primary onClick={() => handleViewClick(plan)} style={styles.button}>
-                          BUY <FaRupeeSign className="m-1" />{plan.payment}
+                          <FaRupeeSign className="m-1" />{plan.payment}
                         </Button>
-                      </div>
+                      </div> */}
                     </div>
                   </Card>
                 ))}
               </div>
 
-              {selectedPlan && (
-                <Modal open={!!selectedPlan} onClick={handleModalClose}>
-                  <ModalContent onClick={(e) => e.stopPropagation()}>
-                    <CloseButton onClick={handleModalClose}>×</CloseButton>
-                    <img
-                      src={selectedPlan.image}
-                      alt={selectedPlan.name}
-                      style={modalStyles.image}
-                    />
-                    <h2>{selectedPlan.name}</h2>
-                    <h4>{selectedPlan.title}</h4>
-                    <p>{selectedPlan.description}</p>
-                    <div style={modalStyles.prices}>
-                      <p>
-                        Monthly <FaRupeeSign /> {selectedPlan.prices.monthly}
-                      </p>
-                      <p>
-                        Quarterly <FaRupeeSign /> {selectedPlan.prices.quarterly}
-                      </p>
-                      <p>
-                        Half-Yearly <FaRupeeSign /> {selectedPlan.prices.halfYearly}
-                      </p>
-                      <p>
-                        Yearly <FaRupeeSign /> {selectedPlan.prices.yearly}
-                      </p>
-                    </div>
-                  </ModalContent>
-                </Modal>
-              )}
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
     </>
   );
 };
@@ -281,8 +240,8 @@ const modalStyles = {
 
 const styles = {
   container: {
-    display: "flex",
-    flexWrap: "nowrap",
+    // display: "flex",
+    // flexWrap: "nowrap",
     overflowX: "auto",
     padding: "5px",
     gap: "20px",
@@ -319,7 +278,7 @@ const styles = {
   },
   priceItem: {
     margin: "5px 0",
-    textAlign:"left",
+    textAlign: "left",
   },
   buttonContainer: {
     marginTop: "15px",
