@@ -216,7 +216,7 @@ const Dashboards = () => {
                                                                     <h4>Total: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Live_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Total_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -227,7 +227,7 @@ const Dashboards = () => {
                                                                     <h4>Active: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Live_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Active_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -238,7 +238,7 @@ const Dashboards = () => {
                                                                     <h4>Expired: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Live_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Expired_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -318,7 +318,7 @@ const Dashboards = () => {
                                                                     <h4>Total:</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Free_Demo_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Total_Free_Demo_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -329,7 +329,7 @@ const Dashboards = () => {
                                                                     <h4>Active</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Free_Demo_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Active_Free_Demo_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -340,7 +340,7 @@ const Dashboards = () => {
                                                                     <h4>Expired</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Free_Demo_Account}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Expired_Free_Demo_Account}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -419,7 +419,7 @@ const Dashboards = () => {
                                                                     <h4>Total</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Two_Days_Live_Account}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Total_Two_Days_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -430,7 +430,7 @@ const Dashboards = () => {
                                                                     <h4>Active</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Two_Days_Live_Account}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Active_Two_Days_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -441,7 +441,7 @@ const Dashboards = () => {
                                                                     <h4>Expired</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Two_Days_Live_Account}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Expired_Two_Days_Live_Account}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -519,7 +519,7 @@ const Dashboards = () => {
                                                                     <h4>Total: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Service_Count_1}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Total_Service_Count_1}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -530,7 +530,7 @@ const Dashboards = () => {
                                                                     <h4>Active: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Service_Count_1}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Active_Service_Count_1}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -541,7 +541,7 @@ const Dashboards = () => {
                                                                     <h4>Expired: </h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Service_Count_1}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Expired_Service_Count_1}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -621,7 +621,7 @@ const Dashboards = () => {
                                                                     <h4>Total:</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Service_Count_2}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Total_Service_Count_2}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -632,7 +632,7 @@ const Dashboards = () => {
                                                                     <h4>Active</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Service_Count_2}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Active_Service_Count_2}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -643,7 +643,7 @@ const Dashboards = () => {
                                                                     <h4>Expired</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Service_Count_2}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Expired_Service_Count_2}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -722,7 +722,7 @@ const Dashboards = () => {
                                                                     <h4>Total</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Total_Service_Count_5}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Total_Service_Count_5}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -733,7 +733,7 @@ const Dashboards = () => {
                                                                     <h4>Active</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Active_Service_Count_5}</span>
+                                                                    <span className="text-muted">{ dashData?.data[0]?.Active_Service_Count_5}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -744,7 +744,7 @@ const Dashboards = () => {
                                                                     <h4>Expired</h4>
                                                                 </td>
                                                                 <td>
-                                                                    <span className="text-muted">{dashData && dashData.data[0].Expired_Service_Count_5}</span>
+                                                                    <span className="text-muted">{dashData?.data[0]?.Expired_Service_Count_5}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
