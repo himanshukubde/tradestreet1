@@ -22,15 +22,13 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
     const [searchInput, setSearchInput] = useState('')
- 
+
 
     useEffect(() => {
         const fetchBrokerName = async () => {
             try {
                 const response = await Get_Broker_Name();
                 if (response.Status) {
-
-
                     const brokerList = response.Brokernamelist.filter(item => item.BrokerName !== 'DEMO');
                     setBrokers({ loading: false, data: brokerList });
                 } else {
@@ -43,8 +41,6 @@ const Clientservice = () => {
 
         fetchBrokerName();
     }, []);
-
-
 
     const fetchClientService = async () => {
         try {
@@ -97,8 +93,6 @@ const Clientservice = () => {
 
         fetchGroupDetails();
     }, []);
-
-
 
     const formik = useFormik({
         initialValues: {
@@ -155,7 +149,7 @@ const Clientservice = () => {
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text:response.message,
+                        text: response.message,
                         icon: "error",
                         timer: 1500,
                         timerProgressBar: true
@@ -167,9 +161,6 @@ const Clientservice = () => {
         },
     });
 
-
-    
- 
     const fields = [
         {
             name: 'Select_Product_Type',
@@ -231,8 +222,6 @@ const Clientservice = () => {
         },
     ];
 
-     
-
     useEffect(() => {
         formik.setFieldValue('Select_Product_Type', "Add New Services")
         formik.setFieldValue('Select_Broker', showModal && selectedIndex.BrokerName)
@@ -245,7 +234,7 @@ const Clientservice = () => {
             try {
                 const response = await ServiceCount(data);
                 if (response.Status) {
-                     
+
                     setServiceCount(response.ServiceCount);
                 } else {
                     setServiceCount([]);
@@ -258,14 +247,14 @@ const Clientservice = () => {
 
     const ExtendDate = async () => {
         if (showModal && selectedIndex.Username && formik.values.Service_Count) {
-            const data = { 
-                Username: selectedIndex.Username, 
-                ser: formik.values.Service_Count || 0 
+            const data = {
+                Username: selectedIndex.Username,
+                ser: formik.values.Service_Count || 0
             };
-    
+
             try {
                 const response = await ExtendEndDate(data);
-                
+
                 if (response.Status) {
                     setExtendDate(response.ServiceStartDate || []);  // Use fallback directly
                 } else {
@@ -276,7 +265,6 @@ const Clientservice = () => {
             }
         }
     };
-    
 
     useEffect(() => {
         ExtendDate();
@@ -305,11 +293,11 @@ const Clientservice = () => {
                 customBodyRender: (value, tableMeta) => (
                     <SquarePen
                         onClick={() => {
-                            setShowModal(true); 
+                            setShowModal(true);
                             const rowDataWithKeys = {};
                             columns.forEach((column, index) => {
                                 rowDataWithKeys[column.name] = tableMeta.rowData[index];
-                            }); 
+                            });
                             setSelectedIndex(rowDataWithKeys);
                         }}
                     />
@@ -402,8 +390,6 @@ const Clientservice = () => {
         },
     ];
 
-
-
     const currentDate = new Date();
     currentDate.setDate(
         currentDate.getDate() +
@@ -417,9 +403,6 @@ const Clientservice = () => {
     const formattedDate = currentDate.toISOString().split('T')[0];
     const fromDate = new Date();
     const form_Date = fromDate.toISOString().split('T')[0];
-
-
-
 
     useEffect(() => {
         if (showModal)
@@ -441,14 +424,12 @@ const Clientservice = () => {
                         <div className='iq-card-body'>
                             <div className='mb-3 col-lg-3'>
                                 <input type="text" className=' form-control rounded p-1 px-2' placeholder="Search..." onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
-
                             </div>
                             <FullDataTable columns={columns} data={clientService.data} checkBox={false} />
                         </div>
                     </div>
                 </div>
             </div>
-
             {showModal && (
                 <div className='modal custom-modal d-flex' id='add_vendor' role='dialog'>
                     <div className='modal-dialog modal-dialog-centered modal-lg'>
@@ -480,7 +461,7 @@ const Clientservice = () => {
                                 additional_field={
                                     <div className='mt-2'>
                                         <div className='row'>
-                                        <div className='col-lg-6'>
+                                            <div className='col-lg-6'>
                                                 <h6>Select Group</h6>
                                                 <DropdownMultiselect
                                                     options={optionsArray}
@@ -489,7 +470,6 @@ const Clientservice = () => {
                                                     selected={showModal ? selectedIndex.Group : ''}
                                                 />
                                             </div>
-
                                             {formik.values.Select_Day === 'todays' && showModal && selectedIndex.BrokerName === "Demo" && (
                                                 <div className='col-lg-6'>
                                                     <h6>Service Count</h6>
@@ -502,10 +482,10 @@ const Clientservice = () => {
                                                     <h6>{form_Date}</h6>
                                                 </div>
                                             ) : (
-                                                
-                                        
+
+
                                                 <div className='col-lg-3'>
-                                                     
+
                                                     <h6>Service Start Date</h6>
                                                     <select
                                                         value={getDate}
@@ -523,7 +503,7 @@ const Clientservice = () => {
                                                 <h6>Service End Date:</h6>
                                                 <h6>{formattedDate}</h6>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 }
