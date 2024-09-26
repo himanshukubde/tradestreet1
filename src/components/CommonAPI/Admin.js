@@ -945,3 +945,38 @@ export const AddPlan = async (data) => {
     }
 }
 
+export const AllReuests = async (data) => {
+    var token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${Config.base_url}transctionrequestProcess`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}
+
+export const ApprovwRequest = async (data) => {
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.post(`${Config.base_url}transctionrequest`, data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res?.data
+    }
+    catch (err) {
+        return err
+    }
+}

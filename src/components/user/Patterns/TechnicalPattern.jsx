@@ -19,12 +19,12 @@ const LastPattern = () => {
     const [showCandle, setShowCandle] = useState(false);
     const [availableScripts, setAvailableScripts] = useState([]);
     const [getCandlestickTable, setCandlestickTable] = useState({ loading: true, data1: [], data2: [] });
-    const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, data: [] });
+    const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, PatternData: [] , CandleData: []});
     const [timeFrameData, setTimeFrameData] = useState({ loading: true, data: [] });
     const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: "" });
     const [chartingPatternNames, setChartingPatternNames] = useState({ loading: true, data: [] });
     const [chartingPattern, setChartingPattern] = useState('');
-
+  
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
@@ -105,7 +105,8 @@ const LastPattern = () => {
                 const response = await ChartPatternAPI(data);
                 setChartPatternTableData({
                     loading: false,
-                    data: response.Status ? response.Data : []
+                    CandleData: response.Status ? response?.Data?.CandleData : [],
+                    PatternData: response.Status ? response?.Data?.PatternData : []
                 });
                 setShowCandle(response.Status);
             }
@@ -254,15 +255,22 @@ const LastPattern = () => {
                             {selectedPatternType === 'Candlestick Patterns' ? (
                                 <FullDataTable columns={columns1()} data={getCandlestickTable.data2} checkBox={false} />
                             ) : (
-                                <FullDataTable columns={columns()} data={ChartPatternTableData.data} onRowSelect={handleRowSelect} checkBox={true} />
+                                <FullDataTable columns={columns()} data={ChartPatternTableData.PatternData} onRowSelect={handleRowSelect} checkBox={true} />
                             )}
-                        </div>
+                        </div> 
                         {showCandle && (
                             <div className="row">
                                 <div className="">
                                     {(!getCandlestickTable.loading || !ChartPatternTableData.loading) && (
                                         <div className='shadow p-3 bg-white rounded m-4'>
-                                            <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} timeFrame={selectedTimeFrame} />
+                                            {selectedPatternType === 'Candlestick Patterns' ? (
+
+                                                <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} timeFrame={selectedTimeFrame} />
+                                            ) : (
+                                                <AgChartsReact ChartData={ChartPatternTableData?.CandleData} timeFrame={selectedTimeFrame} />
+                                            )
+                                            }
+                                            {/* <AgChartsReact ChartData={getCandlestickTable && getCandlestickTable.data1} type={'technicalPattern'} timeFrame={selectedTimeFrame}/> */}
                                         </div>
                                     )}
                                 </div>

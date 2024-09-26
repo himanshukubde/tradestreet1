@@ -659,6 +659,14 @@ export const columns3 = [
         }
     },
     {
+        name: "Region",
+        label: "Region",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "Order",
         label: "Order",
         options: {

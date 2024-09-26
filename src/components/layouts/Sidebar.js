@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 const Sidebar = () => {
@@ -155,7 +155,7 @@ const Sidebar = () => {
             <div className="iq-sidebar-logo d-flex justify-content-between">
                 <a href="#">
                     <img className="header_img1" alt="Logo" id="header_img1" />
-                    <span><img  className="header_img2" alt="Logo" id='header_img2' /></span>
+                    <span><img className="header_img2" alt="Logo" id='header_img2' /></span>
                 </a>
                 <div className="iq-menu-bt-sidebar">
                     <div className="iq-menu-bt align-self-center">
@@ -208,12 +208,12 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
 
-                                    <li className={activeItem === 'allplan' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allplan')}>
+                                    {/* <li className={activeItem === 'allplan' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allplan')}>
                                         <Link to="/admin/allplan" className="iq-waves-effect">
                                             <i className="ri-group-fill" />
                                             <span>Plan</span>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                     <li className={activeItem === 'allscript' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allscript')}>
                                         <Link to="/admin/allscript" className="iq-waves-effect">
                                             <i className="ri-home-8-fill" />
@@ -253,6 +253,15 @@ const Sidebar = () => {
                                             <span>Client Thread Report</span>
                                         </Link>
                                     </li>
+
+                                    {/* <li className={activeItem === 'transectionrequest' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'transectionrequest')}>
+                                        <Link to="/admin/transectionrequest" className="iq-waves-effect">
+                                            <i className="la la-file-alt" />
+                                            <span>Transaction Requests</span>
+                                        </Link>
+                                    </li> */}
+
+
                                     <li className={activeItem === 'smtp' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'smtp')}>
                                         <Link to="/admin/smtp" className="iq-waves-effect">
                                             <i className="la la-palette" />
@@ -283,13 +292,13 @@ const Sidebar = () => {
                                             <i className="lab la-ioxhost" />
                                             <span>Last Patterns</span>
                                         </Link>
-                                    </li> 
-                                    <li className={activeItem === 'allpaln' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allpaln')}>
+                                    </li>
+                                    {/* <li className={activeItem === 'allpaln' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allpaln')}>
                                         <Link to="all/plan" className="iq-waves-effect">
                                             <i className="lab la-ioxhost" />
                                             <span>All Plans</span>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                     <li className={activeItem === 'tradereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'tradereport')}>
                                         <Link to="tradereport" className="iq-waves-effect">
                                             <i className="la la-sellsy" />

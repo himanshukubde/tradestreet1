@@ -6,7 +6,6 @@ import * as d3 from "d3";
 const ChartExample = ({ ChartData , timeFrame }) => {
   const [options, setOptions] = useState(null);
 
-
   useEffect(() => { 
     const formattedData = ChartData.filter(item => item.date2 !== null)
       .map(({ volume, ...rest }) => ({
@@ -39,7 +38,6 @@ const ChartExample = ({ ChartData , timeFrame }) => {
         });
     };
     
-
   
     const newData = filterDataBetween9_15And15_30(formattedData);
     console.log(newData)

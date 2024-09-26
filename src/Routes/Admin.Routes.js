@@ -20,6 +20,7 @@ import System from '../components/admin/System/System';
 import AllPlan from '../components/admin/Plan/AllPlan';
 import CPP from '../components/user/Patterns/CPP';
 import AddPlan from '../components/admin/Plan/AddPlan';
+import TransectionRequest from '../components/admin/Requests/TransectionRequests';
 
 
 
@@ -53,6 +54,7 @@ const AdminRoute = () => {
             <Route path="/allplan" element={<AllPlan />} />  
             <Route path="/cpp" element={<CPP />} />
             <Route path="/addplan" element={<AddPlan />} />
+            <Route path="/transectionrequest" element={<TransectionRequest />} />
              
           </Routes>
         </div>
