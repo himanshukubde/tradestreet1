@@ -19,12 +19,12 @@ const LastPattern = () => {
     const [showCandle, setShowCandle] = useState(false);
     const [availableScripts, setAvailableScripts] = useState([]);
     const [getCandlestickTable, setCandlestickTable] = useState({ loading: true, data1: [], data2: [] });
-    const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, PatternData: [] , CandleData: []});
+    const [ChartPatternTableData, setChartPatternTableData] = useState({ loading: true, PatternData: [], CandleData: [] });
     const [timeFrameData, setTimeFrameData] = useState({ loading: true, data: [] });
     const [getSingleChartImg, setSingleChartImg] = useState({ loading: true, data: "" });
     const [chartingPatternNames, setChartingPatternNames] = useState({ loading: true, data: [] });
     const [chartingPattern, setChartingPattern] = useState('');
-  
+
     useEffect(() => {
         fetchAllSymbols();
         fetchAvailableScripts();
@@ -42,11 +42,11 @@ const LastPattern = () => {
 
     useEffect(() => {
         fetchChartingData();
-    }, [selectedPatternType, scriptType, selectedTimeFrame, chartPattern, candlestickPattern]);
+    }, [selectedPatternType, scriptType, selectedTimeFrame, chartPattern,chartingPattern, candlestickPattern]);
 
     useEffect(() => {
         setShowCandle(false);
-    }, [selectedPatternType, candlestickPattern, scriptType, selectedTimeFrame, chartPattern]);
+    }, [selectedPatternType, candlestickPattern, scriptType, chartingPattern, selectedTimeFrame, chartPattern]);
 
     const handleRowSelect = (rowData) => {
         setSelectedRowData(rowData);
@@ -257,7 +257,7 @@ const LastPattern = () => {
                             ) : (
                                 <FullDataTable columns={columns()} data={ChartPatternTableData.PatternData} onRowSelect={handleRowSelect} checkBox={true} />
                             )}
-                        </div> 
+                        </div>
                         {showCandle && (
                             <div className="row">
                                 <div className="">

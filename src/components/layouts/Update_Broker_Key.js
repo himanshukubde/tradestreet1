@@ -293,7 +293,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const fields = [
         {
             name: "username",
-            label: formik.values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Username " : formik.values.BrokerName.toUpperCase() === "5PAISA" ? "App Name" : formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Username" : formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Username" : formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Username" : formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Username " : "Username",
+            label: formik.values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Username " : formik.values.BrokerName.toUpperCase() === "5PAISA" ? "App Name" : formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Username" : formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Username" : formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Username" : formik.values.BrokerName.toUpperCase() === "KOTAK" ? "User ID (Received in Email) " : "Username",
             showWhen: (values) => values.BrokerName.toUpperCase() === "ALICEBLUE" || values.BrokerName.toUpperCase() === "5PAISA" || values.BrokerName.toUpperCase() === "ZEBULL" || values.BrokerName.toUpperCase() === "MANDOT" || values.BrokerName.toUpperCase() === "INDIRA" ||  values.BrokerName.toUpperCase() === "KOTAK",
             type: 'text',
             label_size: 12,
@@ -342,7 +342,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                             formik.values.BrokerName.toUpperCase() === "DHAN" ? "Client ID" :
                                 formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "User Password" :
                                     formik.values.BrokerName.toUpperCase() === "INDIRA" ? "User Password" :
-                                    formik.values.BrokerName.toUpperCase() === "KOTAK" ? "User Password" :
+                                    formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Demat Password" :
 
                                         "Mobile No.",
             showWhen: (values) => values.BrokerName.toUpperCase() === "UPSTOX" ||
@@ -374,7 +374,7 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
             name: "APIPassword",
             type: "text",
             label: formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Encryption Key" : 
-            formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Api Password" : 
+            formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Password (Received in Email)" : 
             "API Password",
 
             showWhen: (values) => values.BrokerName.toUpperCase() === "5PAISA" || values.BrokerName.toUpperCase() === "KOTAK",
