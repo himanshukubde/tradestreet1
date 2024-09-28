@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
 import Swal from 'sweetalert2';
-import { AddPlan, GetAllStratgy } from '../../CommonAPI/Admin'
+import { GetAllStratgy } from '../../CommonAPI/Admin'
 
 const Clientservice = () => {
     const [clientService, setClientService] = useState({ loading: true, data: [] });
@@ -22,11 +22,9 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
     const [searchInput, setSearchInput] = useState('')
-
     const [scalpingStratgy, setScalpingStratgy] = useState([])
     const [OptionStratgy, setOptionStratgy] = useState([])
     const [PatternStratgy, setPatternStratgy] = useState([])
-
     const [selecteOptions, setSelecteOptions] = useState([])
     const [selecteScalping, setSelecteScalping] = useState([])
     const [selectePattern, setSelectePattern] = useState([])
@@ -49,9 +47,6 @@ const Clientservice = () => {
 
         fetchBrokerName();
     }, []);
-
-
-
 
     useEffect(() => {
         GetScalpingStratgy()
@@ -528,7 +523,7 @@ const Clientservice = () => {
                                             </div>
                                             {scalpingStratgy && scalpingStratgy.length > 0 && (
                                                 <div className="col-lg-6 mt-2 ">
-                                                    <h6>Scalping</h6>
+                                                    <h6>Scalping Strategys</h6>
                                                     <DropdownMultiselect
                                                         options={scalpingStratgy}
                                                         name="groupName"
@@ -541,7 +536,7 @@ const Clientservice = () => {
 
                                             {OptionStratgy && OptionStratgy.length > 0 && (
                                                 <div className="col-lg-6 mt-2 ">
-                                                    <h6>Option</h6>
+                                                    <h6>Option Strategys</h6>
                                                     <DropdownMultiselect
                                                         options={OptionStratgy}
                                                         name="groupName"
@@ -554,7 +549,7 @@ const Clientservice = () => {
 
                                             {PatternStratgy && PatternStratgy.length > 0 && (
                                                 <div className="col-lg-6 mt-2  ">
-                                                    <h6>Patterm</h6>
+                                                    <h6>Pattern Strategys</h6>
                                                     <DropdownMultiselect
                                                         options={PatternStratgy}
                                                         name="groupName"
