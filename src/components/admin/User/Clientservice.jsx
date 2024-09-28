@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AddForm from '../../../ExtraComponent/FormData';
 import Swal from 'sweetalert2';
-import { ClientServiceColumn } from './UserAllColumn'
+import { AddPlan, GetAllStratgy } from '../../CommonAPI/Admin'
 
 const Clientservice = () => {
     const [clientService, setClientService] = useState({ loading: true, data: [] });
@@ -22,6 +22,14 @@ const Clientservice = () => {
     const [getDate, setExDate] = useState('');
     const [refresh, setRefresh] = useState(false)
     const [searchInput, setSearchInput] = useState('')
+
+    const [scalpingStratgy, setScalpingStratgy] = useState([])
+    const [OptionStratgy, setOptionStratgy] = useState([])
+    const [PatternStratgy, setPatternStratgy] = useState([])
+
+    const [selecteOptions, setSelecteOptions] = useState([])
+    const [selecteScalping, setSelecteScalping] = useState([])
+    const [selectePattern, setSelectePattern] = useState([])
 
 
     useEffect(() => {
@@ -42,6 +50,30 @@ const Clientservice = () => {
         fetchBrokerName();
     }, []);
 
+
+
+
+    useEffect(() => {
+        GetScalpingStratgy()
+    }, [])
+
+    const GetScalpingStratgy = async () => {
+        await GetAllStratgy()
+            .then((response) => {
+                if (response.Status) {
+                    setScalpingStratgy(Object.values(response.Scalping))
+                    setPatternStratgy(Object.values(response.Pattern))
+                    setOptionStratgy(Object.values(response.Option))
+
+                }
+                else {
+                    setScalpingStratgy([])
+                }
+            })
+            .catch((err) => {
+                console.log("Error in getting the Scalping Stratgy", err)
+            })
+    }
     const fetchClientService = async () => {
         try {
             const response = await GetClientService();
@@ -94,6 +126,7 @@ const Clientservice = () => {
         fetchGroupDetails();
     }, []);
 
+ 
     const formik = useFormik({
         initialValues: {
             User: "",
@@ -103,7 +136,8 @@ const Clientservice = () => {
             SSDate: "",
             SEDate: "",
             GroupName: "",
-            select: ""
+            select: "",
+            amount: ""
         },
         validate: values => {
             const errors = {};
@@ -116,8 +150,14 @@ const Clientservice = () => {
             if (showModal && selectedIndex.BrokerName === "Demo" && !values.Select_Day) {
                 errors.Select_Day = "Select Days"
             }
+            if (!values.amount) {
+                errors.amount = "Enter Amount"
+            }
+            console.log("errors", errors)
             return errors;
         },
+
+
         onSubmit: async (values) => {
             const req = {
                 User: showModal ? selectedIndex.Username : '',
@@ -127,8 +167,14 @@ const Clientservice = () => {
                 SSDate: values.Select_Product_Type === "Extend Service Count" && showModal && selectedIndex.BrokerName !== "Demo" ? getDate : form_Date,
                 SEDate: formattedDate,
                 GroupName: selectedOptions,
-                select: values.Select_Product_Type
+                select: values.Select_Product_Type,
+                Planname: "",
+                clientpay: Number(values.amount),
+                scalping: selecteScalping,
+                option: selecteOptions,
+                pattern: selectePattern
             };
+             
             try {
                 const response = await EditClientPanle(req);
                 if (response.Status) {
@@ -172,7 +218,7 @@ const Clientservice = () => {
             ],
             showWhen: () => showModal && selectedIndex.BrokerName !== 'Demo',
             label_size: 12,
-            col_size: 12,
+            col_size: 6,
         },
         {
             name: 'Select_Broker',
@@ -217,6 +263,13 @@ const Clientservice = () => {
                 showModal &&
                 (selectedIndex.BrokerName !== 'Demo' ||
                     formik.values.Select_Day === 'onemonth'),
+            label_size: 12,
+            col_size: 6,
+        },
+        {
+            name: 'amount',
+            label: 'Amount',
+            type: 'text',
             label_size: 12,
             col_size: 6,
         },
@@ -403,12 +456,15 @@ const Clientservice = () => {
     const formattedDate = currentDate.toISOString().split('T')[0];
     const fromDate = new Date();
     const form_Date = fromDate.toISOString().split('T')[0];
-
     useEffect(() => {
         if (showModal)
             setSelectedOptions(showModal && selectedIndex.Group)
     }, [showModal])
     return (
+
+
+      
+
         <>
             <div className='row'>
                 <div className='col-sm-12'>
@@ -470,21 +526,59 @@ const Clientservice = () => {
                                                     selected={showModal ? selectedIndex.Group : ''}
                                                 />
                                             </div>
+                                            {scalpingStratgy && scalpingStratgy.length > 0 && (
+                                                <div className="col-lg-6 mt-2 ">
+                                                    <h6>Scalping</h6>
+                                                    <DropdownMultiselect
+                                                        options={scalpingStratgy}
+                                                        name="groupName"
+                                                        handleOnChange={(selected) => {
+                                                            setSelecteScalping(selected);
+                                                        }}
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {OptionStratgy && OptionStratgy.length > 0 && (
+                                                <div className="col-lg-6 mt-2 ">
+                                                    <h6>Option</h6>
+                                                    <DropdownMultiselect
+                                                        options={OptionStratgy}
+                                                        name="groupName"
+                                                        handleOnChange={(selected) => {
+                                                            setSelecteOptions(selected);
+                                                        }}
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {PatternStratgy && PatternStratgy.length > 0 && (
+                                                <div className="col-lg-6 mt-2  ">
+                                                    <h6>Patterm</h6>
+                                                    <DropdownMultiselect
+                                                        options={PatternStratgy}
+                                                        name="groupName"
+                                                        handleOnChange={(selected) => {
+                                                            setSelectePattern(selected);
+                                                        }}
+                                                    />
+                                                </div>
+
+                                            )}
+
                                             {formik.values.Select_Day === 'todays' && showModal && selectedIndex.BrokerName === "Demo" && (
-                                                <div className='col-lg-6'>
+                                                <div className='col-lg-6 mt-3'>
                                                     <h6>Service Count</h6>
                                                     <h4>1</h4>
                                                 </div>
                                             )}
                                             {(formik.values.Select_Product_Type === "Add New Services" || showModal && selectedIndex.BrokerName === "Demo") ? (
-                                                <div className='col-lg-3'>
+                                                <div className='col-lg-3 mt-3'>
                                                     <h6>Service Start Date</h6>
                                                     <h6>{form_Date}</h6>
                                                 </div>
                                             ) : (
-
-
-                                                <div className='col-lg-3'>
+                                                <div className='col-lg-3 mt-3'>
 
                                                     <h6>Service Start Date</h6>
                                                     <select
@@ -499,7 +593,7 @@ const Clientservice = () => {
                                                     </select>
                                                 </div>
                                             )}
-                                            <div className='col-lg-3'>
+                                            <div className='col-lg-3 mt-3'>
                                                 <h6>Service End Date:</h6>
                                                 <h6>{formattedDate}</h6>
                                             </div>

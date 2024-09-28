@@ -210,10 +210,11 @@ const Sidebar = () => {
 
                                     <li className={activeItem === 'allplan' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allplan')}>
                                         <Link to="/admin/allplan" className="iq-waves-effect">
-                                            <i className="ri-group-fill" />
+                                            <i className={activeItem === 'allplan' ? 'la la-sellsy active-icon' : 'la la-sellsy'} />
                                             <span>Plan</span>
                                         </Link>
                                     </li>
+
                                     <li className={activeItem === 'allscript' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'allscript')}>
                                         <Link to="/admin/allscript" className="iq-waves-effect">
                                             <i className="ri-home-8-fill" />
