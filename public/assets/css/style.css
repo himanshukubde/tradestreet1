@@ -5517,3 +5517,42 @@ button.btn.btn-primary.btn1 {
   font-weight: 600;
   font-size: 18px;
 }
+
+
+.form-control {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+select {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 5px;
+  transition: border-color 0.2s;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+option {
+  color: #333;
+}
+
+option:disabled {
+  color: #999;
+}
+
+option[value='Complete'] {
+  color: green;
+}
+
+option[value='Reject'] {
+  color: red;
+}

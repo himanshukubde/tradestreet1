@@ -196,9 +196,30 @@ const Clientservice = () => {
             options: {
                 filter: true,
                 sort: true,
-                customBodyRender: (value) => {
-                    return `₹ ${value}`;
+                customBodyRender: (value, rowindex) => {
+                    const transactionType = rowindex.rowData[2];
+                    let color;
+                    let sign;
+                    if (transactionType === 'Withdrawal') {
+                        color = 'red';
+                        sign = '-';
+                    } else if (transactionType === 'Purchase') {
+                        color = 'blue';
+                        sign = '-';
+                    } else {
+                        color = 'green';
+                        sign = '+';
+                    }
+
+                    return (
+                        <span style={{ color }}>
+                            ₹ {sign}{value}
+                        </span>
+                    );
                 }
+
+
+
             }
         },
         {
@@ -217,7 +238,7 @@ const Clientservice = () => {
                         textAlign: 'center',
                         minWidth: '80px',
                     };
-        
+
                     if (value === "Process") {
                         return (
                             <span style={{ ...statusStyle, color: "orange", borderColor: "orange" }}>
@@ -251,6 +272,7 @@ const Clientservice = () => {
             }
         },
     ];
+
 
 
     return (

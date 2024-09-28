@@ -3,44 +3,31 @@ import { AllReuests, ApprovwRequest } from '../../CommonAPI/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; 
 
 const Clientservice = () => {
-    const [getAllRequest, setAllRequest] = useState({ loading: true, data: [] });
-    const [searchInput, setSearchInput] = useState('')
-    const [approvalStatus, setApprovalStatus] = useState('Approve');
+    const [getAllRequest, setAllRequest] = useState({ pending: []  , rejected: [] });
 
+
+    console.log('getAllRequest', getAllRequest);
     useEffect(() => {
         fetchClientService();
-    }, [searchInput]);
+    }, []);
 
     const fetchClientService = async () => {
         try {
             const response = await AllReuests();
             if (response.Status) {
-                const filteredData = response.Process.filter(item => {
-                    const searchInputMatch =
-                        searchInput === '' ||
-                        item.Username.toLowerCase().includes(searchInput.toLowerCase()) ||
-                        item.Transactiontype.toLowerCase().includes(searchInput.toLowerCase()) ||
-                        // // item.money.includes(searchInput) ||
-                        // item.TotalTrasaction.toLowerCase().includes(searchInput.toLowerCase()) || 
-                        item.TransactionRequest.toLowerCase().includes(searchInput.toLowerCase())
-                    return searchInputMatch
-                })
-
-                setAllRequest({
-                    loading: false,
-                    data: searchInput ? filteredData : response.Process,
-                });
+                const pending = response.Process.filter((item) => item.TransactionRequest === 'Process');
+                const rejected = response.Process.filter((item) => item.TransactionRequest === 'Reject');
+                setAllRequest({ loading: false, pending: pending, rejected: rejected });
             } else {
-                setAllRequest({ loading: false, data: [] });
+                setAllRequest({ loading: false, pending: [], rejected: [] });
             }
         } catch (error) {
             console.log('Error in fetching client services', error);
         }
     };
-
 
     const columns = [
         {
@@ -52,33 +39,65 @@ const Clientservice = () => {
                 customBodyRender: (value, tableMeta) => tableMeta.rowIndex + 1,
             },
         },
-
         {
             name: 'Username',
             label: 'Username',
             options: {
                 filter: true,
                 sort: false,
-                customBodyRender: (value) => value || '-'
-            }
+                customBodyRender: (value) => value || '-',
+            },
         },
         {
-            name: 'money',
-            label: 'Amount',
+            name: "money",
+            label: "Amount",
             options: {
                 filter: true,
-                sort: false,
-                customBodyRender: (value) => value || '-'
+                sort: true,
+                customBodyRender: (value, rowindex) => {
+                    const Transactiontype = rowindex.rowData[4];
+                    console.log('Transactiontype', rowindex);
+                    let color;
+                    let sign;
+                    if (Transactiontype === 'Withdrawal') {
+                        color = 'red';
+                        sign = '-';
+                    } else if (Transactiontype === 'Purchase') {
+                        color = 'blue';
+                        sign = '-';
+                    } else {
+                        color = 'green';
+                        sign = '+';
+                    }
+
+                    return (
+                        <span style={{ color }}>
+                            ₹ {sign}{value}
+                        </span>
+                    );
+                }
+
+
+
             }
         },
+        // {
+        //     name: 'money',
+        //     label: 'Amount',
+        //     options: {
+        //         filter: true,
+        //         sort: false,
+        //         customBodyRender: (value) => value || '-',
+        //     },
+        // },
         {
             name: 'TotalTrasaction',
-            label: 'Total Trasaction',
+            label: 'Total Transaction',
             options: {
                 filter: true,
                 sort: false,
-                customBodyRender: (value) => value || '-'
-            }
+                customBodyRender: (value) => value || '-',
+            },
         },
         {
             name: 'Transactiontype',
@@ -86,53 +105,55 @@ const Clientservice = () => {
             options: {
                 filter: true,
                 sort: false,
-                customBodyRender: (value) => value || '-'
-            }
+                customBodyRender: (value) => {
+                    let style = {};
+                    if (value === 'Deposit') {
+                        style = { color: 'green', fontWeight: '800' }; 
+                    } else if (value === 'Withdrawal') {
+                        style = { color: 'red', fontWeight: '800' }; 
+                    } else {
+                        style = { color: 'black', fontWeight: '800' };
+                    }
+                    
+                    return <span style={style}>{value || '-'}</span>;
+                },
+            },
         },
-        {
-            name: 'TransactionRequest',
-            label: 'Transaction Request',
-            options: {
-                filter: true,
-                sort: false,
-            }
-        },
+        
         {
             name: 'TransactionRequest',
             label: 'Action',
             options: {
                 filter: true,
                 sort: false,
-                customBodyRender: (value, tableMeta) => {
-                    return (
-                        <div>
-                            <select className='form-control' onChange={(e) => { handleApprovalChange(e, tableMeta) }} value={value == "Process" ? '' : value == 'Reject' ? 'Reject' : ""}>
-                                <option value='' disabled>Pending</option>
-                                <option value='Complete'>Approve</option>
-                                <option value='Reject'>Reject</option>
-                            </select>
-
-                        </div>
-                    );
-                }
-            }
+                customBodyRender: (value, tableMeta) => (
+                    <div>
+                        <select
+                            className='form-control'
+                            onChange={(e) => { handleApprovalChange(e, tableMeta); }}
+                            value={value === "Process" ? '' : value === 'Reject' ? 'Reject' : ""}
+                        >
+                            <option value='' disabled>Pending</option>
+                            <option value='Complete'>Approve</option>
+                            <option value='Reject'>Reject</option>
+                        </select>
+                    </div>
+                ),
+            },
         },
-
         {
             name: 'DateTime',
             label: 'Time',
             options: {
                 filter: true,
                 sort: false,
-                customBodyRender: (value) => value || '-'
-            }
+                customBodyRender: (value) => value || '-',
+            },
         },
-
     ];
 
-
     const handleApprovalChange = async (e, row) => {
-        var value = e.target.value;
+        const value = e.target.value;
         Swal.fire({
             title: "Are you sure?",
             text: "Do you want to change the status?",
@@ -144,9 +165,8 @@ const Clientservice = () => {
             if (result.isConfirmed) {
                 try {
                     const rowIndex = row.rowIndex;
-                    const data = getAllRequest?.data[rowIndex];
-                    const req = { Username: data.Username, transactiontype: data.Transactiontype, money: data.money, Status: value }
-
+                    const data = getAllRequest.data[rowIndex];
+                    const req = { Username: data.Username, transactiontype: data.Transactiontype, money: data.money, Status: value };
                     await ApprovwRequest(req)
                         .then((response) => {
                             if (response.Status) {
@@ -159,8 +179,7 @@ const Clientservice = () => {
                                     timerProgressBar: true,
                                 });
                                 fetchClientService();
-                            }
-                            else {
+                            } else {
                                 Swal.fire({
                                     title: "Error",
                                     text: response.message,
@@ -170,8 +189,8 @@ const Clientservice = () => {
                             }
                         })
                         .catch((error) => {
-                            console.log('Error in approving request', error)
-                        })
+                            console.log('Error in approving request', error);
+                        });
                 } catch (error) {
                     Swal.fire({
                         title: "Error",
@@ -184,7 +203,6 @@ const Clientservice = () => {
         });
     };
 
-
     return (
         <>
             <div className='row'>
@@ -196,28 +214,29 @@ const Clientservice = () => {
                             </div>
                         </div>
                         <div className='iq-card-body'>
-                            <div className='mb-3 col-lg-3'>
-                                <input type="text" className=' form-control rounded p-1 px-2' placeholder="Search..." onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
-                            </div>
-
                             <div className="container mt-4">
                                 <Tabs
-                                    defaultActiveKey="PendingRequest"   
+                                    defaultActiveKey="PendingRequest"
                                     id="fill-tab-example"
                                     className="mb-3 custom-tabs"
                                     fill
-                                > 
+                                >
                                     <Tab eventKey="PendingRequest" title="Pending Request">
-                                        <div className="p-4">
-                                            <h5 className="mb-4">Pending Requests</h5> 
-                                        </div>
-                                    </Tab>
- 
-                                    <Tab eventKey="RejectRequest" title="Reject Request">
-                                        <div className="p-4">
+                                        <div className="">
+                                            <h5 className="mb-4">
                                             <FullDataTable
                                                 columns={columns}
-                                                data={getAllRequest.data}
+                                                data={getAllRequest.pending}
+                                                checkBox={false}
+                                            />
+                                            </h5>
+                                        </div>
+                                    </Tab>
+                                    <Tab eventKey="RejectRequest" title="Reject Request">
+                                        <div className="">
+                                            <FullDataTable
+                                                columns={columns}
+                                                data={getAllRequest.rejected}
                                                 checkBox={false}
                                             />
                                         </div>
@@ -228,7 +247,6 @@ const Clientservice = () => {
                     </div>
                 </div>
             </div>
-
         </>
     );
 };
