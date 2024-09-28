@@ -185,14 +185,61 @@ const Clientservice = () => {
             options: {
                 filter: true,
                 sort: true,
+                customBodyRender: (value) => {
+                    return `₹ ${value}`;
+                }
             }
         },
         {
             name: "money",
-            label: "money",
+            label: "Amount",
             options: {
                 filter: true,
                 sort: true,
+                customBodyRender: (value) => {
+                    return `₹ ${value}`;
+                }
+            }
+        },
+        {
+            name: "TransactionRequest",
+            label: "Status",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value) => {
+                    const statusStyle = {
+                        display: 'inline-block',
+                        padding: '5px 10px',
+                        borderRadius: '8px',
+                        border: '1px solid',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        minWidth: '80px',
+                    };
+        
+                    if (value === "Process") {
+                        return (
+                            <span style={{ ...statusStyle, color: "orange", borderColor: "orange" }}>
+                                Pending
+                            </span>
+                        );
+                    } else if (value === "Complete") {
+                        return (
+                            <span style={{ ...statusStyle, color: "green", borderColor: "green" }}>
+                                Complete
+                            </span>
+                        );
+                    } else if (value === "Reject") {
+                        return (
+                            <span style={{ ...statusStyle, color: "red", borderColor: "red" }}>
+                                Rejected
+                            </span>
+                        );
+                    } else {
+                        return <span style={statusStyle}>{value}</span>;
+                    }
+                }
             }
         },
         {
@@ -218,9 +265,11 @@ const Clientservice = () => {
                         </div>
                         <div className='iq-card-body'>
                             <div className='d-flex justify-content-between'>
-                                <div className='mb-3 col-lg-3'>
-                                    <input type="text" className=' form-control rounded p-1 px-2' placeholder="Search..." onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
+                                <div className="wallet-balance-container">
+                                    <span className="balance-label">Remaining Balance:</span>
+                                    <span className="balance-amount"> ₹ {walletBalance}</span>
                                 </div>
+
                                 <div className=''>
                                     <button to='/admin/adduser' className='btn btn-primary rounded mx-2'
                                         onClick={() => setShowAddMoneyModal(true)}
