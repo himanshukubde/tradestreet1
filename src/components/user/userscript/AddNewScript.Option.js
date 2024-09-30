@@ -11,8 +11,6 @@ const AddClient = () => {
     const location = useLocation()
     const userName = localStorage.getItem('name')
     const navigate = useNavigate()
-
-
     const [getExpiry, setExpiry] = useState({
         loading: true,
         data: []

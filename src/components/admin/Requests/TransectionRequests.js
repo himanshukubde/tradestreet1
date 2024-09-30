@@ -3,13 +3,12 @@ import { AllReuests, ApprovwRequest } from '../../CommonAPI/Admin';
 import FullDataTable from '../../../ExtraComponent/CommanDataTable';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 const Clientservice = () => {
-    const [getAllRequest, setAllRequest] = useState({ pending: []  , rejected: [] });
+    const [getAllRequest, setAllRequest] = useState({ pending: [], rejected: [], data: [] });
 
 
-    console.log('getAllRequest', getAllRequest);
     useEffect(() => {
         fetchClientService();
     }, []);
@@ -20,9 +19,9 @@ const Clientservice = () => {
             if (response.Status) {
                 const pending = response.Process.filter((item) => item.TransactionRequest === 'Process');
                 const rejected = response.Process.filter((item) => item.TransactionRequest === 'Reject');
-                setAllRequest({ loading: false, pending: pending, rejected: rejected });
+                setAllRequest({ loading: false, pending: pending, rejected: rejected, data: response.Process });
             } else {
-                setAllRequest({ loading: false, pending: [], rejected: [] });
+                setAllRequest({ loading: false, pending: [], rejected: [], data: [] });
             }
         } catch (error) {
             console.log('Error in fetching client services', error);
@@ -56,7 +55,6 @@ const Clientservice = () => {
                 sort: true,
                 customBodyRender: (value, rowindex) => {
                     const Transactiontype = rowindex.rowData[4];
-                    console.log('Transactiontype', rowindex);
                     let color;
                     let sign;
                     if (Transactiontype === 'Withdrawal') {
@@ -108,18 +106,18 @@ const Clientservice = () => {
                 customBodyRender: (value) => {
                     let style = {};
                     if (value === 'Deposit') {
-                        style = { color: 'green', fontWeight: '800' }; 
+                        style = { color: 'green', fontWeight: '800' };
                     } else if (value === 'Withdrawal') {
-                        style = { color: 'red', fontWeight: '800' }; 
+                        style = { color: 'red', fontWeight: '800' };
                     } else {
                         style = { color: 'black', fontWeight: '800' };
                     }
-                    
+
                     return <span style={style}>{value || '-'}</span>;
                 },
             },
         },
-        
+
         {
             name: 'TransactionRequest',
             label: 'Action',
@@ -166,32 +164,36 @@ const Clientservice = () => {
                 try {
                     const rowIndex = row.rowIndex;
                     const data = getAllRequest.data[rowIndex];
-                    const req = { Username: data.Username, transactiontype: data.Transactiontype, money: data.money, Status: value };
-                    await ApprovwRequest(req)
-                        .then((response) => {
-                            if (response.Status) {
-                                Swal.fire({
-                                    title: "Success",
-                                    text: response.message,
-                                    icon: "success",
-                                    confirmButtonText: "Ok",
-                                    timer: 1000,
-                                    timerProgressBar: true,
-                                });
-                                fetchClientService();
-                            } else {
-                                Swal.fire({
-                                    title: "Error",
-                                    text: response.message,
-                                    icon: "error",
-                                    confirmButtonText: "Ok",
-                                });
-                            }
-                        })
-                        .catch((error) => {
-                            console.log('Error in approving request', error);
+                    console.log('data', data);
+                    const req = {
+                        datetime: data.DateTime,
+                        Username: data.Username,
+                        transactiontype: data.Transactiontype,
+                        money: data.money,
+                        Status: value,
+                    };
+                    const response = await ApprovwRequest(req);
+                    if (response.Status) {
+                        Swal.fire({
+                            title: "Success",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                            timer: 1000,
+                            timerProgressBar: true,
                         });
+
+                        fetchClientService();
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: response.message,
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                        });
+                    }
                 } catch (error) {
+                    console.error('Error in approval request:', error); // Log error for debugging
                     Swal.fire({
                         title: "Error",
                         text: "An error occurred while updating the status.",
@@ -202,6 +204,7 @@ const Clientservice = () => {
             }
         });
     };
+
 
     return (
         <>
@@ -224,11 +227,11 @@ const Clientservice = () => {
                                     <Tab eventKey="PendingRequest" title="Pending Request">
                                         <div className="">
                                             <h5 className="mb-4">
-                                            <FullDataTable
-                                                columns={columns}
-                                                data={getAllRequest.pending}
-                                                checkBox={false}
-                                            />
+                                                <FullDataTable
+                                                    columns={columns}
+                                                    data={getAllRequest.pending}
+                                                    checkBox={false}
+                                                />
                                             </h5>
                                         </div>
                                     </Tab>
