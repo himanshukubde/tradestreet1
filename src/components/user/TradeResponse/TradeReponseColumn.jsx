@@ -659,7 +659,7 @@ export const columns3 = [
         }
     },
     {
-        name: "Region",
+        name: "Reason",
         label: "Reason",
         options: {
             filter: true,
@@ -788,6 +788,14 @@ export const columns4 = [
         }
     },
     {
+        name: "Reason",
+        label: "Reason",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         name: "DateTime",
         label: "DateTime",
         options: {
@@ -888,6 +896,14 @@ export const columns5 = [
     {
         name: "Order",
         label: "Order",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "Reason",
+        label: "Reason",
         options: {
             filter: true,
             sort: true,
