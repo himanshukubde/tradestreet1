@@ -521,7 +521,7 @@ const Header = () => {
                                             </>
                                     }
 
-                                    <li className="nav-item mx-3" onClick={toggleFundsVisibility}>
+                                    {/* <li className="nav-item mx-3" onClick={toggleFundsVisibility}>
                                         <button
                                             type="button"
                                             data-bs-dismiss="modal"
@@ -543,7 +543,7 @@ const Header = () => {
                                                 </span>
                                             )}
                                         </button>
-                                    </li>
+                                    </li> */}
 
                                     <li className="nav-item iq-full-screen" onClick={toggleFullscreen}>
                                         <a href="#" className="iq-waves-effect" id="btnFullscreen">
