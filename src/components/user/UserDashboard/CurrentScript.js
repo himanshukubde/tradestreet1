@@ -29,7 +29,6 @@ const Coptyscript = ({ data, selectedType, data2 }) => {
     const [EditDataPattern, setEditDataPattern] = useState({})
 
 
-    console.log("EditDataOption", EditDataOption)
     const SweentAlertFun = (text) => {
         Swal.fire({
             title: "Error",
